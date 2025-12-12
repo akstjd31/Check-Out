@@ -10,8 +10,8 @@ public class GameManager : Singletone<GameManager>
         stateMachine = new StateMachine<GameState>();
 
         stateMachine.AddState(GameState.Hub, new HubState());
-        stateMachine.AddState(GameState.Hub, new LoadingState());
-        stateMachine.AddState(GameState.Hub, new RunState());
+        stateMachine.AddState(GameState.Loading, new LoadingState());
+        stateMachine.AddState(GameState.Session, new RunState());
     }
 
     private void Start()
