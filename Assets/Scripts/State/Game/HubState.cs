@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// 휴식 공간에 접어든 상태
 public class HubState : IState
 {
     public void Enter()

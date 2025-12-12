@@ -9,6 +9,25 @@ public class GameManager : Singletone<GameManager>
     {
         stateMachine = new StateMachine<GameState>();
 
-        // stateMachine.AddState(GameState.Hub,)
+        stateMachine.AddState(GameState.Hub, new HubState());
+        stateMachine.AddState(GameState.Hub, new LoadingState());
+        stateMachine.AddState(GameState.Hub, new RunState());
+    }
+
+    private void Start()
+    {
+        ChangeState(GameState.Hub);
+    }
+
+    private void Update()
+    {
+        stateMachine.Update();
+    }
+
+    public void ChangeState(GameState newState)
+    {
+        CurrentState = newState;
+        stateMachine.ChangeState(newState);
+        Debug.Log($"상태 {newState}로 변경됨!");
     }
 }

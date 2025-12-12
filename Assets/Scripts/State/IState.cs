@@ -11,5 +11,5 @@ public enum GameState
 {
     Hub,        // 휴식 공간
     Loading,    // 로딩 중
-    InGame     // 세션 입장
+    Session     // 세션 입장
 }

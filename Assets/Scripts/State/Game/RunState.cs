@@ -1,7 +1,7 @@
 using UnityEngine;
 
-// 인 게임(세션)에 접어든 상태
-public class InGameState : IState
+// 세션에 접어든 상태
+public class RunState : IState
 {
     public void Enter()
     {
