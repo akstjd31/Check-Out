@@ -1,9 +1,11 @@
 using UnityEngine;
+using TMPro;
 
 public class GameManager : Singletone<GameManager>
 {
     public GameState CurrentState { get; private set; }
     private StateMachine<GameState> stateMachine;
+    [SerializeField] private TextMeshProUGUI stateText;     // 임시 확인용 텍스트 (언제든지 지워도 상관없음)
 
     private void Awake()
     {
@@ -29,5 +31,6 @@ public class GameManager : Singletone<GameManager>
         CurrentState = newState;
         stateMachine.ChangeState(newState);
         Debug.Log($"상태 {newState}로 변경됨!");
+        stateText.text = "CurrentState: " + newState;
     }
 }
