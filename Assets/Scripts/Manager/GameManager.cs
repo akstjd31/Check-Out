@@ -1,0 +1,36 @@
+using UnityEngine;
+using TMPro;
+
+public class GameManager : Singletone<GameManager>
+{
+    public GameState CurrentState { get; private set; }
+    private StateMachine<GameState> stateMachine;
+    [SerializeField] private TextMeshProUGUI stateText;     // 임시 확인용 텍스트 (언제든지 지워도 상관없음)
+
+    private void Awake()
+    {
+        stateMachine = new StateMachine<GameState>();
+
+        stateMachine.AddState(GameState.Hub, new HubState());
+        stateMachine.AddState(GameState.Loading, new LoadingState());
+        stateMachine.AddState(GameState.Session, new RunState());
+    }
+
+    private void Start()
+    {
+        ChangeState(GameState.Hub);
+    }
+
+    private void Update()
+    {
+        stateMachine.Update();
+    }
+
+    public void ChangeState(GameState newState)
+    {
+        CurrentState = newState;
+        stateMachine.ChangeState(newState);
+        Debug.Log($"상태 {newState}로 변경됨!");
+        stateText.text = "CurrentState: " + newState;
+    }
+}
