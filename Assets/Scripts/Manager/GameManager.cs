@@ -21,9 +21,19 @@ public class GameManager : Singletone<GameManager>
         ChangeState(GameState.Hub);
     }
 
+    private void OnEnable()
+    {
+        LoadingManager.Instance.OnLoadingCompleted += HandleLoadingCompleted;
+    }
+
     private void Update()
     {
         stateMachine.Update();
+    }
+
+    private void OnDisable()
+    {
+        LoadingManager.Instance.OnLoadingCompleted -= HandleLoadingCompleted;
     }
 
     public void ChangeState(GameState newState)
@@ -33,4 +43,6 @@ public class GameManager : Singletone<GameManager>
         Debug.Log($"상태 {newState}로 변경됨!");
         stateText.text = "CurrentState: " + newState;
     }
+
+    public void HandleLoadingCompleted() => ChangeState(LoadingData.NextScene);
 }
