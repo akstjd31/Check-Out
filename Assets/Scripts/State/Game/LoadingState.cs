@@ -3,10 +3,14 @@ using UnityEngine;
 // 로딩 중일때
 public class LoadingState : IState
 {
+    private float timer;
+    private bool isLoading;
+
     public void Enter()
     {
+        timer = 3f;
+        isLoading = false;
         Debug.Log("로딩 상태 진입");
-        LoadingManager.Instance.LoadScene(LoadingData.TargetScene);
     }
 
     public void Exit()
@@ -16,5 +20,15 @@ public class LoadingState : IState
 
     public void Update()
     {
+        if (isLoading)
+            return;
+
+        timer -= Time.deltaTime;
+
+        if (timer <= 0f)
+        {
+            isLoading = true; // ⭐ 딱 한 번만 실행
+            LoadingManager.Instance.LoadScene(LoadingData.TargetScene);
+        }
     }
 }

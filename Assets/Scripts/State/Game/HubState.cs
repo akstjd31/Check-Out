@@ -5,17 +5,29 @@ public class HubState : IState
 {
     public void Enter()
     {
-        Debug.Log("휴식 상태에 진입할 때 필요한 코드 작성");
-        LoadingManager.Instance.LoadScene("HubScene");
+        Debug.Log("휴식 상태 진입");
+        Init();
     }
 
     public void Exit()
     {
-        Debug.Log("휴식 상태에서 벗어날 때 필요한 코드 작성");
+        Debug.Log("휴식 상태 종료");
     }
 
     public void Update()
     {
         
+    }
+
+    private void Init()
+    {
+        // 다음 씬 정보 미리 설정
+        LoadingData.NextState = GameState.Session;
+        LoadingData.TargetScene = "SessionScene";
+
+        // 휴식 공간에서 오면 해야할 일 입력
+        
+        // 준비가 완료되었음을 알림
+        LoadingManager.Instance.AllowSceneActivation();
     }
 }

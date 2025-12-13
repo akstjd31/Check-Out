@@ -13,7 +13,6 @@ public class LoadingManager : Singletone<LoadingManager>
     public void AllowSceneActivation() => readyToActivate = true;
     public void LoadScene(string sceneName)
     {
-        readyToActivate = false;
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 
@@ -26,7 +25,8 @@ public class LoadingManager : Singletone<LoadingManager>
         if (operation == null)
         {
             Debug.LogError("씬 로드 실패!");
-            GameManager.Instance.ChangeState(GameState.Hub);
+            yield return null;
+            //GameManager.Instance.ChangeState(GameState.Hub);
         }
         
         // 씬 로딩이 끝날때까지 반복
@@ -43,10 +43,14 @@ public class LoadingManager : Singletone<LoadingManager>
         // 로딩 완료 후에 외부 신호(readyToActivate) 대기
         Debug.Log("준비가 완료될때까지 대기 중..");
         yield return new WaitUntil(() => readyToActivate);
+        readyToActivate = false;
 
         // 씬 전환
         operation.allowSceneActivation = true;
-        OnLoadingCompleted?.Invoke();
+
+        if (GameManager.Instance.CurrentState == GameState.Loading)
+            OnLoadingCompleted?.Invoke();
+
         Debug.Log("씬 전환됨!");
     }
 }
