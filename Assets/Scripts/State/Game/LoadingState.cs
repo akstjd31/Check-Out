@@ -7,6 +7,7 @@ public class LoadingState : IState
     public void Enter()
     {
         Debug.Log("로딩 상태에 진입할 때 필요한 코드 작성");
+        LoadingManager.Instance.LoadScene("LoadingScene");
     }
 
     public void Exit()

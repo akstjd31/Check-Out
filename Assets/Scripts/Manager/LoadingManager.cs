@@ -7,10 +7,10 @@ using System;
 public class LoadingManager : Singletone<LoadingManager>
 {
     [SerializeField] private Slider progressBar;
-    public void LoadScene(string sceneName)
-    {
-        StartCoroutine(LoadSceneAsync(sceneName));
-    }
+    private bool readyToActivate;                   // 현재 활성화 가능 상태를 외부에서 알려주기 위함
+
+    public void AllowSceneActivation() => readyToActivate = true;
+    public void LoadScene(string sceneName) => StartCoroutine(LoadSceneAsync(sceneName));
 
     IEnumerator LoadSceneAsync(string sceneName)
     {
@@ -21,18 +21,20 @@ public class LoadingManager : Singletone<LoadingManager>
         // 씬 로딩이 끝날때까지 반복
         while (operation.progress < 0.9f)
         {
-            float progress = operation.progress / 0.9f;
-            progressBar.value = progress;
+            // float progress = operation.progress / 0.9f;
+            // progressBar.value = progress;
             yield return null;
         }
 
         // 로딩 완료 처리
-        progressBar.value = 1f;
+        // progressBar.value = 1f;
 
-        // 연출이 필요하다면 연출 시간 (ex. 페이드 효과, 어떤 시네머신)
-        yield return new WaitForSeconds(1.0f);
+        // 로딩 완료 후에 외부 신호(readyToActivate) 대기
+        Debug.Log("준비가 완료될때까지 대기 중..");
+        yield return new WaitUntil(() => readyToActivate);
 
         // 씬 전환
         operation.allowSceneActivation = true;
+        Debug.Log("씬 전환됨!");
     }
 }

@@ -6,8 +6,10 @@ public class RunState : IState
 {
     public void Enter()
     {
-        SceneManager.LoadScene(1);
         Debug.Log("세션 진입할 때 필요한 코드 작성");
+        LoadingManager.Instance.LoadScene("SessionScene");
+
+        Init();
     }
 
     public void Exit()
@@ -17,6 +19,15 @@ public class RunState : IState
 
     public void Update()
     {
+    }
+
+    private void Init()
+    {
+        // 아이템 스폰
+        // 적 스폰
+        // 랜덤 엘리베이터 위치 지정
         
+        // 준비가 완료되었음을 알림
+        LoadingManager.Instance.AllowSceneActivation();
     }
 }
