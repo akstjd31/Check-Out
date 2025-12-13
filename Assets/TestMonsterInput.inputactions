@@ -1,0 +1,47 @@
+{
+    "version": 1,
+    "name": "TestMonsterInput",
+    "maps": [
+        {
+            "name": "Move",
+            "id": "09fe9b94-568e-434f-adbf-758d079f7dbe",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "50565dc2-d419-4c13-9514-ed20ff99c748",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4725364f-c38d-4515-b7fd-65d0860e1298",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "TestMonsterInput",
+            "bindingGroup": "TestMonsterInput",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
