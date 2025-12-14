@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class PlayerCtrl : MonoBehaviour
 {
@@ -8,6 +8,7 @@ public class PlayerCtrl : MonoBehaviour
     private InputAction moveAction, interactiveAction;
     private Vector3 moveInput;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private Button sessionBtn;
     
     private void Awake()
     {
@@ -15,6 +16,8 @@ public class PlayerCtrl : MonoBehaviour
 
         moveAction = playerInput.actions["Move"];
         interactiveAction = playerInput.actions["Interactive"];
+
+        sessionBtn.onClick.AddListener(OnClickLoadingStateButton);
     }
 
     private void OnEnable() 
@@ -49,4 +52,6 @@ public class PlayerCtrl : MonoBehaviour
     {
         GameManager.Instance.ChangeState(GameState.Loading);
     }
+
+    public void OnClickLoadingStateButton() => GameManager.Instance.ChangeState(GameState.Loading);
 }
