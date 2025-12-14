@@ -37,17 +37,20 @@ public class GameManager : Singletone<GameManager>
         LoadingManager.Instance.OnLoadingCompleted -= HandleLoadingCompleted;
     }
 
+    // 상태 변경
     public void ChangeState(GameState newState)
     {
         Debug.Log($"{CurrentState} -> {newState} 변경");
         CurrentState = newState;
         stateMachine.ChangeState(newState);
 
+        // 다음 상태가 로딩 상태면? 해당 씬 호출
         if (newState == GameState.Loading)
         {
             SceneManager.LoadScene("LoadingScene");
         }
     }
 
+    // 로딩 완료 시 이벤트
     public void HandleLoadingCompleted() => ChangeState(LoadingData.NextState);
 }

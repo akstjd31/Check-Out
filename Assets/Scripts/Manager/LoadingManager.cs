@@ -3,7 +3,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using System;
-
+/// <summary>
+/// 로딩 매니저 (씬 로드를 비동기로 처리)
+/// </summary>
 public class LoadingManager : Singletone<LoadingManager>
 {
     [SerializeField] private Slider progressBar;
@@ -16,6 +18,7 @@ public class LoadingManager : Singletone<LoadingManager>
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 
+    // 씬 로드 비동기 작업
     IEnumerator LoadSceneAsync(string sceneName)
     {
         // 백그라운드에서 로딩 & 완료되어도 바로 활성화 X
@@ -42,8 +45,9 @@ public class LoadingManager : Singletone<LoadingManager>
 
         // 로딩 완료 후에 외부 신호(readyToActivate) 대기
         Debug.Log("준비가 완료될때까지 대기 중..");
-        yield return new WaitUntil(() => readyToActivate);
-        readyToActivate = false;
+
+        // 외부에서 신호를 기다림
+        yield return new WaitUntil(() => readyToActivate); 
 
         // 씬 전환
         operation.allowSceneActivation = true;
@@ -52,5 +56,6 @@ public class LoadingManager : Singletone<LoadingManager>
             OnLoadingCompleted?.Invoke();
 
         Debug.Log("씬 전환됨!");
+        readyToActivate = false;
     }
 }

@@ -27,7 +27,7 @@ public class LoadingState : IState
 
         if (timer <= 0f)
         {
-            isLoading = true; // ⭐ 딱 한 번만 실행
+            isLoading = true;
             LoadingManager.Instance.LoadScene(LoadingData.TargetScene);
         }
     }
