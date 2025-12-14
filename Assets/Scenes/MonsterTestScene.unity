@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 369746318}
   - component: {fileID: 369746317}
   - component: {fileID: 369746316}
+  - component: {fileID: 369746319}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -230,6 +231,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 369746314}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &369746319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369746314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &422791632
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,6 +696,7 @@ GameObject:
   - component: {fileID: 868385901}
   - component: {fileID: 868385900}
   - component: {fileID: 868385899}
+  - component: {fileID: 868385902}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -774,6 +796,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 868385897}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &868385902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868385897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1328385595
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,7 +1000,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 53ca3500f7384ad48afbea4d9849d053, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &2145642136
 Transform:
@@ -1027,6 +1069,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MonsterExample
       objectReference: {fileID: 0}
+    - target: {fileID: 7564173623527498102, guid: 8f88d13208ce9b64a8eb806a20ada021, type: 3}
+      propertyPath: moveTransform
+      value: 
+      objectReference: {fileID: 442574448}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
