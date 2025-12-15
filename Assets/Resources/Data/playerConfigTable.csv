@@ -1,0 +1,9 @@
+﻿인덱스,콘피그명,설정값
+id,configName,configValue
+int,string,string
+1,maxSanity,100
+2,maxStamia,100
+3,moveSpeed,3
+4,runSpeed,4.5
+5,sitSpeed,1.5
+6,invincibilityTime,1
