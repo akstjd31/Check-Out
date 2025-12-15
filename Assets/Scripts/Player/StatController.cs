@@ -3,12 +3,12 @@ using UnityEngine;
 public class StatController : MonoBehaviour
 {
     private PlayerStatHolder playerStatHolder;
-    private int staminaRecoverIdle = 10;     // 멈춰있을때 초당 회복
-    private int staminaRecoverWalk = 5;      // 걸을때 초당 회복
-    private int defaultExhaustTime = 3;      // 탈진 지속 시간
-    public int CurrentRecoverStamina { get; private set; }
-    public int CurrentStamina { get; private set; }
-    public float CurrentMoveSpeed { get; private set; }
+    private int staminaRecoverIdle = 10;                    // 멈춰있을때 초당 회복
+    private int staminaRecoverWalk = 5;                     // 걸을때 초당 회복
+    private int defaultExhaustTime = 3;                     // 탈진 지속 시간
+    public int CurrentRecoverStamina { get; private set; }  // 현재 스태미나 회복력
+    public int CurrentStamina { get; private set; }         // 현재 스태미나
+    public float CurrentMoveSpeed { get; private set; }     // 현재 이동 속도
 
     private void Awake()
     {
@@ -20,6 +20,7 @@ public class StatController : MonoBehaviour
         CurrentStamina = playerStatHolder.Stat.MaxStamina;
     }
 
+    // 각 상태에 따른 기본 수치 적용
     public void UpdateUsedValue(PlayerState state)
     {
         switch (state)
@@ -39,9 +40,13 @@ public class StatController : MonoBehaviour
         }
     }
 
+    // 탈진 지속 시간
     public float GetDefaultExhaustTime() => defaultExhaustTime;
 
+    // 스태미나 감소
     public void ConsumeStamina(int amount) => CurrentStamina = Mathf.Max(0, CurrentStamina - amount);
+    
+    // 스태미나 회복
     public void RecoverStamina(int amount) => CurrentStamina = Mathf.Min(playerStatHolder.Stat.MaxStamina, CurrentStamina + amount);
     
     // 스태미나가 남아있는지?

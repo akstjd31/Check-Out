@@ -14,6 +14,7 @@ public class PlayerStat
     public float SitSpeed { get; private set; }               // 앉을 경우 이동 속도
     public float InvincibilityTime { get; private set; }      // 몬스터에게 피격 시 정신력이 깎이지 않는 무적 시간
 
+    // 각 ID별 매핑
     public void Apply(PlayerStatId id, string value)
     {
         switch (id)

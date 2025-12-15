@@ -8,6 +8,7 @@ public class PlayerStatInitializer : MonoBehaviour
     {
         holder = this.GetComponent<PlayerStatHolder>();
     }
+
     private void Start()
     {
         var playerStatTable = TableManager.Instance.GetTable<int, PlayerConfigTableData>();
@@ -20,6 +21,7 @@ public class PlayerStatInitializer : MonoBehaviour
         
         PlayerStat stat = new PlayerStat();
 
+        // 한 줄 마다 value값을 PlayerStat에 넣어주는 작업
         foreach (int targetId in TableManager.Instance.GetAllIds(playerStatTable))
         {
             PlayerConfigTableData playerConfigTableData = playerStatTable[targetId];
@@ -32,6 +34,7 @@ public class PlayerStatInitializer : MonoBehaviour
             }
         }
 
+        // 마지막으로 만들어진 stat을 holder에게 전달
         holder.Init(stat);
     }
 }
