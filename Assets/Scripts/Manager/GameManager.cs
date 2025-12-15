@@ -2,14 +2,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class GameManager : Singletone<GameManager>
+public class GameManager : Singleton<GameManager>
 {
     public GameState CurrentState { get; private set; }
     private StateMachine<GameState> stateMachine;
 
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         stateMachine = new StateMachine<GameState>();
 
         stateMachine.AddState(GameState.Hub, new HubState());

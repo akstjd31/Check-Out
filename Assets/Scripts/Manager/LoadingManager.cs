@@ -6,7 +6,7 @@ using System;
 /// <summary>
 /// 로딩 매니저 (씬 로드를 비동기로 처리)
 /// </summary>
-public class LoadingManager : Singletone<LoadingManager>
+public class LoadingManager : Singleton<LoadingManager>
 {
     [SerializeField] private Slider progressBar;
     public event Action OnLoadingCompleted;
