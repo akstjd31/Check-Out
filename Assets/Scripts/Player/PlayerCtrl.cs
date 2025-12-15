@@ -2,35 +2,32 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+public enum PlayerMoveState
+{
+    Idle, Walk, Run
+}
+
 public class PlayerCtrl : MonoBehaviour
 {
-    private PlayerInput playerInput;
-    private InputAction moveAction, interactiveAction;
-    private Vector3 moveInput;
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private Button sessionBtn;
+    private PlayerStatHolder playerStatHolder;
+    private PlayerStat stat;
+    private Vector2 moveInput;
+    private bool isExhausted;
+    private bool isRunning;
+    [SerializeField] private Button sessionBtn; // 테스트용 버튼
     
     private void Awake()
     {
-        playerInput = this.GetComponent<PlayerInput>();
-
-        moveAction = playerInput.actions["Move"];
-        interactiveAction = playerInput.actions["Interactive"];
+        playerStatHolder = this.GetComponent<PlayerStatHolder>();
+        stat = playerStatHolder.Stat;
 
         sessionBtn.onClick.AddListener(OnClickLoadingStateButton);
-    }
-
-    private void OnEnable() 
-    {
-        moveAction.performed += OnMovePerformed;
-        moveAction.canceled += OnMoveCanceled;
-        interactiveAction.started += OnInteractiveStarted;
     }
 
     private void FixedUpdate()
     {
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-        this.transform.Translate(move * moveSpeed * Time.fixedDeltaTime);
+        this.transform.Translate(move * stat.MoveSpeed * Time.fixedDeltaTime);
     }
 
     private void Update()
@@ -38,20 +35,25 @@ public class PlayerCtrl : MonoBehaviour
         
     }
 
-    private void OnDisable()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        moveAction.performed -= OnMovePerformed;
-        moveAction.canceled -= OnMoveCanceled;
-        interactiveAction.started -= OnInteractiveStarted;
+        moveInput = context.ReadValue<Vector2>();
     }
 
-    private void OnMovePerformed(InputAction.CallbackContext ctx) => moveInput = ctx.ReadValue<Vector3>();
-    private void OnMoveCanceled(InputAction.CallbackContext ctx) => moveInput = Vector3.zero;
-
-    private void OnInteractiveStarted(InputAction.CallbackContext ctx)
+    public void OnRun(InputAction.CallbackContext context)
     {
-        GameManager.Instance.ChangeState(GameState.Loading);
+        if (isExhausted) return;
+        isRunning = context.ReadValueAsButton();
+        Debug.Log("달리기");
     }
+
+    // private void EnterExhaust()
+    // {
+    //     isExhausted = true;
+    //     exhausttimer = exhaust;
+    //     isRunning = false; // 강제 걷기
+    //     Debug.Log("탈진");
+    // }
 
     public void OnClickLoadingStateButton() => GameManager.Instance.ChangeState(GameState.Loading);
 }
