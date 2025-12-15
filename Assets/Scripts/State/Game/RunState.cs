@@ -6,17 +6,30 @@ public class RunState : IState
 {
     public void Enter()
     {
-        SceneManager.LoadScene(1);
-        Debug.Log("세션 진입할 때 필요한 코드 작성");
+        Debug.Log("세션 상태 진입");
+        Init();
     }
 
     public void Exit()
     {
-        Debug.Log("세션에서부터 벗어날 때 필요한 코드 작성");
+        Debug.Log("세션 상태 종료");
     }
 
     public void Update()
     {
+    }
+
+    private void Init()
+    {
+        // 다음 씬 정보 미리 설정
+        LoadingData.NextState = GameState.Hub;
+        LoadingData.TargetScene = "HubScene";
+
+        // 아이템 스폰
+        // 적 스폰
+        // 랜덤 엘리베이터 위치 지정
         
+        // 준비가 완료되었음을 알림
+        LoadingManager.Instance.AllowSceneActivation();
     }
 }

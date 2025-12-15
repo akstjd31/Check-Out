@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : Singletone<GameManager>
 {
     public GameState CurrentState { get; private set; }
     private StateMachine<GameState> stateMachine;
-    [SerializeField] private TextMeshProUGUI stateText;     // 임시 확인용 텍스트 (언제든지 지워도 상관없음)
+
 
     private void Awake()
     {
@@ -21,16 +22,35 @@ public class GameManager : Singletone<GameManager>
         ChangeState(GameState.Hub);
     }
 
+    private void OnEnable()
+    {
+        LoadingManager.Instance.OnLoadingCompleted += HandleLoadingCompleted;
+    }
+
     private void Update()
     {
         stateMachine.Update();
     }
 
+    private void OnDisable()
+    {
+        LoadingManager.Instance.OnLoadingCompleted -= HandleLoadingCompleted;
+    }
+
+    // 상태 변경
     public void ChangeState(GameState newState)
     {
+        Debug.Log($"{CurrentState} -> {newState} 변경");
         CurrentState = newState;
         stateMachine.ChangeState(newState);
-        Debug.Log($"상태 {newState}로 변경됨!");
-        stateText.text = "CurrentState: " + newState;
+
+        // 다음 상태가 로딩 상태면? 해당 씬 호출
+        if (newState == GameState.Loading)
+        {
+            SceneManager.LoadScene("LoadingScene");
+        }
     }
+
+    // 로딩 완료 시 이벤트
+    public void HandleLoadingCompleted() => ChangeState(LoadingData.NextState);
 }
