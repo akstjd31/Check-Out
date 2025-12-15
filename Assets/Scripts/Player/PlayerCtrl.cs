@@ -17,7 +17,7 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] private PlayerState currentState;
     private Vector3 moveInput;
     private float staminaTimer = 1f;                        // 스태미나가 감소 or 회복되는 시점은 1초 지난 후
-    private int staminaDrainRun = 20;                       // 달릴때 초당 감소
+    private int staminaDrainRun = 15;                       // 달릴때 초당 감소
     private bool isMoving;                                  // 움직이고 있는지?
     private bool isRunning;                                 // 달리기 중인지?
     private bool isExhausted;                               // 탈진 상태인지?
@@ -193,7 +193,6 @@ public class PlayerCtrl : MonoBehaviour
         isExhausted = true;
         exhaustTimer = statController.GetDefaultExhaustTime();
         isRunning = false; // 강제 걷기
-        Debug.Log("탈진");
         staminaTimer = 1f;
     }
 

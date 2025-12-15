@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class TableManager : Singleton<TableManager>
 {
-[SerializeField] private const string DefaultIdColumnName = "id";
+    [SerializeField] private const string DefaultIdColumnName = "id";
     
     [Header("CSV 파일 경로(Resources 폴더 내의 경로)")]
     [SerializeField] private string csvPath = "Data";
