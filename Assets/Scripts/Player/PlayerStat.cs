@@ -8,7 +8,9 @@ public enum PlayerStatId
 public class PlayerStat
 {
     public int MaxSanity { get; private set; }                // 최대 정신력
+    public int CurrentSanity { get; private set; }            // 현재 정신력
     public int MaxStamina { get; private set; }               // 최대 스태미너
+    public int CurrentStamina { get; private set; }           // 현재 스태미너
     public float MoveSpeed { get; private set; }              // 기본 이동 속도
     public float RunSpeed { get; private set; }               // 달리기 시 이동 속도
     public float SitSpeed { get; private set; }               // 앉을 경우 이동 속도
@@ -20,10 +22,12 @@ public class PlayerStat
         {
             case PlayerStatId.MaxSanity:
                 MaxSanity = int.Parse(value);
+                CurrentSanity = MaxSanity;
                 break;
 
             case PlayerStatId.MaxStamina:
                 MaxStamina = int.Parse(value);
+                CurrentStamina = MaxStamina;
                 break;
 
             case PlayerStatId.MoveSpeed:
