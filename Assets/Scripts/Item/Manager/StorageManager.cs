@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StorageManager : MonoBehaviour
+public class StorageManager : Singletone<StorageManager>
 {
     [SerializeField] private GameObject player;
     private Storage storage;
