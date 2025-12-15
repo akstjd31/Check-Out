@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 8893722332085407654}
   - component: {fileID: 6546698172506151681}
   - component: {fileID: 1615966991588161401}
+  - component: {fileID: 5470392613295798520}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -247,7 +248,15 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e8d4664b-20f0-4168-973a-d69d96b4f0ea
+    m_ActionName: 'PlayerActionMap/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 83bcd173-7d78-44b0-b8a7-dd22249b2cb0
+    m_ActionName: 'PlayerActionMap/Interactive[/Keyboard/f]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PC
   m_DefaultActionMap: PlayerActionMap
@@ -265,7 +274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a643f42547e08f4688c52fa9976eec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCtrl
-  moveSpeed: 5
   sessionBtn: {fileID: 0}
 --- !u!114 &6546698172506151681
 MonoBehaviour:
@@ -291,6 +299,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0df94e4a6aa0ef43a728ccdaa0fd3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatInitializer
+--- !u!114 &5470392613295798520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bffaf0b9eee4a714dab1813ecf6cba3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatController
 --- !u!1 &7996910433432002895
 GameObject:
   m_ObjectHideFlags: 0

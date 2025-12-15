@@ -11,6 +11,7 @@ public class PlayerStatHolder : MonoBehaviour
     public void Init(PlayerStat stat)
     {
         Stat = stat;
+        this.GetComponent<StatController>().Init();
         Debug.Log("플레이어 스탯 설정 완료!");
     }
 }
