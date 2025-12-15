@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InventoryManager : Singletone<InventoryManager>
+public class InventoryManager : Singleton<InventoryManager>
 {
     [SerializeField] private GameObject player;
     [SerializeField ]private Transform playerHandTransform;
@@ -19,7 +19,7 @@ public class InventoryManager : Singletone<InventoryManager>
         inventory = player.GetComponentInChildren<Inventory>();
     }
 
-    // ¾ÆÀÌÅÛ ÁÝ±â
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý±ï¿½
     public void PickUpItem(ItemTableData item)
     {
         if (inventory == null) return;
@@ -29,14 +29,14 @@ public class InventoryManager : Singletone<InventoryManager>
 
         if (empty == false)
         {
-            Debug.Log("ÀÎº¥Åä¸® ²Ë Ã¡À» ½Ã ¿øÇÏ´Â ÄÚµå");
+            Debug.Log("ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ Ã¡ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Úµï¿½");
             return;
         }
 
         inventory.GetItem(item, inventoryIndex);
     }
 
-    // ¾ÆÀÌÅÛ ¹ö¸®±â
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void DropItem(int index)
     {
         if (inventory == null) return;
@@ -48,7 +48,7 @@ public class InventoryManager : Singletone<InventoryManager>
         if (item == null) return;
     }
     
-    // ÈÙÀ» ¿Ã¸®°Å³ª ³»·Á¼­ ÀÎº¥Åä¸® ¼±ÅÃ ÇßÀ» ½Ã
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     public void SelectInventory(int index)
     {
         if (inventory == null)
@@ -63,17 +63,17 @@ public class InventoryManager : Singletone<InventoryManager>
 
         if (currentItem == null)
         {
-            Debug.Log("ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù");
+            Debug.Log("ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½");
             return;
         }
           
-        // ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÒ½Ã ¼Õ¿¡ Ç¥½Ã
+        // ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò½ï¿½ ï¿½Õ¿ï¿½ Ç¥ï¿½ï¿½
         // HandItem(currentItem);
 
         return;
     }
 
-    // ¼Õ¿¡ Ç¥½ÃÇÒ ¾ÆÀÌÅÛ
+    // ï¿½Õ¿ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
    // public void HandItem(Item item)
    // {
    //    if (item == null)

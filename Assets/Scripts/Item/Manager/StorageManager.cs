@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StorageManager : Singletone<StorageManager>
+public class StorageManager : Singleton<StorageManager>
 {
     [SerializeField] private GameObject player;
     private Storage storage;
@@ -21,7 +21,7 @@ public class StorageManager : Singletone<StorageManager>
         inventory = player.GetComponentInChildren<Inventory>();
     }
 
-    // ÀÎº¥Åä¸®¿¡¼­ ¾ÆÀÌÅÛ °¡Á®¿À±â
+    // ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void InventoryToStorage(ItemTableData item)
     {
         if (storage == null) return;
@@ -33,14 +33,14 @@ public class StorageManager : Singletone<StorageManager>
 
         if (empty == false)
         {
-            Debug.Log("Ã¢°í°¡ ²Ë Ã£À»½Ã ¿øÇÏ´Â ÄÚµå");
+            Debug.Log("Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Úµï¿½");
             return;
         }
 
         storage.ItemStorage(item, storageIndex);
     }
 
-    // ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛ º¸³»±â
+    // ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void StorageToInventory(int index)
     {
         if (storage == null) return;
@@ -53,7 +53,7 @@ public class StorageManager : Singletone<StorageManager>
 
         if (empty == false)
         {
-            Debug.Log("Ã¢°í¿¡¼­ ÀÎº¥Åä¸®·Î º¸³¾¶§ ²Ë Ã£À» ½Ã ÄÚµå");
+            Debug.Log("Ã¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½Úµï¿½");
             return;
         }
 

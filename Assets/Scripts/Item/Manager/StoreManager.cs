@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StoreManager : Singletone<StorageManager>
+public class StoreManager : Singleton<StoreManager>
 {
     private Store store;
     // private GameObject player;

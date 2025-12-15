@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ItemManager : Singletone<ItemManager>
+public class ItemManager : Singleton<ItemManager>
 {
     [SerializeField] private Item[] items;
     
