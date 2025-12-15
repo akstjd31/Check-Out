@@ -107,6 +107,4 @@ public class Inventory : MonoBehaviour
 
         slots[index] = null;
     }
-
-
 }

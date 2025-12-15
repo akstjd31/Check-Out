@@ -2,15 +2,27 @@ using UnityEngine;
 
 public class Store : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] ItemTableData[] itemList;
+    [SerializeField] int storeSize = 5;
+
+    
+    public void SetItemList(int size)
     {
-        
+        itemList = new ItemTableData[size];
+    }
+   
+    // 아이템 구매 가격
+    public int GetBuyPrice(ItemTableData item)
+    {
+        if (item == null) return 0;
+        return item.buyPrice;
     }
 
-    // Update is called once per frame
-    void Update()
+    // 아이템 판매 가격
+    public int GetSellPrice(ItemTableData item)
     {
-        
+        if (item == null) return 0;
+
+        return item.sellPrice;
     }
 }
