@@ -1,4 +1,4 @@
-﻿public class playerConfigTableData : TableBase
+﻿public class PlayerConfigTableData : TableBase
 {
     public int id { get; set; }
     public string configName { get; set; }
