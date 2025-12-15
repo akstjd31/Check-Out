@@ -1448,7 +1448,7 @@ GameObject:
   - component: {fileID: 945048885}
   - component: {fileID: 945048884}
   m_Layer: 0
-  m_Name: Storege
+  m_Name: Storage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1467,7 +1467,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Storege
   storageSize: 16
-  storageList: []
 --- !u!4 &945048885
 Transform:
   m_ObjectHideFlags: 0
@@ -2026,8 +2025,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96dd2194851bc8a4fb45797e73c41eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
-  items: []
-  InventorySize: 4
   player: {fileID: 786801458}
   playerHandTransform: {fileID: 2018853468}
 --- !u!4 &1718825494
