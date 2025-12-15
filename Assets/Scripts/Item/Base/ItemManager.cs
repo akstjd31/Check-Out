@@ -1,4 +1,3 @@
-using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class ItemManager : Singletone<ItemManager>
