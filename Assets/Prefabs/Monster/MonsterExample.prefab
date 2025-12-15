@@ -254,12 +254,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e73c4f47ac4c1d8469c4285061184d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterFieldOfView
-  viewRadius: 0
-  viewAngle: 360
+  viewRadius: 5
+  viewAngle: 90
   playerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   visibleTargets: []
