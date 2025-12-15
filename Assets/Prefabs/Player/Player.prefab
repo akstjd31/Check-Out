@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FirstPersonCameraController
   cameraPivot: {fileID: 7339436886100413944}
-  mouseSensitivity: 300
+  mouseSensitivity: 120
 --- !u!1 &7996910433432002895
 GameObject:
   m_ObjectHideFlags: 0
