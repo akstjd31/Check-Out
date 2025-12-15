@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 994768192139190792}
   - component: {fileID: 2527308005084633518}
   - component: {fileID: 8476854193361430884}
+  - component: {fileID: 8356795292774698043}
   m_Layer: 0
   m_Name: Body
   m_TagString: Monster
@@ -241,3 +242,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterMovement
   moveTransform: {fileID: 0}
+--- !u!114 &8356795292774698043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2641592338510423273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73c4f47ac4c1d8469c4285061184d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterFieldOfView
+  viewRadius: 0
+  viewAngle: 360
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  visibleTargets: []
