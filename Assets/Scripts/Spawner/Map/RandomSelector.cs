@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class RandomSelector : MonoBehaviour
 {
+
+
     [SerializeField] itemSpawnTable spawnTable;
+    [SerializeField] MonsterSpawnLocation spawnTableChecker;
     [SerializeField]int itemSpawnCount;
     [SerializeField]int monsterSpawnCount;
     [SerializeField]int elevatorSpawnCount;
@@ -33,14 +36,54 @@ public class RandomSelector : MonoBehaviour
         //받아온 테이블 기준 나올 수 있는 아이템이 여러 개라면 랜덤값을 돌려 출력
         //출력된 오브젝트를 생성
     }
-    void SetMonsterSpawnLocation()
+    public void SetMonsterSpawnLocation()
     {
+        int count = monsterSpawnCount;
         //위치값에 따른 몬스터 아이디 찾기
+        int tableCount = spawnTableChecker.CheckTableCount();
+        for(int i = 5001; i<=5000 + tableCount; i++)
+        {
+            if(spawnTableChecker.CheckRandom(i) != true)
+            {
+                GameObject monster = Resources.Load<GameObject>($"{spawnTableChecker.CheckPrefabLocation(i)}");
+                Instantiate(monster, spawnTableChecker.CheckPos(i), Quaternion.identity);
+                count--;
+            }
+        }
+        if(count > 0)
+        {
+            int[] indexChecker = new int[count];
+            for(int i = 0; count > 0; i++)
+            {
+                int index = Random.Range(1, tableCount + 1);
+                for(int j = 0; j<i; j++)
+                {
+                    if (indexChecker[j] == index)
+                    {
+                        index = Random.Range(1, tableCount + 1);
+                        j = 0;
+                    }
+                }
+                while(spawnTableChecker.CheckRandom(index))
+                {
+                    index = Random.Range(1, tableCount + 1);
+                    for (int j = 0; j < i; j++)
+                    {
+                        if (indexChecker[j] == index)
+                        {
+                            index = Random.Range(1, tableCount + 1);
+                            j = 0;
+                        }
+                    }
+                }
+                    
+                GameObject monster = Resources.Load<GameObject>($"{spawnTableChecker.CheckPrefabLocation(index)}");
+                Instantiate(monster, spawnTableChecker.CheckPos(index), Quaternion.identity);
+                indexChecker[i] = index;
+                count--;
 
-        //아이디값과 isRandom값을 확인하여, isRandom이 false라면 즉시 배치.
-        //true라면, 랜덤값 출력. 몬스터 스폰 개수만큼. ( 1보다 낮으면 배치 안함 )
-        //스폰 지점은 중복되면 안 됨.
-        //이후 생성
+            }
+        }
     }
     void SetSpawnMonster()
     {
