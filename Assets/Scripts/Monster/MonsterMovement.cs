@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class MonsterMovement : MonoBehaviour
 {
-    [SerializeField] private Transform moveTransform;
+    [SerializeField] private List<Transform> moveTransform;
 
     private NavMeshAgent navMeshAgent;
     private PlayerInput monsterInput;
@@ -32,8 +33,8 @@ public class MonsterMovement : MonoBehaviour
     // 입력받은 위치로 이동하는 매서드
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log($"{name} {moveTransform.name}로 이동 시작 ");
-        navMeshAgent.SetDestination(moveTransform.position);
+        Debug.Log($"{name} {moveTransform[0].name}로 이동 시작 ");
+        navMeshAgent.SetDestination(moveTransform[0].position);
         navMeshAgent.isStopped = false;
     }
 }
