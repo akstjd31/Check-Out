@@ -16,7 +16,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Interactive",
+                    "name": "Interaction",
                     "type": "Value",
                     "id": "83bcd173-7d78-44b0-b8a7-dd22249b2cb0",
                     "expectedControlType": "",
@@ -93,11 +93,11 @@
                 {
                     "name": "",
                     "id": "4208bcf9-1436-42cd-92db-7d09fb921c3a",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interactive",
+                    "action": "Interaction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

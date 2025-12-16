@@ -1,28 +1,28 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Store : MonoBehaviour
 {
-    [SerializeField] ItemTableData[] itemList;
+    [SerializeField] Item[] itemList;
     [SerializeField] int storeSize = 5;
 
     
     public void SetItemList(int size)
     {
-        itemList = new ItemTableData[size];
+        itemList = new Item[size];
     }
    
-    // ¾ÆÀÌÅÛ ±¸¸Å °¡°İ
-    public int GetBuyPrice(ItemTableData item)
+    // ì•„ì´í…œ êµ¬ë§¤ ê°€ê²©
+    public int GetBuyPrice(Item item)
     {
         if (item == null) return 0;
-        return item.buyPrice;
+        return item.BuyPrice;
     }
 
-    // ¾ÆÀÌÅÛ ÆÇ¸Å °¡°İ
-    public int GetSellPrice(ItemTableData item)
+    // ì•„ì´í…œ íŒë§¤ ê°€ê²©
+    public int GetSellPrice(Item item)
     {
         if (item == null) return 0;
 
-        return item.sellPrice;
+        return item.SellPrice;
     }
 }
