@@ -1,10 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum ItemType
 {
-    General,
-    Consumable,
-    Gadget
+    General = 1,
+    Consumable = 2,
+    Gadget = 3
 }
 
 public interface IItem

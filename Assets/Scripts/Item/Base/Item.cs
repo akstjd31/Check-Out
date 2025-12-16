@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Item : Interactable, IItem
 {
@@ -9,13 +10,13 @@ public class Item : Interactable, IItem
 
     public int ID => itemTableData.id;
 
-    public ItemType Type => itemTableData.type;
+    public ItemType Type => (ItemType)Enum.Parse(typeof(ItemType),itemTableData.itemType);
 
-    public string Name => itemTableData.name;
+    public string Name => itemTableData.itemName;
 
-    public string Desc => itemTableData.desc;
+    public string Desc => itemTableData.itemDescription;
 
-    public bool Sellable => itemTableData.sellable;
+    public bool Sellable => itemTableData.isCanSell;
 
     public int SellPrice => sellPrice;
 
