@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StoreManager : Singleton<StoreManager>
 {
@@ -6,6 +6,7 @@ public class StoreManager : Singleton<StoreManager>
     // private GameObject player;
     private Inventory inventory;
 
+    // 아이템 구매
     public void BuyItem(ItemTableData item)
     {
         if (item == null) return;
@@ -31,6 +32,7 @@ public class StoreManager : Singleton<StoreManager>
         //player.Money -= price;
     }
 
+    // 아이템 판매
     public void SellItem(int index)
     {
 
@@ -49,6 +51,7 @@ public class StoreManager : Singleton<StoreManager>
         //player.money += price;
     }
 
+    // 돈 충분한지 체크
     public bool CheckMoney(int price)
     {
         //if (player == null) return false;
