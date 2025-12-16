@@ -1,8 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Item : MonoBehaviour, IItem
+public class Item : Interactable, IItem
 {
     [SerializeField] ItemTableData itemTableData;
+
+    [SerializeField] private int sellPrice;
+    [SerializeField] private int buyPrice;
 
     public int ID => itemTableData.id;
 
@@ -14,20 +17,29 @@ public class Item : MonoBehaviour, IItem
 
     public bool Sellable => itemTableData.sellable;
 
-    public int SellPrice => itemTableData.sellPrice;
+    public int SellPrice => sellPrice;
 
-    public int BuyPrice => itemTableData.buyPrice;
-
-    public int Sell()
+    public int BuyPrice => buyPrice;
+    
+    public override void OnFocusEnter()
     {
-
-        return SellPrice;
-    }
-    public int Buy()
-    {
-
-        return BuyPrice;
+        // 상호작용할 키나 하이라이트 기능
+        text.text = "E key press";
     }
 
+    public override void OnFocusExit()
+    {
+        // 빠져나갔을때
+        text.text = "";
+    }
 
+    public override void Interact()
+    {
+        bool success = InventoryManager.Instance.PickUpItem(this);
+
+        if (success)
+        {
+
+        }
+    }
 }

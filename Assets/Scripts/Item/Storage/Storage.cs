@@ -1,9 +1,9 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Storage : MonoBehaviour
 {
     [SerializeField] private int storageSize = 16;
-    [SerializeField] ItemTableData[] storageList;
+    [SerializeField] public Item[] storageList;
 
     private void Start()
     {
@@ -14,14 +14,14 @@ public class Storage : MonoBehaviour
     {
         if (size < 1)
         {
-            Debug.Log("Å©±â°¡ ÃÖ¼Ò 1 ÀÌ»óÀÌ¿©¾ß ÇÔ");
+            Debug.Log("í¬ê¸°ê°€ ìµœì†Œ 1 ì´ìƒì´ì—¬ì•¼ í•¨");
             return;
         }
 
-        storageList = new ItemTableData[size];
+        storageList = new Item[size];
     }
 
-    // Ã¢°í°¡ ºñ¾îÀÖ´ÂÁö Ã¼Å©
+    // ì°½ê³ ê°€ ë¹„ì–´ìžˆëŠ”ì§€ ì²´í¬
     public bool CheckEmptyStorage(out int index)
     {
         index = -1;
@@ -29,7 +29,7 @@ public class Storage : MonoBehaviour
         if (storageList == null)
             return false;
 
-        // First - fit ¹æ½ÄÀ¸·Î Ã³À½ ¹ß°ßµÈ °÷¿¡ ¾ÆÀÌÅÛÀ» ³Ö´Â´Ù
+        // First - fit ë°©ì‹ìœ¼ë¡œ ì²˜ìŒ ë°œê²¬ëœ ê³³ì— ì•„ì´í…œì„ ë„£ëŠ”ë‹¤
         for (int i = 0; i < storageList.Length; i++)
         {
             if (storageList[i] != null)
@@ -42,8 +42,8 @@ public class Storage : MonoBehaviour
         return false;
     }
 
-    // Ã¢°í¿¡ ¾ÆÀÌÅÛ ³Ö±â
-    public void ItemStorage(ItemTableData item, int index)
+    // ì°½ê³ ì— ì•„ì´í…œ ë„£ê¸°
+    public void ItemStorage(Item item, int index)
     {
         if (item == null)
             return;
@@ -58,8 +58,8 @@ public class Storage : MonoBehaviour
         storageList[index] = item;
     }
 
-    // ¾ÆÀÌÅÛ ÀÌµ¿(ÀÎº¥Åä¸®¿¡ ³Ö±â)
-    public ItemTableData MoveItem(int index)
+    // ì•„ì´í…œ ì´ë™(ì¸ë²¤í† ë¦¬ì— ë„£ê¸°)
+    public Item MoveItem(int index)
     {
         if (storageList == null)
             return null;
@@ -70,14 +70,14 @@ public class Storage : MonoBehaviour
         if (storageList[index] == null)
             return null;
 
-        ItemTableData item = storageList[index];
+        Item item = storageList[index];
 
         RemoveItem(index);
 
         return item;
     }
 
-    // ¾ÆÀÌÅÛÀÌ ÀÌµ¿ÇßÀ» ½Ã
+    // ì•„ì´í…œì´ ì´ë™í–ˆì„ ì‹œ
     private void RemoveItem(int index)
     {
         if (storageList == null)

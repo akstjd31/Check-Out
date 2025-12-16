@@ -1,12 +1,14 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StoreManager : Singleton<StoreManager>
 {
-    private Store store;
+    [SerializeField] int money = 1000;
+    [SerializeField] private Store store;
     // private GameObject player;
-    private Inventory inventory;
+    [SerializeField] private Inventory inventory;
 
-    public void BuyItem(ItemTableData item)
+    // 아이템 구매
+    public void BuyItem(Item item)
     {
         if (item == null) return;
 
@@ -29,8 +31,10 @@ public class StoreManager : Singleton<StoreManager>
         inventory.GetItem(item, inventoryIndex);
 
         //player.Money -= price;
+        money -= price;
     }
 
+    // 아이템 판매
     public void SellItem(int index)
     {
 
@@ -44,17 +48,26 @@ public class StoreManager : Singleton<StoreManager>
 
         if (inventory.slots[index] == null) return;
 
-        int price = store.GetSellPrice(inventory.slots[index]);
+        Item item = inventory.MoveItem(index);
+
+        if (item == null) return;
+
+        int price = store.GetSellPrice(item);
 
         //player.money += price;
+        money += price;
     }
 
+    // 돈 충분한지 체크
     public bool CheckMoney(int price)
     {
         //if (player == null) return false;
 
         //if (player.money > price)
             //return true;
+
+        if (money > price)
+            return true;
 
         return false;
     }
