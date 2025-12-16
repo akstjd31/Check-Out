@@ -20,25 +20,16 @@ public class Item : Interactable, IItem
     public int SellPrice => sellPrice;
 
     public int BuyPrice => buyPrice;
-
-    public int Sell()
-    {
-
-        return SellPrice;
-    }
-    public int Buy()
-    {
-
-        return BuyPrice;
-    }
-
+    
     public override void OnFocusEnter()
     {
+        // 상호작용할 키나 하이라이트 기능
         text.text = "E key press";
     }
 
     public override void OnFocusExit()
     {
+        // 빠져나갔을때
         text.text = "";
     }
 
