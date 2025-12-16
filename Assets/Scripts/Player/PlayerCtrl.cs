@@ -22,7 +22,6 @@ public class PlayerCtrl : MonoBehaviour
     private bool isRunning;                                 // 달리기 중인지?
     private bool isExhausted;                               // 탈진 상태인지?
     private float exhaustTimer;                             // 탈진 지속시간
-    [SerializeField] private Button sessionBtn;             // 테스트용 버튼
     [SerializeField] private TextMeshProUGUI staminaText;   // 테스트용 스태미나 텍스트
     
     private void Awake()
@@ -32,8 +31,6 @@ public class PlayerCtrl : MonoBehaviour
 
         moveAction = playerInput.actions["Move"];
         runAction = playerInput.actions["Run"];
-
-        sessionBtn.onClick.AddListener(OnClickLoadingStateButton);
     }
 
     private void Start()
@@ -201,6 +198,4 @@ public class PlayerCtrl : MonoBehaviour
         isRunning = false; // 강제 걷기
         staminaTimer = 1f;
     }
-
-    public void OnClickLoadingStateButton() => GameManager.Instance.ChangeState(GameState.Loading);
 }

@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using TMPro;
 using UnityEngine.InputSystem;
 
 public class PlayerInteractor : MonoBehaviour
 {
     [SerializeField] private GameObject playerHead;
+    [SerializeField] private TextMeshProUGUI text;  // 테스트용
     [SerializeField] private float distance = 2f;
 
     private LayerMask interactiveMask;
@@ -30,6 +32,8 @@ public class PlayerInteractor : MonoBehaviour
             if (interactableObj != null)
                 interactableObj.OnFocusEnter();
         }
+
+        text.text = currentObj == null ? "[null]" : $"[{currentObj.name}]";
     }
 
     // 플레이어 정면 상호작용가능 물체 감지
