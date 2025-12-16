@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
     {
         if (size < 1)
         {
-            Debug.Log("Å©±â°¡ ÃÖ¼Ò 1 ÀÌ»óÀÌ¿©¾ß ÇÔ");
+            Debug.Log("í¬ê¸°ê°€ ìµœì†Œ 1 ì´ìƒì´ì—¬ì•¼ í•¨");
             return;
         }
             
@@ -29,7 +29,7 @@ public class Inventory : MonoBehaviour
 
         if (slots == null)
         {
-            Debug.Log("ÀÎº¥Åä¸® ÀÚÃ¼°¡ ¾ø½À´Ï´Ù");
+            Debug.Log("ì¸ë²¤í† ë¦¬ ìžì²´ê°€ ì—†ìŠµë‹ˆë‹¤");
             return false;
         }
 
@@ -38,7 +38,7 @@ public class Inventory : MonoBehaviour
             if (slots[i] != null)
                 continue;
 
-            // ÀÎº¥Åä¸®°¡ ºñ¾îÀÖÀ» ½Ã
+            // ì¸ë²¤í† ë¦¬ê°€ ë¹„ì–´ìžˆì„ ì‹œ
 
             index = i;
             return true;
@@ -51,13 +51,13 @@ public class Inventory : MonoBehaviour
     {
         if (slots == null)
         {
-            Debug.Log("ÀÎº¥Åä¸® ÀÚÃ¼°¡ ¾ø½À´Ï´Ù");
+            Debug.Log("ì¸ë²¤í† ë¦¬ ìžì²´ê°€ ì—†ìŠµë‹ˆë‹¤");
             return;
         }
 
         if (item == null)
         {
-            Debug.Log("¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù");
+            Debug.Log("ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤");
             return;
         }
 
@@ -66,7 +66,7 @@ public class Inventory : MonoBehaviour
 
         if (slots[index] != null)
         {
-            Debug.Log("ÀÌ¹Ì ¾ÆÀÌÅÛÀÌ µé¾îÀÖ½À´Ï´Ù");
+            Debug.Log("ì´ë¯¸ ì•„ì´í…œì´ ë“¤ì–´ìžˆìŠµë‹ˆë‹¤");
             return;
         }
              
@@ -74,7 +74,7 @@ public class Inventory : MonoBehaviour
         return;
     }
 
-    // ¾ÆÀÌÅÛ ÀÌµ¿(¹ö¸®°Å³ª Ã¢°í)
+    // ì•„ì´í…œ ì´ë™(ë²„ë¦¬ê±°ë‚˜ ì°½ê³ )
     public ItemTableData MoveItem(int index)
     {
         if (slots == null)
@@ -93,7 +93,7 @@ public class Inventory : MonoBehaviour
         return item;
     }
 
-    // ¹è¿­¿¡¼­ ¾ÆÀÌÅÛ Á¦°Å
+    // ë°°ì—´ì—ì„œ ì•„ì´í…œ ì œê±°
     private void RemoveItem(int index)
     {
         if (slots == null)

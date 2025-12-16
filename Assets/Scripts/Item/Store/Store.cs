@@ -11,14 +11,14 @@ public class Store : MonoBehaviour
         itemList = new ItemTableData[size];
     }
    
-    // ¾ÆÀÌÅÛ ±¸¸Å °¡°İ
+    // ì•„ì´í…œ êµ¬ë§¤ ê°€ê²©
     public int GetBuyPrice(ItemTableData item)
     {
         if (item == null) return 0;
         return item.buyPrice;
     }
 
-    // ¾ÆÀÌÅÛ ÆÇ¸Å °¡°İ
+    // ì•„ì´í…œ íŒë§¤ ê°€ê²©
     public int GetSellPrice(ItemTableData item)
     {
         if (item == null) return 0;

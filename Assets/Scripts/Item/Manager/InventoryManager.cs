@@ -19,7 +19,7 @@ public class InventoryManager : Singleton<InventoryManager>
         inventory = player.GetComponentInChildren<Inventory>();
     }
 
-    // ������ �ݱ�
+    // 아이템 줍기
     public void PickUpItem(ItemTableData item)
     {
         if (inventory == null) return;
@@ -29,14 +29,14 @@ public class InventoryManager : Singleton<InventoryManager>
 
         if (empty == false)
         {
-            Debug.Log("�κ��丮 �� á�� �� ���ϴ� �ڵ�");
+            Debug.Log("인벤토리가 꽉 찼습니다");
             return;
         }
 
         inventory.GetItem(item, inventoryIndex);
     }
 
-    // ������ ������
+    // 아이템 버리기
     public void DropItem(int index)
     {
         if (inventory == null) return;
@@ -48,7 +48,7 @@ public class InventoryManager : Singleton<InventoryManager>
         if (item == null) return;
     }
     
-    // ���� �ø��ų� ������ �κ��丮 ���� ���� ��
+    // 인벤토리 슬롯 선택
     public void SelectInventory(int index)
     {
         if (inventory == null)
@@ -63,17 +63,17 @@ public class InventoryManager : Singleton<InventoryManager>
 
         if (currentItem == null)
         {
-            Debug.Log("�κ��丮�� �������� �����ϴ�");
+            Debug.Log("아이템이 없습니다");
             return;
         }
           
-        // �κ��丮�� �������� �����ҽ� �տ� ǥ��
+        // 부가기능
         // HandItem(currentItem);
 
         return;
     }
 
-    // �տ� ǥ���� ������
+    // 손에 들고있는 아이템
    // public void HandItem(Item item)
    // {
    //    if (item == null)

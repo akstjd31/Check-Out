@@ -21,7 +21,7 @@ public class StorageManager : Singleton<StorageManager>
         inventory = player.GetComponentInChildren<Inventory>();
     }
 
-    // �κ��丮���� ������ ��������
+    // 인벤토리에서 창고로
     public void InventoryToStorage(ItemTableData item)
     {
         if (storage == null) return;
@@ -33,14 +33,14 @@ public class StorageManager : Singleton<StorageManager>
 
         if (empty == false)
         {
-            Debug.Log("â���� �� ã���� ���ϴ� �ڵ�");
+            Debug.Log("창고가 꽉 차 있습니다");
             return;
         }
 
         storage.ItemStorage(item, storageIndex);
     }
 
-    // �κ��丮�� ������ ������
+    // 창고에서 인벤토리로
     public void StorageToInventory(int index)
     {
         if (storage == null) return;
@@ -53,7 +53,7 @@ public class StorageManager : Singleton<StorageManager>
 
         if (empty == false)
         {
-            Debug.Log("â������ �κ��丮�� ������ �� ã�� �� �ڵ�");
+            Debug.Log("인벤토리가 꽉 차있습니다");
             return;
         }
 
