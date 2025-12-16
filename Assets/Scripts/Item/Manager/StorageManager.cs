@@ -12,6 +12,7 @@ public class StorageManager : Singleton<StorageManager>
         //GetInventory();
     }
 
+    // 창고 가져오기
     public void GetStorage()
     {
         if (player == null)
@@ -19,6 +20,7 @@ public class StorageManager : Singleton<StorageManager>
 
         storage = player.GetComponentInChildren<Storage>();
     }
+    // 인벤토리 가져오기
     public void GetInventory()
     {
         if (player == null)

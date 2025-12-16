@@ -23,6 +23,7 @@ public class Inventory : MonoBehaviour
         slots = new Item[size];
     }
 
+    // 인벤토리가 비어있는지 체크
     public bool CheckEmpty(out int index)
     {
         index = -1;
@@ -48,6 +49,7 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
+    // 아이템 가져오기
     public void GetItem(Item item, int index)
     {
         if (slots == null)
