@@ -1,14 +1,16 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
 {
     [SerializeField] private GameObject player;
-    [SerializeField ]private Transform playerHandTransform;
+    [SerializeField] private Transform playerHandTransform;
 
-    private Inventory inventory;
+    [SerializeField] private Inventory inventory;
     
-    private void Awake()
+
+    private void Start()
     {
+        //GetInventory();
     }
 
     public void GetInventory()
@@ -20,9 +22,13 @@ public class InventoryManager : Singleton<InventoryManager>
     }
 
     // 아이템 줍기
-    public void PickUpItem(ItemTableData item)
+    public void PickUpItem(Item item)
     {
-        if (inventory == null) return;
+        if (inventory == null)
+        {
+            Debug.Log("인벤토리가 업성");
+            return;
+        }
 
         int inventoryIndex = -1;
         bool empty = inventory.CheckEmpty(out inventoryIndex);
@@ -33,7 +39,9 @@ public class InventoryManager : Singleton<InventoryManager>
             return;
         }
 
+        Debug.Log($"{inventoryIndex} 번째 칸의 인벤토리에 넣는 중");
         inventory.GetItem(item, inventoryIndex);
+        Debug.Log($"{item.name}을 성공적으로 넣었습니다");
     }
 
     // 아이템 버리기
@@ -43,7 +51,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
         if (player == null) return;
 
-        ItemTableData item = inventory.MoveItem(index);
+        Item item = inventory.MoveItem(index);
 
         if (item == null) return;
     }
@@ -57,7 +65,7 @@ public class InventoryManager : Singleton<InventoryManager>
         if (index < 0 || index >= inventory.slots.Length)
             return;
 
-        ItemTableData currentItem = inventory.slots[index];
+        Item currentItem = inventory.slots[index];
 
         Debug.Log(currentItem);
 

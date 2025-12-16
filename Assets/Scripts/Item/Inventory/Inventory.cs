@@ -2,7 +2,7 @@
 
 public class Inventory : MonoBehaviour
 {
-    public ItemTableData[] slots;
+    public Item[] slots;
 
     private int inventorySize = 4;
 
@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviour
             return;
         }
             
-        slots = new ItemTableData[size];
+        slots = new Item[size];
     }
 
     public bool CheckEmpty(out int index)
@@ -41,13 +41,14 @@ public class Inventory : MonoBehaviour
             // 인벤토리가 비어있을 시
 
             index = i;
+            Debug.Log($"{index}번째 칸이 비어있음");
             return true;
         }
 
         return false;
     }
 
-    public void GetItem(ItemTableData item, int index)
+    public void GetItem(Item item, int index)
     {
         if (slots == null)
         {
@@ -75,7 +76,7 @@ public class Inventory : MonoBehaviour
     }
 
     // 아이템 이동(버리거나 창고)
-    public ItemTableData MoveItem(int index)
+    public Item MoveItem(int index)
     {
         if (slots == null)
             return null;
@@ -86,7 +87,7 @@ public class Inventory : MonoBehaviour
         if (slots[index] == null)
             return null;
 
-        ItemTableData item = slots[index];
+        Item item = slots[index];
 
         RemoveItem(index);
 

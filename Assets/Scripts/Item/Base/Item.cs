@@ -1,8 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Item : MonoBehaviour, IItem
 {
     [SerializeField] ItemTableData itemTableData;
+
+    [SerializeField] private int sellPrice;
+    [SerializeField] private int buyPrice;
 
     public int ID => itemTableData.id;
 
@@ -14,9 +17,9 @@ public class Item : MonoBehaviour, IItem
 
     public bool Sellable => itemTableData.sellable;
 
-    public int SellPrice => itemTableData.sellPrice;
+    public int SellPrice => sellPrice;
 
-    public int BuyPrice => itemTableData.buyPrice;
+    public int BuyPrice => buyPrice;
 
     public int Sell()
     {
