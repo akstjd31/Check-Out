@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 1615966991588161401}
   - component: {fileID: 5470392613295798520}
   - component: {fileID: 1083620324217761453}
+  - component: {fileID: 3439429237133774228}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -328,6 +329,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FirstPersonCameraController
   cameraPivot: {fileID: 7339436886100413944}
   mouseSensitivity: 120
+--- !u!114 &3439429237133774228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13651a020b238334c9cd461432472372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
+  playerHead: {fileID: 753602095481127051}
+  distance: 2
 --- !u!1 &7996910433432002895
 GameObject:
   m_ObjectHideFlags: 0

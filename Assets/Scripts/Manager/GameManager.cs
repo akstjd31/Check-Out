@@ -36,7 +36,8 @@ public class GameManager : Singleton<GameManager>
 
     private void OnDisable()
     {
-        LoadingManager.Instance.OnLoadingEnded -= HandleLoadingEnded;
+        if (LoadingManager.Instance != null)
+            LoadingManager.Instance.OnLoadingEnded -= HandleLoadingEnded;
     }
 
     // 상태 변경
