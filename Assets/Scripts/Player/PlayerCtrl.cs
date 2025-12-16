@@ -12,7 +12,7 @@ public enum PlayerState
 public class PlayerCtrl : MonoBehaviour
 {
     private PlayerInput playerInput;
-    private InputAction moveAction, runAction;
+    private InputAction moveAction, runAction, interactiveAction;
     private StatController statController;
     [SerializeField] private PlayerState currentState;
     private Vector3 moveInput;
@@ -31,6 +31,7 @@ public class PlayerCtrl : MonoBehaviour
 
         moveAction = playerInput.actions["Move"];
         runAction = playerInput.actions["Run"];
+        interactiveAction = playerInput.actions["Interaction"];
     }
 
     private void Start()
@@ -51,6 +52,11 @@ public class PlayerCtrl : MonoBehaviour
         {
             runAction.performed += OnRunPerformed;
             runAction.canceled += OnRunCanceled;
+        }
+
+        if (interactiveAction != null)
+        {
+            interactiveAction.performed += InteractionKeyPerformed;
         }
     }
 
@@ -120,6 +126,11 @@ public class PlayerCtrl : MonoBehaviour
             runAction.performed -= OnRunPerformed;
             runAction.canceled -= OnRunCanceled;
         }
+
+        if (interactiveAction != null)
+        {
+            interactiveAction.performed -= InteractionKeyPerformed;
+        }
     }
 
     // 탈진 상태
@@ -188,6 +199,11 @@ public class PlayerCtrl : MonoBehaviour
         }
         isRunning = false;
         staminaTimer = 1f;
+    }
+
+    public void InteractionKeyPerformed(InputAction.CallbackContext context)
+    {
+        
     }
 
     // 탈진 상태의 시작

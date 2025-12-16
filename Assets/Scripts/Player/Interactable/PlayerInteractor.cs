@@ -53,11 +53,8 @@ public class PlayerInteractor : MonoBehaviour
         return null;
     }
 
-    // 특정 키를 눌러 상호작용 호출
-    public void OnInteract(InputAction.CallbackContext ctx)
+    public void Interaction()
     {
-        if (!ctx.performed) return;
-
         interactableObj?.Interact();
     }
 }
