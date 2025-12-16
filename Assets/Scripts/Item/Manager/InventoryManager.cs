@@ -13,6 +13,7 @@ public class InventoryManager : Singleton<InventoryManager>
         //GetInventory();
     }
 
+    // 인벤토리 가져오기
     public void GetInventory()
     {
         if (player == null)
@@ -22,12 +23,12 @@ public class InventoryManager : Singleton<InventoryManager>
     }
 
     // 아이템 줍기
-    public void PickUpItem(Item item)
+    public bool PickUpItem(Item item)
     {
         if (inventory == null)
         {
             Debug.Log("인벤토리가 업성");
-            return;
+            return false;
         }
 
         int inventoryIndex = -1;
@@ -36,12 +37,14 @@ public class InventoryManager : Singleton<InventoryManager>
         if (empty == false)
         {
             Debug.Log("인벤토리가 꽉 찼습니다");
-            return;
+            return false;
         }
 
         Debug.Log($"{inventoryIndex} 번째 칸의 인벤토리에 넣는 중");
         inventory.GetItem(item, inventoryIndex);
         Debug.Log($"{item.name}을 성공적으로 넣었습니다");
+
+        return true;
     }
 
     // 아이템 버리기
