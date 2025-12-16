@@ -629,7 +629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07ee835f4d0ba8439c172f97c394236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoadingManager
-  progressBar: {fileID: 1454080908}
+  loadingBar: {fileID: 1454080908}
 --- !u!114 &1216916822
 MonoBehaviour:
   m_ObjectHideFlags: 0
