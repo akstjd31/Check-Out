@@ -11,10 +11,14 @@ public enum PlayerState
 
 public class PlayerCtrl : MonoBehaviour
 {
+    [Header("Component")]
     private PlayerInput playerInput;
     private InputAction moveAction, runAction, interactiveAction;
     private StatController statController;
+    private PlayerInteractor playerInteractor;
     [SerializeField] private PlayerState currentState;
+
+    [Header("Value")]
     private Vector3 moveInput;
     private float staminaTimer = 1f;                        // 스태미나가 감소 or 회복되는 시점은 1초 지난 후
     private int staminaDrainRun = 15;                       // 달릴때 초당 감소
@@ -28,6 +32,7 @@ public class PlayerCtrl : MonoBehaviour
     {
         playerInput = this.GetComponent<PlayerInput>();
         statController = this.GetComponent<StatController>();
+        playerInteractor = this.GetComponent<PlayerInteractor>();
 
         moveAction = playerInput.actions["Move"];
         runAction = playerInput.actions["Run"];
@@ -201,9 +206,10 @@ public class PlayerCtrl : MonoBehaviour
         staminaTimer = 1f;
     }
 
+    // 상호작용
     public void InteractionKeyPerformed(InputAction.CallbackContext context)
     {
-        
+        playerInteractor.Interaction();
     }
 
     // 탈진 상태의 시작

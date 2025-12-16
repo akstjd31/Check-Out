@@ -33,7 +33,7 @@ public class PlayerInteractor : MonoBehaviour
                 interactableObj.OnFocusEnter();
         }
 
-        text.text = currentObj == null ? "[null]" : $"[{currentObj.name}]";
+        text.text = interactableObj == null ? "[null]" : $"[{interactableObj.name}]";
     }
 
     // 플레이어 정면 상호작용가능 물체 감지
