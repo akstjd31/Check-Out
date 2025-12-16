@@ -1,10 +1,11 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public static class MeshCombineSystem
 {
     public static void Combine(Transform root)
     {
+        //생성된 오브젝트들의 머티리얼 지정할 메쉬를 구분지을 Dictionary
         Dictionary<Material, List<MeshFilter>> groups =
             new Dictionary<Material, List<MeshFilter>>();
 

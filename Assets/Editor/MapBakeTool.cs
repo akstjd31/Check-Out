@@ -1,27 +1,27 @@
-using UnityEditor;
+ï»¿using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 
 public class MapBakeTool : EditorWindow
 {
-    [Header("»ı¼ºÇÒ ÇÁ¸®ÆÕ")]
+    [Header("ìƒì„±í•  í”„ë¦¬íŒ¹")]
     [SerializeField] GameObject exitPrefab;
     [SerializeField] GameObject pathPrefab;
     [SerializeField] GameObject roomPrefab;
     [SerializeField] GameObject wallPrefab;
     [SerializeField] GameObject doorPrefab;
 
-    //º£ÀÌÅ© ÁøÇàÇÒ Å¸ÀÏ¸Ê
+    //ë² ì´í¬ ì§„í–‰í•  íƒ€ì¼ë§µ
     private Tilemap tilemap;
 
-    //º£ÀÌÅ© °á°ú¹°À» ´ãÀ» ºÎ¸ğ ¿ÀºêÁ§Æ®
+    //ë² ì´í¬ ê²°ê³¼ë¬¼ì„ ë‹´ì„ ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸
     private Transform mapRoot;
 
-    //°¢ Å¸ÀÏÀ» ³ëµå °ü°è·Î ¿¬°áÇÏ±â À§ÇÑ Dictionary
+    //ê° íƒ€ì¼ì„ ë…¸ë“œ ê´€ê³„ë¡œ ì—°ê²°í•˜ê¸° ìœ„í•œ Dictionary
     private Dictionary<Vector3Int, MapNode> nodes;
 
-    //"Vector3IntÇü ¹æÇâ"ÀÇ ¹è¿­.
+    //"Vector3Intí˜• ë°©í–¥"ì˜ ë°°ì—´.
     static readonly Vector3Int[] dirs =
     {
         Vector3Int.up,
@@ -31,7 +31,7 @@ public class MapBakeTool : EditorWindow
     };
 
     /// <summary>
-    /// À¯´ÏÆ¼ ¿¡µğÅÍ »ó¿¡¼­ ½ÇÇàÇÏ±â À§ÇÑ Ä­À» Ãß°¡ÇÕ´Ï´Ù.
+    /// ìœ ë‹ˆí‹° ì—ë””í„° ìƒì—ì„œ ì‹¤í–‰í•˜ê¸° ìœ„í•œ ì¹¸ì„ ì¶”ê°€í•©ë‹ˆë‹¤.
     /// </summary>
     [MenuItem("Tools/Map/Bake Map")]
     static void Open()
@@ -41,13 +41,13 @@ public class MapBakeTool : EditorWindow
 
     void OnGUI()
     {
-        //Bake¸¦ ÁøÇàÇÒ Tilemap
+        //Bakeë¥¼ ì§„í–‰í•  Tilemap
         tilemap = (Tilemap)EditorGUILayout.ObjectField(
             "Source Tilemap", tilemap, typeof(Tilemap), true);
 
-        //Bake·Î »ı¼ºµÈ GameObjectµéÀ» ´ãÀ» ·çÆ®
+        //Bakeë¡œ ìƒì„±ëœ GameObjectë“¤ì„ ë‹´ì„ ë£¨íŠ¸
         mapRoot = (Transform)EditorGUILayout.ObjectField(
-            "Map Root", mapRoot, typeof(Transform), true); // "¶óº§¸í", ¼ÒÈ¯ÇÒ ¿ÀºêÁ§Æ®, Çã¿ëÇÒ Å¸ÀÔ, ¾À ³» ¿ÀºêÁ§Æ® Çã¿ë ¿©ºÎ
+            "Map Root", mapRoot, typeof(Transform), true); // "ë¼ë²¨ëª…", ì†Œí™˜í•  ì˜¤ë¸Œì íŠ¸, í—ˆìš©í•  íƒ€ì…, ì”¬ ë‚´ ì˜¤ë¸Œì íŠ¸ í—ˆìš© ì—¬ë¶€
 
         EditorGUILayout.LabelField("Prefabs", EditorStyles.boldLabel);
 
@@ -67,7 +67,7 @@ public class MapBakeTool : EditorWindow
             "Exit Prefab", exitPrefab, typeof(GameObject), false);
 
 
-        //GUI¸¦ ÅëÇØ Bake MapÀ» ´­·¶À» °æ¿ì Bake ¸Ş¼­µå ½ÇÇà.
+        //GUIë¥¼ í†µí•´ Bake Mapì„ ëˆŒë €ì„ ê²½ìš° Bake ë©”ì„œë“œ ì‹¤í–‰.
         if (GUILayout.Button("Bake Map"))
         {
             Bake();
@@ -75,32 +75,32 @@ public class MapBakeTool : EditorWindow
     }
 
     /// <summary>
-    /// ´Ü ÇÏ³ªÀÇ ¸Ş½¬¸¦ °¡Áöµµ·Ï ÅëÇÕÇÏ´Â ¸Ş¼­µåÀÔ´Ï´Ù.
+    /// ë‹¨ í•˜ë‚˜ì˜ ë©”ì‰¬ë¥¼ ê°€ì§€ë„ë¡ í†µí•©í•˜ëŠ” ë©”ì„œë“œì…ë‹ˆë‹¤.
     /// </summary>
     void Bake()
     {
-        //¹èÄ¡µÈ °Ô ¾øÀ¸¸é ½ÇÇà ºÒ°¡
+        //ë°°ì¹˜ëœ ê²Œ ì—†ìœ¼ë©´ ì‹¤í–‰ ë¶ˆê°€
         if (tilemap == null || mapRoot == null) return;
 
-        //ºÎ¸ğ ¿ÀºêÁ§Æ®ÀÇ ÀÚ½Ä ¼ö°¡ 0º¸´Ù Å« °æ¿ì, Áï½Ã ¸ğµç ÀÚ½Ä ¿ÀºêÁ§Æ®¸¦ ÆÄ±«
+        //ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ì˜ ìì‹ ìˆ˜ê°€ 0ë³´ë‹¤ í° ê²½ìš°, ì¦‰ì‹œ ëª¨ë“  ìì‹ ì˜¤ë¸Œì íŠ¸ë¥¼ íŒŒê´´
         while (mapRoot.childCount > 0)
             DestroyImmediate(mapRoot.GetChild(0).gameObject);
 
-        // Å¸ÀÏ¸Ê ±â¹İ µ¥ÀÌÅÍ ÇØ¼® ¹× »ı¼º
+        // íƒ€ì¼ë§µ ê¸°ë°˜ ë°ì´í„° í•´ì„ ë° ìƒì„±
         foreach (var pos in tilemap.cellBounds.allPositionsWithin)
         {
-            //Å¸ÀÏ¸Ê¿¡¼­ ÇØ´ç À§Ä¡¿¡ Å¸ÀÏÀÌ ¾øÀ¸¸é °úÁ¤ ³Ñ±è
+            //íƒ€ì¼ë§µì—ì„œ í•´ë‹¹ ìœ„ì¹˜ì— íƒ€ì¼ì´ ì—†ìœ¼ë©´ ê³¼ì • ë„˜ê¹€
             if (!tilemap.HasTile(pos))
                 continue;
 
-            //ÇØ´ç À§Ä¡¿¡ ÀÖ´Â Ä¿½ºÅÒ Å¸ÀÏÀÇ Á¤º¸¸¦ ¹Ş¾Æ¿È
+            //í•´ë‹¹ ìœ„ì¹˜ì— ìˆëŠ” ì»¤ìŠ¤í…€ íƒ€ì¼ì˜ ì •ë³´ë¥¼ ë°›ì•„ì˜´
             var tile = tilemap.GetTile<Spawn3DPrefabTile>(pos);
 
-            //Á¤º¸°¡ ¾ø´Ù¸é ³Ñ±è
+            //ì •ë³´ê°€ ì—†ë‹¤ë©´ ë„˜ê¹€
             if (tile == null)
                 continue;
 
-            //¿ùµå¸Ê ±â¹İÀ¸·Î ÇØ´ç Å¸ÀÏÀÇ À§Ä¡ »ı¼º
+            //ì›”ë“œë§µ ê¸°ë°˜ìœ¼ë¡œ í•´ë‹¹ íƒ€ì¼ì˜ ìœ„ì¹˜ ìƒì„±
             Vector3 worldPos = tilemap.GetCellCenterWorld(pos);
 
         }
@@ -110,13 +110,13 @@ public class MapBakeTool : EditorWindow
         ResolveEdges();
         MeshCombineSystem.Combine(mapRoot);
 
-        Debug.Log("¸Ê Bake ¼º°ø!");
+        Debug.Log("ë§µ Bake ì„±ê³µ!");
     }
 
     /// <summary>
-    /// ¹æÇâÀ» ÀÔ·Â¹Ş¾Æ È¸Àü½ÃÄÑ ÁÖ´Â ¸Ş¼­µåÀÔ´Ï´Ù.
+    /// ë°©í–¥ì„ ì…ë ¥ë°›ì•„ íšŒì „ì‹œì¼œ ì£¼ëŠ” ë©”ì„œë“œì…ë‹ˆë‹¤.
     /// </summary>
-    /// <param name="dir">Quaternion °ªÀ¸·Î ¹İÈ¯¹ŞÀ» ¹æÇâ</param>
+    /// <param name="dir">Quaternion ê°’ìœ¼ë¡œ ë°˜í™˜ë°›ì„ ë°©í–¥</param>
     /// <returns></returns>
     Quaternion RotationFromDir(Vector3Int dir)
     {
@@ -131,28 +131,28 @@ public class MapBakeTool : EditorWindow
     }
 
     /// <summary>
-    /// Å¸ÀÏ¸ÊÀ¸·ÎºÎÅÍ ¸ğµç Å¸ÀÏÀ» ºÒ·¯¿Í ³ëµå¸¦ »ı¼ºÇÏ´Â ¸Ş¼­µåÀÔ´Ï´Ù.
+    /// íƒ€ì¼ë§µìœ¼ë¡œë¶€í„° ëª¨ë“  íƒ€ì¼ì„ ë¶ˆëŸ¬ì™€ ë…¸ë“œë¥¼ ìƒì„±í•˜ëŠ” ë©”ì„œë“œì…ë‹ˆë‹¤.
     /// </summary>
     void CollectNodes()
     {
-        //Dictionary¿¡ new ÇÒ´ç
+        //Dictionaryì— new í• ë‹¹
         nodes = new Dictionary<Vector3Int, MapNode>();
 
-        //Å¸ÀÏ¸Ê¿¡¼­ Å¸ÀÏÀÌ ÀÖ´Â °¡Àå ÀÛÀº ÁÂÇ¥ºÎÅÍ °¡Àå Å« ÁÂÇ¥±îÁö ¿µ¿ªÀ» ¹Ş¾Æ¿Í¼­
-        //¸ğµç ÁÂÇ¥¸¦ ÇÏ³ª¾¿ ²¨³» ±× ÁÂÇ¥¸¶´Ù °¢°¢ ÄÚµå¸¦ Àû¿ëÇÑ´Ù.
+        //íƒ€ì¼ë§µì—ì„œ íƒ€ì¼ì´ ìˆëŠ” ê°€ì¥ ì‘ì€ ì¢Œí‘œë¶€í„° ê°€ì¥ í° ì¢Œí‘œê¹Œì§€ ì˜ì—­ì„ ë°›ì•„ì™€ì„œ
+        //ëª¨ë“  ì¢Œí‘œë¥¼ í•˜ë‚˜ì”© êº¼ë‚´ ê·¸ ì¢Œí‘œë§ˆë‹¤ ê°ê° ì½”ë“œë¥¼ ì ìš©í•œë‹¤.
         foreach(var pos in tilemap.cellBounds.allPositionsWithin)
         {
-            //Å¸ÀÏ¸Ê¿¡¼­ ÁÂÇ¥»ó¿¡ Å¸ÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é Áï½Ã ´ÙÀ½ °úÁ¤À¸·Î.
+            //íƒ€ì¼ë§µì—ì„œ ì¢Œí‘œìƒì— íƒ€ì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ì¦‰ì‹œ ë‹¤ìŒ ê³¼ì •ìœ¼ë¡œ.
             if (!tilemap.HasTile(pos))
                 continue;
 
-            //Å¸ÀÏÀÌ Á¸ÀçÇÏ¸é, Å¸ÀÏÀ» ¾ò¾î¿Â´Ù.
+            //íƒ€ì¼ì´ ì¡´ì¬í•˜ë©´, íƒ€ì¼ì„ ì–»ì–´ì˜¨ë‹¤.
             var tile = tilemap.GetTile<Spawn3DPrefabTile>(pos);
-            //ÀÌ¶§ Å¸ÀÏÀ» ºÒ·¯¿À´Â µ¥ ½ÇÆĞÇß´Ù¸é Áï½Ã ´ÙÀ½ °úÁ¤À¸·Î.
+            //ì´ë•Œ íƒ€ì¼ì„ ë¶ˆëŸ¬ì˜¤ëŠ” ë° ì‹¤íŒ¨í–ˆë‹¤ë©´ ì¦‰ì‹œ ë‹¤ìŒ ê³¼ì •ìœ¼ë¡œ.
             if (tile == null)
                 continue;
 
-            //³ëµå¸¦ »õ·Ó°Ô »ı¼ºÇÑ´Ù.
+            //ë…¸ë“œë¥¼ ìƒˆë¡­ê²Œ ìƒì„±í•œë‹¤.
             nodes[pos] = new MapNode
             {
                 cell = pos,
@@ -164,14 +164,14 @@ public class MapBakeTool : EditorWindow
     }
 
     /// <summary>
-    /// ÀÌ¿ô ³ëµå¿¡ µû¶ó º® ¶Ç´Â ¹®À» »ı¼ºÇÏ´Â ¸Ş¼­µåÀÔ´Ï´Ù.
+    /// ì´ì›ƒ ë…¸ë“œì— ë”°ë¼ ë²½ ë˜ëŠ” ë¬¸ì„ ìƒì„±í•˜ëŠ” ë©”ì„œë“œì…ë‹ˆë‹¤.
     /// </summary>
     void ResolveEdges()
     {
-        //DictionaryÀÇ <TKey, TValue> Áß TValue¸¦ ¹Ş¾Æ¿Í¾ß Á¸ÀçÇÏ´Â Å¸ÀÏÀÇ ³ëµå¸¸ ¹Ş¾Æ¿Ã °Í.
+        //Dictionaryì˜ <TKey, TValue> ì¤‘ TValueë¥¼ ë°›ì•„ì™€ì•¼ ì¡´ì¬í•˜ëŠ” íƒ€ì¼ì˜ ë…¸ë“œë§Œ ë°›ì•„ì˜¬ ê²ƒ.
         foreach(var node in nodes.Values)
         {
-            //ºó Å¸ÀÏÀÎ °æ¿ì ´ÙÀ½ ´Ü°è·Î
+            //ë¹ˆ íƒ€ì¼ì¸ ê²½ìš° ë‹¤ìŒ ë‹¨ê³„ë¡œ
             if (node.type == NodeType.Empty)
                 continue;
 
@@ -179,14 +179,14 @@ public class MapBakeTool : EditorWindow
             {
                 Vector3Int next = node.cell + dir;
 
-                //¹Ù¶óº¸°í ÀÖ´Â ¹æÇâ¿¡ ÀÌ¿ô ³ëµå°¡ Á¸ÀçÇÏÁö ¾ÊÀ» °æ¿ì (ºñ¾îÀÖ´Â °æ¿ì) º® »ı¼º
+                //ë°”ë¼ë³´ê³  ìˆëŠ” ë°©í–¥ì— ì´ì›ƒ ë…¸ë“œê°€ ì¡´ì¬í•˜ì§€ ì•Šì„ ê²½ìš° (ë¹„ì–´ìˆëŠ” ê²½ìš°) ë²½ ìƒì„±
                 if(!nodes.TryGetValue(next, out var neighbor))
                 {
                     SpawnWallBetween(node, dir);
                     continue;
                 }
 
-                //¹Ù¶óº¸°í ÀÖ´Â ¹æÇâ¿¡ ÀÌ¿ô ³ëµå°¡ ÀÖ´Ù¸é ¹æÀÏ °æ¿ì ¹®À», ¾Æ´Ò °æ¿ì º®À» »ı¼º
+                //ë°”ë¼ë³´ê³  ìˆëŠ” ë°©í–¥ì— ì´ì›ƒ ë…¸ë“œê°€ ìˆë‹¤ë©´ ë°©ì¼ ê²½ìš° ë¬¸ì„, ì•„ë‹ ê²½ìš° ë²½ì„ ìƒì„±
                 if (node.type == neighbor.type)
                     continue;
                 if (IsPathRoomPair(node, neighbor))
@@ -200,17 +200,17 @@ public class MapBakeTool : EditorWindow
     }
 
     /// <summary>
-    /// º®À» Çü¼ºÇÏ±â À§ÇÑ ¸Ş¼­µåÀÔ´Ï´Ù. SpawnDoorBetween ¸Ş¼­µå ¶ÇÇÑ ¹®À» Çü¼ºÇÏ±â À§ÇÑ ¸Ş¼­µå·Î ±â´ÉÀÌ °ÅÀÇ µ¿ÀÏÇÕ´Ï´Ù.
+    /// ë²½ì„ í˜•ì„±í•˜ê¸° ìœ„í•œ ë©”ì„œë“œì…ë‹ˆë‹¤. SpawnDoorBetween ë©”ì„œë“œ ë˜í•œ ë¬¸ì„ í˜•ì„±í•˜ê¸° ìœ„í•œ ë©”ì„œë“œë¡œ ê¸°ëŠ¥ì´ ê±°ì˜ ë™ì¼í•©ë‹ˆë‹¤.
     /// </summary>
-    /// <param name="node">º® Çü¼ºÀÇ ±âÁØÁ¡ÀÌ µÉ ³ëµå</param>
-    /// <param name="dir">¹æÇâ</param>
+    /// <param name="node">ë²½ í˜•ì„±ì˜ ê¸°ì¤€ì ì´ ë  ë…¸ë“œ</param>
+    /// <param name="dir">ë°©í–¥</param>
     void SpawnWallBetween(MapNode node, Vector3Int dir)
     {
-        //ÇØ´ç Ä­ÀÇ Àı¹İ Å©±â¸¸Å­ÀÇ ±æÀÌ¸¦ ±¸ÇÏ°í
+        //í•´ë‹¹ ì¹¸ì˜ ì ˆë°˜ í¬ê¸°ë§Œí¼ì˜ ê¸¸ì´ë¥¼ êµ¬í•˜ê³ 
         Vector3 cellHalf = tilemap.transform.TransformVector(tilemap.cellSize * 0.5f);
-        //XYZÃà ±âÁØÀÇ ¹æÇâÀ» XZYÃà ±âÁØÀ¸·Î º¯°æÇÏ¿©
+        //XYZì¶• ê¸°ì¤€ì˜ ë°©í–¥ì„ XZYì¶• ê¸°ì¤€ìœ¼ë¡œ ë³€ê²½í•˜ì—¬
         Vector3 offset = new Vector3(dir.x * cellHalf.x, 0f, dir.y * cellHalf.y);
-        //³ëµåÀÇ ÁÂÇ¥¿¡¼­ Æ¯Á¤ ¹æÇâÀ¸·Î Ä­ÀÇ Àı¹İ¸¸Å­ ÀÌµ¿ÇÑ »óÅÂ¿¡¼­ º®À» »ı¼ºÇÑ´Ù.
+        //ë…¸ë“œì˜ ì¢Œí‘œì—ì„œ íŠ¹ì • ë°©í–¥ìœ¼ë¡œ ì¹¸ì˜ ì ˆë°˜ë§Œí¼ ì´ë™í•œ ìƒíƒœì—ì„œ ë²½ì„ ìƒì„±í•œë‹¤.
         Vector3 pos = node.world + offset;
 
         GameObject wall =
@@ -235,7 +235,7 @@ public class MapBakeTool : EditorWindow
     }
 
     /// <summary>
-    /// ¹Ù´ÚÀÇ ³ëµå¿¡ µû¶ó ÇÁ¸®ÆÕÀ» Çü¼ºÇÕ´Ï´Ù.
+    /// ë°”ë‹¥ì˜ ë…¸ë“œì— ë”°ë¼ í”„ë¦¬íŒ¹ì„ í˜•ì„±í•©ë‹ˆë‹¤.
     /// </summary>
     void SpawnFloorNodes()
     {
@@ -256,43 +256,43 @@ public class MapBakeTool : EditorWindow
                 case NodeType.Empty:
                     break;
                 default:
-                    Debug.LogWarning($"ÇÒ´çµÇÁö ¾ÊÀº ³ëµå Å¸ÀÔ: {node.type}");
+                    Debug.LogWarning($"í• ë‹¹ë˜ì§€ ì•Šì€ ë…¸ë“œ íƒ€ì…: {node.type}");
                     break;
             }
         }
     }
 
     /// <summary>
-    /// ÁöÁ¤µÈ À§Ä¡¿¡ ÇÁ¸®ÆÕÀ» »ı¼ºÇÕ´Ï´Ù.
+    /// ì§€ì •ëœ ìœ„ì¹˜ì— í”„ë¦¬íŒ¹ì„ ìƒì„±í•©ë‹ˆë‹¤.
     /// </summary>
     /// <param name="prefab"></param>
     /// <param name="pos"></param>
     void Spawn(GameObject prefab, Vector3 pos)
     {
-        //À¯È¿ÇÏÁö ¾ÊÀº ÇÁ¸®ÆÕÀÎ °æ¿ì ±×´ë·Î ¹İÈ¯
+        //ìœ íš¨í•˜ì§€ ì•Šì€ í”„ë¦¬íŒ¹ì¸ ê²½ìš° ê·¸ëŒ€ë¡œ ë°˜í™˜
         if (!prefab) return;
 
-        //¿¡µğÅÍ »ó¿¡¼­ ÇÁ¸®ÆÕÀ» »ı¼ºÇÏ´Â °ÍÀÌ¹Ç·Î PrefabUtility »ç¿ë
+        //ì—ë””í„° ìƒì—ì„œ í”„ë¦¬íŒ¹ì„ ìƒì„±í•˜ëŠ” ê²ƒì´ë¯€ë¡œ PrefabUtility ì‚¬ìš©
         var go = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
         go.transform.SetParent(mapRoot, true);
         go.transform.position = pos;
     }
 
     /// <summary>
-    /// Å¸ÀÏ¸ÊÀÌ XZYÃàÀ» »ç¿ëÇÔ¿¡ µû¶ó, XYZ ±âÁØÀÇ ¹æÇâÀ» XZY ±âÁØÀ¸·Î °­Á¦ º¯°æÇÕ´Ï´Ù.
+    /// íƒ€ì¼ë§µì´ XZYì¶•ì„ ì‚¬ìš©í•¨ì— ë”°ë¼, XYZ ê¸°ì¤€ì˜ ë°©í–¥ì„ XZY ê¸°ì¤€ìœ¼ë¡œ ê°•ì œ ë³€ê²½í•©ë‹ˆë‹¤.
     /// </summary>
-    /// <param name="dir">XYZ Ãà »ç¿ë ±âÁØ ¹æÇâ</param>
+    /// <param name="dir">XYZ ì¶• ì‚¬ìš© ê¸°ì¤€ ë°©í–¥</param>
     /// <returns></returns>
     Vector3 DirToWorld(Vector3Int dir)
     {
-        // Tilemap (X,Y) ¡æ World (X,Z)
+        // Tilemap (X,Y) â†’ World (X,Z)
         return new Vector3(dir.x, 0f, dir.y);
     }
 
     /// <summary>
-    /// Ä¿½ºÅÒ Å¸ÀÏ¸Ê¿¡ »ç¿ëÇÑ Å¸ÀÏ Á¾·ù¸¦ ³ëµå¿¡ »ç¿ëÇÏ´Â Å¸ÀÏ Á¾·ù·Î º¯È¯ÇÏ´Â ¸Ş¼­µåÀÔ´Ï´Ù.
+    /// ì»¤ìŠ¤í…€ íƒ€ì¼ë§µì— ì‚¬ìš©í•œ íƒ€ì¼ ì¢…ë¥˜ë¥¼ ë…¸ë“œì— ì‚¬ìš©í•˜ëŠ” íƒ€ì¼ ì¢…ë¥˜ë¡œ ë³€í™˜í•˜ëŠ” ë©”ì„œë“œì…ë‹ˆë‹¤.
     /// </summary>
-    /// <param name="tileType">Ä¿½ºÅÒ Å¸ÀÏ¸Ê¿¡¼­ÀÇ Å¸ÀÏ Á¾·ù</param>
+    /// <param name="tileType">ì»¤ìŠ¤í…€ íƒ€ì¼ë§µì—ì„œì˜ íƒ€ì¼ ì¢…ë¥˜</param>
     /// <returns></returns>
     NodeType Convert(MapNodeType tileType)
     {
@@ -312,10 +312,10 @@ public class MapBakeTool : EditorWindow
     }
 
     /// <summary>
-    /// º® ³ëµå¿Í ±æ ³ëµå°¡ ÀÌ¿ôÀÎÁö È®ÀÎÇÏ±â À§ÇÑ ¸Ş¼­µåÀÔ´Ï´Ù.
+    /// ë²½ ë…¸ë“œì™€ ê¸¸ ë…¸ë“œê°€ ì´ì›ƒì¸ì§€ í™•ì¸í•˜ê¸° ìœ„í•œ ë©”ì„œë“œì…ë‹ˆë‹¤.
     /// </summary>
-    /// <param name="a">±âÁØÀÌ µÇ´Â ³ëµå</param>
-    /// <param name="b">ÀÌ¿ô ³ëµå</param>
+    /// <param name="a">ê¸°ì¤€ì´ ë˜ëŠ” ë…¸ë“œ</param>
+    /// <param name="b">ì´ì›ƒ ë…¸ë“œ</param>
     /// <returns></returns>
     bool IsPathRoomPair(MapNode a, MapNode b)
     {
