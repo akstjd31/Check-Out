@@ -9,10 +9,11 @@ using System;
 public class LoadingManager : Singleton<LoadingManager>
 {
     [SerializeField] private Slider progressBar;
-    public event Action OnLoadingCompleted;
+    public event Action OnLoadingStarted;
     private bool readyToActivate;                   // 현재 활성화 가능 상태를 외부에서 알려주기 위함
     
     public void AllowSceneActivation() => readyToActivate = true;
+    public void InitSceneActivation() => readyToActivate = false;
     public void LoadScene(string sceneName)
     {
         StartCoroutine(LoadSceneAsync(sceneName));
@@ -21,6 +22,9 @@ public class LoadingManager : Singleton<LoadingManager>
     // 씬 로드 비동기 작업
     IEnumerator LoadSceneAsync(string sceneName)
     {
+        if (GameManager.Instance.CurrentState == GameState.Loading)
+            OnLoadingStarted?.Invoke();
+
         // 백그라운드에서 로딩 & 완료되어도 바로 활성화 X
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
         operation.allowSceneActivation = false;
@@ -52,10 +56,8 @@ public class LoadingManager : Singleton<LoadingManager>
         // 씬 전환
         operation.allowSceneActivation = true;
 
-        if (GameManager.Instance.CurrentState == GameState.Loading)
-            OnLoadingCompleted?.Invoke();
+        FadeController.Instance.StartFadeIn();
 
         Debug.Log("씬 전환됨!");
-        readyToActivate = false;
     }
 }
