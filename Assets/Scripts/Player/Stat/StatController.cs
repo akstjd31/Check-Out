@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerStatHolder))]
 public class StatController : MonoBehaviour
 {
     private PlayerStatHolder playerStatHolder;
