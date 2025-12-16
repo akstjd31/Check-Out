@@ -25,7 +25,7 @@ public class TempPlayerController : MonoBehaviour
 
     private void Start()
     {
-        // 몬스터 태그를 통해서 현재 씬에 있는 몬스터를 불러와서 컴포넌트 추가
+        // 소리 감지 태그를 통해서 현재 씬에 있는 소리를 감지하는 몬스터를 불러와서 컴포넌트 추가
         GameObject[] monsters = GameObject.FindGameObjectsWithTag("SoundDetect");
         foreach (GameObject monster in monsters)
         {
@@ -81,4 +81,6 @@ public class TempPlayerController : MonoBehaviour
     {
         moveInput = Vector3.zero;
     }
+
+
 }
