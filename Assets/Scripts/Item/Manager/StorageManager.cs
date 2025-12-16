@@ -1,10 +1,16 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StorageManager : Singleton<StorageManager>
 {
     [SerializeField] private GameObject player;
-    private Storage storage;
-    private Inventory inventory;
+    [SerializeField] private Storage storage;
+    [SerializeField] private Inventory inventory;
+
+    private void Start()
+    {
+        //GetStorage();
+        //GetInventory();
+    }
 
     public void GetStorage()
     {
@@ -22,11 +28,15 @@ public class StorageManager : Singleton<StorageManager>
     }
 
     // 인벤토리에서 창고로
-    public void InventoryToStorage(ItemTableData item)
+    public void InventoryToStorage(int index)
     {
         if (storage == null) return;
 
         if (inventory == null) return;
+
+        if (index < 0 || index >= inventory.slots.Length) return;
+
+        if (inventory.slots[index] == null) return;
 
         int storageIndex = -1;
         bool empty = storage.CheckEmptyStorage(out storageIndex);
@@ -37,6 +47,10 @@ public class StorageManager : Singleton<StorageManager>
             return;
         }
 
+        Item item = inventory.MoveItem(index);
+
+        if (item == null) return;
+
         storage.ItemStorage(item, storageIndex);
     }
 
@@ -45,7 +59,12 @@ public class StorageManager : Singleton<StorageManager>
     {
         if (storage == null) return;
 
+        if (storage.storageList == null) return;
+
         if (inventory == null) return;
+
+
+        if (index < 0 || index >= storage.storageList.Length) return;
 
         int inventoryIndex = -1;
 
@@ -57,7 +76,7 @@ public class StorageManager : Singleton<StorageManager>
             return;
         }
 
-        ItemTableData item = storage.MoveItem(index);
+        Item item = storage.MoveItem(index);
 
         if (item == null) return;
 
