@@ -67,7 +67,13 @@ public class PlayerCtrl : MonoBehaviour
     private void Update()
     {
         // 테스트용
-        staminaText.text = "Stamina: " + statController.CurrentStamina;
+        //staminaText.text = "Stamina: " + statController.CurrentStamina;
+        
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            GameManager.Instance.ChangeState(GameState.Loading);
+        }
+
 
         // 탈진 상태일때 타이머 계산
         if (isExhausted)
