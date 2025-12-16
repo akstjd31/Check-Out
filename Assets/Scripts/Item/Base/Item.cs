@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Item : MonoBehaviour, IItem
+public class Item : Interactable, IItem
 {
     [SerializeField] ItemTableData itemTableData;
 
@@ -32,5 +32,23 @@ public class Item : MonoBehaviour, IItem
         return BuyPrice;
     }
 
+    public override void OnFocusEnter()
+    {
+        text.text = "E key press";
+    }
 
+    public override void OnFocusExit()
+    {
+        text.text = "";
+    }
+
+    public override void Interact()
+    {
+        bool success = InventoryManager.Instance.PickUpItem(this);
+
+        if (success)
+        {
+
+        }
+    }
 }
