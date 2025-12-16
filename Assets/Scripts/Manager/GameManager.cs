@@ -26,7 +26,7 @@ public class GameManager : Singleton<GameManager>
 
     private void OnEnable()
     {
-        LoadingManager.Instance.OnLoadingStarted += HandleLoadingStarted;
+        LoadingManager.Instance.OnLoadingEnded += HandleLoadingEnded;
     }
 
     private void Update()
@@ -36,7 +36,7 @@ public class GameManager : Singleton<GameManager>
 
     private void OnDisable()
     {
-        LoadingManager.Instance.OnLoadingStarted -= HandleLoadingStarted;
+        LoadingManager.Instance.OnLoadingEnded -= HandleLoadingEnded;
     }
 
     // 상태 변경
@@ -54,5 +54,5 @@ public class GameManager : Singleton<GameManager>
     }
 
     // 로딩 완료 시 이벤트
-    public void HandleLoadingStarted() => ChangeState(LoadingData.NextState);
+    public void HandleLoadingEnded() => ChangeState(LoadingData.NextState);
 }

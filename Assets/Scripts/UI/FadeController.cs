@@ -23,7 +23,7 @@ public class FadeController : Singleton<FadeController>
             SetAlpha(time / fadeDuration);
             yield return null;
         }
-
+        
         SetAlpha(0f);
     }
 
