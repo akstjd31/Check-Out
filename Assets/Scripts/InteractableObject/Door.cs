@@ -10,8 +10,8 @@ public class Door : Interactable
     [SerializeField] private DoorType currentDoorType;
     string[] doorContext = new string[2]
     {
-        "Press E to Open",
-        "Press E to Close"
+        "Press [E] to Open",
+        "Press [E] to Close"
     };
 
     // 문을 바라보는 상태
