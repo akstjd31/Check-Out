@@ -69,6 +69,11 @@ public static class MeshCombineSystem
         combined.AddComponent<MeshFilter>().sharedMesh = combinedMesh;
         combined.AddComponent<MeshRenderer>().sharedMaterial = mat;
 
+        if(combined.name.Contains("Path"))
+        {
+            combined.AddComponent<MeshCollider>().sharedMesh = combinedMesh;
+        }
+
         combined.isStatic = true;
     }
 }
