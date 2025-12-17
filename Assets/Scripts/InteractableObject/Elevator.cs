@@ -14,6 +14,7 @@ public class Elevator : Interactable
 
     public override void Interact()
     {
+        // 씬 이동
         GameManager.Instance.ChangeState(GameState.Loading);
     }
 }

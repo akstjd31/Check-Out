@@ -15,5 +15,6 @@ public class Examinable : Interactable
 
     public override void Interact()
     {
+        // 오브젝트 조사 시 대본? 출력
     }
 }
