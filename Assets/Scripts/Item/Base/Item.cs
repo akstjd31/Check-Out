@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
 public class Item : Interactable, IItem
 {
@@ -40,11 +40,13 @@ public class Item : Interactable, IItem
     public override void OnFocusEnter()
     {
         // 상호작용할 키나 하이라이트 기능
+        promptText = "E key press";
     }
 
     public override void OnFocusExit()
     {
         // 빠져나갔을때
+        promptText = "";
     }
 
     public override void Interact()

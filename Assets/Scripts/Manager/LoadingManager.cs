@@ -8,13 +8,21 @@ using System;
 /// </summary>
 public class LoadingManager : Singleton<LoadingManager>
 {
-    [SerializeField] private Slider progressBar;
-    public event Action OnLoadingCompleted;
+    [SerializeField] private Slider loadingBar;
+    public event Action OnLoadingEnded;
     private bool readyToActivate;                   // 현재 활성화 가능 상태를 외부에서 알려주기 위함
     
+    //public void SetLoadingBarActive(bool active) => loadingBar.gameObject.SetActive(active);
     public void AllowSceneActivation() => readyToActivate = true;
+    public void InitSceneActivation() => readyToActivate = false;
+
     public void LoadScene(string sceneName)
     {
+        if (GameManager.Instance.CurrentState == GameState.Loading)
+        {
+            OnLoadingEnded?.Invoke();
+        }
+
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 
@@ -29,14 +37,13 @@ public class LoadingManager : Singleton<LoadingManager>
         {
             Debug.LogError("씬 로드 실패!");
             yield return null;
-            //GameManager.Instance.ChangeState(GameState.Hub);
         }
         
         // 씬 로딩이 끝날때까지 반복
         while (operation.progress < 0.9f)
         {
-            // float progress = operation.progress / 0.9f;
-            // progressBar.value = progress;
+            float progress = operation.progress / 0.9f;
+            loadingBar.value = progress;
             yield return null;
         }
 
@@ -52,10 +59,8 @@ public class LoadingManager : Singleton<LoadingManager>
         // 씬 전환
         operation.allowSceneActivation = true;
 
-        if (GameManager.Instance.CurrentState == GameState.Loading)
-            OnLoadingCompleted?.Invoke();
+        FadeController.Instance.StartFadeIn();
 
         Debug.Log("씬 전환됨!");
-        readyToActivate = false;
     }
 }

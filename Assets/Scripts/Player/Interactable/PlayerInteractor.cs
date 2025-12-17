@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using TMPro;
 using UnityEngine.InputSystem;
 
 public class PlayerInteractor : MonoBehaviour
 {
+    [SerializeField] private PlayerView playerView;
     [SerializeField] private GameObject playerHead;
     [SerializeField] private float distance = 2f;
 
@@ -30,6 +32,9 @@ public class PlayerInteractor : MonoBehaviour
             if (interactableObj != null)
                 interactableObj.OnFocusEnter();
         }
+
+        playerView.UpdateObjNameText(interactableObj == null ? "[null]" : $"[{interactableObj.name}]");
+        playerView.UpdateInteractionText(interactableObj?.GetPromptText());
     }
 
     // 플레이어 정면 상호작용가능 물체 감지
@@ -49,11 +54,8 @@ public class PlayerInteractor : MonoBehaviour
         return null;
     }
 
-    // 특정 키를 눌러 상호작용 호출
-    public void OnInteract(InputAction.CallbackContext ctx)
+    public void Interaction()
     {
-        if (!ctx.performed) return;
-
         interactableObj?.Interact();
     }
 }

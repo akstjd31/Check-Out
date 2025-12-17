@@ -13,6 +13,7 @@ public class RunState : IState
     public void Exit()
     {
         Debug.Log("세션 상태 종료");
+        LoadingManager.Instance.InitSceneActivation();
     }
 
     public void Update()

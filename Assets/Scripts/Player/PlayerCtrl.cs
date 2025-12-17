@@ -11,10 +11,14 @@ public enum PlayerState
 
 public class PlayerCtrl : MonoBehaviour
 {
+    [Header("Component")]
     private PlayerInput playerInput;
-    private InputAction moveAction, runAction;
+    private InputAction moveAction, runAction, interactiveAction;
     private StatController statController;
+    private PlayerInteractor playerInteractor;
     [SerializeField] private PlayerState currentState;
+
+    [Header("Value")]
     private Vector3 moveInput;
     private float staminaTimer = 1f;                        // 스태미나가 감소 or 회복되는 시점은 1초 지난 후
     private int staminaDrainRun = 15;                       // 달릴때 초당 감소
@@ -22,18 +26,15 @@ public class PlayerCtrl : MonoBehaviour
     private bool isRunning;                                 // 달리기 중인지?
     private bool isExhausted;                               // 탈진 상태인지?
     private float exhaustTimer;                             // 탈진 지속시간
-    [SerializeField] private Button sessionBtn;             // 테스트용 버튼
-    [SerializeField] private TextMeshProUGUI staminaText;   // 테스트용 스태미나 텍스트
-    
     private void Awake()
     {
         playerInput = this.GetComponent<PlayerInput>();
         statController = this.GetComponent<StatController>();
+        playerInteractor = this.GetComponent<PlayerInteractor>();
 
         moveAction = playerInput.actions["Move"];
         runAction = playerInput.actions["Run"];
-
-        sessionBtn.onClick.AddListener(OnClickLoadingStateButton);
+        interactiveAction = playerInput.actions["Interaction"];
     }
 
     private void Start()
@@ -55,6 +56,11 @@ public class PlayerCtrl : MonoBehaviour
             runAction.performed += OnRunPerformed;
             runAction.canceled += OnRunCanceled;
         }
+
+        if (interactiveAction != null)
+        {
+            interactiveAction.performed += InteractionKeyPerformed;
+        }
     }
 
     private void FixedUpdate()
@@ -66,9 +72,6 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Update()
     {
-        // 테스트용
-        staminaText.text = "Stamina: " + statController.CurrentStamina;
-
         // 탈진 상태일때 타이머 계산
         if (isExhausted)
             StartExhaustTime();
@@ -116,6 +119,11 @@ public class PlayerCtrl : MonoBehaviour
         {
             runAction.performed -= OnRunPerformed;
             runAction.canceled -= OnRunCanceled;
+        }
+
+        if (interactiveAction != null)
+        {
+            interactiveAction.performed -= InteractionKeyPerformed;
         }
     }
 
@@ -187,6 +195,12 @@ public class PlayerCtrl : MonoBehaviour
         staminaTimer = 1f;
     }
 
+    // 상호작용
+    public void InteractionKeyPerformed(InputAction.CallbackContext context)
+    {
+        playerInteractor.Interaction();
+    }
+
     // 탈진 상태의 시작
     private void EnterExhaust()
     {
@@ -195,6 +209,4 @@ public class PlayerCtrl : MonoBehaviour
         isRunning = false; // 강제 걷기
         staminaTimer = 1f;
     }
-
-    public void OnClickLoadingStateButton() => GameManager.Instance.ChangeState(GameState.Loading);
 }
