@@ -38,7 +38,6 @@ public class TempPlayerController : MonoBehaviour
             {
                 Debug.LogWarning($"{monster.name}에는 MonsterSoundDetect가 없습니다!");
             }
-
         }
     }
 

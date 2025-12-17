@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 3263423198916099318}
   - component: {fileID: 8096776327775939362}
   - component: {fileID: 1677580689390646957}
+  - component: {fileID: 9122945675722893919}
+  - component: {fileID: 1380434742574662441}
+  - component: {fileID: 3894275853601217624}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -111,6 +114,48 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9122945675722893919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4524084060914704074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924b45a78394f9a4c8f4e23f84158757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WalkerModel
+  patrolSpeed: 1
+  power: 34
+  isObseredToPlayer: 0
+  chaseFast: 4.5
+  chaseSlow: 2
+  walkerState: 0
+--- !u!114 &1380434742574662441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4524084060914704074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4791814c138a4349ad422cd0f052eb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WalkerView
+--- !u!114 &3894275853601217624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4524084060914704074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d53461ac4705a24d8c062b9e57b69fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WalkerController
 --- !u!1 &9037472110524294084
 GameObject:
   m_ObjectHideFlags: 0
