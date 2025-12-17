@@ -45,11 +45,10 @@ public class MonsterMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Interactable"))
+        if (other.CompareTag("Monster"))
         {
             Debug.Log($"currentDestination : {currentDestination.name}");
             // stopDelay만큼 멈춰있음
-            //Invoke("Stop", 5);
             StartCoroutine(Stop());
             
         }
@@ -109,8 +108,8 @@ public class MonsterMovement : MonoBehaviour
     {
         // 현재 목적지로 이동
         Debug.Log($"{name} {currentDestination.name}로 이동 시작 ");
-        navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(currentDestination.position);
+        navMeshAgent.isStopped = false;
     }
    
     private IEnumerator Stop()
@@ -127,7 +126,7 @@ public class MonsterMovement : MonoBehaviour
     {
         // 입력받은 딜레이 최댓값 최솟값 사이에서 랜덤하게 뽑고 반환
         tempRandom = stopDelay.Next(minimumStopDelay, maxStopDelay + 1);
-        Debug.Log("Random Delay :" + tempRandom);
+        //Debug.Log("Random Delay :" + tempRandom);
         return tempRandom;
     }
 
