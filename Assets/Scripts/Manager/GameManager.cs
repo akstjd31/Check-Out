@@ -6,7 +6,7 @@ public class GameManager : Singleton<GameManager>
 {
     public GameState CurrentState { get; private set; }
     private StateMachine<GameState> stateMachine;
-
+    [SerializeField] private SaveLoadManager saveLoadManager;
 
     protected override void Awake()
     {
@@ -22,6 +22,16 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         ChangeState(GameState.Hub);
+
+        // 테스트용 데이터 저장
+        // ItemSaveData data = new ItemSaveData();
+        // data.itemId = 1;
+        // saveLoadManager.Save("ItemSaveData.json", data);
+        // Debug.Log("데이터 저장 완료!");
+
+        // 테스트용 데이터 로드
+        // var data = saveLoadManager.Load<ItemSaveData>("ItemSaveData.json");
+        // Debug.Log($"불러온 데이터 ID: {data.itemId}");
     }
 
     private void OnEnable()
