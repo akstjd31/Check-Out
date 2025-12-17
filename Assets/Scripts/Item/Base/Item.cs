@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 
 public class Item : Interactable, IItem
@@ -34,7 +34,7 @@ public class Item : Interactable, IItem
         ImgPath = itemTable.imgPath;
 
         Sprite sprite = Resources.Load<Sprite>(ImgPath);
-        spriteRenderer.sprite = sprite;
+        //spriteRenderer.sprite = sprite;
     }
 
     public override void OnFocusEnter()

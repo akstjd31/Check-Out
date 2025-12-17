@@ -1,41 +1,54 @@
-﻿using Unity.Hierarchy;
+using Unity.Hierarchy;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RandomSelector : MonoBehaviour
 {
 
-
-    [SerializeField] itemSpawnTable spawnTable;
+    [SerializeField] ItemSpawner spawner;
     [SerializeField] MonsterSpawnLocation spawnTableChecker;
     [SerializeField]int itemSpawnCount;
     [SerializeField]int monsterSpawnCount;
     [SerializeField]int elevatorSpawnCount;
 
-    void SetItemSpawnLocation()
+    public void SetItemSpawnLocation()
     {
-        Vector3[] location = new Vector3[itemSpawnCount];
+        //생성할 위치를 가져올 테이블 내 데이터의 인덱스 저장용 리스트.
+        List<int> spawnIndex = new List<int>();
+        
+        //테이블에서 좌표값을 받아오기
+        int maxPositionCount = spawner.GetItemCount("SpawnTable");
+
+        //0이 나온 경우 실패이므로 반환. 테이블 추출에 실패했든 잘못된 기입으로 오류가 생겼든 0이 나올 것이다.
+        if (maxPositionCount == 0) return;
+
         //하이에라키에 존재하는 모든 스폰포인트를 받아오는 배열 또는 리스트 등 생성
         for(int i = 0; i < itemSpawnCount; i++)
         {
-            //테이블에서 좌표값을 받아오기
-
+            //랜덤값 생성
+            int index = Random.Range(1, maxPositionCount + 1);
             //중복 처리(중복일 시 다시 돌림)
-
+            for (int counts = 0; counts < spawnIndex.Count; counts++)
+            {
+                if(index == spawnIndex[counts])
+                {
+                    index = Random.Range(1, maxPositionCount + 1);
+                    counts = -1;
+                }
+            }
+            //중복 검사를 통과했으면 인덱스 리스트에 추가.
+            spawnIndex.Add(index);
+        }
+        foreach(int index in spawnIndex)
+        {
             //아이템 그룹 테이블 내용을 받아와서
-
-            //해당 그룹별로 전부, 하나하나 스위치 문 등으로 총 가중치 값을 구하고 랜덤
-
-            //그룹별, 랜덤 뜬 값에 따른 아이템 선택 후 해당 아이디 반환
-
-            //벡터값(x,y,z), 아이디값을 주는 것으로 메서드 1회 실행(생성)
+            int spawnItemId = spawner.DeclareObjectId(index);
+            Debug.Log(spawnItemId);
+            //수정 필요. 아이템 소환을 위한 코드.
+            ItemManager.Instance.SpawnItem(spawnItemId, spawner.CheckPosition(index));
         }
     }
-    void SetSpawnItem(Vector3 position, int id)
-    {
-        //받아온 테이블 기준 나올 수 있는 아이템이 여러 개라면 랜덤값을 돌려 출력
-        //출력된 오브젝트를 생성
-    }
+
     public void SetMonsterSpawnLocation()
     {
         int count = monsterSpawnCount;
@@ -84,10 +97,6 @@ public class RandomSelector : MonoBehaviour
 
             }
         }
-    }
-    void SetSpawnMonster()
-    {
-
     }
     void SetElevatorActivate()
     {

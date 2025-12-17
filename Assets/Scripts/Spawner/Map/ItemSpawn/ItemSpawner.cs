@@ -43,7 +43,7 @@ public class ItemSpawner : MonoBehaviour
 
         foreach (int targetId in TableManager.Instance.GetAllIds(groupTable))
         {
-            ItemTableData monsterSpawnTableData = itemTable[targetId];
+            ItemGroupTableData monsterSpawnTableData = groupTable[targetId];
             groupCount++;
         }
 
@@ -56,17 +56,37 @@ public class ItemSpawner : MonoBehaviour
 
         foreach (int targetId in TableManager.Instance.GetAllIds(spawnTable))
         {
-            ItemTableData monsterSpawnTableData = itemTable[targetId];
+            ItemSpawnTableData monsterSpawnTableData = spawnTable[targetId];
             spawnCount++;
         }
     }
 
+    /// <summary>
+    /// 어떤 테이블의 총 수량을 받아올지 정하는 메서드입니다. 오타 없이 정확히 기입해 주십시오.
+    /// </summary>
+    /// <param name="tableType">"ItemTable" : 아이템, "GroupTable" : 아이템 그룹, "SpawnTable" : 아이템 스폰 테이블</param>
+    /// <returns></returns>
+    public int GetItemCount(string tableType)
+    {
+        switch(tableType)
+        {
+            case "ItemTable":
+                return itemCount;
+            case "GroupTable":
+                return groupCount;
+            case "SpawnTable":
+                return spawnCount;
+            default:
+                Debug.LogWarning("해당하는 테이블이 컴포넌트에 존재하지 않습니다.");
+                return 0;
+        }
+    }
     public Vector3 CheckPosition(int idValue)
     {
-        return new Vector3(spawnTable[idValue].locationX, spawnTable[idValue].locationY, spawnTable[idValue].locationZ);
+        return new Vector3(spawnTable[3000+idValue].locationX, spawnTable[3000 + idValue].locationY, spawnTable[3000 + idValue].locationZ);
     }
 
-    public int DeclareObject(int groupValue)
+    public int DeclareObjectId(int groupValue)
     {
         //일치하는 그룹 아이디를 가진 테이블 내의 데이터 아이디를 담아줄 리스트
         List<int> idWithCorrectGroup = new List<int>();
@@ -78,14 +98,14 @@ public class ItemSpawner : MonoBehaviour
         //그룹 테이블 내의 모든 데이터들을 확인하면서 그룹아이디가 동일한 데이터의 아이디값을 저장
         for(int i = 1; i <= groupCount; i++)
         {
-            if(groupTable[i].itemGroup == groupValue)
-                idWithCorrectGroup.Add(i);
+            if(groupTable[4000+i].itemGroup == groupTable[4000+groupValue].itemGroup)
+                idWithCorrectGroup.Add(4000+i);
         }
 
         //저장된 데이터값이 없을 경우 반환
         if (idWithCorrectGroup.Count <= 0)
         {
-            Debug.Log($"{groupValue} 그룹 아이디를 가진 아이템 테이블 내의 데이터가 존재하지 않습니다.");
+            Debug.Log($"{4000 + groupValue} 그룹 아이디를 가진 아이템 테이블 내의 데이터가 존재하지 않습니다.");
             return 0;
         }
 
@@ -106,18 +126,20 @@ public class ItemSpawner : MonoBehaviour
             int counter = 0;
             for(int i = 0; i < idWithCorrectGroup.Count; i++)
             {
-                if(randomNumber <= groupTable[idWithCorrectGroup[i]].probability)
+                if(randomNumber <= groupTable[idWithCorrectGroup[i]].probability + counter)
                 {
-                    counter = groupTable[idWithCorrectGroup[i]].probability;
+                    counter = groupTable[idWithCorrectGroup[i]].itemId;
                     break;
                 }
-                else if (randomNumber > groupTable[idWithCorrectGroup[i]].probability)
+                else if (randomNumber > groupTable[idWithCorrectGroup[i]].probability + counter)
                 {
                     counter += groupTable[idWithCorrectGroup[i]].probability;
                 }
             }
+            //비교에 성공했을 때의 값을 저장
             correctId = counter;
         }
+        //저장된 값을 반환
         return correctId;
     }
 }
