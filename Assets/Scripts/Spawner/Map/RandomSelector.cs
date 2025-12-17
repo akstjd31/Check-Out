@@ -55,23 +55,23 @@ public class RandomSelector : MonoBehaviour
             int[] indexChecker = new int[count];
             for(int i = 0; count > 0; i++)
             {
-                int index = Random.Range(1, tableCount + 1);
+                int index = Random.Range(5001, tableCount + 5001);
                 for(int j = 0; j<i; j++)
                 {
                     if (indexChecker[j] == index)
                     {
-                        index = Random.Range(1, tableCount + 1);
+                        index = Random.Range(5001, tableCount + 5001);
                         j = 0;
                     }
                 }
-                while(spawnTableChecker.CheckRandom(index))
+                while(!spawnTableChecker.CheckRandom(index))
                 {
-                    index = Random.Range(1, tableCount + 1);
+                    index = Random.Range(5001, tableCount + 5001);
                     for (int j = 0; j < i; j++)
                     {
                         if (indexChecker[j] == index)
                         {
-                            index = Random.Range(1, tableCount + 1);
+                            index = Random.Range(5001, tableCount + 5001);
                             j = 0;
                         }
                     }
