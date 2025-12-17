@@ -5,18 +5,21 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(fileName = "Spawn3DPrefabTile", menuName = "Tiles/Spawn 3D Prefab Tile")]
 public class Spawn3DPrefabTile : TileBase
 {
-    [Header("Å¸ÀÏ ½ºÇÁ¶óÀÌÆ®")]
+    [Header("íƒ€ì¼ ìŠ¤í”„ë¼ì´íŠ¸")]
     public Sprite previewSprite;
 
-    [Header("Å¸ÀÏ Á¾·ù")]
+    [Header("íƒ€ì¼ ì¢…ë¥˜")]
     public MapNodeType nodeType;
 
+    [Header("êµ¬ë¶„ ì „ìš© - ê³ ìœ ë²ˆí˜¸")]
+    public int index = -1;
+
     /// <summary>
-    /// Å¸ÀÏÀÇ µ¥ÀÌÅÍ¸¦ ¾ò¾î¿À±â À§ÇÑ GetTileData ¸Ş¼­µåÀÔ´Ï´Ù
+    /// íƒ€ì¼ì˜ ë°ì´í„°ë¥¼ ì–»ì–´ì˜¤ê¸° ìœ„í•œ GetTileData ë©”ì„œë“œì…ë‹ˆë‹¤
     /// </summary>
-    /// <param name="position">¹Ş¾Æ¿Ã Å¸ÀÏÀÇ ÁÂÇ¥</param>
-    /// <param name="tilemap">Å¸ÀÏ¸Ê ÀÎÅÍÆäÀÌ½º¸¦ ÅëÇØ »ı¼ºµÈ Å¸ÀÏ¸Ê</param>
-    /// <param name="tileData">¹Ş¾Æ¿Ã Å¸ÀÏÀÇ µ¥ÀÌÅÍ</param>
+    /// <param name="position">ë°›ì•„ì˜¬ íƒ€ì¼ì˜ ì¢Œí‘œ</param>
+    /// <param name="tilemap">íƒ€ì¼ë§µ ì¸í„°í˜ì´ìŠ¤ë¥¼ í†µí•´ ìƒì„±ëœ íƒ€ì¼ë§µ</param>
+    /// <param name="tileData">ë°›ì•„ì˜¬ íƒ€ì¼ì˜ ë°ì´í„°</param>
     public override void GetTileData(
         Vector3Int position,
         ITilemap tilemap,
@@ -28,7 +31,7 @@ public class Spawn3DPrefabTile : TileBase
     }
 }
 
-//ÇØ´ç Å¸ÀÏÀÌ °¡Áú ¼Ó¼º.
+//í•´ë‹¹ íƒ€ì¼ì´ ê°€ì§ˆ ì†ì„±.
 public enum MapNodeType
 {
     Empty,

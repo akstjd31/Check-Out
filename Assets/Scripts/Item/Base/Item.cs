@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 
 public class Item : Interactable, IItem
@@ -42,6 +42,7 @@ public class Item : Interactable, IItem
         if (spriteRenderer == null) return;
 
         Sprite sprite = Resources.Load<Sprite>(ImgPath);
+        spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprite;
 
         Debug.Log($"ID : {ID} 와 이름 : {Name} 이 성공적으로 들어갔습니다");

@@ -1,4 +1,4 @@
-using System.IO;
+ï»¿using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEditor;
@@ -6,32 +6,32 @@ using UnityEngine;
 
 public static class TableClassGenerator
 {
-    // CSV Çì´õ Çà ÀÎµ¦½º ¼³Á¤
-    private const int ColumnInternalNameRow = 1; // ÄÃ·³¸í (³»ºÎ º¯¼ö ÀÌ¸§)
-    private const int DataTypeRow = 2;           // ÀÚ·áÇü (int, float, bool, string)
+    // CSV í—¤ë” í–‰ ì¸ë±ìŠ¤ ì„¤ì •
+    private const int ColumnInternalNameRow = 1; // ì»¬ëŸ¼ëª… (ë‚´ë¶€ ë³€ìˆ˜ ì´ë¦„)
+    private const int DataTypeRow = 2;           // ìë£Œí˜• (int, float, bool, string)
 
     /// <summary>
-    /// ÁöÁ¤µÈ Æú´õ ³»ÀÇ ¸ğµç TextAsset(CSV) ÆÄÀÏÀ» ÀĞ¾î Å¬·¡½º ÄÚµå¸¦ »ı¼ºÇÏ°í ÀúÀåÇÕ´Ï´Ù.
+    /// ì§€ì •ëœ í´ë” ë‚´ì˜ ëª¨ë“  TextAsset(CSV) íŒŒì¼ì„ ì½ì–´ í´ë˜ìŠ¤ ì½”ë“œë¥¼ ìƒì„±í•˜ê³  ì €ì¥í•©ë‹ˆë‹¤.
     /// </summary>
-    /// <param name="csvFolderPath">CSV ÆÄÀÏÀÌ À§Ä¡ÇÑ Assets ³» Æú´õ °æ·Î</param>
-    /// <param name="saveFolderPath">»ı¼ºµÈ Å¬·¡½º ÆÄÀÏÀ» ÀúÀåÇÒ Assets ³» Æú´õ °æ·Î</param>
+    /// <param name="csvFolderPath">CSV íŒŒì¼ì´ ìœ„ì¹˜í•œ Assets ë‚´ í´ë” ê²½ë¡œ</param>
+    /// <param name="saveFolderPath">ìƒì„±ëœ í´ë˜ìŠ¤ íŒŒì¼ì„ ì €ì¥í•  Assets ë‚´ í´ë” ê²½ë¡œ</param>
     public static void GenerateAllClassesInFolder(string csvFolderPath, string saveFolderPath)
     {
-        // 1. Æú´õ ³» ¸ğµç TextAsset ÆÄÀÏÀÇ Asset Path ¸ñ·ÏÀ» °¡Á®¿É´Ï´Ù.
+        // 1. í´ë” ë‚´ ëª¨ë“  TextAsset íŒŒì¼ì˜ Asset Path ëª©ë¡ì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
         string[] assetGuids = AssetDatabase.FindAssets($"t:TextAsset", new[] { csvFolderPath });
 
         if (assetGuids.Length == 0)
         {
-            Debug.LogWarning($"[Generator WARNING] °æ·Î '{csvFolderPath}'¿¡¼­ TextAsset ÆÄÀÏÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù.");
-            EditorUtility.DisplayDialog("Å¬·¡½º »ı¼º ¿Ï·á",
-                                        $"°æ·Î '{csvFolderPath}'¿¡¼­ CSV ÆÄÀÏÀ» Ã£Áö ¸øÇß½À´Ï´Ù.",
-                                        "È®ÀÎ");
+            Debug.LogWarning($"[Generator WARNING] ê²½ë¡œ '{csvFolderPath}'ì—ì„œ TextAsset íŒŒì¼ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+            EditorUtility.DisplayDialog("í´ë˜ìŠ¤ ìƒì„± ì™„ë£Œ",
+                                        $"ê²½ë¡œ '{csvFolderPath}'ì—ì„œ CSV íŒŒì¼ì„ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.",
+                                        "í™•ì¸");
             return;
         }
 
         int successCount = 0;
 
-        // 2. °¢ TextAsset ÆÄÀÏ¿¡ ´ëÇØ ÆÄ½Ì ¹× »ı¼º ¹İº¹
+        // 2. ê° TextAsset íŒŒì¼ì— ëŒ€í•´ íŒŒì‹± ë° ìƒì„± ë°˜ë³µ
         foreach (string guid in assetGuids)
         {
             string assetPath = AssetDatabase.GUIDToAssetPath(guid);
@@ -39,7 +39,7 @@ public static class TableClassGenerator
 
             if (csvFile == null) continue;
 
-            Debug.Log($"[Generator] CSV ÆÄÀÏ Ã³¸® ½ÃÀÛ: {csvFile.name}");
+            Debug.Log($"[Generator] CSV íŒŒì¼ ì²˜ë¦¬ ì‹œì‘: {csvFile.name}");
 
             CsvClassData data = ParseCsvHeaders(csvFile);
             if (data == null) continue;
@@ -47,20 +47,20 @@ public static class TableClassGenerator
             string className = $"{data.TableName}Data";
             string code = GenerateClassCode(data);
 
-            SaveClassFile(code, className, saveFolderPath, false); // ÀÏ°ı Ã³¸® ½Ã ´ëÈ­ »óÀÚ ºñÈ°¼ºÈ­
+            SaveClassFile(code, className, saveFolderPath, false); // ì¼ê´„ ì²˜ë¦¬ ì‹œ ëŒ€í™” ìƒì ë¹„í™œì„±í™”
             successCount++;
         }
 
-        // 3. ÃÖÁ¾ °á°ú ¾Ë¸²
-        AssetDatabase.Refresh(); // ÃÖÁ¾ÀûÀ¸·Î ÇÑ¹ø¸¸ »õ·Î°íÄ§
-        Debug.Log($"[Generator SUCCESS] ÃÑ {successCount}°³ÀÇ Å¬·¡½º ÆÄÀÏ »ı¼º ¿Ï·á.");
-        EditorUtility.DisplayDialog("Å¬·¡½º »ı¼º ¿Ï·á",
-                                    $"ÃÑ {successCount}°³ÀÇ Å×ÀÌºí Å¬·¡½º ÆÄÀÏÀÌ ´ÙÀ½ °æ·Î¿¡ »ı¼ºµÇ¾ú½À´Ï´Ù:\n{saveFolderPath}",
-                                    "È®ÀÎ");
+        // 3. ìµœì¢… ê²°ê³¼ ì•Œë¦¼
+        AssetDatabase.Refresh(); // ìµœì¢…ì ìœ¼ë¡œ í•œë²ˆë§Œ ìƒˆë¡œê³ ì¹¨
+        Debug.Log($"[Generator SUCCESS] ì´ {successCount}ê°œì˜ í´ë˜ìŠ¤ íŒŒì¼ ìƒì„± ì™„ë£Œ.");
+        EditorUtility.DisplayDialog("í´ë˜ìŠ¤ ìƒì„± ì™„ë£Œ",
+                                    $"ì´ {successCount}ê°œì˜ í…Œì´ë¸” í´ë˜ìŠ¤ íŒŒì¼ì´ ë‹¤ìŒ ê²½ë¡œì— ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤:\n{saveFolderPath}",
+                                    "í™•ì¸");
     }
 
     /// <summary>
-    /// CSV ÆÄÀÏÀ» ÀĞ¾î Å¬·¡½º »ı¼º¿¡ ÇÊ¿äÇÑ µ¥ÀÌÅÍ ±¸Á¶¸¦ ¹İÈ¯ÇÕ´Ï´Ù.
+    /// CSV íŒŒì¼ì„ ì½ì–´ í´ë˜ìŠ¤ ìƒì„±ì— í•„ìš”í•œ ë°ì´í„° êµ¬ì¡°ë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.
     /// </summary>
     public static CsvClassData ParseCsvHeaders(TextAsset csvFile)
     {
@@ -71,27 +71,27 @@ public static class TableClassGenerator
             TableName = Path.GetFileNameWithoutExtension(csvFile.name)
         };
 
-        // 1. CSV ³»¿ëÀ» ÁÙ ´ÜÀ§·Î ºĞ¸®
+        // 1. CSV ë‚´ìš©ì„ ì¤„ ë‹¨ìœ„ë¡œ ë¶„ë¦¬
         string[] lines = csvFile.text.Split(new[] { '\r', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
 
         if (lines.Length <= DataTypeRow)
         {
-            Debug.LogError($"[Generator ERROR] CSV ÆÄÀÏ '{csvFile.name}'ÀÇ Çì´õ ÇàÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
+            Debug.LogError($"[Generator ERROR] CSV íŒŒì¼ '{csvFile.name}'ì˜ í—¤ë” í–‰ì´ ë¶€ì¡±í•©ë‹ˆë‹¤.");
             return null;
         }
 
-        // 2. ÄÃ·³¸í(³»ºÎ¸í)°ú ÀÚ·áÇü Çà ÃßÃâ
+        // 2. ì»¬ëŸ¼ëª…(ë‚´ë¶€ëª…)ê³¼ ìë£Œí˜• í–‰ ì¶”ì¶œ
         string[] internalNames = lines[ColumnInternalNameRow].Split(',').Select(s => s.Trim()).ToArray();
         string[] dataTypes = lines[DataTypeRow].Split(',').Select(s => s.Trim()).ToArray();
 
         int columnCount = internalNames.Length;
         if (columnCount != dataTypes.Length)
         {
-            Debug.LogError($"[Generator ERROR] ÄÃ·³¸í({columnCount})°ú ÀÚ·áÇü({dataTypes.Length})ÀÇ ¼ö°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+            Debug.LogError($"[Generator ERROR] ì»¬ëŸ¼ëª…({columnCount})ê³¼ ìë£Œí˜•({dataTypes.Length})ì˜ ìˆ˜ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return null;
         }
 
-        // 3. ÄÃ·³ Á¤ÀÇ ¸®½ºÆ® »ı¼º
+        // 3. ì»¬ëŸ¼ ì •ì˜ ë¦¬ìŠ¤íŠ¸ ìƒì„±
         for (int i = 0; i < columnCount; i++)
         {
             string name = internalNames[i];
@@ -99,7 +99,7 @@ public static class TableClassGenerator
 
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(type))
             {
-                // ÀÌ¸§ÀÌ³ª Å¸ÀÔÀÌ ºñ¾îÀÖ´Â ÄÃ·³Àº ¹«½Ã
+                // ì´ë¦„ì´ë‚˜ íƒ€ì…ì´ ë¹„ì–´ìˆëŠ” ì»¬ëŸ¼ì€ ë¬´ì‹œ
                 continue;
             }
 
@@ -110,11 +110,11 @@ public static class TableClassGenerator
     }
 
     /// <summary>
-    /// CSV ÀÚ·áÇü ¹®ÀÚ¿­À» C# Å¸ÀÔ ¹®ÀÚ¿­·Î º¯È¯ÇÕ´Ï´Ù.
+    /// CSV ìë£Œí˜• ë¬¸ìì—´ì„ C# íƒ€ì… ë¬¸ìì—´ë¡œ ë³€í™˜í•©ë‹ˆë‹¤.
     /// </summary>
     private static string ConvertCSharpType(string csvType)
     {
-        // ¼Ò¹®ÀÚ·Î º¯È¯ÇÏ¿© ºñ±³
+        // ì†Œë¬¸ìë¡œ ë³€í™˜í•˜ì—¬ ë¹„êµ
         switch (csvType.ToLower())
         {
             case "int":
@@ -131,7 +131,7 @@ public static class TableClassGenerator
     }
 
     /// <summary>
-    /// CsvClassData¸¦ ±â¹İÀ¸·Î C# Å¬·¡½º ÄÚµå¸¦ »ı¼ºÇÕ´Ï´Ù.
+    /// CsvClassDataë¥¼ ê¸°ë°˜ìœ¼ë¡œ C# í´ë˜ìŠ¤ ì½”ë“œë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
     /// </summary>
     public static string GenerateClassCode(CsvClassData data)
     {
@@ -141,10 +141,10 @@ public static class TableClassGenerator
         sb.AppendLine($"public class {className} : TableBase");
         sb.AppendLine("{");
 
-        // ÄÃ·³ ¼Ó¼º Ãß°¡
+        // ì»¬ëŸ¼ ì†ì„± ì¶”ê°€
         foreach (var col in data.Columns)
         {
-            // public auto property »ç¿ë (TableParser¿¡¼­ ¸®ÇÃ·º¼ÇÀ¸·Î °ªÀ» Ã¤¿ì±â À§ÇÔ)
+            // public auto property ì‚¬ìš© (TableParserì—ì„œ ë¦¬í”Œë ‰ì…˜ìœ¼ë¡œ ê°’ì„ ì±„ìš°ê¸° ìœ„í•¨)
             sb.AppendLine($"    public {col.Type} {col.Name} {{ get; set; }}");
         }
 
@@ -154,41 +154,41 @@ public static class TableClassGenerator
     }
 
     /// <summary>
-    /// »ı¼ºµÈ C# ÄÚµå¸¦ ÆÄÀÏ·Î ÀúÀåÇÕ´Ï´Ù.
+    /// ìƒì„±ëœ C# ì½”ë“œë¥¼ íŒŒì¼ë¡œ ì €ì¥í•©ë‹ˆë‹¤.
     /// </summary>
-    /// <param name="code">ÀúÀåÇÒ C# Å¬·¡½º ÄÚµå</param>
-    /// <param name="className">»ı¼ºµÉ Å¬·¡½º ÀÌ¸§</param>
-    /// <param name="savePath">ÀúÀåÇÒ Æú´õ °æ·Î</param>
-    /// <param name="dialogEnabled">ÀúÀå ¼º°ø/½ÇÆĞ ´ëÈ­ »óÀÚ¸¦ Ç¥½ÃÇÒÁö ¿©ºÎ</param>
+    /// <param name="code">ì €ì¥í•  C# í´ë˜ìŠ¤ ì½”ë“œ</param>
+    /// <param name="className">ìƒì„±ë  í´ë˜ìŠ¤ ì´ë¦„</param>
+    /// <param name="savePath">ì €ì¥í•  í´ë” ê²½ë¡œ</param>
+    /// <param name="dialogEnabled">ì €ì¥ ì„±ê³µ/ì‹¤íŒ¨ ëŒ€í™” ìƒìë¥¼ í‘œì‹œí• ì§€ ì—¬ë¶€</param>
     public static void SaveClassFile(string code, string className, string savePath, bool dialogEnabled = true)
     {
-        // ÆÄÀÏ °æ·Î ¼³Á¤
+        // íŒŒì¼ ê²½ë¡œ ì„¤ì •
         string fullPath = Path.Combine(savePath, $"{className}.cs");
 
         try
         {
-            // Æú´õ°¡ ¾øÀ¸¸é »ı¼º
+            // í´ë”ê°€ ì—†ìœ¼ë©´ ìƒì„±
             Directory.CreateDirectory(savePath);
             File.WriteAllText(fullPath, code, Encoding.UTF8);
 
             if (dialogEnabled)
             {
-                // Unity ¿¡µğÅÍ¿¡ º¯°æ »çÇ×À» ¾Ë¸²
+                // Unity ì—ë””í„°ì— ë³€ê²½ ì‚¬í•­ì„ ì•Œë¦¼
                 AssetDatabase.Refresh();
-                Debug.Log($"[Generator SUCCESS] Å¬·¡½º ÆÄÀÏ »ı¼º ¿Ï·á: {fullPath}");
-                EditorUtility.DisplayDialog("Å¬·¡½º »ı¼º ¼º°ø",
-                                            $"'{className}.cs' ÆÄÀÏÀÌ ´ÙÀ½ °æ·Î¿¡ »ı¼ºµÇ¾ú½À´Ï´Ù:\n{savePath}",
-                                            "È®ÀÎ");
+                Debug.Log($"[Generator SUCCESS] í´ë˜ìŠ¤ íŒŒì¼ ìƒì„± ì™„ë£Œ: {fullPath}");
+                EditorUtility.DisplayDialog("í´ë˜ìŠ¤ ìƒì„± ì„±ê³µ",
+                                            $"'{className}.cs' íŒŒì¼ì´ ë‹¤ìŒ ê²½ë¡œì— ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤:\n{savePath}",
+                                            "í™•ì¸");
             }
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"[Generator ERROR] ÆÄÀÏ ÀúÀå ½ÇÆĞ: {e.Message}");
+            Debug.LogError($"[Generator ERROR] íŒŒì¼ ì €ì¥ ì‹¤íŒ¨: {e.Message}");
             if (dialogEnabled)
             {
-                EditorUtility.DisplayDialog("Å¬·¡½º »ı¼º ½ÇÆĞ",
-                                            $"ÆÄÀÏ ÀúÀå Áß ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù:\n{e.Message}",
-                                            "È®ÀÎ");
+                EditorUtility.DisplayDialog("í´ë˜ìŠ¤ ìƒì„± ì‹¤íŒ¨",
+                                            $"íŒŒì¼ ì €ì¥ ì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤:\n{e.Message}",
+                                            "í™•ì¸");
             }
         }
     }

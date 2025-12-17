@@ -5,11 +5,14 @@ public static class MeshCombineSystem
 {
     public static void Combine(Transform root)
     {
+        //생성된 오브젝트들의 머티리얼 지정할 메쉬를 구분지을 Dictionary
         Dictionary<Material, List<MeshFilter>> groups =
             new Dictionary<Material, List<MeshFilter>>();
 
+        //합칠 대상이 될 오브젝트들의 Mesh들.
         MeshFilter[] filters = root.GetComponentsInChildren<MeshFilter>();
 
+        //합칠 대상을 담을 리스트.
         var combine = new List<CombineInstance>();
 
         foreach (MeshFilter filter in filters)
