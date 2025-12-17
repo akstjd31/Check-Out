@@ -49,7 +49,7 @@ public class StorageManager : Singleton<StorageManager>
             return;
         }
 
-        Item item = inventory.MoveItem(index);
+        ItemTableData item = inventory.MoveItem(index);
 
         if (item == null) return;
 
@@ -78,7 +78,7 @@ public class StorageManager : Singleton<StorageManager>
             return;
         }
 
-        Item item = storage.MoveItem(index);
+        ItemTableData item = storage.MoveItem(index);
 
         if (item == null) return;
 

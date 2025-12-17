@@ -8,7 +8,7 @@ public class StoreManager : Singleton<StoreManager>
     [SerializeField] private Inventory inventory;
 
     // 아이템 구매
-    public void BuyItem(Item item)
+    public void BuyItem(ItemTableData item)
     {
         if (item == null) return;
 
@@ -48,7 +48,7 @@ public class StoreManager : Singleton<StoreManager>
 
         if (inventory.slots[index] == null) return;
 
-        Item item = inventory.MoveItem(index);
+        ItemTableData item = inventory.MoveItem(index);
 
         if (item == null) return;
 

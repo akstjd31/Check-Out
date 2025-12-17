@@ -18,23 +18,33 @@ public class Item : Interactable, IItem
 
     private SpriteRenderer spriteRenderer;
 
+    public ItemTableData data;
+
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+      
     }
 
     public void Init(ItemTableData itemTable)
     {
-        ID = itemTable.id;
-        Type = (ItemType)Enum.Parse(typeof(ItemType), itemTable.itemType);
-        Name = itemTable.itemName;
-        Desc = itemTable.itemDescription;
-        Sellable = itemTable.isCanSell;
-        SellPrice = itemTable.sellPrice;
-        ImgPath = itemTable.imgPath;
+        data = itemTable;
+        ID = data.id;
+        Type = (ItemType)Enum.Parse(typeof(ItemType), data.itemType);
+        Name = data.itemName;
+        gameObject.name = Name;
+        Desc = data.itemDescription;
+        Sellable = data.isCanSell;
+        SellPrice = data.sellPrice;
+        ImgPath = data.imgPath;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer == null) return;
 
         Sprite sprite = Resources.Load<Sprite>(ImgPath);
         spriteRenderer.sprite = sprite;
+
+        Debug.Log($"ID : {ID} 와 이름 : {Name} 이 성공적으로 들어갔습니다");
     }
 
     public override void OnFocusEnter()
@@ -55,7 +65,7 @@ public class Item : Interactable, IItem
 
         if (success)
         {
-
+            
         }
     }
 }
