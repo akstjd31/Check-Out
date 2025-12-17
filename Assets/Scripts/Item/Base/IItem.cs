@@ -1,10 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum ItemType
 {
-    General,
-    Consumable,
-    Gadget
+    General = 1,
+    Consumable = 2,
+    Gadget = 3
 }
 
 public interface IItem
@@ -15,5 +15,5 @@ public interface IItem
     string Desc { get; }
     bool Sellable { get; }
     int SellPrice { get; }
-    int BuyPrice { get; }
+    string ImgPath { get; }
 }

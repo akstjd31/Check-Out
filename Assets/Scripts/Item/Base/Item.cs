@@ -3,25 +3,40 @@ using System;
 
 public class Item : Interactable, IItem
 {
-    [SerializeField] ItemTableData itemTableData;
+    public int ID { get; private set; }
+    public ItemType Type { get; private set; }
 
-    [SerializeField] private int sellPrice;
-    [SerializeField] private int buyPrice;
+    public string Name { get; private set; }
 
-    public int ID => itemTableData.id;
+    public string Desc { get; private set; }
 
-    public ItemType Type => (ItemType)Enum.Parse(typeof(ItemType),itemTableData.itemType);
+    public bool Sellable { get; private set; }
 
-    public string Name => itemTableData.itemName;
+    public int SellPrice { get; private set; }
 
-    public string Desc => itemTableData.itemDescription;
+    public string ImgPath { get; private set; }
 
-    public bool Sellable => itemTableData.isCanSell;
+    private SpriteRenderer spriteRenderer;
 
-    public int SellPrice => sellPrice;
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
-    public int BuyPrice => buyPrice;
-    
+    public void Init(ItemTableData itemTable)
+    {
+        ID = itemTable.id;
+        Type = (ItemType)Enum.Parse(typeof(ItemType), itemTable.itemType);
+        Name = itemTable.itemName;
+        Desc = itemTable.itemDescription;
+        Sellable = itemTable.isCanSell;
+        SellPrice = itemTable.sellPrice;
+        ImgPath = itemTable.imgPath;
+
+        Sprite sprite = Resources.Load<Sprite>(ImgPath);
+        spriteRenderer.sprite = sprite;
+    }
+
     public override void OnFocusEnter()
     {
         // 상호작용할 키나 하이라이트 기능
