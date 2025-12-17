@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
@@ -10,6 +10,9 @@ public class Spawn3DPrefabTile : TileBase
 
     [Header("타일 종류")]
     public MapNodeType nodeType;
+
+    [Header("구분 전용 - 고유번호")]
+    public int index = -1;
 
     /// <summary>
     /// 타일의 데이터를 얻어오기 위한 GetTileData 메서드입니다

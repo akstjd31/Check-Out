@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
@@ -157,7 +157,8 @@ public class MapBakeTool : EditorWindow
             {
                 cell = pos,
                 world = tilemap.GetCellCenterWorld(pos),
-                type = Convert(tile.nodeType)
+                type = Convert(tile.nodeType),
+                index = tile.index
             };
             Debug.Log($"Collected {nodes.Count} nodes");
         }
@@ -188,13 +189,50 @@ public class MapBakeTool : EditorWindow
 
                 //바라보고 있는 방향에 이웃 노드가 있다면 방일 경우 문을, 아닐 경우 벽을 생성
                 if (node.type == neighbor.type)
-                    continue;
-                if (IsPathRoomPair(node, neighbor))
-                    SpawnDoorBetween(node, dir);
+                {
+                    if(node.type == NodeType.Room)
+                    {
+                        if (node.index == neighbor.index)
+                            continue;
+                        else
+                        {
+                            if (node.index == neighbor.index + 4 || node.index + 4 == neighbor.index || neighbor.index >= 5)
+                                continue;
+                            else if(node.index <= 4 && neighbor.index <= 4)
+                            {
+                                SpawnWallBetween(node, dir);
+                                continue;
+                            }
+                            else if (node.index >= 5)
+                            {
+                                SpawnDoorBetween(node, dir);
+                                continue;
+                            }
+                        }
+                    }
+                    else
+                        continue;
+                }
+                else if (IsPathRoomPair(node, neighbor))
+                {
+                    if (node.index == neighbor.index)
+                    {
+                        SpawnDoorBetween(node, dir);
+                        continue;
+                    }
+                    else
+                    {
+                        SpawnWallBetween(node, dir);
+                        continue;
+                    }
+                }
                 else if (node.type == NodeType.Exit || neighbor.type == NodeType.Exit) 
                     continue;
                 else
+                {
                     SpawnWallBetween(node, dir);
+                    continue;
+                }
             }
         }
     }
