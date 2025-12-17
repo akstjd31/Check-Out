@@ -1,6 +1,7 @@
-using UnityEngine;
+using System;
 
-public class ItemSaveData
+[Serializable]
+public class ItemSaveData : SaveBase
 {
-    
+    public int itemId;
 }
