@@ -7,6 +7,7 @@ public class StatController : MonoBehaviour
     private int staminaRecoverIdle = 10;                    // 멈춰있을때 초당 회복
     private int staminaRecoverWalk = 5;                     // 걸을때 초당 회복
     private int defaultExhaustTime = 3;                     // 탈진 지속 시간
+    public int CurrentSanity { get; private set; }          // 현재 정신력
     public int CurrentRecoverStamina { get; private set; }  // 현재 스태미나 회복력
     public int CurrentStamina { get; private set; }         // 현재 스태미나
     public float CurrentMoveSpeed { get; private set; }     // 현재 이동 속도
