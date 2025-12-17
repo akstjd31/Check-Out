@@ -5,6 +5,8 @@ public class Store : MonoBehaviour
     [SerializeField] Item[] itemList;
     [SerializeField] int storeSize = 5;
 
+    private int buyPrice;
+
     
     public void SetItemList(int size)
     {
@@ -15,7 +17,7 @@ public class Store : MonoBehaviour
     public int GetBuyPrice(Item item)
     {
         if (item == null) return 0;
-        return item.BuyPrice;
+        return buyPrice;
     }
 
     // 아이템 판매 가격

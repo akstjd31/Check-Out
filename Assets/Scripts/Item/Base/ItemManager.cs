@@ -1,23 +1,60 @@
+﻿using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class ItemManager : Singleton<ItemManager>
 {
-    [SerializeField] private Item[] items;
+    [SerializeField] private Item itemPrefab;
+
+    private int length = 0;
+    private ObjPool<Item> itemPool;
+    private Dictionary<int, ItemTableData> dataID;
     
-    ObjPool<Item> itemPool;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        itemPool = new ObjPool<Item>();
+        dataID = new Dictionary<int, ItemTableData>();
+    }
 
     private void Start()
     {
-        SetPool();
+        var itemTable = TableManager.Instance.GetTable<int, ItemTableData>();
+
+        if (itemTable == null)
+        {
+            Debug.Log("아이템 테이블이 null 입니다");
+            return;
+        }
+
+        foreach (var targetId in TableManager.Instance.GetAllIds(itemTable))
+        {
+            ItemTableData ItemTableData = itemTable[targetId];
+
+            if (ItemTableData != null)
+            {
+                dataID[ItemTableData.id] = ItemTableData;
+            }
+        }
+
+        if (itemPrefab == null) return;
+
+        itemPool.CreatePool(itemPrefab, 10, transform);
     }
 
-    private void SetPool()
+    public Item SpawnItem(int itemID, Vector3 pos)
     {
-        if (items == null)
-            return;
-        foreach (var item in items)
-        {
-            itemPool.CreatePool(item, 10, transform);
-        }
+        if (dataID.TryGetValue(itemID, out var data) == false) return null;
+
+        Item item = itemPool.GetObject(itemPrefab);
+        item.transform.position = pos;
+        item.Init(data);
+        return item;
+    }
+
+    public void ReturnItem(Item item)
+    {
+        itemPool.ReturnObject(itemPrefab, item);
     }
 }

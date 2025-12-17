@@ -15,5 +15,5 @@ public interface IItem
     string Desc { get; }
     bool Sellable { get; }
     int SellPrice { get; }
-    int BuyPrice { get; }
+    string ImgPath { get; }
 }
