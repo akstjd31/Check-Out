@@ -38,7 +38,7 @@ public class MonsterMovement : MonoBehaviour
         //Debug.Log(gameObject.name);
         Init();
         // 다음 목표 지점으로 이동
-        //PatrolNextOne();
+        PatrolNextOne();
         //TestLoop();
     }
 
