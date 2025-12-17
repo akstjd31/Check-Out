@@ -41,22 +41,31 @@ public class InventoryManager : Singleton<InventoryManager>
         }
 
         Debug.Log($"{inventoryIndex} 번째 칸의 인벤토리에 넣는 중");
-        inventory.GetItem(item, inventoryIndex);
-        Debug.Log($"{item.name}을 성공적으로 넣었습니다");
+        inventory.GetItem(item.data, inventoryIndex);
+        Debug.Log($"{item.Name}을 성공적으로 넣었습니다");
 
         return true;
+    }
+
+    // 테스트용
+    public void TestPickUp(Item item)
+    {
+        PickUpItem(item);
     }
 
     // 아이템 버리기
     public void DropItem(int index)
     {
         if (inventory == null) return;
-
+        Debug.Log("성공적 1");
         if (player == null) return;
+        Debug.Log("성공적 2");
 
-        Item item = inventory.MoveItem(index);
+        ItemTableData item = inventory.MoveItem(index);
+        Debug.Log("성공적 6");
 
         if (item == null) return;
+
     }
     
     // 인벤토리 슬롯 선택
@@ -68,7 +77,7 @@ public class InventoryManager : Singleton<InventoryManager>
         if (index < 0 || index >= inventory.slots.Length)
             return;
 
-        Item currentItem = inventory.slots[index];
+        ItemTableData currentItem = inventory.slots[index];
 
         Debug.Log(currentItem);
 
@@ -85,23 +94,23 @@ public class InventoryManager : Singleton<InventoryManager>
     }
 
     // 손에 들고있는 아이템
-   // public void HandItem(Item item)
-   // {
-   //    if (item == null)
-   //         return;
+    // public void HandItem(ItemTable item)
+    // {
+    //    if (item == null)
+    //         return;
 
-   //    if (player == null)
-   //         return;
+    //    if (player == null)
+    //         return;
 
-   //     if (playerHandTransform == null)
-   //         return;
+    //     if (playerHandTransform == null)
+    //         return;
 
-   //     item.gameObject.SetActive(true);
-   //     item.transform.position = playerHandTransform.position;
-   // }
+    //     item.gameObject.SetActive(true);
+    //     item.transform.position = playerHandTransform.position;
+    // }
 
-   // public void UpdateInventory(int index)
-   // {
-   //
-   // }
+    // public void UpdateInventory(int index)
+    // {
+    //
+    // }
 }

@@ -2,7 +2,7 @@
 
 public class Inventory : MonoBehaviour
 {
-    public Item[] slots;
+    [SerializeField] public ItemTableData[] slots;
 
     private int inventorySize = 4;
 
@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviour
             return;
         }
             
-        slots = new Item[size];
+        slots = new ItemTableData[size];
     }
 
     // 인벤토리가 비어있는지 체크
@@ -50,7 +50,7 @@ public class Inventory : MonoBehaviour
     }
 
     // 아이템 가져오기
-    public void GetItem(Item item, int index)
+    public void GetItem(ItemTableData item, int index)
     {
         if (slots == null)
         {
@@ -74,25 +74,31 @@ public class Inventory : MonoBehaviour
         }
              
         slots[index] = item;
+        Debug.Log($"{item.id}을 {index + 1}슬롯에 성공적으로 넣었습니다");
         return;
     }
 
     // 아이템 이동(버리거나 창고)
-    public Item MoveItem(int index)
+    public ItemTableData MoveItem(int index)
     {
         if (slots == null)
             return null;
+        Debug.Log("성공적 3");
+
 
         if (index < 0 || index >= slots.Length)
             return null;
+        Debug.Log("성공적 4");
+
 
         if (slots[index] == null)
             return null;
+        Debug.Log("성공적 5");
 
-        Item item = slots[index];
+        ItemTableData item = slots[index];
 
         RemoveItem(index);
-
+        Debug.Log($"{item.id}을 {index + 1}슬롯에서 성공적으로 버렸습니다");
         return item;
     }
 

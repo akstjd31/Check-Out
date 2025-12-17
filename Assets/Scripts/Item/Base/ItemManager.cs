@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class ItemManager : Singleton<ItemManager>
 {
@@ -41,6 +40,11 @@ public class ItemManager : Singleton<ItemManager>
         if (itemPrefab == null) return;
 
         itemPool.CreatePool(itemPrefab, 10, transform);
+    }
+
+    public void Test(int itemid)
+    {
+        SpawnItem(itemid+1000, transform.position);
     }
 
     public Item SpawnItem(int itemID, Vector3 pos)

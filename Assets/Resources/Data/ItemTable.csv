@@ -1,7 +1,7 @@
 ﻿아이템 ID,아이템 유형,아이템 이름,아이템 설명,판매 가능 여부,아이템 판매 가격,스프라이트 이미지 경로
 id,itemType,itemName,itemDescription,isCanSell,sellPrice,imgPath
 int,string,string,string,bool,int,string
-1001,General,최고급 커피 원두,신선하고 풍부한 향을 가진 스페셜티 원두,1,3000,ItemSprite/img_documents
+1001,General,최고급 커피 원두,신선하고 풍부한 향을 가진 스페셜티 원두,1,3000,ItemSprite/img_coffee
 1002,General,향수,희귀한 재료로 만들어진 매혹적인 향수,1,5000,ItemSprite/img_perfume
 1003,General,수입 위스키,깊은 숙성 기간을 거친 최고급 수입 위스키,1,8000,ItemSprite/img_whisky
 1004,General,진주 목걸이,은은한 광택을 자랑하는 진주 목걸이,1,12000,ItemSprite/img_jewellery02
