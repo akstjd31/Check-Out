@@ -12,7 +12,6 @@ public enum PlayerState
 public class PlayerCtrl : MonoBehaviour
 {
     [Header("Component")]
-    [SerializeField] private PlayerView playerView;
     private PlayerInput playerInput;
     private InputAction moveAction, runAction, interactiveAction;
     private StatController statController;
