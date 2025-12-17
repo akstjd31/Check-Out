@@ -1,9 +1,8 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    [SerializeField] protected TextMeshProUGUI text;
+    protected string promptText;
 
     // 플레이어가 바라봤을때
     public abstract void OnFocusEnter();

@@ -5,12 +5,12 @@ public class Examinable : Interactable
 {
     public override void OnFocusEnter()
     {
-        text.text = "Press [E] to Examine";
+        promptText = "Press [E] to Examine";
     }
 
     public override void OnFocusExit()
     {
-        text.text = "";
+        promptText = "";
     }
 
     public override void Interact()
