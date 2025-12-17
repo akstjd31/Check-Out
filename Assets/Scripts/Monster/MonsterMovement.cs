@@ -11,8 +11,8 @@ public class MonsterMovement : MonoBehaviour
     [Header("Speed")]
     [SerializeField] private float moveSpeed;
     [Header("delay")]
-    public int minimumStopDelay = 2;
-    public int maxStopDelay = 3;
+    [SerializeField] int minimumStopDelay = 2;
+    [SerializeField] int maxStopDelay = 3;
     // 길찾기 관련 멤버
     private Queue<Transform> patrolList;
     private Transform currentDestination;
@@ -28,13 +28,17 @@ public class MonsterMovement : MonoBehaviour
     private System.Random patrolOrder;
     private System.Random stopDelay;
     private int tempRandom = 0;
-
+    // 몬스터가 멈췄을 경우 진행할 타이머
+    private float exceptionTimer = 0;
+    [Header("Exception")]
+    // 몬스터 움직이지 않는지 판단할 시간
+    [SerializeField]private float isExceptionTimer = 7;
     private void Start()
     {
         //Debug.Log(gameObject.name);
         Init();
         // 다음 목표 지점으로 이동
-        PatrolNextOne();
+        //PatrolNextOne();
         //TestLoop();
     }
 
@@ -50,8 +54,20 @@ public class MonsterMovement : MonoBehaviour
             Debug.Log($"currentDestination : {currentDestination.name}");
             // stopDelay만큼 멈춰있음
             StartCoroutine(Stop());
-            
         }
+    }
+
+    private void Update()
+    {
+        // 만약 몬스터가 멈춰있을 경우 타이머를 진행
+        if (navMeshAgent.velocity == Vector3.zero && exceptionTimer < 7f) {exceptionTimer += Time.deltaTime;}
+        // 몬스터가 일정 시간 동안 멈춰있을 경우 자체적으로 배회 진행
+        else if (navMeshAgent.velocity == Vector3.zero && exceptionTimer >= 7f)
+        {
+            // 타이머 초기화
+            PatrolNextOne();
+        }
+        else { return; }
     }
 
     private void Init()
@@ -59,6 +75,8 @@ public class MonsterMovement : MonoBehaviour
         // 내비매쉬 에이전트 겟 컴포넌트 후 정지 상태로 변경
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.isStopped = true;
+        // 속도 설정
+        navMeshAgent.speed = moveSpeed;
 
         // 인풋 시스템 설정
         monsterInput = GetComponent<PlayerInput>();
