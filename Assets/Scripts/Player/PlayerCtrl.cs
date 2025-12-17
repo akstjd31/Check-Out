@@ -26,8 +26,6 @@ public class PlayerCtrl : MonoBehaviour
     private bool isRunning;                                 // 달리기 중인지?
     private bool isExhausted;                               // 탈진 상태인지?
     private float exhaustTimer;                             // 탈진 지속시간
-    [SerializeField] private TextMeshProUGUI staminaText;   // 테스트용 스태미나 텍스트
-    
     private void Awake()
     {
         playerInput = this.GetComponent<PlayerInput>();
@@ -74,15 +72,6 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Update()
     {
-        // 테스트용
-        //staminaText.text = "Stamina: " + statController.CurrentStamina;
-        
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            GameManager.Instance.ChangeState(GameState.Loading);
-        }
-
-
         // 탈진 상태일때 타이머 계산
         if (isExhausted)
             StartExhaustTime();

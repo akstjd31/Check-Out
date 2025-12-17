@@ -8,7 +8,7 @@ enum DoorType
 public class Door : Interactable
 {
     [SerializeField] private DoorType currentDoorType;
-    string[] doorContext = new string[2]
+    string[] doorText = new string[2]
     {
         "Press [E] to Open",
         "Press [E] to Close"
@@ -17,13 +17,13 @@ public class Door : Interactable
     // 문을 바라보는 상태
     public override void OnFocusEnter()
     {
-        text.text = doorContext[(int)currentDoorType];
+        promptText = doorText[(int)currentDoorType];
     }
 
     // 문에서 벗어날 때
     public override void OnFocusExit()
     {
-        text.text = "";
+        promptText = "";
     }
 
     // 실제 상호작용
@@ -31,6 +31,6 @@ public class Door : Interactable
     {
         // 애니메이션 수행
         currentDoorType = currentDoorType.Equals(DoorType.Closed) ? DoorType.Open : DoorType.Closed;
-        text.text = doorContext[(int)currentDoorType];
+        promptText = doorText[(int)currentDoorType];
     }
 }

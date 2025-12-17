@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteractor : MonoBehaviour
 {
+    [SerializeField] private PlayerView playerView;
     [SerializeField] private GameObject playerHead;
-    [SerializeField] private TextMeshProUGUI text;  // 테스트용
     [SerializeField] private float distance = 2f;
 
     private LayerMask interactiveMask;
@@ -33,7 +33,8 @@ public class PlayerInteractor : MonoBehaviour
                 interactableObj.OnFocusEnter();
         }
 
-        text.text = interactableObj == null ? "[null]" : $"[{interactableObj.name}]";
+        playerView.UpdateObjNameText(interactableObj == null ? "[null]" : $"[{interactableObj.name}]");
+        playerView.UpdateInteractionText(interactableObj?.GetPromptText());
     }
 
     // 플레이어 정면 상호작용가능 물체 감지
