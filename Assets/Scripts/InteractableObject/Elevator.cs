@@ -1,11 +1,10 @@
 using UnityEngine;
 
-// 오브젝트 조사 관련
-public class Examinable : Interactable
+public class Elevator : Interactable
 {
     public override void OnFocusEnter()
     {
-        promptText = "Press [E] to Examine";
+        promptText = "Press [E] to Use Elevator";
     }
 
     public override void OnFocusExit()
@@ -15,5 +14,6 @@ public class Examinable : Interactable
 
     public override void Interact()
     {
+        GameManager.Instance.ChangeState(GameState.Loading);
     }
 }
