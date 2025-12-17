@@ -9,7 +9,8 @@ public class MapBakeTool : EditorWindow
     [SerializeField] GameObject exitPrefab;
     [SerializeField] GameObject pathPrefab;
     [SerializeField] GameObject roomPrefab;
-    [SerializeField] GameObject wallPrefab;
+    [SerializeField] GameObject normalWallPrefab;
+    [SerializeField] GameObject roomWallPrefab;
     [SerializeField] GameObject doorPrefab;
 
     //베이크 진행할 타일맵
@@ -57,8 +58,11 @@ public class MapBakeTool : EditorWindow
         roomPrefab = (GameObject)EditorGUILayout.ObjectField(
             "Room Floor Prefab", roomPrefab, typeof(GameObject), false);
 
-        wallPrefab = (GameObject)EditorGUILayout.ObjectField(
-            "Wall Prefab", wallPrefab, typeof(GameObject), false);
+        normalWallPrefab = (GameObject)EditorGUILayout.ObjectField(
+            "Normal Wall Prefab", normalWallPrefab, typeof(GameObject), false);
+
+        roomWallPrefab = (GameObject)EditorGUILayout.ObjectField(
+            "Room Wall Prefab", roomWallPrefab, typeof(GameObject), false);
 
         doorPrefab = (GameObject)EditorGUILayout.ObjectField(
             "Door Prefab", doorPrefab, typeof(GameObject), false);
@@ -198,12 +202,12 @@ public class MapBakeTool : EditorWindow
                         {
                             if (node.index == neighbor.index + 4 || node.index + 4 == neighbor.index || neighbor.index >= 5)
                                 continue;
-                            else if(node.index <= 4 && neighbor.index <= 4)
+                            else if (node.index <= 4 && neighbor.index <= 4)
                             {
                                 SpawnWallBetween(node, dir);
                                 continue;
                             }
-                            else if (node.index >= 5)
+                            else if (node.index >= 5 || neighbor.index >= 5)
                             {
                                 SpawnDoorBetween(node, dir);
                                 continue;
@@ -217,6 +221,7 @@ public class MapBakeTool : EditorWindow
                 {
                     if (node.index == neighbor.index)
                     {
+                        if(neighbor.type == NodeType.Room)
                         SpawnDoorBetween(node, dir);
                         continue;
                     }
@@ -245,17 +250,20 @@ public class MapBakeTool : EditorWindow
     void SpawnWallBetween(MapNode node, Vector3Int dir)
     {
         //해당 칸의 절반 크기만큼의 길이를 구하고
-        Vector3 cellHalf = tilemap.transform.TransformVector(tilemap.cellSize * 0.5f);
+        Vector3 cellHalf = tilemap.transform.TransformVector(tilemap.cellSize * 0.45f);
         //XYZ축 기준의 방향을 XZY축 기준으로 변경하여
         Vector3 offset = new Vector3(dir.x * cellHalf.x, 0f, dir.y * cellHalf.y);
         //노드의 좌표에서 특정 방향으로 칸의 절반만큼 이동한 상태에서 벽을 생성한다.
         Vector3 pos = node.world + offset;
 
         GameObject wall =
-            (GameObject)PrefabUtility.InstantiatePrefab(wallPrefab);
+            node.type == NodeType.Room && node.index <= 4?
+            (GameObject)PrefabUtility.InstantiatePrefab(roomWallPrefab):
+            (GameObject)PrefabUtility.InstantiatePrefab(normalWallPrefab);
 
         wall.transform.position = pos;
         wall.transform.rotation = RotationFromDir(dir);
+        wall.transform.localScale = tilemap.cellSize;
         wall.transform.SetParent(mapRoot, true);
     }
     void SpawnDoorBetween(MapNode node, Vector3Int dir)
@@ -264,12 +272,13 @@ public class MapBakeTool : EditorWindow
         Vector3 offset = new Vector3(dir.x * cellHalf.x, 0f, dir.y * cellHalf.y);
         Vector3 pos = node.world + offset;
 
-        GameObject wall =
+        GameObject door =
             (GameObject)PrefabUtility.InstantiatePrefab(doorPrefab);
 
-        wall.transform.position = pos;
-        wall.transform.rotation = RotationFromDir(dir);
-        wall.transform.SetParent(mapRoot, true);
+        door.transform.position = pos;
+        door.transform.rotation = RotationFromDir(dir);
+        door.transform.localScale = tilemap.cellSize;
+        door.transform.SetParent(mapRoot, true);
     }
 
     /// <summary>
@@ -288,7 +297,6 @@ public class MapBakeTool : EditorWindow
                     Spawn(roomPrefab, node.world);
                     break;
                 case NodeType.Exit:
-                    Spawn(pathPrefab, node.world);
                     Spawn(exitPrefab, node.world);
                     break;
                 case NodeType.Empty:
@@ -314,6 +322,7 @@ public class MapBakeTool : EditorWindow
         var go = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
         go.transform.SetParent(mapRoot, true);
         go.transform.position = pos;
+        go.transform.localScale = tilemap.cellSize / 10;
     }
 
     /// <summary>
