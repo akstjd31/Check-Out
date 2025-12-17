@@ -12,6 +12,7 @@ public enum PlayerState
 public class PlayerCtrl : MonoBehaviour
 {
     [Header("Component")]
+    [SerializeField] private PlayerView playerView;
     private PlayerInput playerInput;
     private InputAction moveAction, runAction, interactiveAction;
     private StatController statController;
@@ -26,8 +27,6 @@ public class PlayerCtrl : MonoBehaviour
     private bool isRunning;                                 // 달리기 중인지?
     private bool isExhausted;                               // 탈진 상태인지?
     private float exhaustTimer;                             // 탈진 지속시간
-    [SerializeField] private TextMeshProUGUI staminaText;   // 테스트용 스태미나 텍스트
-    
     private void Awake()
     {
         playerInput = this.GetComponent<PlayerInput>();
