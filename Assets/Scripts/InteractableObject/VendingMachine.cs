@@ -2,18 +2,18 @@
 
 public class VendingMachine : Interactable
 {
-    public override void Interact()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override void OnFocusEnter()
     {
-        throw new System.NotImplementedException();
+        promptText = "Press [E] to Open Shop";
     }
 
     public override void OnFocusExit()
     {
-        throw new System.NotImplementedException();
+        promptText = "";
+    }
+
+    public override void Interact()
+    {
+        // 상점 UI 열기
     }
 }
