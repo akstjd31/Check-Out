@@ -3,7 +3,7 @@
 public class Storage : MonoBehaviour
 {
     [SerializeField] private int storageSize = 16;
-    [SerializeField] public Item[] storageList;
+    [SerializeField] public ItemTableData[] storageList;
 
     private void Start()
     {
@@ -18,7 +18,7 @@ public class Storage : MonoBehaviour
             return;
         }
 
-        storageList = new Item[size];
+        storageList = new ItemTableData[size];
     }
 
     // 창고가 비어있는지 체크
@@ -43,7 +43,7 @@ public class Storage : MonoBehaviour
     }
 
     // 창고에 아이템 넣기
-    public void ItemStorage(Item item, int index)
+    public void ItemStorage(ItemTableData item, int index)
     {
         if (item == null)
             return;
@@ -59,7 +59,7 @@ public class Storage : MonoBehaviour
     }
 
     // 아이템 이동(인벤토리에 넣기)
-    public Item MoveItem(int index)
+    public ItemTableData MoveItem(int index)
     {
         if (storageList == null)
             return null;
@@ -70,7 +70,7 @@ public class Storage : MonoBehaviour
         if (storageList[index] == null)
             return null;
 
-        Item item = storageList[index];
+        ItemTableData item = storageList[index];
 
         RemoveItem(index);
 
