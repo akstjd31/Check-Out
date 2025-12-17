@@ -101,3 +101,7 @@ InitTestScene*.unity*
 # 에셋 포함 X
 Assets/Resources/StoreAssets*
 !Assets/Resources/StoreAssets*.meta
+
+# 아이템 스프라이트 포함 X
+Assets/Resources/ItemSprite*
+!Assets/Resources/ItemSprite*.meta
