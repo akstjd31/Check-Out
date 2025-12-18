@@ -71,12 +71,22 @@ public class MapBakeTool : EditorWindow
         exitPrefab = (GameObject)EditorGUILayout.ObjectField(
             "Exit Prefab", exitPrefab, typeof(GameObject), false);
 
+        if (GUILayout.Button("SetUp"))
+        {
+            SetUp();
+        }
 
         //GUI를 통해 Bake Map을 눌렀을 경우 Bake 메서드 실행.
         if (GUILayout.Button("Bake Map"))
         {
             Bake();
         }
+    }
+
+    void SetUp()
+    {
+        tilemap = FindAnyObjectByType<Tilemap>();
+        mapRoot = FindAnyObjectByType<MapRoot>().transform;
     }
 
     /// <summary>
