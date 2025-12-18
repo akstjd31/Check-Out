@@ -296,9 +296,11 @@ public class MapBakeTool : EditorWindow
         //현재 노드가 벽이며, 그 고유번호가 4 이하인 경우에는 방 내부이므로 방 전용 벽을 생성하고,
         //그 이외의 경우에는 일반 벽을 생성한다.
         GameObject wall =
-            node.type == NodeType.Room && node.index <= 4?
+            node.type == NodeType.Room?
             (GameObject)PrefabUtility.InstantiatePrefab(roomWallPrefab):
             (GameObject)PrefabUtility.InstantiatePrefab(normalWallPrefab);
+
+        CreateColliderOfWall(wall);
 
         //벽의 위치, 회전, 크기와 부모를 정해준다.
         wall.transform.position = pos;
@@ -321,6 +323,34 @@ public class MapBakeTool : EditorWindow
         door.transform.SetParent(mapRoot, true);
     }
 
+    /// <summary>
+    /// 벽 생성 시에 BoxCollider을 추가해주는 메서드입니다.
+    /// </summary>
+    /// <param name="wall">벽 프리팹</param>
+    void CreateColliderOfWall(GameObject wall)
+    {
+        //벽 오브젝트로부터 MeshRenderer을 받아옵니다.
+        //위치를 직접 지정하지 않으려면 빈 오브젝트에 넣어 위치를 바꿔주어야 하므로 자식으로부터 찾아옵니다.
+        var renderer = wall.GetComponentInChildren<MeshRenderer>();
+
+        //발견되지 않으면 반환합니다.
+        if (renderer == null)
+            return;
+
+        //박스의 경계를 지정해 줍니다.
+        Bounds bound = renderer.bounds;
+
+        //해당 벽이 Collider을 가지고 있는 상태인지 확인하고, 가지고 있다면 받아옵니다.
+        BoxCollider collider = wall.GetComponent<BoxCollider>();
+        //존재하지 않아 받아오지 못했다면, BoxCollider을 새로 형성해 줍니다.
+        if(collider == null)
+        collider = wall.AddComponent<BoxCollider>();
+
+        //해당 Collider의 중심 지역은 벽 프리팹의 중앙이 되어야 합니다.
+        collider.center = wall.transform.InverseTransformPoint(bound.center);
+        //해당 Collider의 크기를 벽의 크기와 동일하게 변경합니다.
+        collider.size = bound.size;
+    }
     /// <summary>
     /// 바닥의 노드에 따라 프리팹을 형성합니다.
     /// </summary>

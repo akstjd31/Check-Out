@@ -74,7 +74,9 @@ public static class MeshCombineSystem
             };
             //합칠 대상에 추가
             combine.Add(ci);
-            mf.gameObject.SetActive(false);
+            var renderer = mf.GetComponent<MeshRenderer>();
+            if (renderer != null)
+                renderer.enabled = false;
         }
 
         //합칠 대상이 없으면 반환
@@ -96,19 +98,22 @@ public static class MeshCombineSystem
         combined.AddComponent<MeshRenderer>().sharedMaterial = mat;
 
         //길 노드의 경우 NavMesh 대상에 추가하기 위한 콜라이더 작업 추가.
-        if(combined.name.Contains("Path"))
+        if(combined.name.Contains("Node"))
         {
             combined.AddComponent<MeshCollider>().sharedMesh = combinedMesh;
         }
 
-        //그 외에 경우는, AI가 적용된 대상이 이동할 수 없도록 NavMeshModifier을 통해 걷지 못하는 구역으로 분리.
-        else
+        //방과 탈출구에 관련된 타일 또는 벽은, AI가 적용된 대상이 이동할 수 없도록 NavMeshModifier을 통해 걷지 못하는 구역으로 분리.
+        if (combined.name.Contains("Room") || combined.name.Contains("Exit"))
         {
             var modifier = combined.AddComponent<NavMeshModifier>();
             modifier.overrideArea = true;
             modifier.area = NavMesh.GetAreaFromName("Not Walkable");
         }
-
+        else
+        {
+            Debug.Log("NavMash를 필요로 하지 않는 오브젝트의 생성 완료.");
+        }
             combined.isStatic = true;
     }
 }
