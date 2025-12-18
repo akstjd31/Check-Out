@@ -157,7 +157,7 @@ public class RandomSelector : MonoBehaviour
             random = Random.Range(0, elevators.Length);
             }
             //해당 값 위치로 소환.
-            Instantiate(elevators[i].elevatorPrefab, elevators[i].Position, elevators[i].Rotation);
+            Instantiate(elevators[random].elevatorPrefab, elevators[random].Position, elevators[random].Rotation);
             //배열 내에 있는 엘레베이터크리에이션 코드 중 소환을 완료한 칸의 숫자를 저장.
             spawnedPoint.Add(random);
         }
