@@ -1,6 +1,7 @@
 using Unity.Hierarchy;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class RandomSelector : MonoBehaviour
 {
@@ -120,13 +121,51 @@ public class RandomSelector : MonoBehaviour
             }
         }
     }
-    void SetElevatorActivate()
+    public void SetElevatorActivate()
     {
-        GameObject[] elevators = GameObject.FindGameObjectsWithTag("Elevator");
+        //소환을 반복한 횟수를 저장할 지역변수.
+        int repeatCount = elevatorSpawnCount;
+        //비활성화 되어있는 엘레베이터크리에이션 오브젝트를 포함해 싹 다 불러옴
+        ElevatorCreation[] elevators = FindObjectsByType<ElevatorCreation>(
+            FindObjectsInactive.Include,
+            FindObjectsSortMode.None);
 
-        foreach(GameObject go in elevators)
+        //스폰할 위치를 찾기 위한 리스트.
+        List<int> spawnedPoint = new List<int>();
+
+        //일단 모든 엘레베이터 크리에이션 오브젝트에 적용할 코드
+        for(int i = 0; i<elevators.Length;i++)
         {
-            go.gameObject.SetActive(false);
+            //랜덤 소환 대상이 아닌 경우 고정형이므로 바로 소환.
+            if(elevators[i].isRandom == false)
+            {
+                Instantiate(elevators[i].elevatorPrefab, elevators[i].Position, elevators[i].Rotation);
+                spawnedPoint.Add(i);
+            }
+
+        }
+
+        for(int i = 0; i<repeatCount; i++)
+        {
+        //랜덤값을 저장할 랜덤 지역변수.
+        int random = Random.Range(0, elevators.Length);
+
+            //배열의 (랜덤값) 번째의 엘레베이터크리에이션이 가진 isRandom속성이 false(고정 소환형)이거나
+            //이미 소환한 종류에 포함이 되는 경우 다시 한번 랜덤값을 뽑는다.
+            while(spawnedPoint.Contains(random))
+            {
+            random = Random.Range(0, elevators.Length);
+            }
+            //해당 값 위치로 소환.
+            Instantiate(elevators[i].elevatorPrefab, elevators[i].Position, elevators[i].Rotation);
+            //배열 내에 있는 엘레베이터크리에이션 코드 중 소환을 완료한 칸의 숫자를 저장.
+            spawnedPoint.Add(random);
+        }
+
+        for(int i = 0; i<elevators.Length;i++)
+        {
+            if (!spawnedPoint.Contains(i))
+                Instantiate(elevators[i].elevatorWall, elevators[i].Position, elevators[i].Rotation);
         }
     }
 }
