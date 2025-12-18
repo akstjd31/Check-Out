@@ -1,0 +1,8 @@
+﻿아이디,X좌표,Y좌표,Z좌표,아이템그룹
+id,locationX,locationY,locationZ,itemGroup
+int,float,float,float,int
+3001,0,0,0,1
+3002,3,3,3,1
+3003,30,30,30,2
+3004,50,70,60,2
+3005,70,50,50,3

@@ -28,11 +28,11 @@ Transform:
   m_GameObject: {fileID: 753602095481127051}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.59, z: 0.33}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.15311967, z: -0.56}
+  m_LocalScale: {x: 1, y: 2.551997, z: 2.4037306}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1026049967558348888}
+  m_Father: {fileID: 7616687317669613332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &2276396699614222621
 Camera:
@@ -155,6 +155,8 @@ GameObject:
   - component: {fileID: 5470392613295798520}
   - component: {fileID: 1083620324217761453}
   - component: {fileID: 3439429237133774228}
+  - component: {fileID: 3742200349762913651}
+  - component: {fileID: 4165646660305156088}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -203,7 +205,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!65 &6675731960756902527
 BoxCollider:
@@ -277,8 +279,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCtrl
   currentState: 0
-  sessionBtn: {fileID: 0}
-  staminaText: {fileID: 0}
+  currentSituation: 0
+  playerView: {fileID: 0}
 --- !u!114 &6546698172506151681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,8 +329,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74130c2c071bd7744be2f840070989ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FirstPersonCameraController
-  cameraPivot: {fileID: 7339436886100413944}
+  cameraPivot: {fileID: 7616687317669613332}
+  cameraTransform: {fileID: 7339436886100413944}
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 128
   mouseSensitivity: 120
+  cameraDistance: 0.1
 --- !u!114 &3439429237133774228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,8 +348,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13651a020b238334c9cd461432472372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
+  playerView: {fileID: 0}
   playerHead: {fileID: 753602095481127051}
   distance: 2
+--- !u!114 &3742200349762913651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805bdaf4b5d9afb4fb0fec20b2fd9d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAreaDetector
+--- !u!114 &4165646660305156088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805bdaf4b5d9afb4fb0fec20b2fd9d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAreaDetector
 --- !u!1 &7996910433432002895
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +406,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7339436886100413944}
   - {fileID: 7616687317669613332}
   m_Father: {fileID: 9110932944380609734}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -464,7 +495,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.53, z: 0.34}
   m_LocalScale: {x: 1, y: 0.39185, z: 0.41602}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7339436886100413944}
   m_Father: {fileID: 1026049967558348888}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8923378772953973814

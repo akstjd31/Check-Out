@@ -8,7 +8,8 @@ MonoImporter:
   - exitPrefab: {fileID: 6091175072226573469, guid: 7b177c7e1e352554e88797de7e41a814, type: 3}
   - pathPrefab: {fileID: 5185587972026120639, guid: c890475a7fa0d344abba12cf941ac41b, type: 3}
   - roomPrefab: {fileID: 6021953483713420490, guid: dee398a073cb5904d83135be9545463e, type: 3}
-  - wallPrefab: {fileID: 549924601591905753, guid: 622ac84d5a7faed479f35ad0defc1e53, type: 3}
+  - normalWallPrefab: {fileID: 549924601591905753, guid: 416fd4b2590cdcc40b67d470f353d366, type: 3}
+  - roomWallPrefab: {fileID: 549924601591905753, guid: 231e6d826e45d3c43aa22a10e29f2242, type: 3}
   - doorPrefab: {fileID: 2191688478270519449, guid: 490045cc849c06f4caffd8581870051b, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}

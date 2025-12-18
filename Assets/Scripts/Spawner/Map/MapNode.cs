@@ -7,12 +7,15 @@ public enum NodeType
 }
 public class MapNode
 {
-    [Header("Å¸ÀÏ¸Ê¿¡¼­ÀÇ ÁÂÇ¥")]
+    [Header("íƒ€ì¼ë§µì—ì„œì˜ ì¢Œí‘œ")]
     public Vector3Int cell;
 
-    [Header("¿ùµå ÁÂÇ¥")]
+    [Header("ì›”ë“œ ì¢Œí‘œ")]
     public Vector3 world;
 
-    [Header("»ı¼ºÇÒ ¿ÀºêÁ§Æ® Á¾·ù")]
+    [Header("ìƒì„±í•  ì˜¤ë¸Œì íŠ¸ ì¢…ë¥˜")]
     public NodeType type;
+
+    [Header("êµ¬ë¶„ ì „ìš© - ê³ ìœ ë²ˆí˜¸")]
+    public int index;
 }

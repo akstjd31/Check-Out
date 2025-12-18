@@ -7,6 +7,9 @@ TagManager:
   - Monster
   - Room
   - Ground
+  - SoundDetect
+  - LightArea
+  - SafeArea
   layers:
   - Default
   - TransparentFX
