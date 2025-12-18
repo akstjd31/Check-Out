@@ -34,7 +34,6 @@ public class StorageUI : MonoBehaviour
         {
             uiObjs[i] = Instantiate(uiPrefab, transform);
             uiObjs[i].name = $"SSlot_{i + 1}";
-            // 만들었다면 UI 업데이트 한번씩
         }
 
         int index = 0;

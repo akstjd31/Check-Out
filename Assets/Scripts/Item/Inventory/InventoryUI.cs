@@ -34,7 +34,6 @@ public class InventoryUI : MonoBehaviour
         {
             uiObjs[i] = Instantiate(uiPrefab, transform);
             uiObjs[i].name = $"Inventory_Slot_{i + 1}";
-            // 만들었다면 UI 업데이트 한번씩
         }
 
         int index = 0;
@@ -67,7 +66,7 @@ public class InventoryUI : MonoBehaviour
 
         if (selectIndex != index)
         {
-            slotImage.rectTransform.sizeDelta = new Vector2(150, 150);
+            slotImage.rectTransform.sizeDelta = new Vector2(125, 125);
         }
 
         if (inventory.slots[index] == null)
@@ -92,7 +91,7 @@ public class InventoryUI : MonoBehaviour
 
         if (inventory == null) return;
 
-        slotImage.rectTransform.sizeDelta = new Vector2(225, 225);
+        slotImage.rectTransform.sizeDelta = new Vector2(150, 150);
 
     }
 }
