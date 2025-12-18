@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
 public static class MeshCombineSystem
 {
@@ -99,6 +101,14 @@ public static class MeshCombineSystem
             combined.AddComponent<MeshCollider>().sharedMesh = combinedMesh;
         }
 
-        combined.isStatic = true;
+        //그 외에 경우는, AI가 적용된 대상이 이동할 수 없도록 NavMeshModifier을 통해 걷지 못하는 구역으로 분리.
+        else
+        {
+            var modifier = combined.AddComponent<NavMeshModifier>();
+            modifier.overrideArea = true;
+            modifier.area = NavMesh.GetAreaFromName("Not Walkable");
+        }
+
+            combined.isStatic = true;
     }
 }
