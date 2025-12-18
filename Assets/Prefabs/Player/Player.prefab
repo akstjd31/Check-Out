@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 1083620324217761453}
   - component: {fileID: 3439429237133774228}
   - component: {fileID: 3742200349762913651}
+  - component: {fileID: 4165646660305156088}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -204,7 +205,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!65 &6675731960756902527
 BoxCollider:
@@ -279,7 +280,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCtrl
   currentState: 0
   currentSituation: 0
-  currentAreadetector: {fileID: 0}
+  currentAreaDetector: {fileID: 0}
+  playerView: {fileID: 0}
 --- !u!114 &6546698172506151681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,7 +294,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ec913416e8b9d4182f2b132996308e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatHolder
-  saveLoadManager: {fileID: 0}
 --- !u!114 &1615966991588161401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +348,18 @@ MonoBehaviour:
   playerHead: {fileID: 753602095481127051}
   distance: 2
 --- !u!114 &3742200349762913651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805bdaf4b5d9afb4fb0fec20b2fd9d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAreaDetector
+--- !u!114 &4165646660305156088
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

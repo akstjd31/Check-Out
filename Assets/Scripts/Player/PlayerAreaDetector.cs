@@ -16,6 +16,7 @@ public class PlayerAreaDetector : MonoBehaviour
         {
             lightCount++;
         }
+        
         if (other.CompareTag("SafeArea"))
         {
             safeCount++;

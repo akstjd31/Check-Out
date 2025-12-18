@@ -20,9 +20,10 @@ public class PlayerCtrl : MonoBehaviour
     private InputAction moveAction, runAction, interactiveAction, scrollAction;
     private StatController statController;
     private PlayerInteractor playerInteractor;
+    private PlayerAreaDetector currentAreaDetector;
     [SerializeField] private PlayerState currentState;
     [SerializeField] private Playersituation currentSituation;
-    [SerializeField] private PlayerAreaDetector currentAreaDetector;
+    [SerializeField] private PlayerView playerView;                     // 플레이어 뷰
 
     [Header("Value")]
     private int slotIndex = 0;                              // 테스트용 인덱스
@@ -40,7 +41,7 @@ public class PlayerCtrl : MonoBehaviour
         statController = this.GetComponent<StatController>();
         playerInteractor = this.GetComponent<PlayerInteractor>();
         currentAreaDetector = this.GetComponent<PlayerAreaDetector>();
-
+    
         moveAction = playerInput.actions["Move"];
         runAction = playerInput.actions["Run"];
         interactiveAction = playerInput.actions["Interaction"];
@@ -86,8 +87,6 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     private void Update()
-
-
     {
         //안전구역을 벗어날시 외부에서 값반환
         if (!currentAreaDetector.isSafe)
@@ -97,8 +96,8 @@ public class PlayerCtrl : MonoBehaviour
             {
                 UpdateSituation(Playersituation.Chase);
                 statController.ConsumeSanity(statController.CurrentSanityDps);
-                Debug.Log("몬스터있음");
-                Debug.Log(statController.CurrentSanity);
+                //Debug.Log("몬스터있음");
+                //Debug.Log(statController.CurrentSanity);
 
                 isInvincible = true;
                 invincibleTimer = statController.CurrentInvincibilityTime;
@@ -110,20 +109,19 @@ public class PlayerCtrl : MonoBehaviour
                 {
                     UpdateSituation(Playersituation.Normal);
                     statController.ConsumeSanity(statController.CurrentSanityDps);
-                    Debug.Log("빛있음");
-                    Debug.Log(statController.CurrentSanity);
+                    //Debug.Log("빛있음");
+                    //Debug.Log(statController.CurrentSanity);
                 }
                 else
                 {
                     UpdateSituation(Playersituation.Dark);
                     statController.ConsumeSanity(statController.CurrentSanityDps);
-                    Debug.Log("빛없음");
-                    Debug.Log(statController.CurrentSanity);
+                    //Debug.Log("빛없음");
+                    //Debug.Log(statController.CurrentSanity);
                 }
-
             }
-
         }
+        
         else
         { UpdateSituation(Playersituation.Safe); }
 
@@ -204,7 +202,7 @@ public class PlayerCtrl : MonoBehaviour
         else if (4 <= slotIndex)
             slotIndex = 0;
 
-        Debug.Log(slotIndex);
+        playerView?.UpdateSlotIndexText(slotIndex);
     }
 
     // 플레이어 인풋 액션들 비활성화
@@ -342,7 +340,7 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
-    //플레이어 위치 보내기
+    //플레이어 위치 보내기 (디버그용)
     public void SendMyPosition()
     {
         PlayerSoundEvent.OnFootstep?.Invoke(transform.position);
