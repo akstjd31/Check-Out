@@ -1,7 +1,8 @@
+using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Collections.Generic;
 
 public class MapBakeTool : EditorWindow
 {
@@ -109,10 +110,20 @@ public class MapBakeTool : EditorWindow
 
         }
 
+        //배치된 타일에 따른 노드를 수집
         CollectNodes();
+        
+        //노드에 맞는 바닥 생성
         SpawnFloorNodes();
+
+        //각 타일의 모서리에 오브젝트를 생성하기 위한 메서드
         ResolveEdges();
+
         MeshCombineSystem.Combine(mapRoot);
+        //NavMash 공간까지 구현하기 위한 코드
+        var surface = mapRoot.GetComponent<NavMeshSurface>();
+        if (surface != null)
+            surface.BuildNavMesh();
 
         Debug.Log("맵 Bake 성공!");
     }
@@ -180,8 +191,10 @@ public class MapBakeTool : EditorWindow
             if (node.type == NodeType.Empty)
                 continue;
 
+            //모든 방향을 체크
             foreach(var dir in dirs)
             {
+                //특정 타일의 위치를 받고, 옆에 있는 타일의 위치를 받아온 타일 위치에 방향을 더한 값으로 저장.
                 Vector3Int next = node.cell + dir;
 
                 //바라보고 있는 방향에 이웃 노드가 존재하지 않을 경우 (비어있는 경우) 벽 생성
@@ -191,48 +204,62 @@ public class MapBakeTool : EditorWindow
                     continue;
                 }
 
-                //바라보고 있는 방향에 이웃 노드가 있다면 방일 경우 문을, 아닐 경우 벽을 생성
+                //바라보고 있는 방향에 이웃 노드가 있을 때, 현재 노드의 타입과 이웃 노드의 타입이 일치하면
                 if (node.type == neighbor.type)
                 {
+                    //우선 현재 노드가 방인지 체크하고(참인 경우 이웃 노드도 타입이 방으로 같음.)
                     if(node.type == NodeType.Room)
                     {
+                        //서로의 고유번호를 비교. 같다면 같은 타일을 사용하는 것이므로 다음 절차로.
                         if (node.index == neighbor.index)
                             continue;
                         else
                         {
+                            //서로의 고유번호가 같지 않은 경우에, 각 Index가 4 차이나는 경우 혹은 이웃 index가 특수 노드인 경우 다음 절차로.
+                            //이웃 노드가 5 이상이라는 것은 문 생성용 노드라는 것이므로 해당 노드가 문을 생성할 수 있도록 아무것도 생성하지 않음.
                             if (node.index == neighbor.index + 4 || node.index + 4 == neighbor.index || neighbor.index >= 5)
                                 continue;
+                            //서로의 고유번호가 다르면서 서로의 고유번호가 4 이하인 경우는 아예 다른 방인 것이므로 벽을 생성.
                             else if (node.index <= 4 && neighbor.index <= 4)
                             {
                                 SpawnWallBetween(node, dir);
                                 continue;
                             }
-                            else if (node.index >= 5 || neighbor.index >= 5)
+                            //서로의 고유번호가 다르면서 서로의 고유번호 중 하나라도 5를 넘어가는 경우 문을 생성하는 노드이므로 문 생성.
+                            else if (node.index >= 5)
                             {
                                 SpawnDoorBetween(node, dir);
                                 continue;
                             }
                         }
                     }
+                    //현재 노드가 방이 아니라면 길 혹은 탈출구인데, 이 경우 벽이나 문을 생성해줄 이유가 없으니 다음 절차로.
                     else
                         continue;
                 }
+
+                //길 노드와 방 노드가 서로 접촉하고 있는 경우
                 else if (IsPathRoomPair(node, neighbor))
                 {
+                    //서로의 고유번호가 같다면
                     if (node.index == neighbor.index)
                     {
+                        //문을 생성하는 것은 언제나 길 노드에서 이루어져야 함. 방에서 문을 밖으로 열 가능성 제거. (변경 가능)
                         if(neighbor.type == NodeType.Room)
                         SpawnDoorBetween(node, dir);
                         continue;
                     }
+                    //고유번호가 다른 경우 벽을 생성.
                     else
                     {
                         SpawnWallBetween(node, dir);
                         continue;
                     }
                 }
+                //출구 노드의 경우 벽이나 문을 생성할 이유가 없다.
                 else if (node.type == NodeType.Exit || neighbor.type == NodeType.Exit) 
                     continue;
+                //여기까지 온 경우 (빈 타일이거나) Empty 종류의 타일이므로 벽을 생성.
                 else
                 {
                     SpawnWallBetween(node, dir);
@@ -249,18 +276,21 @@ public class MapBakeTool : EditorWindow
     /// <param name="dir">방향</param>
     void SpawnWallBetween(MapNode node, Vector3Int dir)
     {
-        //해당 칸의 절반 크기만큼의 길이를 구하고
+        //해당 칸의 절반 크기만큼의 길이를 구하고 약간만 숫자를 줄여 다른 타일에서 생성한 오브젝트의 영향을 줄인다.
         Vector3 cellHalf = tilemap.transform.TransformVector(tilemap.cellSize * 0.45f);
         //XYZ축 기준의 방향을 XZY축 기준으로 변경하여
         Vector3 offset = new Vector3(dir.x * cellHalf.x, 0f, dir.y * cellHalf.y);
         //노드의 좌표에서 특정 방향으로 칸의 절반만큼 이동한 상태에서 벽을 생성한다.
         Vector3 pos = node.world + offset;
 
+        //현재 노드가 벽이며, 그 고유번호가 4 이하인 경우에는 방 내부이므로 방 전용 벽을 생성하고,
+        //그 이외의 경우에는 일반 벽을 생성한다.
         GameObject wall =
             node.type == NodeType.Room && node.index <= 4?
             (GameObject)PrefabUtility.InstantiatePrefab(roomWallPrefab):
             (GameObject)PrefabUtility.InstantiatePrefab(normalWallPrefab);
 
+        //벽의 위치, 회전, 크기와 부모를 정해준다.
         wall.transform.position = pos;
         wall.transform.rotation = RotationFromDir(dir);
         wall.transform.localScale = tilemap.cellSize;

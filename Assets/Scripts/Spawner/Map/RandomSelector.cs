@@ -5,12 +5,20 @@ using UnityEngine;
 public class RandomSelector : MonoBehaviour
 {
 
+    [Header("아이템 생성 담당 코드")]
     [SerializeField] ItemSpawner spawner;
+
+    [Header("적 생성 담당 코드")]
     [SerializeField] MonsterSpawnLocation spawnTableChecker;
+
+    [Header("생성할 최대 개수")]
     [SerializeField]int itemSpawnCount;
     [SerializeField]int monsterSpawnCount;
     [SerializeField]int elevatorSpawnCount;
 
+    /// <summary>
+    /// 아이템의 생성을 담당하는 메서드입니다.
+    /// </summary>
     public void SetItemSpawnLocation()
     {
         //생성할 위치를 가져올 테이블 내 데이터의 인덱스 저장용 리스트.
@@ -49,13 +57,18 @@ public class RandomSelector : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 몬스터의 소환을 담당하는 메서드입니다.
+    /// </summary>
     public void SetMonsterSpawnLocation()
     {
         int count = monsterSpawnCount;
         //위치값에 따른 몬스터 아이디 찾기
         int tableCount = spawnTableChecker.CheckTableCount();
+        //몬스터 관련 ID의 경우 5001부터 시작이므로 해당 부분에 맞춰서 시작점 변경. (변동 일어날 시 시작 숫자 변경)
         for(int i = 5001; i<=5000 + tableCount; i++)
         {
+            //랜덤 스폰 여부가 거짓인 경우 확정 소환.
             if(spawnTableChecker.CheckRandom(i) != true)
             {
                 GameObject monster = Resources.Load<GameObject>($"{spawnTableChecker.CheckPrefabLocation(i)}");
@@ -63,20 +76,26 @@ public class RandomSelector : MonoBehaviour
                 count--;
             }
         }
+        //랜덤 스폰 여부가 거짓인 데이터의 소환이 종료된 이후, 소환할 개수가 0보다 큰 경우 아래 코드를 시행
         if(count > 0)
         {
+            //소환할 인덱스를 체크할 int형 배열
             int[] indexChecker = new int[count];
+            //랜덤으로 ID를 체크하기 위한 반복문.
             for(int i = 0; count > 0; i++)
             {
+                //5001에서 시작하여 테이블 카운트 개수만큼을 랜덤값을 돌림.
                 int index = Random.Range(5001, tableCount + 5001);
+                //중복된 ID값이 나왔을 경우, 반복용 변수 j를 0으로 되돌리고 다시 랜덤값 생성.
                 for(int j = 0; j<i; j++)
                 {
                     if (indexChecker[j] == index)
                     {
                         index = Random.Range(5001, tableCount + 5001);
-                        j = 0;
+                        j = -1;
                     }
                 }
+                //이렇게 해서 나온 ID값의 랜덤 스폰 여부가 참이 아닌 경우에는 다시 동일한 과정을 반복.
                 while(!spawnTableChecker.CheckRandom(index))
                 {
                     index = Random.Range(5001, tableCount + 5001);
@@ -89,10 +108,13 @@ public class RandomSelector : MonoBehaviour
                         }
                     }
                 }
-                    
+                //해당하는 몬스터를 생성.
                 GameObject monster = Resources.Load<GameObject>($"{spawnTableChecker.CheckPrefabLocation(index)}");
+                //방금 생성한 몬스터를, 해당 ID에 지정된 위치로, 방향 회전 없이 생성.
                 Instantiate(monster, spawnTableChecker.CheckPos(index), Quaternion.identity);
+                //만들어 둔 몬스터의 ID값을 배열에 저장.
                 indexChecker[i] = index;
+                //생성 가능 수 1 감소.
                 count--;
 
             }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class ItemSpawner : MonoBehaviour
@@ -81,11 +81,22 @@ public class ItemSpawner : MonoBehaviour
                 return 0;
         }
     }
+
+    /// <summary>
+    /// 생성될 위치를 확인하기 위한 메서드입니다.
+    /// </summary>
+    /// <param name="idValue">테이블 내에서의 id값</param>
+    /// <returns></returns>
     public Vector3 CheckPosition(int idValue)
     {
         return new Vector3(spawnTable[3000+idValue].locationX, spawnTable[3000 + idValue].locationY, spawnTable[3000 + idValue].locationZ);
     }
 
+    /// <summary>
+    /// 같은 그룹 내에서 생성할 오브젝트를 결정하기 위한 메서드입니다.
+    /// </summary>
+    /// <param name="groupValue">테이블 내에서의 그룹ID값</param>
+    /// <returns></returns>
     public int DeclareObjectId(int groupValue)
     {
         //일치하는 그룹 아이디를 가진 테이블 내의 데이터 아이디를 담아줄 리스트
