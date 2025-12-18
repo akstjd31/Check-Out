@@ -13,7 +13,7 @@ public class PlayerCtrl : MonoBehaviour
 {
     [Header("Component")]
     private PlayerInput playerInput;
-    private InputAction moveAction, runAction, interactiveAction;
+    private InputAction moveAction, runAction, interactiveAction, scrollAction;
     private StatController statController;
     private PlayerInteractor playerInteractor;
     [SerializeField] private PlayerState currentState;
@@ -35,6 +35,7 @@ public class PlayerCtrl : MonoBehaviour
         moveAction = playerInput.actions["Move"];
         runAction = playerInput.actions["Run"];
         interactiveAction = playerInput.actions["Interaction"];
+        scrollAction = playerInput.actions["Scroll"];
     }
 
     private void Start()
@@ -125,6 +126,33 @@ public class PlayerCtrl : MonoBehaviour
         {
             interactiveAction.performed -= InteractionKeyPerformed;
         }
+
+        if (scrollAction != null)
+        {
+            
+        }
+    }
+
+    // 플레이어 인풋 액션들 비활성화
+    public void IgnoreInput()
+    {
+        moveAction.Disable();
+        runAction.Disable();
+        interactiveAction.Disable();
+        scrollAction.Disable();
+
+        // 새로운 액션이 추가되면 작성
+    }
+
+    // 플레이어 인풋 액션들 활성화
+    public void ReleaseIgnoreInput()
+    {
+        moveAction.Enable();
+        runAction.Enable();
+        interactiveAction.Enable();
+        scrollAction.Enable();
+
+        // 새로운 액션이 추가되면 작성
     }
 
     // 탈진 상태
