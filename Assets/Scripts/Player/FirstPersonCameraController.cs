@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class FirstPersonCameraController : MonoBehaviour
 {
-    [SerializeField] private Transform cameraPivot;
-
+    [SerializeField] private Transform cameraPivot;     // 카메라의 부모 (눈, 머리 등)
+    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private LayerMask wallMask;
     [SerializeField] private float mouseSensitivity;
+    [SerializeField] private float cameraDistance = 0.1f;
     private float maxPitch = 90f;
 
     private float pitch;
@@ -15,7 +17,7 @@ public class FirstPersonCameraController : MonoBehaviour
         Cursor.visible = false;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
