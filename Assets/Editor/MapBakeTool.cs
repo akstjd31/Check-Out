@@ -293,7 +293,7 @@ public class MapBakeTool : EditorWindow
         //벽의 위치, 회전, 크기와 부모를 정해준다.
         wall.transform.position = pos;
         wall.transform.rotation = RotationFromDir(dir);
-        wall.transform.localScale = tilemap.cellSize;
+        wall.transform.localScale = tilemap.cellSize * tilemap.transform.parent.transform.localScale.x;
         wall.transform.SetParent(mapRoot, true);
     }
     void SpawnDoorBetween(MapNode node, Vector3Int dir)
@@ -307,7 +307,7 @@ public class MapBakeTool : EditorWindow
 
         door.transform.position = pos;
         door.transform.rotation = RotationFromDir(dir);
-        door.transform.localScale = tilemap.cellSize;
+        door.transform.localScale = tilemap.cellSize * tilemap.transform.parent.transform.localScale.x;
         door.transform.SetParent(mapRoot, true);
     }
 
@@ -352,7 +352,7 @@ public class MapBakeTool : EditorWindow
         var go = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
         go.transform.SetParent(mapRoot, true);
         go.transform.position = pos;
-        go.transform.localScale = tilemap.cellSize / 10;
+        go.transform.localScale = tilemap.cellSize * (tilemap.transform.parent.transform.localScale.x / 10);
     }
 
     /// <summary>
