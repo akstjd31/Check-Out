@@ -19,6 +19,7 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] private PlayerState currentState;
 
     [Header("Value")]
+    private int slotIndex = 0;                              // 테스트용 인덱스
     private Vector3 moveInput;
     private float staminaTimer = 1f;                        // 스태미나가 감소 or 회복되는 시점은 1초 지난 후
     private int staminaDrainRun = 15;                       // 달릴때 초당 감소
@@ -61,6 +62,11 @@ public class PlayerCtrl : MonoBehaviour
         if (interactiveAction != null)
         {
             interactiveAction.performed += InteractionKeyPerformed;
+        }
+
+        if (scrollAction != null)
+        {
+            scrollAction.performed += OnMouseScrollChangeSlotIndex;
         }
     }
 
@@ -129,8 +135,15 @@ public class PlayerCtrl : MonoBehaviour
 
         if (scrollAction != null)
         {
-            
+            scrollAction.performed -= OnMouseScrollChangeSlotIndex;
         }
+    }
+
+    private void OnMouseScrollChangeSlotIndex(InputAction.CallbackContext context)
+    {
+        var name = context.action.GetBindingIndex();
+
+        Debug.Log(name);
     }
 
     // 플레이어 인풋 액션들 비활성화

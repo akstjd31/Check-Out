@@ -27,12 +27,12 @@ public class PlayerStat
     public float SitSpeed { get; private set; }               // 앉을 경우 이동 속도
     public float InvincibilityTime { get; private set; }    
     public float MouseSensitivity { get; private set; }     
-    public float SanityDpsNormal { get; private set; }      
-    public float SanityDpsDark { get; private set; }      
-    public float SanityDpsChased { get; private set; }
-    public float RunStaminaCost { get; private set; }
-    public float StaminaRecoverIdle { get; private set; }
-    public float StaminaRecoverWalk { get; private set; }
+    public int SanityDpsNormal { get; private set; }      
+    public int SanityDpsDark { get; private set; }      
+    public int SanityDpsChased { get; private set; }
+    public int RunStaminaCost { get; private set; }
+    public int StaminaRecoverIdle { get; private set; }
+    public int StaminaRecoverWalk { get; private set; }
     public float StaminaExhaustTime { get; private set; }
     
 
