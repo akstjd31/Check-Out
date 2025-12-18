@@ -4,13 +4,13 @@ using UnityEngine;
 public class StatController : MonoBehaviour
 {
     private PlayerStatHolder playerStatHolder;
-    private int staminaRecoverIdle = 10;                    // 멈춰있을때 초당 회복
-    private int staminaRecoverWalk = 5;                     // 걸을때 초당 회복
-    private int defaultExhaustTime = 3;                     // 탈진 지속 시간
     public int CurrentSanity { get; private set; }          // 현재 정신력
     public int CurrentRecoverStamina { get; private set; }  // 현재 스태미나 회복력
     public int CurrentStamina { get; private set; }         // 현재 스태미나
     public float CurrentMoveSpeed { get; private set; }     // 현재 이동 속도
+    public int CurrentSanityDps { get; private set; }       //  데미지
+    public int CurrentRunStaminaCost { get; private set; }  // 달리기 코스트
+    public float CurrentInvincibilityTime { get; private set; }  // 무적시간
 
     private void Awake()
     {
@@ -20,6 +20,9 @@ public class StatController : MonoBehaviour
     public void Init()
     {
         CurrentStamina = playerStatHolder.Stat.MaxStamina;
+        CurrentSanity = playerStatHolder.Stat.MaxSanity;
+        CurrentRunStaminaCost = playerStatHolder.Stat.RunStaminaCost;
+        CurrentInvincibilityTime = playerStatHolder.Stat.InvincibilityTime;
     }
 
     // 각 상태에 따른 기본 수치 적용
@@ -32,18 +35,37 @@ public class StatController : MonoBehaviour
                 CurrentMoveSpeed = playerStatHolder.Stat.RunSpeed;
                 break;
             case PlayerState.Idle:
-                CurrentRecoverStamina = staminaRecoverIdle;
+                CurrentRecoverStamina = playerStatHolder.Stat.StaminaRecoverIdle;
                 CurrentMoveSpeed = 0;
                 break;
             case PlayerState.Walk:
-                CurrentRecoverStamina = staminaRecoverWalk;
+                CurrentRecoverStamina = playerStatHolder.Stat.StaminaRecoverWalk;
                 CurrentMoveSpeed = playerStatHolder.Stat.MoveSpeed;
                 break;
         }
     }
 
+    public void UpdateSituationUsedValue(Playersituation situation)
+    {
+        switch (situation)
+        {
+            case Playersituation.Safe:
+                CurrentSanityDps = 0;
+                break;
+            case Playersituation.Normal:
+                CurrentSanityDps = playerStatHolder.Stat.SanityDpsNormal;
+                break;
+            case Playersituation.Dark:
+                CurrentSanityDps = playerStatHolder.Stat.SanityDpsDark;
+                break;
+            case Playersituation.Chase:
+                CurrentSanityDps = playerStatHolder.Stat.SanityDpsChased;
+                break;
+        }
+    }
+
     // 탈진 지속 시간
-    public float GetDefaultExhaustTime() => defaultExhaustTime;
+    public float GetDefaultExhaustTime() => playerStatHolder.Stat.StaminaExhaustTime;
 
     // 스태미나 감소
     public void ConsumeStamina(int amount) => CurrentStamina = Mathf.Max(0, CurrentStamina - amount);
@@ -53,4 +75,10 @@ public class StatController : MonoBehaviour
     
     // 스태미나가 남아있는지?
     public bool IsRemainStamina() => CurrentStamina > 0;
+    //정신력 감소
+    public void ConsumeSanity(int amount) => CurrentSanity = Mathf.Max(0, CurrentSanity - amount);
+
+    // 정신력이 남아있는지?
+    public bool IsRemainSanity() => CurrentSanity > 0;
+
 }

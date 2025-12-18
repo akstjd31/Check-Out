@@ -8,6 +8,10 @@ public enum PlayerState
 {
     Idle, Walk, Run
 }
+public enum Playersituation
+{
+    Safe, Normal, Dark, Chase, Invincible
+}
 
 public class PlayerCtrl : MonoBehaviour
 {
@@ -18,6 +22,8 @@ public class PlayerCtrl : MonoBehaviour
     private PlayerInteractor playerInteractor;
     [SerializeField] private PlayerState currentState;
 
+    [SerializeField] private PlayerAreaDetector currentAreadetector;
+
     [Header("Value")]
     private int slotIndex = 0;                              // 테스트용 인덱스
     private Vector3 moveInput;
@@ -27,11 +33,14 @@ public class PlayerCtrl : MonoBehaviour
     private bool isRunning;                                 // 달리기 중인지?
     private bool isExhausted;                               // 탈진 상태인지?
     private float exhaustTimer;                             // 탈진 지속시간
+    private bool isInvincible;                             // 무적(쿨타임)
+    private float invincibleTimer;
     private void Awake()
     {
         playerInput = this.GetComponent<PlayerInput>();
         statController = this.GetComponent<StatController>();
         playerInteractor = this.GetComponent<PlayerInteractor>();
+        currentAreadetector = GetComponent<PlayerAreaDetector>();
 
         moveAction = playerInput.actions["Move"];
         runAction = playerInput.actions["Run"];
@@ -79,6 +88,46 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Update()
     {
+        //안전구역을 벗어날시 외부에서 값반환
+        if (!currentAreadetector.isSafe)
+        {
+            //추격상태일때  
+            if (currentAreadetector.isMonster)
+            {
+                UpdateSituation(Playersituation.Chase);
+                statController.ConsumeSanity(statController.CurrentSanityDps);
+                Debug.Log("몬스터있음");
+                Debug.Log(statController.CurrentSanity);
+
+                isInvincible = true;
+                invincibleTimer = statController.CurrentInvincibilityTime;
+            }
+            else
+            {
+                //광원이 있으면 외부에서 반환
+                if (currentAreadetector.isLight)
+                {
+                    UpdateSituation(Playersituation.Normal);
+                    statController.ConsumeSanity(statController.CurrentSanityDps);
+                    Debug.Log("빛있음");
+                    Debug.Log(statController.CurrentSanity);
+                }
+                else
+                {
+                    UpdateSituation(Playersituation.Dark);
+                    statController.ConsumeSanity(statController.CurrentSanityDps);
+                    Debug.Log("빛없음");
+                    Debug.Log(statController.CurrentSanity);
+                }
+
+            }
+
+        }
+        else
+        { UpdateSituation(Playersituation.Safe); }
+
+        UpdateInvincibleTimer();
+
         // 탈진 상태일때 타이머 계산
         if (isExhausted)
             StartExhaustTime();
@@ -196,7 +245,13 @@ public class PlayerCtrl : MonoBehaviour
         currentState = state;
         statController.UpdateUsedValue(currentState);
     }
-    
+
+    public void UpdateSituation(Playersituation situation)
+    {
+        currentSituation = situation;
+        statController.UpdateSituationUsedValue(currentSituation);
+    }
+
     // 현재 달릴 수 있는 상태인지?
     public bool CanRun() => !isExhausted && isRunning && isMoving && statController.IsRemainStamina();
 
