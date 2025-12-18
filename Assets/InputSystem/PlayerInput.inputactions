@@ -35,12 +35,12 @@
                 },
                 {
                     "name": "Scroll",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "1374e054-23c6-4160-9b39-c61e6b3da1fe",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -122,26 +122,37 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "8c3ee85f-d04d-4467-88fb-0bc9d47e12cd",
-                    "path": "<Mouse>/scroll/down",
+                    "name": "2D Vector",
+                    "id": "7a630737-609f-4063-8e5b-dba0687a1472",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Scroll",
-                    "isComposite": false,
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "71bff3bd-2fad-484f-8bd0-bc213d905598",
+                    "name": "up",
+                    "id": "440ebbb2-c857-4066-8e0b-e61e020898bb",
                     "path": "<Mouse>/scroll/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Scroll",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "a5983a5b-eceb-45c0-b6c7-3d79d82a828b",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

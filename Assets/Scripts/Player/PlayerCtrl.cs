@@ -141,7 +141,20 @@ public class PlayerCtrl : MonoBehaviour
 
     private void OnMouseScrollChangeSlotIndex(InputAction.CallbackContext context)
     {
-        // 마우스 휠(업/다운)에 따른 슬롯 인덱스 변환 코드 작성
+        float scrollValue = context.ReadValue<Vector2>().y;
+
+        // 마우스 휠(업/다운)에 따른 슬롯 인덱스 변환 코드 작성 => 수정 필요 (임시 데이터)
+        if (scrollValue > 0)
+            slotIndex--;
+        else if (scrollValue < 0)
+            slotIndex++;
+        
+        if (slotIndex < 0)
+            slotIndex = 3;
+        else if (4 <= slotIndex)
+            slotIndex = 0;
+
+        Debug.Log(slotIndex);
     }
 
     // 플레이어 인풋 액션들 비활성화
