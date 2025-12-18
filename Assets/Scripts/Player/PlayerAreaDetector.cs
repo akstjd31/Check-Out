@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerAreaDetector : MonoBehaviour
 {
-    private PlayerCtrl playerCtrl;
     private int lightCount = 0;
     private int safeCount = 0;
     private int mosterCount = 0;
@@ -10,11 +9,6 @@ public class PlayerAreaDetector : MonoBehaviour
 
     public bool isSafe => safeCount > 0;
     public bool isMonster => mosterCount > 0;
-
-    public void Awake()
-    {
-        playerCtrl = GetComponent<PlayerCtrl>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -31,7 +25,6 @@ public class PlayerAreaDetector : MonoBehaviour
         {
             mosterCount++;
         }
-
     }
 
     private void OnTriggerExit(Collider other)

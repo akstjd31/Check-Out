@@ -22,7 +22,7 @@ public class PlayerCtrl : MonoBehaviour
     private PlayerInteractor playerInteractor;
     [SerializeField] private PlayerState currentState;
     [SerializeField] private Playersituation currentSituation;
-    [SerializeField] private PlayerAreaDetector currentAreadetector;
+    [SerializeField] private PlayerAreaDetector currentAreaDetector;
 
     [Header("Value")]
     private int slotIndex = 0;                              // 테스트용 인덱스
@@ -39,7 +39,7 @@ public class PlayerCtrl : MonoBehaviour
         playerInput = this.GetComponent<PlayerInput>();
         statController = this.GetComponent<StatController>();
         playerInteractor = this.GetComponent<PlayerInteractor>();
-        currentAreadetector = GetComponent<PlayerAreaDetector>();
+        currentAreaDetector = this.GetComponent<PlayerAreaDetector>();
 
         moveAction = playerInput.actions["Move"];
         runAction = playerInput.actions["Run"];
@@ -90,10 +90,10 @@ public class PlayerCtrl : MonoBehaviour
 
     {
         //안전구역을 벗어날시 외부에서 값반환
-        if (!currentAreadetector.isSafe)
+        if (!currentAreaDetector.isSafe)
         {
             //추격상태일때  
-            if (currentAreadetector.isMonster)
+            if (currentAreaDetector.isMonster)
             {
                 UpdateSituation(Playersituation.Chase);
                 statController.ConsumeSanity(statController.CurrentSanityDps);
@@ -106,7 +106,7 @@ public class PlayerCtrl : MonoBehaviour
             else
             {
                 //광원이 있으면 외부에서 반환
-                if (currentAreadetector.isLight)
+                if (currentAreaDetector.isLight)
                 {
                     UpdateSituation(Playersituation.Normal);
                     statController.ConsumeSanity(statController.CurrentSanityDps);

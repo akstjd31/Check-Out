@@ -8,6 +8,8 @@ TagManager:
   - Room
   - Ground
   - SoundDetect
+  - LightArea
+  - SafeArea
   layers:
   - Default
   - TransparentFX

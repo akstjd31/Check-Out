@@ -8,7 +8,7 @@ public class StatController : MonoBehaviour
     public int CurrentRecoverStamina { get; private set; }  // 현재 스태미나 회복력
     public int CurrentStamina { get; private set; }         // 현재 스태미나
     public float CurrentMoveSpeed { get; private set; }     // 현재 이동 속도
-    public int CurrentSanityDps { get; private set; }       //  데미지
+    public int CurrentSanityDps { get; private set; }       // 정신력 감소량
     public int CurrentRunStaminaCost { get; private set; }  // 달리기 코스트
     public float CurrentInvincibilityTime { get; private set; }  // 무적시간
 
@@ -75,6 +75,7 @@ public class StatController : MonoBehaviour
     
     // 스태미나가 남아있는지?
     public bool IsRemainStamina() => CurrentStamina > 0;
+    
     //정신력 감소
     public void ConsumeSanity(int amount) => CurrentSanity = Mathf.Max(0, CurrentSanity - amount);
 

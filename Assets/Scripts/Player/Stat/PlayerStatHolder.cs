@@ -7,7 +7,6 @@ using UnityEngine;
 public class PlayerStatHolder : MonoBehaviour
 {
     public PlayerStat Stat { get; private set; }
-    [SerializeField] private SaveLoadManager saveLoadManager;
     private void Awake()
     {
         Stat = new PlayerStat();
