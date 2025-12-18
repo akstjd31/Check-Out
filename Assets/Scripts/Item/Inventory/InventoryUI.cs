@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] GameObject uiPrefab;
     [SerializeField] GameObject[] uiObjs;
+    [SerializeField] HoverUI hover;
 
     private int selectIndex;
     private Inventory inventory;
@@ -36,8 +38,6 @@ public class InventoryUI : MonoBehaviour
             uiObjs[i].name = $"Inventory_Slot_{i + 1}";
         }
 
-        int index = 0;
-
         UpdateAll();
 
         SelectUI(0);
@@ -56,7 +56,10 @@ public class InventoryUI : MonoBehaviour
     {
         Image ItemImage = uiObjs[index].transform.GetChild(0).GetComponent<Image>();
         Button button = uiObjs[index].transform.GetChild(0).GetComponent<Button>();
-        Image slotImage = uiObjs[index].transform.GetComponent<Image>();
+        Image slotImage = uiObjs[index].GetComponent<Image>();
+        EventTrigger trigger = uiObjs[index].GetComponent<EventTrigger>();
+
+        Debug.Log(trigger);
 
         if (slotImage == null) return;
 
@@ -71,13 +74,37 @@ public class InventoryUI : MonoBehaviour
 
         if (inventory.slots[index] == null)
         {
+            button.onClick.RemoveAllListeners();
+            if (trigger != null)
+                trigger.triggers.Clear();
             ItemImage.sprite = null;
             return;
         }
 
+        // 버튼에 이벤트 추가
+        button.onClick.RemoveAllListeners();
         button.onClick.AddListener(delegate { StorageManager.Instance.InventoryToStorage(index); });
+
         Sprite sprite = Resources.Load<Sprite>(inventory.slots[index].imgPath);
         ItemImage.sprite = sprite;
+
+        if (trigger != null)
+        {
+            trigger.triggers.Clear();
+
+            // 마우스 올라갔을때 이벤트
+            EventTrigger.Entry Enterentry = new EventTrigger.Entry();
+            Enterentry.eventID = EventTriggerType.PointerEnter;
+            Enterentry.callback.AddListener((data) => { hover.OnEnter(uiObjs[index].transform, inventory.slots[index], sprite); });
+
+            // 마우스 빠져나갔을때 이벤트
+            EventTrigger.Entry Exitentry = new EventTrigger.Entry();
+            Exitentry.eventID = EventTriggerType.PointerExit;
+            Exitentry.callback.AddListener((data) => { hover.OnExit(); });
+
+            trigger.triggers.Add(Enterentry);
+            trigger.triggers.Add(Exitentry);
+        }
     }
 
     // UI가 선택되었을때 UI업데이트

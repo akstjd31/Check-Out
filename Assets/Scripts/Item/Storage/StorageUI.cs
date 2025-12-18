@@ -1,14 +1,18 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class StorageUI : MonoBehaviour
 {
     [SerializeField] GameObject uiPrefab;
     [SerializeField] GameObject[] uiObjs;
+    [SerializeField] HoverUI hover;
 
     private int selectIndex;
     private Storage storage;
+    
+
 
     void Start()
     {
@@ -36,8 +40,6 @@ public class StorageUI : MonoBehaviour
             uiObjs[i].name = $"SSlot_{i + 1}";
         }
 
-        int index = 0;
-
         UpdateAll();
     }
 
@@ -55,7 +57,8 @@ public class StorageUI : MonoBehaviour
     {
         Image ItemImage = uiObjs[index].transform.GetChild(0).GetComponent<Image>();
         Button button = uiObjs[index].transform.GetChild(0).GetComponent<Button>();
-        Image slotImage = uiObjs[index].transform.GetComponent<Image>();
+        Image slotImage = uiObjs[index].GetComponent<Image>();
+        EventTrigger trigger = uiObjs[index].GetComponent<EventTrigger>();
 
         if (slotImage == null) return;
 
@@ -66,13 +69,37 @@ public class StorageUI : MonoBehaviour
         if (storage.storageList[index] == null)
         {
             button.onClick.RemoveAllListeners();
+            if (trigger != null)
+                trigger.triggers.Clear();
             ItemImage.sprite = null;
+
             return;
         }
 
         button.onClick.AddListener(delegate { StorageManager.Instance.StorageToInventory(index); });
 
         Sprite sprite = Resources.Load<Sprite>(storage.storageList[index].imgPath);
+
         ItemImage.sprite = sprite;
+
+        if (trigger != null)
+        {
+            trigger.triggers.Clear();
+
+            // 마우스 올라갔을때 이벤트
+            EventTrigger.Entry Enterentry = new EventTrigger.Entry();
+            Enterentry.eventID = EventTriggerType.PointerEnter;
+            Enterentry.callback.AddListener((data) => { hover.OnEnter(uiObjs[index].transform, storage.storageList[index], sprite); });
+
+            // 마우스 빠져나갔을때 이벤트
+            EventTrigger.Entry Exitentry = new EventTrigger.Entry();
+            Exitentry.eventID = EventTriggerType.PointerExit;
+            Exitentry.callback.AddListener((data) => { hover.OnExit(); });
+
+            Debug.Log("이벤트 추가됨");
+
+            trigger.triggers.Add(Enterentry);
+            trigger.triggers.Add(Exitentry);
+        }
     }
 }
