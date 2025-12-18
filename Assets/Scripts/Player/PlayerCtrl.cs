@@ -4,15 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public enum PlayerState
-{
-    Idle, Walk, Run
-}
-public enum PlayerSituation
-{
-    Safe, Normal, Dark, Chase, Invincible
-}
-
 public class PlayerCtrl : MonoBehaviour
 {
     [Header("Component")]
