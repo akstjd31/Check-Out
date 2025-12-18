@@ -6,27 +6,22 @@ public class StorageManager : Singleton<StorageManager>
     [SerializeField] private Storage storage;
     [SerializeField] private Inventory inventory;
 
-    private void Start()
+    protected override void Awake()
     {
-        //GetStorage();
-        //GetInventory();
+        base.Awake();
+        GetStorage();
+        GetInventory();
     }
 
     // 창고 가져오기
     public void GetStorage()
     {
-        if (player == null)
-            return;
-
-        storage = player.GetComponentInChildren<Storage>();
+        storage = FindAnyObjectByType<Storage>();
     }
     // 인벤토리 가져오기
     public void GetInventory()
     {
-        if (player == null)
-            return;
-
-        inventory = player.GetComponentInChildren<Inventory>();
+        inventory = FindAnyObjectByType<Inventory>();
     }
 
     // 인벤토리에서 창고로

@@ -1,28 +1,28 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour
+public class StorageUI : MonoBehaviour
 {
     [SerializeField] GameObject uiPrefab;
     [SerializeField] GameObject[] uiObjs;
 
     private int selectIndex;
-    private Inventory inventory;
+    private Storage storage;
 
     void Start()
     {
-        inventory = FindAnyObjectByType<Inventory>();
+        storage = FindAnyObjectByType<Storage>();
 
-        if (inventory == null )
+        if (storage == null)
         {
-            Debug.Log("UI - 인벤토리를 찾지 못했습니다");
+            Debug.Log("UI - 창고를 찾지 못했습니다");
         }
     }
 
-    // 로딩 때 인벤토리 ui 세팅
-    public void SetInventoryUI(int size)
+    // 로딩 때 창고 ui 세팅
+    public void SetStorageUI(int size)
     {
-
         // 사이즈 기본 1 보장
         size = size <= 0 ? 1 : size;
 
@@ -33,16 +33,15 @@ public class InventoryUI : MonoBehaviour
         for (int i = 0; i < size; i++)
         {
             uiObjs[i] = Instantiate(uiPrefab, transform);
-            uiObjs[i].name = $"Inventory_Slot_{i + 1}";
+            uiObjs[i].name = $"SSlot_{i + 1}";
             // 만들었다면 UI 업데이트 한번씩
         }
 
         int index = 0;
 
         UpdateAll();
-
-        SelectUI(0);
     }
+
     public void UpdateAll()
     {
         int index = 0;
@@ -63,36 +62,18 @@ public class InventoryUI : MonoBehaviour
 
         if (ItemImage == null) return;
 
-        if (inventory == null) return;
+        if (storage == null) return;
 
-        if (selectIndex != index)
+        if (storage.storageList[index] == null)
         {
-            slotImage.rectTransform.sizeDelta = new Vector2(150, 150);
-        }
-
-        if (inventory.slots[index] == null)
-        {
+            button.onClick.RemoveAllListeners();
             ItemImage.sprite = null;
             return;
         }
 
-        button.onClick.AddListener(delegate { StorageManager.Instance.InventoryToStorage(index); });
-        Sprite sprite = Resources.Load<Sprite>(inventory.slots[index].imgPath);
+        button.onClick.AddListener(delegate { StorageManager.Instance.StorageToInventory(index); });
+
+        Sprite sprite = Resources.Load<Sprite>(storage.storageList[index].imgPath);
         ItemImage.sprite = sprite;
-    }
-
-    // UI가 선택되었을때 UI업데이트
-    public void SelectUI(int index)
-    {
-        selectIndex = index;
-
-        Image slotImage = uiObjs[index].transform.GetComponent<Image>();
-
-        if (slotImage == null) return;
-
-        if (inventory == null) return;
-
-        slotImage.rectTransform.sizeDelta = new Vector2(225, 225);
-
     }
 }
