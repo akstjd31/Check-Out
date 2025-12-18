@@ -1,5 +1,8 @@
 using UnityEngine;
 
+[RequireComponent(typeof(StatController))]
+[RequireComponent(typeof(PlayerAreaDetector))]
+[RequireComponent(typeof(PlayerStateMachine))]
 public class PlayerSanity : MonoBehaviour
 {
     private StatController stat;

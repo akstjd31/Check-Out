@@ -1,5 +1,9 @@
 using UnityEngine;
 
+[RequireComponent(typeof(StatController))]
+[RequireComponent(typeof(PlayerStatHolder))]
+
+// 플레이어 스태미나 관련 클래스
 public class PlayerStamina : MonoBehaviour
 {
     private StatController stat;
@@ -8,15 +12,14 @@ public class PlayerStamina : MonoBehaviour
     public bool IsExhausted { get; private set; }   // 탈진 상태
     private float staminaTimer;
     private float exhaustTimer;
-    private float defaultExhaustTime;               // 기본 탈진 상태 탈출 타이머
     private void Awake()
     {
         stat = this.GetComponent<StatController>();
-        defaultExhaustTime = holder.Stat.StaminaExhaustTime;
-        exhaustTimer = defaultExhaustTime;
+        holder = this.GetComponent<PlayerStatHolder>();
     }
 
-    public void UpdateStamina(bool isRunning)
+    // 스태미나 갱신
+    public void UpdateStamina(bool isRunning, bool isMoving)
     {
         // 탈진 상태라면
         if (IsExhausted)
@@ -32,13 +35,17 @@ public class PlayerStamina : MonoBehaviour
 
         staminaTimer = 1f;
 
-        // 뛸 수 있는 경우
-        if (isRunning && stat.IsRemainStamina())
+        // 달리고 있는 상태 == 왼쪽 쉬프트를 누르면서, 이동(MoveInput값이 존재할 때)할 때
+        if (isRunning && isMoving)
         {
-            stat.ConsumeStamina(stat.CurrentRunStaminaCost);
-            if (stat.CurrentStamina <= 0)
+            // 현재 스태미나보다 달리기 스태미나 최소 비용보다 적은 상태
+            if (!stat.IsRemainStamina())
+            {
                 EnterExhaust();
-                
+                return;
+            }
+
+            stat.ConsumeStamina(stat.CurrentRunStaminaCost);
         }
         else
         {
@@ -48,8 +55,8 @@ public class PlayerStamina : MonoBehaviour
 
     private void EnterExhaust()
     {
+        exhaustTimer = holder.Stat.StaminaExhaustTime;
         Debug.Log("탈진!");
         IsExhausted = true;
-        exhaustTimer = defaultExhaustTime;
     }
 }

@@ -3,7 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerStatHolder))]
 public class StatController : MonoBehaviour
 {
-    private PlayerStatHolder playerStatHolder;
+    [SerializeField] private PlayerView playerView;
+    private PlayerStatHolder holder;
     public int CurrentSanity { get; private set; }          // 현재 정신력
     public int CurrentRecoverStamina { get; private set; }  // 현재 스태미나 회복력
     public int CurrentStamina { get; private set; }         // 현재 스태미나
@@ -14,15 +15,15 @@ public class StatController : MonoBehaviour
 
     private void Awake()
     {
-        playerStatHolder = this.GetComponent<PlayerStatHolder>();
+        holder = this.GetComponent<PlayerStatHolder>();
     }
 
     public void Init()
     {
-        CurrentStamina = playerStatHolder.Stat.MaxStamina;
-        CurrentSanity = playerStatHolder.Stat.MaxSanity;
-        CurrentRunStaminaCost = playerStatHolder.Stat.RunStaminaCost;
-        CurrentInvincibilityTime = playerStatHolder.Stat.InvincibilityTime;
+        CurrentStamina = holder.Stat.MaxStamina;
+        CurrentSanity = holder.Stat.MaxSanity;
+        CurrentRunStaminaCost = holder.Stat.RunStaminaCost;
+        CurrentInvincibilityTime = holder.Stat.InvincibilityTime;
     }
 
     // 각 상태에 따른 기본 수치 적용
@@ -32,15 +33,15 @@ public class StatController : MonoBehaviour
         {
             case PlayerState.Run:
                 CurrentRecoverStamina = 0;
-                CurrentMoveSpeed = playerStatHolder.Stat.RunSpeed;
+                CurrentMoveSpeed = holder.Stat.RunSpeed;
                 break;
             case PlayerState.Idle:
-                CurrentRecoverStamina = playerStatHolder.Stat.StaminaRecoverIdle;
+                CurrentRecoverStamina = holder.Stat.StaminaRecoverIdle;
                 CurrentMoveSpeed = 0;
                 break;
             case PlayerState.Walk:
-                CurrentRecoverStamina = playerStatHolder.Stat.StaminaRecoverWalk;
-                CurrentMoveSpeed = playerStatHolder.Stat.MoveSpeed;
+                CurrentRecoverStamina = holder.Stat.StaminaRecoverWalk;
+                CurrentMoveSpeed = holder.Stat.MoveSpeed;
                 break;
         }
     }
@@ -54,31 +55,43 @@ public class StatController : MonoBehaviour
                 CurrentSanityDps = 0;
                 break;
             case PlayerSituation.Normal:
-                CurrentSanityDps = playerStatHolder.Stat.SanityDpsNormal;
+                CurrentSanityDps = holder.Stat.SanityDpsNormal;
                 break;
             case PlayerSituation.Dark:
-                CurrentSanityDps = playerStatHolder.Stat.SanityDpsDark;
+                CurrentSanityDps = holder.Stat.SanityDpsDark;
                 break;
             case PlayerSituation.Chase:
-                CurrentSanityDps = playerStatHolder.Stat.SanityDpsChased;
+                CurrentSanityDps = holder.Stat.SanityDpsChased;
                 break;
         }
     }
 
     // 탈진 지속 시간
-    public float GetDefaultExhaustTime() => playerStatHolder.Stat.StaminaExhaustTime;
+    public float GetDefaultExhaustTime() => holder.Stat.StaminaExhaustTime;
 
     // 스태미나 감소
-    public void ConsumeStamina(int amount) => CurrentStamina = Mathf.Max(0, CurrentStamina - amount);
+    public void ConsumeStamina(int amount)
+    {
+        CurrentStamina = Mathf.Max(0, CurrentStamina - amount);
+        playerView.UpdateStaminaText(CurrentStamina);
+    } 
     
     // 스태미나 회복
-    public void RecoverStamina(int amount) => CurrentStamina = Mathf.Min(playerStatHolder.Stat.MaxStamina, CurrentStamina + amount);
+    public void RecoverStamina(int amount)
+    {
+        CurrentStamina = Mathf.Min(holder.Stat.MaxStamina, CurrentStamina + amount);
+        playerView.UpdateStaminaText(CurrentStamina);
+    }
     
     // 스태미나가 남아있는지?
-    public bool IsRemainStamina() => CurrentStamina > 0;
+    public bool IsRemainStamina() => CurrentStamina >= holder.Stat.RunStaminaCost;
     
     //정신력 감소
-    public void ConsumeSanity(int amount) => CurrentSanity = Mathf.Max(0, CurrentSanity - amount);
+    public void ConsumeSanity(int amount)
+    {
+        CurrentSanity = Mathf.Max(0, CurrentSanity - amount);
+        playerView.UpdateSanityText(CurrentSanity);
+    }
 
     // 정신력이 남아있는지?
     public bool IsRemainSanity() => CurrentSanity > 0;

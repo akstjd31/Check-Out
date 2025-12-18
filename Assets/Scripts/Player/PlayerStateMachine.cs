@@ -6,7 +6,7 @@ public enum PlayerState { Idle, Walk, Run }
 // 특정 영역과 관련된 상태
 public enum PlayerSituation { Safe, Normal, Dark, Chase, Invincible }
 
-
+[RequireComponent(typeof(StatController))]
 public class PlayerStateMachine : MonoBehaviour
 {
     public PlayerState CurrentState { get; private set; }

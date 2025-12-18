@@ -148,15 +148,17 @@ GameObject:
   - component: {fileID: 9110932944380609734}
   - component: {fileID: 2091762697164532313}
   - component: {fileID: 6675731960756902527}
-  - component: {fileID: 4311790820143484683}
-  - component: {fileID: 8893722332085407654}
-  - component: {fileID: 6546698172506151681}
-  - component: {fileID: 1615966991588161401}
-  - component: {fileID: 5470392613295798520}
+  - component: {fileID: 1684164030467024830}
   - component: {fileID: 1083620324217761453}
-  - component: {fileID: 3439429237133774228}
-  - component: {fileID: 3742200349762913651}
-  - component: {fileID: 4165646660305156088}
+  - component: {fileID: 1615966991588161401}
+  - component: {fileID: 6546698172506151681}
+  - component: {fileID: 5470392613295798520}
+  - component: {fileID: 6494831983528423991}
+  - component: {fileID: 8495979613417689934}
+  - component: {fileID: 1506647459598968897}
+  - component: {fileID: 886035484205339888}
+  - component: {fileID: 5131120016606181631}
+  - component: {fileID: 8289058912994371948}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -228,7 +230,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.965932, z: 1}
   m_Center: {x: 0, y: 1.2722166, z: 0}
---- !u!114 &4311790820143484683
+--- !u!114 &1684164030467024830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -252,71 +254,12 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e8d4664b-20f0-4168-973a-d69d96b4f0ea
-    m_ActionName: 'PlayerActionMap/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 83bcd173-7d78-44b0-b8a7-dd22249b2cb0
-    m_ActionName: 'PlayerActionMap/Interactive[/Keyboard/f]'
+  m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PC
   m_DefaultActionMap: PlayerActionMap
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &8893722332085407654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7014595832380163571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a643f42547e08f4688c52fa9976eec9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerCtrl
-  currentState: 0
-  currentSituation: 0
-  playerView: {fileID: 0}
---- !u!114 &6546698172506151681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7014595832380163571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96ec913416e8b9d4182f2b132996308e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatHolder
---- !u!114 &1615966991588161401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7014595832380163571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0df94e4a6aa0ef43a728ccdaa0fd3ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatInitializer
---- !u!114 &5470392613295798520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7014595832380163571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bffaf0b9eee4a714dab1813ecf6cba3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StatController
 --- !u!114 &1083620324217761453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,7 +279,91 @@ MonoBehaviour:
     m_Bits: 128
   mouseSensitivity: 120
   cameraDistance: 0.1
---- !u!114 &3439429237133774228
+--- !u!114 &1615966991588161401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0df94e4a6aa0ef43a728ccdaa0fd3ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatInitializer
+--- !u!114 &6546698172506151681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96ec913416e8b9d4182f2b132996308e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatHolder
+--- !u!114 &5470392613295798520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bffaf0b9eee4a714dab1813ecf6cba3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatController
+--- !u!114 &6494831983528423991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf8944cea5713d5419f2db5e722ed1ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
+--- !u!114 &8495979613417689934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b2362f7c5cd1354abc21d34cf016cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+--- !u!114 &1506647459598968897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4944494900f308439435637c7e7cf80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStamina
+--- !u!114 &886035484205339888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa1945ee71ea16c41bc67ef3f6e2bf28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStateMachine
+--- !u!114 &5131120016606181631
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -349,9 +376,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
   playerView: {fileID: 0}
-  playerHead: {fileID: 753602095481127051}
+  playerHead: {fileID: 0}
   distance: 2
---- !u!114 &3742200349762913651
+--- !u!114 &8289058912994371948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -360,21 +387,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7014595832380163571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 805bdaf4b5d9afb4fb0fec20b2fd9d1b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a643f42547e08f4688c52fa9976eec9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAreaDetector
---- !u!114 &4165646660305156088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7014595832380163571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 805bdaf4b5d9afb4fb0fec20b2fd9d1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAreaDetector
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCtrl
 --- !u!1 &7996910433432002895
 GameObject:
   m_ObjectHideFlags: 0
