@@ -141,9 +141,7 @@ public class PlayerCtrl : MonoBehaviour
 
     private void OnMouseScrollChangeSlotIndex(InputAction.CallbackContext context)
     {
-        var name = context.action.GetBindingIndex();
-
-        Debug.Log(name);
+        // 마우스 휠(업/다운)에 따른 슬롯 인덱스 변환 코드 작성
     }
 
     // 플레이어 인풋 액션들 비활성화
