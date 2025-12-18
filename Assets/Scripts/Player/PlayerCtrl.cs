@@ -21,14 +21,13 @@ public class PlayerCtrl : MonoBehaviour
     private StatController statController;
     private PlayerInteractor playerInteractor;
     [SerializeField] private PlayerState currentState;
-
+    [SerializeField] private Playersituation currentSituation;
     [SerializeField] private PlayerAreaDetector currentAreadetector;
 
     [Header("Value")]
     private int slotIndex = 0;                              // 테스트용 인덱스
     private Vector3 moveInput;
     private float staminaTimer = 1f;                        // 스태미나가 감소 or 회복되는 시점은 1초 지난 후
-    private int staminaDrainRun = 15;                       // 달릴때 초당 감소
     private bool isMoving;                                  // 움직이고 있는지?
     private bool isRunning;                                 // 달리기 중인지?
     private bool isExhausted;                               // 탈진 상태인지?
@@ -87,6 +86,8 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     private void Update()
+
+
     {
         //안전구역을 벗어날시 외부에서 값반환
         if (!currentAreadetector.isSafe)
@@ -139,7 +140,7 @@ public class PlayerCtrl : MonoBehaviour
             
             if (staminaTimer <= 0f)
             {
-                statController.ConsumeStamina(staminaDrainRun);
+                statController.ConsumeStamina(statController.CurrentRunStaminaCost);
                 staminaTimer = 1f;
             }
 
@@ -259,11 +260,17 @@ public class PlayerCtrl : MonoBehaviour
     public void OnMovePerformed(InputAction.CallbackContext context)
     {
         if (!isRunning)
+        {
+            SendMyPosition();
             UpdateState(PlayerState.Walk);
+        }
         else
         {
             if (!isExhausted)
+            {
+                SendMyPosition();
                 UpdateState(PlayerState.Run);
+            }
         }
 
         isMoving = true;
@@ -284,6 +291,7 @@ public class PlayerCtrl : MonoBehaviour
         // 탈진 상태일 경우
         if (isExhausted) return;
 
+        SendMyPosition();
         UpdateState(PlayerState.Run);
         isRunning = true;
     }
@@ -293,7 +301,10 @@ public class PlayerCtrl : MonoBehaviour
     {
         // 이동 중인 상태(방향키 입력은 계속 들어오는 상태)면 이동
         if (isMoving)
+        {
+            SendMyPosition();
             UpdateState(PlayerState.Walk);
+        }
         else
         {
             UpdateState(PlayerState.Idle);
@@ -315,5 +326,26 @@ public class PlayerCtrl : MonoBehaviour
         exhaustTimer = statController.GetDefaultExhaustTime();
         isRunning = false; // 강제 걷기
         staminaTimer = 1f;
+    }
+
+    //무적 시작
+    private void UpdateInvincibleTimer()
+    {
+        if (!isInvincible)
+            return;
+
+        invincibleTimer -= Time.deltaTime;
+        Debug.Log("무적발동");
+        if (invincibleTimer <= 0f)
+        {
+            isInvincible = false;
+        }
+    }
+
+    //플레이어 위치 보내기
+    public void SendMyPosition()
+    {
+        PlayerSoundEvent.OnFootstep?.Invoke(transform.position);
+        Debug.Log(transform.position);
     }
 }
