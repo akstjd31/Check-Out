@@ -8,7 +8,7 @@ public enum PlayerState
 {
     Idle, Walk, Run
 }
-public enum Playersituation
+public enum PlayerSituation
 {
     Safe, Normal, Dark, Chase, Invincible
 }
@@ -22,8 +22,8 @@ public class PlayerCtrl : MonoBehaviour
     private PlayerInteractor playerInteractor;
     private PlayerAreaDetector currentAreaDetector;
     [SerializeField] private PlayerState currentState;
-    [SerializeField] private Playersituation currentSituation;
-    [SerializeField] private PlayerView playerView;                     // 플레이어 뷰
+    [SerializeField] private PlayerSituation currentSituation;
+    [SerializeField] private PlayerView playerView;          // 플레이어 뷰          
 
     [Header("Value")]
     private int slotIndex = 0;                              // 테스트용 인덱스
@@ -88,44 +88,17 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Update()
     {
-        //안전구역을 벗어날시 외부에서 값반환
-        if (!currentAreaDetector.isSafe)
+        //정신력이 0이 아닐시 작동
+        if (statController.IsRemainSanity())
         {
-            //추격상태일때  
-            if (currentAreaDetector.isMonster)
-            {
-                UpdateSituation(Playersituation.Chase);
-                statController.ConsumeSanity(statController.CurrentSanityDps);
-                //Debug.Log("몬스터있음");
-                //Debug.Log(statController.CurrentSanity);
-
-                isInvincible = true;
-                invincibleTimer = statController.CurrentInvincibilityTime;
-            }
-            else
-            {
-                //광원이 있으면 외부에서 반환
-                if (currentAreaDetector.isLight)
-                {
-                    UpdateSituation(Playersituation.Normal);
-                    statController.ConsumeSanity(statController.CurrentSanityDps);
-                    //Debug.Log("빛있음");
-                    //Debug.Log(statController.CurrentSanity);
-                }
-                else
-                {
-                    UpdateSituation(Playersituation.Dark);
-                    statController.ConsumeSanity(statController.CurrentSanityDps);
-                    //Debug.Log("빛없음");
-                    //Debug.Log(statController.CurrentSanity);
-                }
-            }
+            playerView.UpdateSanityText(statController.CurrentSanity);
+            OnSanity();
+            statController.ConsumeSanity(statController.CurrentSanityDps);
         }
-        
         else
-        { UpdateSituation(Playersituation.Safe); }
-
-        UpdateInvincibleTimer();
+        {
+            Debug.Log("GAME OVER");
+        }
 
         // 탈진 상태일때 타이머 계산
         if (isExhausted)
@@ -245,7 +218,7 @@ public class PlayerCtrl : MonoBehaviour
         statController.UpdateUsedValue(currentState);
     }
 
-    public void UpdateSituation(Playersituation situation)
+    public void UpdateSituation(PlayerSituation situation)
     {
         currentSituation = situation;
         statController.UpdateSituationUsedValue(currentSituation);
@@ -326,7 +299,7 @@ public class PlayerCtrl : MonoBehaviour
         staminaTimer = 1f;
     }
 
-    //무적 시작
+    //무적시간 :  피격시로 설정할려함
     private void UpdateInvincibleTimer()
     {
         if (!isInvincible)
@@ -345,5 +318,53 @@ public class PlayerCtrl : MonoBehaviour
     {
         PlayerSoundEvent.OnFootstep?.Invoke(transform.position);
         Debug.Log(transform.position);
+    }
+
+    //안전지대에 진입 시
+    public void OnSanity()
+    {
+        if (currentAreaDetector.IsSafe)
+        {
+            UpdateSituation(PlayerSituation.Safe);
+            return;
+        }
+        OnUnsafeArea();
+    }
+
+    //안전지대에서 벗어날 시
+    private void OnUnsafeArea()
+    {
+        //몬스터가 근쳐에 있으면 true
+        if (currentAreaDetector.IsMonster)
+        {
+            OnChase();
+            return;
+        }
+        else
+        {
+            OnLightOrDark();
+        }
+
+    }
+
+    //몬스터가 근처에있을 때
+    private void OnChase()
+    {
+        UpdateSituation(PlayerSituation.Chase);
+        isInvincible = true;
+        invincibleTimer = statController.CurrentInvincibilityTime;
+    }
+
+    //광원 유무에 따른 상태변화
+    private void OnLightOrDark()
+    {
+        if (currentAreaDetector.IsLight)
+        {
+            UpdateSituation(PlayerSituation.Normal);
+        }
+        else
+        {
+            UpdateSituation(PlayerSituation.Dark);
+        }
     }
 }

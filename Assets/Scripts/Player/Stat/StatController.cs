@@ -45,20 +45,21 @@ public class StatController : MonoBehaviour
         }
     }
 
-    public void UpdateSituationUsedValue(Playersituation situation)
+    //각 상태에 따라 정신력에 데미지를 입음
+    public void UpdateSituationUsedValue(PlayerSituation situation)
     {
         switch (situation)
         {
-            case Playersituation.Safe:
+            case PlayerSituation.Safe:
                 CurrentSanityDps = 0;
                 break;
-            case Playersituation.Normal:
+            case PlayerSituation.Normal:
                 CurrentSanityDps = playerStatHolder.Stat.SanityDpsNormal;
                 break;
-            case Playersituation.Dark:
+            case PlayerSituation.Dark:
                 CurrentSanityDps = playerStatHolder.Stat.SanityDpsDark;
                 break;
-            case Playersituation.Chase:
+            case PlayerSituation.Chase:
                 CurrentSanityDps = playerStatHolder.Stat.SanityDpsChased;
                 break;
         }
