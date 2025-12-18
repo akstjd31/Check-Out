@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// 영역별 정신력 감소량 계산 관련 클래스
 public class PlayerAreaDetector : MonoBehaviour
 {
     private int lightCount = 0;
