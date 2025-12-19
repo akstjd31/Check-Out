@@ -46,7 +46,6 @@ public class StorageManager : Singleton<StorageManager>
         ItemTableData item = inventory.MoveItem(index);
 
         if (item == null) return;
-        Debug.Log("ferw");
 
         storage.ItemStorage(item, storageIndex);
     }

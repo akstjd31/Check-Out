@@ -82,7 +82,8 @@ public class InventoryUI : MonoBehaviour
     // UI가 변경 되었을때
     public void UpdateUI(int index)
     {
-        hover.gameObject.SetActive(false);
+        if (!GameManager.Instance.CurrentState.Equals(GameState.Session))
+            hover.gameObject.SetActive(false);
 
         Image ItemImage = uiObjs[index].transform.GetChild(0).GetComponent<Image>();
         Button button = uiObjs[index].transform.GetChild(0).GetComponent<Button>();

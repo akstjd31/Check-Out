@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class FadeController : Singleton<FadeController>
 {
     [SerializeField] private Image fadeImage;
-    [SerializeField] private float fadeDuration = 1f;
+    [SerializeField] private float fadeDuration = 2f;
     public bool IsFadeEnded { get; private set; }
 
     private void Start()

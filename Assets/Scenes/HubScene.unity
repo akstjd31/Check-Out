@@ -993,7 +993,6 @@ MonoBehaviour:
   storage: {fileID: 0}
   inventory: {fileID: 0}
   invenUI: {fileID: 1659060475}
-  IsOpen: 0
 --- !u!114 &1758724606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2193,7 +2192,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1971204675105539025, guid: 8b992a24aff3d2e4c9f980c48ffad398, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3565908883269936474, guid: 8b992a24aff3d2e4c9f980c48ffad398, type: 3}
       propertyPath: m_Name
@@ -2518,3 +2517,4 @@ SceneRoots:
   - {fileID: 1433366303}
   - {fileID: 1758724603}
   - {fileID: 1194587941}
+  - {fileID: 905791716}

@@ -2,7 +2,7 @@
 
 public abstract class Interactable : MonoBehaviour
 {
-    protected string promptText = "";
+    [SerializeField] protected string promptText = "";
 
     // 플레이어가 바라봤을때
     public abstract void OnFocusEnter();
