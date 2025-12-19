@@ -70,12 +70,12 @@ public class WalkerModel : Monster
             case WalkerState.Chase:
                 walkerState = WalkerState.Chase;
                 OnChase?.Invoke();
-                OnChaseAfter?.Invoke();
+                // OnChaseAfter?.Invoke();
                 break;
             case WalkerState.MissingPlayer:
                 walkerState = WalkerState.MissingPlayer;
                 OnMissingPlayer?.Invoke();
-                OnMissingPlayerAfter?.Invoke();
+                // OnMissingPlayerAfter?.Invoke();
                 break;
             case WalkerState.FindPlayer:
                 walkerState = WalkerState.FindPlayer;

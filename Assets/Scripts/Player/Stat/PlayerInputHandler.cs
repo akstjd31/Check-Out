@@ -7,14 +7,15 @@ public class PlayerInputHandler : MonoBehaviour
 {
     [Header("Component")]
     private PlayerInput playerInput;
-    private InputAction moveAction, runAction, interactAction, scrollAction;
+    private InputAction moveAction, runAction, interactAction, scrollAction, selectAction;
 
     [Header("Value")]
-    private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll" };
+    private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll", "Select"};
     public Vector3 MoveInput { get; private set; }
     public bool IsRunPressed { get; private set; }
     public event Action OnInteract;
     public event Action<int> OnScroll;              // 슬롯 변경 관련 이벤트 구독 필요
+    public event Action<int> OnSelected;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class PlayerInputHandler : MonoBehaviour
         runAction = playerInput.actions[playerActions[1]];
         interactAction = playerInput.actions[playerActions[2]];
         scrollAction = playerInput.actions[playerActions[3]];
+        selectAction = playerInput.actions[playerActions[4]];
     }
 
     private void Start()
@@ -40,7 +42,10 @@ public class PlayerInputHandler : MonoBehaviour
         runAction.canceled += OnRunCanceled;
 
         interactAction.performed += OnInteractKey;
+
         scrollAction.performed += OnScrollWheel;
+
+        selectAction.performed += OnSelectSlotButton;
     }
 
     private void Update()
@@ -71,6 +76,11 @@ public class PlayerInputHandler : MonoBehaviour
         if (scrollAction != null)
         {
             scrollAction.performed -= OnScrollWheel;
+        }
+
+        if (selectAction != null)
+        {
+            selectAction.performed -= OnSelectSlotButton;
         }
     }
 
@@ -107,5 +117,11 @@ public class PlayerInputHandler : MonoBehaviour
     {
         float value = ctx.ReadValue<Vector2>().y;
         OnScroll?.Invoke(value > 0 ? 1 : -1);
+    }
+
+    public void OnSelectSlotButton(InputAction.CallbackContext ctx)
+    {
+        int slotIndex = int.Parse(ctx.control.name) - 1;
+        OnSelected?.Invoke(slotIndex);
     }
 }

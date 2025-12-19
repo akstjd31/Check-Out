@@ -16,20 +16,44 @@ public class InventoryController : MonoBehaviour
     {
         input = this.GetComponent<PlayerInputHandler>();
         invenUI = FindAnyObjectByType<InventoryUI>();
-        
-        input.OnScroll += QuickSlotFocused;
+
+        input.OnScroll += QuickSlotFocusedByScroll;
+        input.OnSelected += QuickSlotFocusedByButton;
     }
-    
-    public void QuickSlotFocused(int value)
+
+    // 마우스 휠을 이용한 퀵 슬롯 인덱스 변경 방식
+    public void QuickSlotFocusedByScroll(int value)
     {
-        focusedIndex += value;
-        if (focusedIndex < 0)
-            focusedIndex = invenUI.GetInventoryMaxIndex();
-        else if (focusedIndex > invenUI.GetInventoryMaxIndex())
-            focusedIndex = 0;
+        int maxIndex = invenUI.GetInventoryMaxIndex();
+        int nextIndex = focusedIndex + value;
+
+        if (nextIndex < 0)
+            nextIndex = maxIndex;
+        else if (nextIndex > maxIndex)
+            nextIndex = 0;
+
+        ApplyFocusedSlot(nextIndex);
+    }
+
+    // 버튼(1 ~ 4)을 이용한 퀵 슬롯 인덱스 변경 방식
+    public void QuickSlotFocusedByButton(int slotIndex)
+    {
+        int maxIndex = invenUI.GetInventoryMaxIndex();
+
+        if (slotIndex < 0 || slotIndex > maxIndex)
+            return;
+
+        ApplyFocusedSlot(slotIndex);
+    }
+
+    // 공통 작업 (인벤토리 세팅)
+    private void ApplyFocusedSlot(int index)
+    {
+        focusedIndex = index;
 
         InventoryManager.Instance.SelectInventory(focusedIndex);
         invenUI.SelectUI(focusedIndex);
         invenUI.UpdateAll();
     }
+
 }
