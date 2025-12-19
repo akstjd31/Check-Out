@@ -25,11 +25,12 @@ public class StatController : MonoBehaviour
 
     [Header("Value")]
     private float speedMultiplier = 1.5f;                        // 1.5배 속도 관련 계수
+    private string playerStatCanvasName = "PlayerStatCanvas";    // 플레이어 스탯 관련 캔버스
 
     private void Awake()
     {
         holder = this.GetComponent<PlayerStatHolder>();
-        playerView = GameObject.Find("Canvas").GetComponent<PlayerView>();
+        playerView = GameObject.Find(playerStatCanvasName).GetComponent<PlayerView>();
     }
 
     public void Init()

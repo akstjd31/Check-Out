@@ -4,13 +4,7 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField] public ItemTableData[] slots;
 
-    private int inventorySize = 4;
-
-
-    private void Start()
-    {
-        SetInventory(inventorySize);
-    }
+    [SerializeField] private int inventorySize = 4;
 
     public void SetInventory(int size)
     {
@@ -22,6 +16,8 @@ public class Inventory : MonoBehaviour
             
         slots = new ItemTableData[size];
     }
+
+    public int GetDefaultInventorySize() => inventorySize;
 
     // 인벤토리가 비어있는지 체크
     public bool CheckEmpty(out int index)

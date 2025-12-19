@@ -79,8 +79,6 @@ public class InventoryManager : Singleton<InventoryManager>
 
         ItemTableData currentItem = inventory.slots[index];
 
-        Debug.Log(currentItem);
-
         if (currentItem == null)
         {
             Debug.Log("아이템이 없습니다");
