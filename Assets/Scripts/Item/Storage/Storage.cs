@@ -10,6 +10,8 @@ public class Storage : MonoBehaviour
         SetStorage(storageSize);
     }
 
+    public int GetDefaultStorageSize() => storageSize;
+
     public void SetStorage(int size)
     {
         if (size < 1)

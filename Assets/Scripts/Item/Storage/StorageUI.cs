@@ -10,9 +10,10 @@ public class StorageUI : MonoBehaviour
 
     private Storage storage;
     private InventoryUI inventoryUI;
+    private int storageSize;
 
 
-    void Awake()
+    private void Awake()
     {
         storage = FindAnyObjectByType<Storage>();
         inventoryUI = FindAnyObjectByType<InventoryUI>();
@@ -22,12 +23,22 @@ public class StorageUI : MonoBehaviour
         }
     }
 
-    public void OnEnable()
+    private void Start()
+    {
+        if (storage != null)
+        {
+            storageSize = storage.GetDefaultStorageSize();
+            storage.SetStorage(storageSize);
+            SetStorageUI(storageSize);
+        }
+    }
+
+    private void OnEnable()
     {
         inventoryUI.StorageChangeState();
     }
 
-    public void OnDisable()
+    private void OnDisable()
     {
         inventoryUI.StorageChangeState();
     }

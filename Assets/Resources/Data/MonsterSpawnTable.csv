@@ -1,7 +1,0 @@
-﻿아이디,X좌표,Y좌표,Z좌표,몬스터 스폰 랜덤 여부,몬스터 아이디
-id,locationX,locationY,locationZ,isRandom,monsterId
-int,float,float,float,bool,string
-5001,0,0,0,TRUE,Assets/Resources/Prefabs/Monster/Walker
-5002,3,10,10,FALSE,Assets/Resources/Prefabs/Monster/Walker
-5003,30,30,30,TRUE,Assets/Resources/Prefabs/Monster/Siren
-5004,50,50,70,FALSE,Assets/Resources/Prefabs/Monster/Siren

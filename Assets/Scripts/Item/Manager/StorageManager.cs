@@ -9,20 +9,16 @@ public class StorageManager : Singleton<StorageManager>
     protected override void Awake()
     {
         base.Awake();
-        GetStorage();
-        GetInventory();
+        
+        storage = FindAnyObjectByType<Storage>();
+        inventory = FindAnyObjectByType<Inventory>();
     }
 
     // 창고 가져오기
-    public void GetStorage()
-    {
-        storage = FindAnyObjectByType<Storage>();
-    }
+    public Storage GetStorage() => storage;
+
     // 인벤토리 가져오기
-    public void GetInventory()
-    {
-        inventory = FindAnyObjectByType<Inventory>();
-    }
+    public Inventory GetInventory() => inventory;
 
     // 인벤토리에서 창고로
     public void InventoryToStorage(int index)
