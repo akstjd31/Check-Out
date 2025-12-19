@@ -24,6 +24,9 @@ public class StatController : MonoBehaviour
         CurrentSanity = holder.Stat.MaxSanity;
         CurrentRunStaminaCost = holder.Stat.RunStaminaCost;
         CurrentInvincibilityTime = holder.Stat.InvincibilityTime;
+
+        playerView.UpdateStaminaText(CurrentStamina);
+        playerView.UpdateSanityText(CurrentSanity);
     }
 
     // 각 상태에 따른 기본 수치 적용

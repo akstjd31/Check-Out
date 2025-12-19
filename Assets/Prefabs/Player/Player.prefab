@@ -159,6 +159,8 @@ GameObject:
   - component: {fileID: 886035484205339888}
   - component: {fileID: 5131120016606181631}
   - component: {fileID: 8289058912994371948}
+  - component: {fileID: 3956227001367125626}
+  - component: {fileID: 2594696585418424042}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -315,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bffaf0b9eee4a714dab1813ecf6cba3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatController
+  playerView: {fileID: 0}
 --- !u!114 &6494831983528423991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,6 +393,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a643f42547e08f4688c52fa9976eec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCtrl
+--- !u!114 &3956227001367125626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805bdaf4b5d9afb4fb0fec20b2fd9d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAreaDetector
+--- !u!114 &2594696585418424042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be57962e60aafe84d9b500f1fe74d121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSanity
+  view: {fileID: 0}
 --- !u!1 &7996910433432002895
 GameObject:
   m_ObjectHideFlags: 0

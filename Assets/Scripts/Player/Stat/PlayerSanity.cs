@@ -8,7 +8,7 @@ public class PlayerSanity : MonoBehaviour
     private StatController stat;
     private PlayerAreaDetector areaDetector;   
     private PlayerStateMachine stateMachine;
-    [SerializeField] private PlayerView view;
+    private float sanityTimer;
 
     private void Awake()
     {
@@ -26,9 +26,13 @@ public class PlayerSanity : MonoBehaviour
             return;
         }
 
+        sanityTimer -= Time.deltaTime;
+        if (sanityTimer > 0f) return;
+
+        sanityTimer = 1f;
+
         UpdateSituationByArea();
         UpdateSanityValue();
-        view.UpdateSanityText(stat.CurrentSanity);
     }
 
     // 정신력 수치 갱신
