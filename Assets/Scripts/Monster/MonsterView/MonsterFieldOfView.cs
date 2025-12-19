@@ -12,20 +12,21 @@ public class MonsterFieldOfView : MonoBehaviour
     public LayerMask playerMask;
     public LayerMask obstacleMask;
 
-    private WaitForSeconds delay;
-
+    public WaitForSeconds delay;
+    // 현재 시야에 타겟이 있다면 위치 정보를 담아둘 장소
     public List<Transform> visibleTargets = new List<Transform>();
 
     private void Awake()
     {
         // 딜레이 0.2초로 설정
-        delay = new WaitForSeconds(0.2f);
+        //delay = new WaitForSeconds(0.2f);
+        viewRadius = 1;
     }
 
     private void Start()
-    {
-        // 0.2초 간격으로 플레이어를 탐지합니다.
-        StartCoroutine("FindTargetsWithDelay");
+    { 
+        // 테스트를 위해 아래 매서드 호출은 남겨둡니다.
+        //StartCoroutine("FindTargetsWithDelay");
     }
     public Vector3 DirectionFromAngle(float angleInDegrees, bool angleIsGlobal)
     {
@@ -36,6 +37,7 @@ public class MonsterFieldOfView : MonoBehaviour
 
     private void FindVisibleTarget()
     {
+        //Debug.Log("시야 갱신");
         // 매서드 시작 시 리스트를 초기화
         visibleTargets.Clear();
         // 타겟에 해당하는 레이어에 존재하는 객체만을 콜라이더에 저장
@@ -49,7 +51,7 @@ public class MonsterFieldOfView : MonoBehaviour
             // 만약 타겟이 시야각 안에 있다면 다음 내용을 수행
             if(Vector3.Angle(transform.forward, directionToTarget) < viewAngle / 2)
             {
-                // 타겟광의 거리를 확인
+                // 타겟과의 거리를 확인
                 float dstToTarget = Vector3.Distance (transform.position, target.position);
                 // 몬스터와 플레이어 사이에 장애물이 없을 경우 다음 내용을 수행
                 if( !Physics.Raycast (transform.position, directionToTarget, dstToTarget, obstacleMask))
@@ -61,7 +63,7 @@ public class MonsterFieldOfView : MonoBehaviour
         }
     }
 
-    private IEnumerator FindTargetsWithDelay()
+    public IEnumerator FindTargetsWithDelay()
     {
         while(true)
         {
