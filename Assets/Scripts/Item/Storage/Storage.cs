@@ -14,6 +14,21 @@ public class Storage : MonoBehaviour
 
     public int GetDefaultStorageSize() => storageSize;
 
+    // 창고 저장 기능
+
+    public void SaveStorage()
+    {
+        // 1. 창고에 저장된 아이템들 ID를 불러온다.
+        // 2. 실제 구현된 범용 저장 기능을 활용해 저장한다.
+        // foreach (ItemTableData data in storageList)
+        // {
+        //     if (data != null)
+        //     {
+        //         SaveLoadManager.Instance.Save("ItemSaveData.json", data);
+        //     }
+        // }
+    }
+
     public void SetStorage(int size)
     {
         if (size < 1)
