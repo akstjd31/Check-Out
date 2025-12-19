@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using UnityEngine.AI;
 using Unity.AI.Navigation;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -23,6 +23,9 @@ public class MapBakeTool : EditorWindow
 
     //각 타일을 노드 관계로 연결하기 위한 Dictionary
     private Dictionary<Vector3Int, MapNode> nodes;
+
+    //문 생성 시에 해당 부분에 지정할 탈출구 포인트.
+    private List<ExitPoint> exitPoints;
 
     //"Vector3Int형 방향"의 배열.
     static readonly Vector3Int[] dirs =
@@ -313,6 +316,11 @@ public class MapBakeTool : EditorWindow
         wall.transform.localScale = tilemap.cellSize * tilemap.transform.parent.transform.localScale.x;
         wall.transform.SetParent(mapRoot, true);
     }
+    /// <summary>
+    /// 문을 형성하기 위한 메서드입니다. SpawnWallBetween 메서드와 기능이 비슷하나 이동을 위한 추가 코드가 존재합니다.
+    /// </summary>
+    /// <param name="node">문 형성의 기준점이 될 노드</param>
+    /// <param name="dir">방향</param>
     void SpawnDoorBetween(MapNode node, Vector3Int dir)
     {
         Vector3 cellHalf = tilemap.transform.TransformVector(tilemap.cellSize * 0.5f);
@@ -322,10 +330,36 @@ public class MapBakeTool : EditorWindow
         GameObject door =
             (GameObject)PrefabUtility.InstantiatePrefab(doorPrefab);
 
+
         door.transform.position = pos;
         door.transform.rotation = RotationFromDir(dir);
         door.transform.localScale = tilemap.cellSize * tilemap.transform.parent.transform.localScale.x;
         door.transform.SetParent(mapRoot, true);
+
+        //추가된 코드. 방 타입에 따라서 NavMeshLink를 생성합니다.
+        if (node.type == NodeType.Path || node.type == NodeType.Room)
+        {
+            //방에 출구라는 표시를 남기기 위한 컴포넌트 추가
+            door.AddComponent<ExitPoint>();
+
+            //NavMesh 생성용 게임 오브젝트 생성.
+            GameObject movePath = new GameObject();
+            //구분하기 쉽도록 이름 변경
+            movePath.name = "NavMeshLink";
+            movePath.transform.parent = mapRoot;
+            movePath.transform.position = door.transform.position;
+            movePath.transform.rotation = door.transform.rotation;
+
+            //생성된 오브젝트에 NavMeshLink 추가.
+            NavMeshLink navLink = movePath.AddComponent<NavMeshLink>();
+            //시작지점은 방, 도착지점은 길. 생성되는 방향 따라 지정.
+            navLink.startPoint = Vector3.back * 1.5f;
+            navLink.endPoint = Vector3.forward * 1.5f;
+            //일방통행 여부는 길 타입일 경우는 일방통행, 방 타입일 경우 쌍방향 통행.
+            navLink.bidirectional = node.type == NodeType.Path? false : true;
+            //지역에 맞게 지역 종류 변경
+            navLink.area = node.type == NodeType.Path? NavMesh.GetAreaFromName("Walkable") : NavMesh.GetAreaFromName("Room");
+        }
     }
 
     /// <summary>
@@ -383,26 +417,37 @@ public class MapBakeTool : EditorWindow
         }
     }
 
+    /// <summary>
+    /// 출구(엘레베이터) 생성을 제어하기 위한 코드로, 생성 시 방향을 제어합니다.
+    /// </summary>
+    /// <param name="node"></param>
     void SpawnExit(MapNode node)
     {
+        //기본 회전은 identity(회전 적용 X)
         Quaternion rotation = Quaternion.identity;
 
+        //모든 방향을 기준으로
         foreach (var dir in dirs)
         {
+            //확인할 좌표는 현재 좌표에 방향값을 더한 곳.
             Vector3Int next = node.cell + dir;
 
+            //해당 좌표에 이웃이 없었을 경우, 즉 유효한 타일이 아니었을 경우 넘김
             if (!nodes.TryGetValue(next, out var neighbor))
                 continue;
 
-            // 같은 고유번호인지 확인
-            if (node.index != neighbor.index)
+            // 같은 고유번호인지 확인. 탈출구 한정이므로 -1만 체크하는 길 타일의 예외 처리를 두지 않아도 된다.
+            if (node.index != neighbor.index || node.index != neighbor.index + 4)
                 continue;
 
+            //같은 고유번호를 가진 타일이 확인된 경우 해당 타일을 바라보는 방향으로 변경.
             rotation = RotationFromDir(dir);
         }
 
         GameObject go = Instantiate(exitPrefab, node.world, rotation);
         go.transform.SetParent(mapRoot, true);
+
+        //크기 조절
         go.transform.localScale = tilemap.cellSize * (tilemap.transform.parent.transform.localScale.x / 10);
     }
 
@@ -430,7 +475,7 @@ public class MapBakeTool : EditorWindow
     /// <returns></returns>
     Vector3 DirToWorld(Vector3Int dir)
     {
-        // Tilemap (X,Y) → World (X,Z)
+        //타일맵의 X,Y축을 월드 좌표의 X,Z축으로 변경
         return new Vector3(dir.x, 0f, dir.y);
     }
 
