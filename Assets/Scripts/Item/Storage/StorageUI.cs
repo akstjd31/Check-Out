@@ -20,24 +20,24 @@ public class StorageUI : MonoBehaviour
         if (storage == null)
         {
             Debug.Log("UI - 창고를 찾지 못했습니다");
+            return;
         }
     }
 
-    private void Start()
+    public void Init()
     {
-        if (storage != null)
-        {
-            storageSize = storage.GetDefaultStorageSize();
-            storage.SetStorage(storageSize);
-            SetStorageUI(storageSize);
-        }
+        storageSize = storage.GetDefaultStorageSize();
+        storage.SetStorage(storageSize);
+        SetStorageUI(storageSize);
     }
+
 
     private void OnEnable()
     {
         inventoryUI.StorageOpen();
 
         storage.OnSlotUpdated += UpdateUI;
+        UpdateAll();
     }
 
     private void OnDisable()
@@ -66,7 +66,7 @@ public class StorageUI : MonoBehaviour
         UpdateAll();
     }
 
-    private void UpdateAll()
+    public void UpdateAll()
     {
         int index = 0;
         foreach (var uiObj in uiObjs)
@@ -76,7 +76,7 @@ public class StorageUI : MonoBehaviour
     }
 
     // UI가 변경 되었을때
-    private void UpdateUI(int index)
+    public void UpdateUI(int index)
     {
         hover.gameObject.SetActive(false);
 

@@ -5,7 +5,7 @@ public class Storage : MonoBehaviour
 {
     [SerializeField] private int storageSize = 16;
     [SerializeField] public ItemTableData[] storageList;
-    public event Action<int> OnSlotUpdated;
+    public Action<int> OnSlotUpdated;
 
     private void Start()
     {

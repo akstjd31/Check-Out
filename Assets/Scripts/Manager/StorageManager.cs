@@ -3,10 +3,9 @@ using UnityEngine;
 
 public class StorageManager : Singleton<StorageManager>
 {
-    [SerializeField] private GameObject player;
     [SerializeField] private Storage storage;
+    [SerializeField] private StorageUI storageUI;
     [SerializeField] private Inventory inventory;
-    [SerializeField] private InventoryUI invenUI;
     public bool IsOpen { get; set; }
     private string fileName = "StorageSaveData.json";
 
@@ -16,6 +15,8 @@ public class StorageManager : Singleton<StorageManager>
         
         storage = FindAnyObjectByType<Storage>();
         inventory = FindAnyObjectByType<Inventory>();
+
+        storageUI.Init();
     }
 
     // 창고 저장 기능
@@ -36,6 +37,26 @@ public class StorageManager : Singleton<StorageManager>
 
         SaveLoadManager.Instance.Save(fileName, saveData);
         Debug.Log("창고 데이터 저장 완료!");
+    }
+
+    // 창고 불러오기
+    public void LoadStorage()
+    {
+        StorageSaveData saveData = 
+            SaveLoadManager.Instance.Load<StorageSaveData>(fileName);
+        
+        if (saveData == null) return;
+
+        foreach (var slot in saveData.slots)
+        {
+            ItemTableData item = ItemManager.Instance.GetItemData(slot.itemId);
+
+            storage.storageList[slot.index] = item;
+            storage.OnSlotUpdated?.Invoke(slot.index);
+        }
+
+        Debug.Log("창고 데이터 로드 완료!");
+        // storageUI.transform.root.GetChild(0).gameObject.SetActive(false);
     }
 
     // 창고 가져오기
