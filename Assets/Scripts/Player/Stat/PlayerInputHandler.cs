@@ -14,7 +14,7 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector3 MoveInput { get; private set; }
     public bool IsRunPressed { get; private set; }
     public event Action OnInteract;
-    public event Action<int> OnScroll;
+    public event Action<int> OnScroll;              // 슬롯 변경 관련 이벤트 구독 필요
 
     private void Awake()
     {

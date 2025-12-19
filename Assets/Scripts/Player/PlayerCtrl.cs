@@ -24,7 +24,7 @@ public class PlayerCtrl : MonoBehaviour
         state = this.GetComponent<PlayerStateMachine>();
         interactor = this.GetComponent<PlayerInteractor>();
 
-        input.OnInteract += OnInteract;
+        input.OnInteract += OnInteract; 
     }
 
     private void Update()
@@ -56,8 +56,5 @@ public class PlayerCtrl : MonoBehaviour
             state.ChangeState(PlayerState.Walk);
     }
 
-    private void OnInteract()
-    {
-        interactor.Interaction();
-    }
+    private void OnInteract() => interactor.Interaction();
 }
