@@ -124,5 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e425ec59d657a4d83edbbea63460ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  text: {fileID: 0}
   currentDoorType: 0

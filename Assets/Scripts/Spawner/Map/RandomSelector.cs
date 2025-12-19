@@ -165,6 +165,7 @@ public class RandomSelector : MonoBehaviour
             spawnedPoint.Add(random);
         }
 
+        //소환되지 않은 장소에는 벽을 소환(4방향 다 틀어막힌 벽을 생성하였음.)
         for(int i = 0; i<elevators.Length;i++)
         {
             if (!spawnedPoint.Contains(i))

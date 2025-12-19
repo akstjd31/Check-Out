@@ -28,6 +28,9 @@ public static class MeshCombineSystem
             if (filter.sharedMesh == null)
                 continue;
 
+            if (filter.gameObject.name.Contains("Door"))
+                continue;
+
             //해당 MeshFilter로부터 MeshRenderer을 받아옴.
             MeshRenderer renderer = filter.GetComponent<MeshRenderer>();
             //Renderer 또는 Renderer가 공유받은 머티리얼이 null인 경우 넘김
@@ -104,11 +107,11 @@ public static class MeshCombineSystem
         }
 
         //방과 탈출구에 관련된 타일 또는 벽은, AI가 적용된 대상이 이동할 수 없도록 NavMeshModifier을 통해 걷지 못하는 구역으로 분리.
-        if (combined.name.Contains("Room") || combined.name.Contains("Exit"))
+        if (combined.name.Contains("Room"))
         {
             var modifier = combined.AddComponent<NavMeshModifier>();
             modifier.overrideArea = true;
-            modifier.area = NavMesh.GetAreaFromName("Not Walkable");
+            modifier.area = combined.name.Contains("Room")? NavMesh.GetAreaFromName("Room") : NavMesh.GetAreaFromName("Not Walkable");
         }
         else
         {
