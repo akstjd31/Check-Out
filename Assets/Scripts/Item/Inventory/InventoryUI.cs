@@ -13,8 +13,8 @@ public class InventoryUI : MonoBehaviour
     private Inventory inventory;
     private int invenSize;
 
-    bool IsStorageOpen;
-    bool IsStoreOpen;
+    bool IsStorageOpen = false;
+    bool IsStoreOpen = false;
 
 
 

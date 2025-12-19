@@ -74,6 +74,7 @@ public class Inventory : MonoBehaviour
         slots[index] = item;
         Debug.Log($"{item.id}을 {index + 1}슬롯에 성공적으로 넣었습니다");
         OnSlotUpdated?.Invoke(index);
+        return;
     }
 
     // 아이템 이동(버리거나 창고)

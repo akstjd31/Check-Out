@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Unity.Profiling;
-using UnityEngine;
 
 [Serializable]
-public class StorageSaveData
+public class StorageSaveData : SaveBase
 {
     public List<StorageSlotData> slots = new();
 }

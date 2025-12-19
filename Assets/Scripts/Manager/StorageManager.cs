@@ -8,6 +8,7 @@ public class StorageManager : Singleton<StorageManager>
     [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryUI invenUI;
     public bool IsOpen { get; set; }
+    private string fileName = "StorageSaveData.json";
 
     protected override void Awake()
     {
@@ -15,6 +16,26 @@ public class StorageManager : Singleton<StorageManager>
         
         storage = FindAnyObjectByType<Storage>();
         inventory = FindAnyObjectByType<Inventory>();
+    }
+
+    // 창고 저장 기능
+    public void SaveStorage()
+    {
+        StorageSaveData saveData = new StorageSaveData();
+
+        for (int i = 0; i < storage.storageList.Length; i++)
+        {
+            if (storage.storageList[i] == null) continue;
+
+            saveData.slots.Add(new StorageSlotData
+            {
+                index = i,
+                itemId = storage.storageList[i].id
+            });
+        }
+
+        SaveLoadManager.Instance.Save(fileName, saveData);
+        Debug.Log("창고 데이터 저장 완료!");
     }
 
     // 창고 가져오기

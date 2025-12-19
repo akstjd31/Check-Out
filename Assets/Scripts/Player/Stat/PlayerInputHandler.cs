@@ -96,6 +96,7 @@ public class PlayerInputHandler : MonoBehaviour
         runAction.Disable();
         interactAction.Disable();
         scrollAction.Disable();
+        selectAction.Disable();
     }
 
     // 입력 활성화
@@ -105,6 +106,7 @@ public class PlayerInputHandler : MonoBehaviour
         runAction.Enable();
         interactAction.Enable();
         scrollAction.Enable();
+        selectAction.Enable();
     }
 
     public void OnMovePerformed(InputAction.CallbackContext ctx) => MoveInput = ctx.ReadValue<Vector3>();
