@@ -41,6 +41,9 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Return))
+            ItemManager.Instance.Test(1);
+            
         stateMachine.Update();
     }
 
@@ -67,5 +70,6 @@ public class GameManager : Singleton<GameManager>
     // 로딩 완료 시 이벤트
     public void HandleLoadingEnded() => ChangeState(LoadingData.NextState);
 
+    // UI 열려있는지?
     public bool IsOpenedUI() => !FadeController.Instance.IsFadeEnded || StorageManager.Instance.IsOpen || StoreManager.Instance.IsOpen;
 }

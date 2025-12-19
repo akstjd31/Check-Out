@@ -35,16 +35,16 @@ public class StorageUI : MonoBehaviour
 
     private void OnEnable()
     {
-        inventoryUI.StorageChangeState();
+        inventoryUI.StorageOpen();
 
-        StorageManager.Instance.OnStorageChanged += UpdateUI;
+        storage.OnSlotUpdated += UpdateUI;
     }
 
     private void OnDisable()
     {
-        inventoryUI.StorageChangeState();
+        inventoryUI.StorageClosed();
 
-        StorageManager.Instance.OnStorageChanged -= UpdateUI;
+        storage.OnSlotUpdated -= UpdateUI;
     }
 
     // 로딩 때 창고 ui 세팅
@@ -97,12 +97,15 @@ public class StorageUI : MonoBehaviour
             if (trigger != null)
                 trigger.triggers.Clear();
             ItemImage.sprite = null;
-
             return;
         }
-        
-        button.onClick.AddListener(delegate { StorageManager.Instance.StorageToInventory(index); });
 
+        // 🔥 반드시 먼저 제거
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() =>
+        {
+            StorageManager.Instance.StorageToInventory(index);
+        });
         Sprite sprite = Resources.Load<Sprite>(storage.storageList[index].imgPath);
 
         ItemImage.sprite = sprite;

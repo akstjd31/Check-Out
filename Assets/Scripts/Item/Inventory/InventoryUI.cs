@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,8 +13,9 @@ public class InventoryUI : MonoBehaviour
     private Inventory inventory;
     private int invenSize;
 
-    bool IsStorageOpen = true;
-    bool IsStoreOpen = true;
+    bool IsStorageOpen;
+    bool IsStoreOpen;
+
 
 
     private void Awake()
@@ -38,14 +40,12 @@ public class InventoryUI : MonoBehaviour
 
     private void OnEnable()
     {
-        StorageManager.Instance.OnInventoryChanged += UpdateUI;
-        InventoryManager.Instance.test += UpdateUI;
+        inventory.OnSlotUpdated += UpdateUI;
     }
 
     private void OnDisable()
     {
-        StorageManager.Instance.OnInventoryChanged -= UpdateUI;
-        InventoryManager.Instance.test -= UpdateUI;
+        inventory.OnSlotUpdated -= UpdateUI;
     }
 
     public int GetInventoryMaxIndex() => invenSize - 1;
@@ -109,6 +109,10 @@ public class InventoryUI : MonoBehaviour
         ItemImage.sprite = sprite;
 
         button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(delegate
+        {
+            StorageManager.Instance.InventoryToStorage(index);
+        });
 
         if (IsStorageOpen)
             OnStorageUI(button, index);
@@ -162,15 +166,12 @@ public class InventoryUI : MonoBehaviour
         slotImage.rectTransform.sizeDelta = new Vector2(150, 150);
     }
 
-    // 창고 오픈 상태
-    public void StorageChangeState()
-    {
-        IsStorageOpen = !IsStorageOpen;
-    }
+    // 창고 상태
+    public void StorageOpen() => IsStorageOpen = true;
+    public void StorageClosed() => IsStorageOpen = false;
 
-    // 상점 오픈 상태
-    public void StoreChangeState()
-    {
-        IsStoreOpen = !IsStoreOpen;
-    }
+    // 상점 상태
+    public void StoreChangeOpen() => IsStoreOpen = true;
+    public void StoreChangeClosed() => IsStoreOpen = false;
+
 }

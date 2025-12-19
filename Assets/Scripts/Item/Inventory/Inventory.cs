@@ -6,6 +6,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] public ItemTableData[] slots;
 
     [SerializeField] private int inventorySize = 4;
+    public event Action<int> OnSlotUpdated;
 
     public void SetInventory(int size)
     {
@@ -72,7 +73,7 @@ public class Inventory : MonoBehaviour
              
         slots[index] = item;
         Debug.Log($"{item.id}을 {index + 1}슬롯에 성공적으로 넣었습니다");
-        return;
+        OnSlotUpdated?.Invoke(index);
     }
 
     // 아이템 이동(버리거나 창고)
@@ -96,6 +97,7 @@ public class Inventory : MonoBehaviour
 
         RemoveItem(index);
         Debug.Log($"{item.id}을 {index + 1}슬롯에서 성공적으로 버렸습니다");
+        OnSlotUpdated?.Invoke(index);
         return item;
     }
 
@@ -112,5 +114,6 @@ public class Inventory : MonoBehaviour
             return;
 
         slots[index] = null;
+        // OnSlotUpdated?.Invoke(index);
     }
 }

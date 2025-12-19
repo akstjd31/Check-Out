@@ -8,7 +8,6 @@ public class InventoryManager : Singleton<InventoryManager>
 
     [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryUI invenUI;
-    public event Action<int> test;
 
     private void Start()
     {
@@ -37,7 +36,6 @@ public class InventoryManager : Singleton<InventoryManager>
         inventory.GetItem(item.data, inventoryIndex);
         Debug.Log($"{item.Name}을 성공적으로 넣었습니다");
 
-        test?.Invoke(inventoryIndex);
         return true;
     }
 

@@ -5,6 +5,7 @@ public class Storage : MonoBehaviour
 {
     [SerializeField] private int storageSize = 16;
     [SerializeField] public ItemTableData[] storageList;
+    public event Action<int> OnSlotUpdated;
 
     private void Start()
     {
@@ -59,6 +60,7 @@ public class Storage : MonoBehaviour
         if (storageList[index] != null) return;
 
         storageList[index] = item;
+        OnSlotUpdated?.Invoke(index);
     }
 
     // 아이템 이동(인벤토리에 넣기)
@@ -76,6 +78,7 @@ public class Storage : MonoBehaviour
         ItemTableData item = storageList[index];
 
         RemoveItem(index);
+        OnSlotUpdated?.Invoke(index);
         return item;
     }
 

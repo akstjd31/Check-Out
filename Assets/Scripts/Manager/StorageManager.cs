@@ -7,10 +7,7 @@ public class StorageManager : Singleton<StorageManager>
     [SerializeField] private Storage storage;
     [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryUI invenUI;
-    // public bool IsOpen { get; set; }
-    public bool IsOpen;
-    public Action<int> OnStorageChanged;
-    public Action<int> OnInventoryChanged;
+    public bool IsOpen { get; set; }
 
     protected override void Awake()
     {
@@ -49,11 +46,9 @@ public class StorageManager : Singleton<StorageManager>
         ItemTableData item = inventory.MoveItem(index);
 
         if (item == null) return;
+        Debug.Log("ferw");
 
         storage.ItemStorage(item, storageIndex);
-        
-        OnInventoryChanged?.Invoke(index);
-        OnStorageChanged?.Invoke(storageIndex);
     }
 
     // 창고에서 인벤토리로
@@ -83,9 +78,6 @@ public class StorageManager : Singleton<StorageManager>
         if (item == null) return;
 
         inventory.GetItem(item,inventoryIndex);
-        
-        OnInventoryChanged?.Invoke(inventoryIndex);
-        OnStorageChanged?.Invoke(index);
     }
 
     public void SelectItem()

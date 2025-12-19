@@ -31,12 +31,12 @@ public class StoreUI : MonoBehaviour
 
     public void OnEnable()
     {
-        inventoryUI.StoreChangeState();
+        inventoryUI.StoreChangeOpen();
     }
 
     public void OnDisable()
     {
-        inventoryUI.StoreChangeState();
+        inventoryUI.StoreChangeClosed();
     }
 
     // 로딩 때 창고 ui 세팅
