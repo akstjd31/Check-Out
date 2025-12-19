@@ -53,8 +53,13 @@ public class PlayerSanity : MonoBehaviour
             return;
         }
 
-        stateMachine.ChangeSituation(
-            areaDetector.IsLight ? PlayerSituation.Normal : PlayerSituation.Dark
-        );
+        if (areaDetector.IsLight)
+        {
+            stateMachine.ChangeSituation(PlayerSituation.Normal);
+        }
+        else
+        {
+            stateMachine.ChangeSituation(PlayerSituation.Dark);
+        }
     }
 }

@@ -67,6 +67,8 @@ public class StatController : MonoBehaviour
                 CurrentSanityDps = holder.Stat.SanityDpsChased;
                 break;
         }
+
+        playerView.UpdatePlayerSituationText(situation.ToString());
     }
 
     // 탈진 지속 시간
