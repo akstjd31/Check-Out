@@ -9,6 +9,10 @@ public abstract class Monster : MonoBehaviour
     [SerializeField] private int power;
     // 몬스터의 내부적인 속성
     [HideInInspector]
-    public bool isObseredToPlayer;
-    public enum MonsterState { }
+    public bool isObseredFromPlayer;
+
+    //프로퍼티
+
+    public float PatrolSpeed { get { return patrolSpeed; } }
+    public int Power { get { return power; } }
 }

@@ -11,8 +11,8 @@ public class MonsterMovement : MonoBehaviour
     [Header("Speed")]
     [SerializeField] private float moveSpeed;
     [Header("delay")]
-    [SerializeField] int minimumStopDelay = 2;
-    [SerializeField] int maxStopDelay = 3;
+    [SerializeField] private int minimumStopDelay = 2;
+    [SerializeField] private int maxStopDelay = 3;
     // 길찾기 관련 멤버
     private Queue<Transform> patrolList;
     private Transform currentDestination;
@@ -22,8 +22,6 @@ public class MonsterMovement : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     // 테스트용 인풋
     private PlayerInput monsterInput;
-    // 코루틴 조건 변수
-    private WaitForSeconds endPatrol;
     // 랜덤 변수
     private System.Random patrolOrder;
     private System.Random stopDelay;
@@ -33,18 +31,18 @@ public class MonsterMovement : MonoBehaviour
     [Header("Exception")]
     // 몬스터 움직이지 않는지 판단할 시간
     [SerializeField]private float isExceptionTimer = 7;
+
+    // 프로퍼티 
+    public int MinimumStopDelay { get; set; }
+    public int MaxStopDelay { get; set; }
     private void Start()
     {
         //Debug.Log(gameObject.name);
         Init();
         // 다음 목표 지점으로 이동
-        PatrolNextOne();
+        //PatrolNextOne();
         //TestLoop();
-    }
-
-    private void OnDestroy()
-    {
-        monsterInput.actions["Move"].started -= OnMove;
+        Debug.Log("움직임 컴포넌트 스타트 실행 완료");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -78,30 +76,17 @@ public class MonsterMovement : MonoBehaviour
         // 속도 설정
         navMeshAgent.speed = moveSpeed;
 
-        // 인풋 시스템 설정
-        monsterInput = GetComponent<PlayerInput>();
-        monsterInput.actions["Move"].started += OnMove;
-
         // 패트롤 리스트 초기화
         patrolList = new Queue<Transform>();
         // 빈 목적지 초기화
         emptyTransform = transform;
         // 현재 목적지 초기화
         currentDestination = emptyTransform;
-        // 코루틴 조건 변수 초기화
-        endPatrol = new WaitForSeconds(5);
         // 순찰 초기화 진행
         InitPatrol();
         // 사용할 랜덤 변수 초기화
         patrolOrder = new System.Random();
         stopDelay = new System.Random();
-    }
-    // 입력받은 위치로 이동하는 매서드
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        Debug.Log($"{name} {moveTransformList[0].name}로 이동 시작 ");
-        navMeshAgent.SetDestination(moveTransformList[0].position);
-        navMeshAgent.isStopped = false;
     }
 
     private void InitPatrol()
@@ -128,6 +113,16 @@ public class MonsterMovement : MonoBehaviour
         Debug.Log($"{name} {currentDestination.name}로 이동 시작 ");
         navMeshAgent.SetDestination(currentDestination.position);
         navMeshAgent.isStopped = false;
+        Debug.Log(navMeshAgent.isStopped);
+        Debug.Log(navMeshAgent.velocity);
+    }
+
+    public void Move(Transform inputTransform, float inputSpeed)
+    {
+        Debug.Log("플레이어를 발견. 해당 좌표로 이동합니다.");
+        navMeshAgent.speed = inputSpeed;
+        navMeshAgent.SetDestination(inputTransform.position);
+        navMeshAgent.isStopped = false;
     }
    
     private IEnumerator Stop()
@@ -138,6 +133,12 @@ public class MonsterMovement : MonoBehaviour
         yield return new WaitForSeconds(RandomStopDelay());
         // 다음 목표 지점으로 이동
         PatrolNextOne();
+    }
+    public void StopToMissing()
+    {
+        // StopDelay만큼 멈춤
+        Debug.Log("멈춤");
+        navMeshAgent.isStopped = true;
     }
 
     private int RandomStopDelay()
@@ -157,7 +158,7 @@ public class MonsterMovement : MonoBehaviour
         }
     }
 
-    private void PatrolNextOne()
+    public void PatrolNextOne()
     {
         ChooseNextDestination();
         // 목적지 설정
@@ -188,5 +189,10 @@ public class MonsterMovement : MonoBehaviour
             // 하나를 뽑는다.
             tempTransform = patrolList.Dequeue();
         }
+    }
+
+    public void ChangeSpeed(float speed)
+    {
+        navMeshAgent.speed = speed;
     }
 }
