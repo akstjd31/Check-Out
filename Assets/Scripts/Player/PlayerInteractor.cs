@@ -5,16 +5,18 @@ using UnityEngine.InputSystem;
 public class PlayerInteractor : MonoBehaviour
 {
     private PlayerView playerView;
-    [SerializeField] private GameObject playerHead;
-    [SerializeField] private float distance = 2f;
+    [SerializeField] private GameObject playerHead;     // 카메라
 
+    [Header("Value")]
+    [SerializeField] private float distance = 2f;
     private LayerMask interactiveMask;
     private Interactable interactableObj;
+    private string playerStatCanvasName = "PlayerStatCanvas";
 
     private void Awake()
     {
         interactiveMask = LayerMask.GetMask("Interactive");
-        playerView = GameObject.Find("Canvas").GetComponent<PlayerView>();
+        playerView = GameObject.Find(playerStatCanvasName).GetComponent<PlayerView>();
     }
 
     private void Update()

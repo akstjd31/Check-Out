@@ -5,12 +5,12 @@ using UnityEngine.InputSystem;
 // 플레이어 입력 관련 클래스
 public class PlayerInputHandler : MonoBehaviour
 {
-    [Header("InputSystem")]
+    [Header("Component")]
     private PlayerInput playerInput;
     private InputAction moveAction, runAction, interactAction, scrollAction;
-    private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll" };
 
     [Header("Value")]
+    private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll" };
     public Vector3 MoveInput { get; private set; }
     public bool IsRunPressed { get; private set; }
     public event Action OnInteract;
@@ -106,6 +106,6 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnScrollWheel(InputAction.CallbackContext ctx)
     {
         float value = ctx.ReadValue<Vector2>().y;
-        OnScroll?.Invoke(value > 0 ? -1 : 1);
+        OnScroll?.Invoke(value > 0 ? 1 : -1);
     }
 }

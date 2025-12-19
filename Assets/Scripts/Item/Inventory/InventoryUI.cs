@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -9,17 +8,17 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] GameObject[] uiObjs;
     [SerializeField] InventoryHoverUI hover;
 
-    private int selectIndex;
+    private int selectIndex = -1;               // 처음 시작에는 -1
     private Inventory inventory;
+    private int invenSize;
 
     bool IsStorageOpen = false;
     bool IsStoreOpen = false;
 
-    
 
-    void Awake()
+    private void Awake()
     {
-        inventory = FindAnyObjectByType<Inventory>();
+        inventory = this.GetComponent<Inventory>();
 
         if (inventory == null )
         {
@@ -27,10 +26,21 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (inventory != null)
+        {
+            invenSize = inventory.GetDefaultInventorySize();
+            inventory.SetInventory(invenSize);
+            SetInventoryUI(invenSize);
+        }
+    }
+
+    public int GetInventoryMaxIndex() => invenSize - 1;
+
     // 로딩 때 인벤토리 ui 세팅
     public void SetInventoryUI(int size)
     {
-
         // 사이즈 기본 1 보장
         size = size <= 0 ? 1 : size;
 
@@ -65,13 +75,9 @@ public class InventoryUI : MonoBehaviour
         Image slotImage = uiObjs[index].GetComponent<Image>();
         EventTrigger trigger = uiObjs[index].GetComponent<EventTrigger>();
 
-        if (slotImage == null) return;
+        if (slotImage == null || ItemImage == null || inventory == null) return;
 
-        if (ItemImage == null) return;
-
-        if (inventory == null) return;
-
-        if (selectIndex != index)
+        if (selectIndex == -1 || selectIndex != index)
         {
             slotImage.rectTransform.sizeDelta = new Vector2(125, 125);
         }
@@ -136,9 +142,7 @@ public class InventoryUI : MonoBehaviour
 
         Image slotImage = uiObjs[index].transform.GetComponent<Image>();
 
-        if (slotImage == null) return;
-
-        if (inventory == null) return;
+        if (slotImage == null || inventory == null) return;
 
         slotImage.rectTransform.sizeDelta = new Vector2(150, 150);
     }
