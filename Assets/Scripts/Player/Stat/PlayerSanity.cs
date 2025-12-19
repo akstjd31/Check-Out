@@ -45,7 +45,7 @@ public class PlayerSanity : MonoBehaviour
     private void UpdateSanityValue()
     {
         stat.ConsumeSanity();
-        santyVisual.UpdateSanity(stat.CurrentSanityPercent);
+        santyVisual.UpdateSanity(stat.CurrentSanityPercent / 100);
     }
 
     // 영역별 상태(Situation) 변경
