@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class StorageManager : Singleton<StorageManager>
@@ -39,7 +39,6 @@ public class StorageManager : Singleton<StorageManager>
 
         int storageIndex = -1;
         bool empty = storage.CheckEmptyStorage(out storageIndex);
-        Debug.Log($"스토리지인덱스: {storageIndex}");
 
         if (empty == false)
         {
@@ -48,7 +47,6 @@ public class StorageManager : Singleton<StorageManager>
         }
 
         ItemTableData item = inventory.MoveItem(index);
-        Debug.Log(item);
 
         if (item == null) return;
 

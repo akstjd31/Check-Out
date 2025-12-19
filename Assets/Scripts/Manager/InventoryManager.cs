@@ -74,10 +74,7 @@ public class InventoryManager : Singleton<InventoryManager>
         ItemTableData currentItem = inventory.slots[index];
 
         if (currentItem == null)
-        {
-            Debug.Log("아이템이 없습니다");
             return;
-        }
           
         // 부가기능
         // HandItem(currentItem);

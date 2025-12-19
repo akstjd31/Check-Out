@@ -70,7 +70,7 @@ public class InventoryUI : MonoBehaviour
 
         SelectUI(0);
     }
-    private void UpdateAll()
+    public void UpdateAll()
     {
         int index = 0;
         foreach (var uiObj in uiObjs)

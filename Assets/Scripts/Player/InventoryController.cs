@@ -53,6 +53,7 @@ public class InventoryController : MonoBehaviour
 
         InventoryManager.Instance.SelectInventory(focusedIndex);
         invenUI.SelectUI(focusedIndex);
+        invenUI.UpdateAll();
     }
 
 }
