@@ -4,17 +4,27 @@ using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 [RequireComponent(typeof(PlayerStatHolder))]
 public class StatController : MonoBehaviour
 {
+    [Header("Component")]
     private PlayerView playerView;
     private PlayerStatHolder holder;
-    public int CurrentSanity { get; private set; }          // 현재 정신력
-    public int CurrentRecoverStamina { get; private set; }  // 현재 스태미나 회복력
-    public int CurrentStamina { get; private set; }         // 현재 스태미나
-    public float CurrentMoveSpeed { get; private set; }     // 현재 이동 속도
-    public int CurrentSanityDps { get; private set; }       // 정신력 감소량
-    public int CurrentRunStaminaCost { get; private set; }  // 달리기 코스트
-    public float CurrentInvincibilityTime { get; private set; }  // 무적시간
 
-    private float second = 1.5f;
+    [Header("Property")]
+    public int CurrentSanity { get; private set; }              // 현재 정신력
+    public int CurrentRecoverStamina { get; private set; }      // 현재 스태미나 회복력
+    public int CurrentStamina { get; private set; }             // 현재 스태미나
+    public float CurrentMoveSpeed { get; private set; }         // 현재 이동 속도
+    public int CurrentSanityDps { get; private set; }           // 정신력 감소량
+    public int CurrentRunStaminaCost { get; private set; }      // 달리기 코스트
+    public float CurrentInvincibilityTime { get; private set; }  // 무적시간
+    
+    //현재 정신력 비율 측정
+    public float CurrentSanityPercent
+    {
+        get => (float)CurrentSanity / 100;
+    }
+
+    [Header("Value")]
+    private float speedMultiplier = 1.5f;                        // 1.5배 속도 관련 계수
 
     private void Awake()
     {
@@ -30,18 +40,19 @@ public class StatController : MonoBehaviour
         CurrentInvincibilityTime = holder.Stat.InvincibilityTime;
 
         playerView.UpdateStaminaText(CurrentStamina);
-        playerView.UpdateSanityText(CurrentSanity);
+        playerView.UpdateSanityText((int)CurrentSanityPercent);
     }
 
     // 각 상태에 따른 기본 수치 적용
-    public void UpdateUsedValue(float sanityPercent, PlayerState state)
+    public void UpdateUsedValue(PlayerState state)
     {
-        bool isSanityWarning = sanityPercent <= 0.33f && sanityPercent > 0f;
+        // 정신력 수치에 따른 상태 변화 적용
+        bool isSanityWarning = CurrentSanityPercent <= 0.33f && CurrentSanityPercent > 0f;
         switch (state)
         {
             case PlayerState.Run:
                 CurrentRecoverStamina = 0;
-                CurrentMoveSpeed = isSanityWarning ? holder.Stat.RunSpeed * second : holder.Stat.RunSpeed;
+                CurrentMoveSpeed = isSanityWarning ? holder.Stat.RunSpeed * speedMultiplier : holder.Stat.RunSpeed;
                 break;
             case PlayerState.Idle:
                 CurrentRecoverStamina = isSanityWarning ? holder.Stat.StaminaRecoverIdle / 2 : holder.Stat.StaminaRecoverIdle;
@@ -49,7 +60,7 @@ public class StatController : MonoBehaviour
                 break;
             case PlayerState.Walk:
                 CurrentRecoverStamina = isSanityWarning ? holder.Stat.StaminaRecoverWalk / 2 : holder.Stat.StaminaRecoverWalk;
-                CurrentMoveSpeed = isSanityWarning ? holder.Stat.MoveSpeed * second : holder.Stat.MoveSpeed;
+                CurrentMoveSpeed = isSanityWarning ? holder.Stat.MoveSpeed * speedMultiplier : holder.Stat.MoveSpeed;
                 break;
         }
     }
@@ -101,20 +112,9 @@ public class StatController : MonoBehaviour
     public void ConsumeSanity()
     {
         CurrentSanity = Mathf.Max(0, CurrentSanity - CurrentSanityDps);
-        playerView.UpdateSanityText(CurrentSanity);
+        playerView.UpdateSanityText((int)CurrentSanityPercent);
     }
 
     // 정신력이 남아있는지?
     public bool IsRemainSanity() => CurrentSanity > 0;
-
-    //현재 정신력 비율 측정
-    public float SanityPercent
-    {
-        get
-        {
-            if (holder.Stat.MaxSanity == 0) return 0f;
-            return (float)CurrentSanity / holder.Stat.MaxSanity;
-        }
-    }
-
 }

@@ -3,12 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(StatController))]
 [RequireComponent(typeof(PlayerAreaDetector))]
 [RequireComponent(typeof(PlayerStateMachine))]
+[RequireComponent(typeof(PlayerSanityVisualController))]
 public class PlayerSanity : MonoBehaviour
 {
     private StatController stat;
     private PlayerAreaDetector areaDetector;   
     private PlayerStateMachine stateMachine;
-    private PlayerSantyVisualController santyVisual;
+    private PlayerSanityVisualController santyVisual;
     private float sanityTimer = 1f;
 
     private void Awake()
@@ -16,13 +17,11 @@ public class PlayerSanity : MonoBehaviour
         stat = this.GetComponent<StatController>();
         areaDetector = this.GetComponent<PlayerAreaDetector>();
         stateMachine = this.GetComponent<PlayerStateMachine>();
-        santyVisual = this.GetComponent<PlayerSantyVisualController>();
+        santyVisual = this.GetComponent<PlayerSanityVisualController>();
     }
 
     private void Update()
     {
-        santyVisual.UpdateSanity(stat.SanityPercent);
-
         if (!FadeController.Instance.IsFadeEnded)
             return;
             
@@ -43,8 +42,12 @@ public class PlayerSanity : MonoBehaviour
     }
 
     // 정신력 수치 갱신
-    private void UpdateSanityValue() => stat.ConsumeSanity();
-    
+    private void UpdateSanityValue()
+    {
+        stat.ConsumeSanity();
+        santyVisual.UpdateSanity(stat.CurrentSanityPercent);
+    }
+
     // 영역별 상태(Situation) 변경
     private void UpdateSituationByArea()
     {

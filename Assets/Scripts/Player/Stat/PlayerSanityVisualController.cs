@@ -2,47 +2,43 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class PlayerSantyVisualController : MonoBehaviour
+public class PlayerSanityVisualController : MonoBehaviour
 {
     [SerializeField] private Volume volume;
-    private StatController statController;
-    private PlayerCtrl playerCtrl;
     private Vignette vignette;
 
     private void Awake()
     {
-        statController = this.GetComponent<StatController>();
-        playerCtrl = this.GetComponent<PlayerCtrl>();
         volume.profile.TryGet(out vignette);
-        SetWarning1(false);
+        SetWarningFirst(false);
     }
 
     public void UpdateSanity(float sanityPercent)
     {
         if (sanityPercent <= 0.66f && sanityPercent > 0.33f)
         {
-            SetWarning1(true);
+            SetWarningFirst(true);
         }
         else
         {
-            SetWarning1(false);
+            SetWarningFirst(false);
             if(sanityPercent <= 0.33f && sanityPercent > 0f)
             {
-                SetWarning2(true);
+                SetWarningSecond(true);
             }
             else
             {
-                SetWarning2(false);
+                SetWarningSecond(false);
             }
         }
     }
 
-    private void SetWarning1(bool active)
+    private void SetWarningFirst(bool active)
     {
         vignette.intensity.value = active ? 0.3f : 0f;
         vignette.smoothness.value = active ? 0.3f : 0f;
     }
-    private void SetWarning2(bool active)
+    private void SetWarningSecond(bool active)
     {
         if (vignette == null) return;
 

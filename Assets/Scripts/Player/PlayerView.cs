@@ -12,7 +12,7 @@ public class PlayerView : MonoBehaviour
 
     public void UpdateStaminaText(int stamina) => staminaText.text = "Stamina: " + stamina;
 
-    public void UpdateSanityText(int sanity) => sanityText.text = "Sanity: " + sanity;
+    public void UpdateSanityText(int sanity) => sanityText.text = $"Sanity: {sanity}%";
 
     public void UpdateInteractionText(string text) => interactionText.text = text;
 

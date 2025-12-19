@@ -160,7 +160,8 @@ GameObject:
   - component: {fileID: 5131120016606181631}
   - component: {fileID: 8289058912994371948}
   - component: {fileID: 3956227001367125626}
-  - component: {fileID: 2594696585418424042}
+  - component: {fileID: 1112307056995410440}
+  - component: {fileID: 4650590073838223967}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -317,7 +318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bffaf0b9eee4a714dab1813ecf6cba3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatController
-  playerView: {fileID: 0}
 --- !u!114 &6494831983528423991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,7 +378,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13651a020b238334c9cd461432472372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
-  playerView: {fileID: 0}
   playerHead: {fileID: 753602095481127051}
   distance: 2
 --- !u!114 &8289058912994371948
@@ -408,7 +407,20 @@ MonoBehaviour:
   lightCount: 0
   safeCount: 0
   monsterCount: 0
---- !u!114 &2594696585418424042
+--- !u!114 &1112307056995410440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c751179e7fae2244e9032e3ab2268b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSanityVisualController
+  volume: {fileID: 0}
+--- !u!114 &4650590073838223967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
