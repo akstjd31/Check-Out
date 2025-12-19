@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class StoreManager : Singleton<StoreManager>
 {
@@ -7,16 +8,42 @@ public class StoreManager : Singleton<StoreManager>
     // private GameObject player;
     [SerializeField] private Inventory inventory;
 
-    // 아이템 구매
-    public void BuyItem(ItemTableData item)
+    public Dictionary<int, ShopTableData> dataID;
+
+    protected override void Awake()
     {
-        if (item == null) return;
+        base.Awake();
+        dataID = new Dictionary<int, ShopTableData>();
+        store = FindAnyObjectByType<Store>();
+        inventory = FindAnyObjectByType<Inventory>();
+    }
+
+    private void Start()
+    {
+        var shopTable = TableManager.Instance.GetTable<int, ShopTableData>();
+
+        foreach (var shopId in TableManager.Instance.GetAllIds(shopTable))
+        {
+            ShopTableData shopTableData = shopTable[shopId];
+
+            dataID[shopTableData.id] = shopTableData;
+
+            store.SetShopList(shopTableData);
+        }
+    }
+
+    // 아이템 구매
+    public void BuyItem(ShopTableData shopItem)
+    {
+        if (shopItem == null) return;
 
         if (store == null) return;
 
         if (inventory == null) return;
 
-        int price = store.GetBuyPrice(item);
+        if (dataID.TryGetValue(shopItem.id, out var data ) == false) return;
+
+        int price = store.GetBuyPrice(data);
 
         bool canBuy = CheckMoney(price);
 
@@ -27,6 +54,8 @@ public class StoreManager : Singleton<StoreManager>
         bool empty = inventory.CheckEmpty(out inventoryIndex);
 
         if (empty == false) return;
+
+        var item = ItemManager.Instance.GetItemData(data.itemId);
 
         inventory.GetItem(item, inventoryIndex);
 
@@ -66,7 +95,7 @@ public class StoreManager : Singleton<StoreManager>
         //if (player.money > price)
             //return true;
 
-        if (money > price)
+        if (money >= price)
             return true;
 
         return false;

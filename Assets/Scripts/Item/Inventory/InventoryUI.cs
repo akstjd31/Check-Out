@@ -1,17 +1,23 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] GameObject uiPrefab;
     [SerializeField] GameObject[] uiObjs;
-    [SerializeField] HoverUI hover;
+    [SerializeField] InventoryHoverUI hover;
 
     private int selectIndex;
     private Inventory inventory;
 
-    void Start()
+    bool IsStorageOpen = false;
+    bool IsStoreOpen = false;
+
+    
+
+    void Awake()
     {
         inventory = FindAnyObjectByType<Inventory>();
 
@@ -59,8 +65,6 @@ public class InventoryUI : MonoBehaviour
         Image slotImage = uiObjs[index].GetComponent<Image>();
         EventTrigger trigger = uiObjs[index].GetComponent<EventTrigger>();
 
-        Debug.Log(trigger);
-
         if (slotImage == null) return;
 
         if (ItemImage == null) return;
@@ -81,12 +85,16 @@ public class InventoryUI : MonoBehaviour
             return;
         }
 
-        // 버튼에 이벤트 추가
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(delegate { StorageManager.Instance.InventoryToStorage(index); });
-
         Sprite sprite = Resources.Load<Sprite>(inventory.slots[index].imgPath);
         ItemImage.sprite = sprite;
+
+        button.onClick.RemoveAllListeners();
+
+        if (IsStorageOpen)
+            OnStorageUI(button, index);
+
+        else if (IsStoreOpen)
+            OnStoreUI(button, index);
 
         if (trigger != null)
         {
@@ -107,6 +115,20 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    // 상점 오픈 시 버튼 할당
+    public void OnStoreUI(Button button, int index)
+    {
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(delegate { StoreManager.Instance.SellItem(index); });
+    }
+
+    // 창고 오픈 시 버튼 할당
+    public void OnStorageUI(Button button, int index)
+    {
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(delegate { StorageManager.Instance.InventoryToStorage(index); });
+    }
+
     // UI가 선택되었을때 UI업데이트
     public void SelectUI(int index)
     {
@@ -119,6 +141,17 @@ public class InventoryUI : MonoBehaviour
         if (inventory == null) return;
 
         slotImage.rectTransform.sizeDelta = new Vector2(150, 150);
+    }
 
+    // 창고 오픈 상태
+    public void StorageChangeState()
+    {
+        IsStorageOpen = !IsStorageOpen;
+    }
+
+    // 상점 오픈 상태
+    public void StoreChangeState()
+    {
+        IsStoreOpen = !IsStoreOpen;
     }
 }
