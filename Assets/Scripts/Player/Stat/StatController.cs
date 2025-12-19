@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 [RequireComponent(typeof(PlayerStatHolder))]
 public class StatController : MonoBehaviour
@@ -12,6 +13,8 @@ public class StatController : MonoBehaviour
     public int CurrentSanityDps { get; private set; }       // 정신력 감소량
     public int CurrentRunStaminaCost { get; private set; }  // 달리기 코스트
     public float CurrentInvincibilityTime { get; private set; }  // 무적시간
+
+    private float second = 1.5f;
 
     private void Awake()
     {
@@ -31,24 +34,26 @@ public class StatController : MonoBehaviour
     }
 
     // 각 상태에 따른 기본 수치 적용
-    public void UpdateUsedValue(PlayerState state)
+    public void UpdateUsedValue(float sanityPercent, PlayerState state)
     {
+        bool isSanityWarning = sanityPercent <= 0.33f && sanityPercent > 0f;
         switch (state)
         {
             case PlayerState.Run:
                 CurrentRecoverStamina = 0;
-                CurrentMoveSpeed = holder.Stat.RunSpeed;
+                CurrentMoveSpeed = isSanityWarning ? holder.Stat.RunSpeed * second : holder.Stat.RunSpeed;
                 break;
             case PlayerState.Idle:
-                CurrentRecoverStamina = holder.Stat.StaminaRecoverIdle;
+                CurrentRecoverStamina = isSanityWarning ? holder.Stat.StaminaRecoverIdle / 2 : holder.Stat.StaminaRecoverIdle;
                 CurrentMoveSpeed = 0;
                 break;
             case PlayerState.Walk:
-                CurrentRecoverStamina = holder.Stat.StaminaRecoverWalk;
-                CurrentMoveSpeed = holder.Stat.MoveSpeed;
+                CurrentRecoverStamina = isSanityWarning ? holder.Stat.StaminaRecoverWalk / 2 : holder.Stat.StaminaRecoverWalk;
+                CurrentMoveSpeed = isSanityWarning ? holder.Stat.MoveSpeed * second : holder.Stat.MoveSpeed;
                 break;
         }
     }
+
 
     //각 상태에 따라 정신력에 데미지를 입음
     public void UpdateSituationUsedValue(PlayerSituation situation)
@@ -101,5 +106,15 @@ public class StatController : MonoBehaviour
 
     // 정신력이 남아있는지?
     public bool IsRemainSanity() => CurrentSanity > 0;
+
+    //현재 정신력 비율 측정
+    public float SanityPercent
+    {
+        get
+        {
+            if (holder.Stat.MaxSanity == 0) return 0f;
+            return (float)CurrentSanity / holder.Stat.MaxSanity;
+        }
+    }
 
 }

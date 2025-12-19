@@ -8,6 +8,7 @@ public class PlayerSanity : MonoBehaviour
     private StatController stat;
     private PlayerAreaDetector areaDetector;   
     private PlayerStateMachine stateMachine;
+    private PlayerSantyVisualController santyVisual;
     private float sanityTimer = 1f;
 
     private void Awake()
@@ -15,10 +16,13 @@ public class PlayerSanity : MonoBehaviour
         stat = this.GetComponent<StatController>();
         areaDetector = this.GetComponent<PlayerAreaDetector>();
         stateMachine = this.GetComponent<PlayerStateMachine>();
+        santyVisual = this.GetComponent<PlayerSantyVisualController>();
     }
 
     private void Update()
     {
+        santyVisual.UpdateSanity(stat.SanityPercent);
+
         if (!FadeController.Instance.IsFadeEnded)
             return;
             
