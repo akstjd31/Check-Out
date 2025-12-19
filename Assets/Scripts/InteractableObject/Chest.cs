@@ -4,7 +4,7 @@ using UnityEngine;
 public class Chest : Interactable
 {
     [SerializeField] private GameObject storageUIObj;
-    [SerializeField] private StorageUI storageUI;
+    private StorageUI storageUI;
 
     private void Awake()
     {

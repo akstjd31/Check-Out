@@ -192,33 +192,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1566086132606868920, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1566086132606868920, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2207624155380985118, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
       propertyPath: m_Name
       value: StorageUI
       objectReference: {fileID: 0}
+    - target: {fileID: 2207624155380985118, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2362121357126130520, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2362121357126130520, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2362121357126130520, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 3712950450490061719, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
       propertyPath: m_Value
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8632164559102322220, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632164559102322220, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632164559102322220, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseChest
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632164559102322220, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Chest, Assembly-CSharp
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3456712159657410590, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

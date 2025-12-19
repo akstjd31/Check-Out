@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Storage : MonoBehaviour
 {
@@ -75,7 +76,6 @@ public class Storage : MonoBehaviour
         ItemTableData item = storageList[index];
 
         RemoveItem(index);
-
         return item;
     }
 

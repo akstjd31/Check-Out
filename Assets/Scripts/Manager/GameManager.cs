@@ -23,6 +23,8 @@ public class GameManager : Singleton<GameManager>
     {
         ChangeState(GameState.Hub);
 
+        
+
         // 테스트용 데이터 저장
         // ItemSaveData data = new ItemSaveData();
         // data.itemId = 1;
@@ -37,6 +39,8 @@ public class GameManager : Singleton<GameManager>
     private void OnEnable()
     {
         LoadingManager.Instance.OnLoadingEnded += HandleLoadingEnded;
+
+        ItemManager.Instance.Test(1);
     }
 
     private void Update()
@@ -66,4 +70,6 @@ public class GameManager : Singleton<GameManager>
 
     // 로딩 완료 시 이벤트
     public void HandleLoadingEnded() => ChangeState(LoadingData.NextState);
+
+    public bool IsOpenedUI() => !FadeController.Instance.IsFadeEnded || StorageManager.Instance.IsOpen || StoreManager.Instance.IsOpen;
 }

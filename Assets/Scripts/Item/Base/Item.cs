@@ -66,7 +66,7 @@ public class Item : Interactable, IItem
 
         if (success)
         {
-            
+            ItemManager.Instance.ReturnItem(this);
         }
     }
 }

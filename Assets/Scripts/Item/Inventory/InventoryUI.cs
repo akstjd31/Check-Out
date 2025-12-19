@@ -12,15 +12,15 @@ public class InventoryUI : MonoBehaviour
     private Inventory inventory;
     private int invenSize;
 
-    bool IsStorageOpen = false;
-    bool IsStoreOpen = false;
+    bool IsStorageOpen = true;
+    bool IsStoreOpen = true;
 
 
     private void Awake()
     {
-        inventory = this.GetComponent<Inventory>();
+        inventory = FindAnyObjectByType<Inventory>();
 
-        if (inventory == null )
+        if (inventory == null)
         {
             Debug.Log("UI - 인벤토리를 찾지 못했습니다");
         }
@@ -34,6 +34,18 @@ public class InventoryUI : MonoBehaviour
             inventory.SetInventory(invenSize);
             SetInventoryUI(invenSize);
         }
+    }
+
+    private void OnEnable()
+    {
+        StorageManager.Instance.OnInventoryChanged += UpdateUI;
+        InventoryManager.Instance.test += UpdateUI;
+    }
+
+    private void OnDisable()
+    {
+        StorageManager.Instance.OnInventoryChanged -= UpdateUI;
+        InventoryManager.Instance.test -= UpdateUI;
     }
 
     public int GetInventoryMaxIndex() => invenSize - 1;
@@ -58,7 +70,7 @@ public class InventoryUI : MonoBehaviour
 
         SelectUI(0);
     }
-    public void UpdateAll()
+    private void UpdateAll()
     {
         int index = 0;
         foreach (var uiObj in uiObjs)
@@ -70,6 +82,8 @@ public class InventoryUI : MonoBehaviour
     // UI가 변경 되었을때
     public void UpdateUI(int index)
     {
+        hover.gameObject.SetActive(false);
+
         Image ItemImage = uiObjs[index].transform.GetChild(0).GetComponent<Image>();
         Button button = uiObjs[index].transform.GetChild(0).GetComponent<Button>();
         Image slotImage = uiObjs[index].GetComponent<Image>();
@@ -131,6 +145,7 @@ public class InventoryUI : MonoBehaviour
     // 창고 오픈 시 버튼 할당
     public void OnStorageUI(Button button, int index)
     {
+        Debug.Log("버튼 할당됨!");
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(delegate { StorageManager.Instance.InventoryToStorage(index); });
     }

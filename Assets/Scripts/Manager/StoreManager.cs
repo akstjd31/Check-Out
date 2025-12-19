@@ -8,7 +8,9 @@ public class StoreManager : Singleton<StoreManager>
     // private GameObject player;
     [SerializeField] private Inventory inventory;
 
-    public Dictionary<int, ShopTableData> dataID;
+    private Dictionary<int, ShopTableData> dataID;
+    public bool IsInitialized { get; private set; }
+    public bool IsOpen { get; set; }
 
     protected override void Awake()
     {
@@ -20,17 +22,26 @@ public class StoreManager : Singleton<StoreManager>
 
     private void Start()
     {
+        Init();
+    }
+
+    public void Init()
+    {
+        if (IsInitialized) return;
+
         var shopTable = TableManager.Instance.GetTable<int, ShopTableData>();
 
         foreach (var shopId in TableManager.Instance.GetAllIds(shopTable))
         {
             ShopTableData shopTableData = shopTable[shopId];
-
             dataID[shopTableData.id] = shopTableData;
-
             store.SetShopList(shopTableData);
         }
+
+        IsInitialized = true;
     }
+
+    public int GetItemListSize() => dataID.Count;
 
     // 아이템 구매
     public void BuyItem(ShopTableData shopItem)
@@ -41,7 +52,7 @@ public class StoreManager : Singleton<StoreManager>
 
         if (inventory == null) return;
 
-        if (dataID.TryGetValue(shopItem.id, out var data ) == false) return;
+        if (dataID.TryGetValue(shopItem.id, out var data) == false) return;
 
         int price = store.GetBuyPrice(data);
 
@@ -93,7 +104,7 @@ public class StoreManager : Singleton<StoreManager>
         //if (player == null) return false;
 
         //if (player.money > price)
-            //return true;
+        //return true;
 
         if (money >= price)
             return true;

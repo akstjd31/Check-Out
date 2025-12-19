@@ -50,15 +50,13 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
-        if (StorageManager.Instance.IsOpen)
+        if (GameManager.Instance.IsOpenedUI())
         {
             IgnoreInput();
             return;    
         }
 
-        // 페이드 효과 끝나면 활성화
-        if (FadeController.Instance.IsFadeEnded)
-            ReleaseIgnoreInput();
+        ReleaseIgnoreInput();
     }
 
     private void OnDisable()

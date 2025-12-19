@@ -1,12 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class StorageManager : Singleton<StorageManager>
 {
     [SerializeField] private GameObject player;
     [SerializeField] private Storage storage;
     [SerializeField] private Inventory inventory;
+    [SerializeField] private InventoryUI invenUI;
     // public bool IsOpen { get; set; }
     public bool IsOpen;
+    public Action<int> OnStorageChanged;
+    public Action<int> OnInventoryChanged;
 
     protected override void Awake()
     {
@@ -35,6 +39,7 @@ public class StorageManager : Singleton<StorageManager>
 
         int storageIndex = -1;
         bool empty = storage.CheckEmptyStorage(out storageIndex);
+        Debug.Log($"스토리지인덱스: {storageIndex}");
 
         if (empty == false)
         {
@@ -43,10 +48,14 @@ public class StorageManager : Singleton<StorageManager>
         }
 
         ItemTableData item = inventory.MoveItem(index);
+        Debug.Log(item);
 
         if (item == null) return;
 
         storage.ItemStorage(item, storageIndex);
+        
+        OnInventoryChanged?.Invoke(index);
+        OnStorageChanged?.Invoke(storageIndex);
     }
 
     // 창고에서 인벤토리로
@@ -76,6 +85,9 @@ public class StorageManager : Singleton<StorageManager>
         if (item == null) return;
 
         inventory.GetItem(item,inventoryIndex);
+        
+        OnInventoryChanged?.Invoke(inventoryIndex);
+        OnStorageChanged?.Invoke(index);
     }
 
     public void SelectItem()

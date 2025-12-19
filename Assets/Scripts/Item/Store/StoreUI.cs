@@ -11,7 +11,7 @@ public class StoreUI : MonoBehaviour
     private Store store;
     private InventoryUI inventoryUI;
 
-    void Awake()
+    private void Awake()
     {
         store = FindAnyObjectByType<Store>();
         inventoryUI = FindAnyObjectByType<InventoryUI>();
@@ -21,9 +21,16 @@ public class StoreUI : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (StoreManager.Instance != null)
+        {
+            SetStoreUI(StoreManager.Instance.GetItemListSize());
+        }
+    }
+
     public void OnEnable()
     {
-        
         inventoryUI.StoreChangeState();
     }
 

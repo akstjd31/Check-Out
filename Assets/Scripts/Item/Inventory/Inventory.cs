@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
@@ -99,7 +100,7 @@ public class Inventory : MonoBehaviour
     }
 
     // 배열에서 아이템 제거
-    private void RemoveItem(int index)
+    public void RemoveItem(int index)
     {
         if (slots == null)
             return;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
 {
@@ -6,20 +7,12 @@ public class InventoryManager : Singleton<InventoryManager>
     [SerializeField] private Transform playerHandTransform;
 
     [SerializeField] private Inventory inventory;
-    
+    [SerializeField] private InventoryUI invenUI;
+    public event Action<int> test;
 
     private void Start()
     {
-        //GetInventory();
-    }
-
-    // 인벤토리 가져오기
-    public void GetInventory()
-    {
-        if (player == null)
-            return;
-
-        inventory = player.GetComponentInChildren<Inventory>();
+        inventory = FindAnyObjectByType<Inventory>();
     }
 
     // 아이템 줍기
@@ -44,6 +37,7 @@ public class InventoryManager : Singleton<InventoryManager>
         inventory.GetItem(item.data, inventoryIndex);
         Debug.Log($"{item.Name}을 성공적으로 넣었습니다");
 
+        test?.Invoke(inventoryIndex);
         return true;
     }
 

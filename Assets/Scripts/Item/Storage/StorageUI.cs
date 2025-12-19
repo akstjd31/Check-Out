@@ -36,11 +36,15 @@ public class StorageUI : MonoBehaviour
     private void OnEnable()
     {
         inventoryUI.StorageChangeState();
+
+        StorageManager.Instance.OnStorageChanged += UpdateUI;
     }
 
     private void OnDisable()
     {
         inventoryUI.StorageChangeState();
+
+        StorageManager.Instance.OnStorageChanged -= UpdateUI;
     }
 
     // 로딩 때 창고 ui 세팅
@@ -62,7 +66,7 @@ public class StorageUI : MonoBehaviour
         UpdateAll();
     }
 
-    public void UpdateAll()
+    private void UpdateAll()
     {
         int index = 0;
         foreach (var uiObj in uiObjs)
@@ -72,8 +76,10 @@ public class StorageUI : MonoBehaviour
     }
 
     // UI가 변경 되었을때
-    public void UpdateUI(int index)
+    private void UpdateUI(int index)
     {
+        hover.gameObject.SetActive(false);
+
         Image ItemImage = uiObjs[index].transform.GetChild(0).GetComponent<Image>();
         Button button = uiObjs[index].transform.GetChild(0).GetComponent<Button>();
         Image slotImage = uiObjs[index].GetComponent<Image>();
@@ -94,7 +100,7 @@ public class StorageUI : MonoBehaviour
 
             return;
         }
-
+        
         button.onClick.AddListener(delegate { StorageManager.Instance.StorageToInventory(index); });
 
         Sprite sprite = Resources.Load<Sprite>(storage.storageList[index].imgPath);

@@ -59,6 +59,7 @@ public class ItemManager : Singleton<ItemManager>
 
     public void ReturnItem(Item item)
     {
+        Debug.Log(item);
         itemPool.ReturnObject(itemPrefab, item);
     }
 

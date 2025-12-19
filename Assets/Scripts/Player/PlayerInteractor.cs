@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using TMPro;
-using UnityEngine.InputSystem;
 
 public class PlayerInteractor : MonoBehaviour
 {
@@ -21,7 +19,7 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Update()
     {
-        if (FadeController.Instance.IsFadeEnded && !StorageManager.Instance.IsOpen)
+        if (!GameManager.Instance.IsOpenedUI())
         {
             // 현재 보고 있는 오브젝트
             var currentObj = GetInteractable<Interactable>();

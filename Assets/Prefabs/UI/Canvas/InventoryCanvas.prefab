@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 966454138934194115}
   - component: {fileID: 6156410735519796559}
   - component: {fileID: 7449226141954708077}
-  - component: {fileID: 8084286379322390941}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -79,19 +78,6 @@ MonoBehaviour:
   uiPrefab: {fileID: 2421131637641645138, guid: d520e45aaf06ec442bd60ad722f21b9b, type: 3}
   uiObjs: []
   hover: {fileID: 0}
---- !u!114 &8084286379322390941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5536162624842265330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cacdc8d50959e14090cdfc3683a50a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inventory
-  inventorySize: 4
 --- !u!1 &7470513341348861699
 GameObject:
   m_ObjectHideFlags: 0

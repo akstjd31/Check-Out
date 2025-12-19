@@ -3,6 +3,9 @@ using UnityEngine;
 // 오브젝트 조사 관련
 public class Examinable : Interactable
 {
+    private void Awake()
+    {
+    }
     public override void OnFocusEnter()
     {
         promptText = "Press [E] to Examine";
@@ -15,6 +18,5 @@ public class Examinable : Interactable
 
     public override void Interact()
     {
-        // 오브젝트 조사 시 대본? 출력
     }
 }
