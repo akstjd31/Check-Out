@@ -45,11 +45,11 @@ public class PlayerStamina : MonoBehaviour
                 return;
             }
 
-            stat.ConsumeStamina(stat.CurrentRunStaminaCost);
+            stat.ConsumeStamina();
         }
         else
         {
-            stat.RecoverStamina(stat.CurrentRecoverStamina);
+            stat.RecoverStamina();
         }
     }
 

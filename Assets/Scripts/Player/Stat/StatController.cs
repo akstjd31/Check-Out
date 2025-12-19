@@ -73,16 +73,16 @@ public class StatController : MonoBehaviour
     public float GetDefaultExhaustTime() => holder.Stat.StaminaExhaustTime;
 
     // 스태미나 감소
-    public void ConsumeStamina(int amount)
+    public void ConsumeStamina()
     {
-        CurrentStamina = Mathf.Max(0, CurrentStamina - amount);
+        CurrentStamina = Mathf.Max(0, CurrentStamina - CurrentRunStaminaCost);
         playerView.UpdateStaminaText(CurrentStamina);
     } 
     
     // 스태미나 회복
-    public void RecoverStamina(int amount)
+    public void RecoverStamina()
     {
-        CurrentStamina = Mathf.Min(holder.Stat.MaxStamina, CurrentStamina + amount);
+        CurrentStamina = Mathf.Min(holder.Stat.MaxStamina, CurrentStamina + CurrentRecoverStamina);
         playerView.UpdateStaminaText(CurrentStamina);
     }
     
@@ -90,9 +90,9 @@ public class StatController : MonoBehaviour
     public bool IsRemainStamina() => CurrentStamina >= holder.Stat.RunStaminaCost;
     
     //정신력 감소
-    public void ConsumeSanity(int amount)
+    public void ConsumeSanity()
     {
-        CurrentSanity = Mathf.Max(0, CurrentSanity - amount);
+        CurrentSanity = Mathf.Max(0, CurrentSanity - CurrentSanityDps);
         playerView.UpdateSanityText(CurrentSanity);
     }
 

@@ -8,7 +8,7 @@ public class PlayerSanity : MonoBehaviour
     private StatController stat;
     private PlayerAreaDetector areaDetector;   
     private PlayerStateMachine stateMachine;
-    private float sanityTimer;
+    private float sanityTimer = 1f;
 
     private void Awake()
     {
@@ -36,7 +36,7 @@ public class PlayerSanity : MonoBehaviour
     }
 
     // 정신력 수치 갱신
-    private void UpdateSanityValue() => stat.ConsumeSanity(stat.CurrentSanityDps);
+    private void UpdateSanityValue() => stat.ConsumeSanity();
     
     // 영역별 상태(Situation) 변경
     private void UpdateSituationByArea()
