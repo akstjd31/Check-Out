@@ -19,6 +19,9 @@ public class PlayerSanity : MonoBehaviour
 
     private void Update()
     {
+        if (!FadeController.Instance.IsFadeEnded)
+            return;
+            
         // 정신력(체력)이 남아있지 않은 경우
         if (!stat.IsRemainSanity())
         {

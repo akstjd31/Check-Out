@@ -29,6 +29,9 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Update()
     {
+        if (!FadeController.Instance.IsFadeEnded)
+            return;
+
         HandleMovement();
         HandleState();
     }
