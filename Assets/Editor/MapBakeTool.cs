@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -268,7 +269,11 @@ public class MapBakeTool : EditorWindow
                 }
                 //출구 노드의 경우 벽이나 문을 생성할 이유가 없다.
                 else if (node.type == NodeType.Exit || neighbor.type == NodeType.Exit) 
+                {
+                    if (node.index != neighbor.index)
+                        SpawnWallBetween(node, dir);
                     continue;
+                }
                 //여기까지 온 경우 (빈 타일이거나) Empty 종류의 타일이므로 벽을 생성.
                 else
                 {
@@ -367,7 +372,7 @@ public class MapBakeTool : EditorWindow
                     Spawn(roomPrefab, node.world);
                     break;
                 case NodeType.Exit:
-                    Spawn(exitPrefab, node.world);
+                    SpawnExit(node);
                     break;
                 case NodeType.Empty:
                     break;
@@ -376,6 +381,29 @@ public class MapBakeTool : EditorWindow
                     break;
             }
         }
+    }
+
+    void SpawnExit(MapNode node)
+    {
+        Quaternion rotation = Quaternion.identity;
+
+        foreach (var dir in dirs)
+        {
+            Vector3Int next = node.cell + dir;
+
+            if (!nodes.TryGetValue(next, out var neighbor))
+                continue;
+
+            // 같은 고유번호인지 확인
+            if (node.index != neighbor.index)
+                continue;
+
+            rotation = RotationFromDir(dir);
+        }
+
+        GameObject go = Instantiate(exitPrefab, node.world, rotation);
+        go.transform.SetParent(mapRoot, true);
+        go.transform.localScale = tilemap.cellSize * (tilemap.transform.parent.transform.localScale.x / 10);
     }
 
     /// <summary>

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+
+[RequireComponent(typeof(MonsterSpawnLocation))]
+[RequireComponent(typeof(ItemSpawner))]
 public class RandomSelector : MonoBehaviour
 {
 
