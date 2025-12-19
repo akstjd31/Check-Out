@@ -5,6 +5,8 @@ public class StorageManager : Singleton<StorageManager>
     [SerializeField] private GameObject player;
     [SerializeField] private Storage storage;
     [SerializeField] private Inventory inventory;
+    // public bool IsOpen { get; set; }
+    public bool IsOpen;
 
     protected override void Awake()
     {

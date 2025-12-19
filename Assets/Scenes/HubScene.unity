@@ -1104,6 +1104,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1925133846 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2697199619715537205, guid: 719f3c311cde38e49b4e4a53f660faf0, type: 3}
+  m_PrefabInstance: {fileID: 4973964532273967927}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8955f369aed0ee244b465a939383cf4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Chest
 --- !u!1 &1983457267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,6 +1198,7 @@ MonoBehaviour:
   player: {fileID: 0}
   storage: {fileID: 0}
   inventory: {fileID: 0}
+  IsOpen: 0
 --- !u!1001 &799750174401742248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1651,6 +1663,30 @@ PrefabInstance:
     - target: {fileID: 8166221764111447563, guid: 0f77705b207865c449dcfc6ab668dbba, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469180073143229193, guid: 0f77705b207865c449dcfc6ab668dbba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469180073143229193, guid: 0f77705b207865c449dcfc6ab668dbba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469180073143229193, guid: 0f77705b207865c449dcfc6ab668dbba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1925133846}
+    - target: {fileID: 8469180073143229193, guid: 0f77705b207865c449dcfc6ab668dbba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseChest
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469180073143229193, guid: 0f77705b207865c449dcfc6ab668dbba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Chest, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469180073143229193, guid: 0f77705b207865c449dcfc6ab668dbba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9033213074887315351, guid: 0f77705b207865c449dcfc6ab668dbba, type: 3}
       propertyPath: m_Pivot.x

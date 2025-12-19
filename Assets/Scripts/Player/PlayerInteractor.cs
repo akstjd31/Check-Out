@@ -21,23 +21,26 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Update()
     {
-        // 현재 보고 있는 오브젝트
-        var currentObj = GetInteractable<Interactable>();
-
-        // 전에 보던 오브젝트랑 현재 오브젝트가 다를경우
-        if (currentObj != interactableObj)
+        if (FadeController.Instance.IsFadeEnded && !StorageManager.Instance.IsOpen)
         {
-            if (interactableObj != null)
-                interactableObj.OnFocusExit();
-            
-            interactableObj = currentObj;
+            // 현재 보고 있는 오브젝트
+            var currentObj = GetInteractable<Interactable>();
 
-            if (interactableObj != null)
-                interactableObj.OnFocusEnter();
+            // 전에 보던 오브젝트랑 현재 오브젝트가 다를경우
+            if (currentObj != interactableObj)
+            {
+                if (interactableObj != null)
+                    interactableObj.OnFocusExit();
+
+                interactableObj = currentObj;
+
+                if (interactableObj != null)
+                    interactableObj.OnFocusEnter();
+            }
+
+            playerView.UpdateObjNameText(interactableObj == null ? "[null]" : $"[{interactableObj.name}]");
+            playerView.UpdateInteractionText(interactableObj?.GetPromptText());
         }
-
-        playerView.UpdateObjNameText(interactableObj == null ? "[null]" : $"[{interactableObj.name}]");
-        playerView.UpdateInteractionText(interactableObj?.GetPromptText());
     }
 
     // 플레이어 정면 상호작용가능 물체 감지

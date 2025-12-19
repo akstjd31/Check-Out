@@ -10,7 +10,7 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction moveAction, runAction, interactAction, scrollAction, selectAction;
 
     [Header("Value")]
-    private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll", "Select"};
+    private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll", "Select" };
     public Vector3 MoveInput { get; private set; }
     public bool IsRunPressed { get; private set; }
     public event Action OnInteract;
@@ -50,6 +50,13 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
+        if (StorageManager.Instance.IsOpen)
+        {
+            IgnoreInput();
+            return;    
+        }
+
+        // 페이드 효과 끝나면 활성화
         if (FadeController.Instance.IsFadeEnded)
             ReleaseIgnoreInput();
     }
@@ -84,7 +91,7 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
 
-    // 입력 활성화
+    // 입력 비활성화
     public void IgnoreInput()
     {
         moveAction.Disable();
@@ -93,7 +100,7 @@ public class PlayerInputHandler : MonoBehaviour
         scrollAction.Disable();
     }
 
-    // 입력 비활성화
+    // 입력 활성화
     public void ReleaseIgnoreInput()
     {
         moveAction.Enable();

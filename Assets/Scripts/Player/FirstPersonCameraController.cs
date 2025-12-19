@@ -19,7 +19,7 @@ public class FirstPersonCameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (FadeController.Instance.IsFadeEnded)
+        if (FadeController.Instance.IsFadeEnded && !StorageManager.Instance.IsOpen)
         {
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
