@@ -2,21 +2,20 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class StorageUI : MonoBehaviour
+public class StoreUI : MonoBehaviour
 {
     [SerializeField] GameObject uiPrefab;
     [SerializeField] GameObject[] uiObjs;
-    [SerializeField] StorageHoverUI hover;
+    [SerializeField] ShopHoverUI hover;
 
-    private Storage storage;
+    private Store store;
     private InventoryUI inventoryUI;
-
 
     void Awake()
     {
-        storage = FindAnyObjectByType<Storage>();
+        store = FindAnyObjectByType<Store>();
         inventoryUI = FindAnyObjectByType<InventoryUI>();
-        if (storage == null)
+        if (store == null)
         {
             Debug.Log("UI - 창고를 찾지 못했습니다");
         }
@@ -24,16 +23,17 @@ public class StorageUI : MonoBehaviour
 
     public void OnEnable()
     {
-        inventoryUI.StorageChangeState();
+        
+        inventoryUI.StoreChangeState();
     }
 
     public void OnDisable()
     {
-        inventoryUI.StorageChangeState();
+        inventoryUI.StoreChangeState();
     }
 
     // 로딩 때 창고 ui 세팅
-    public void SetStorageUI(int size)
+    public void SetStoreUI(int size)
     {
         // 사이즈 기본 1 보장
         size = size <= 0 ? 1 : size;
@@ -45,7 +45,7 @@ public class StorageUI : MonoBehaviour
         for (int i = 0; i < size; i++)
         {
             uiObjs[i] = Instantiate(uiPrefab, transform);
-            uiObjs[i].name = $"Storage_Slot_{i + 1}";
+            uiObjs[i].name = $"Store_Slot_{i + 1}";
         }
 
         UpdateAll();
@@ -68,13 +68,15 @@ public class StorageUI : MonoBehaviour
         Image slotImage = uiObjs[index].GetComponent<Image>();
         EventTrigger trigger = uiObjs[index].GetComponent<EventTrigger>();
 
+        var storeItem = store.shopList[index];
+
         if (slotImage == null) return;
 
         if (ItemImage == null) return;
 
-        if (storage == null) return;
+        if (store == null) return;
 
-        if (storage.storageList[index] == null)
+        if (storeItem == null)
         {
             button.onClick.RemoveAllListeners();
             if (trigger != null)
@@ -84,9 +86,12 @@ public class StorageUI : MonoBehaviour
             return;
         }
 
-        button.onClick.AddListener(delegate { StorageManager.Instance.StorageToInventory(index); });
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(delegate { StoreManager.Instance.BuyItem(storeItem); });
 
-        Sprite sprite = Resources.Load<Sprite>(storage.storageList[index].imgPath);
+        var item = ItemManager.Instance.GetItemData(storeItem.itemId);
+
+        Sprite sprite = Resources.Load<Sprite>(item.imgPath);
 
         ItemImage.sprite = sprite;
 
@@ -97,7 +102,7 @@ public class StorageUI : MonoBehaviour
             // 마우스 올라갔을때 이벤트
             EventTrigger.Entry Enterentry = new EventTrigger.Entry();
             Enterentry.eventID = EventTriggerType.PointerEnter;
-            Enterentry.callback.AddListener((data) => { hover.OnEnter(uiObjs[index].transform, storage.storageList[index], sprite); });
+            Enterentry.callback.AddListener((data) => { hover.OnEnter(uiObjs[index].transform, storeItem, sprite); });
 
             // 마우스 빠져나갔을때 이벤트
             EventTrigger.Entry Exitentry = new EventTrigger.Entry();

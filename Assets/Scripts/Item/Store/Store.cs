@@ -1,23 +1,26 @@
-﻿using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Store : MonoBehaviour
 {
-    [SerializeField] ItemTableData[] itemList;
-    [SerializeField] int storeSize = 5;
+    public List<ShopTableData> shopList;
 
-    private int buyPrice;
-
-    
-    public void SetItemList(int size)
+    private void Awake()
     {
-        itemList = new ItemTableData[size];
+        shopList = new List<ShopTableData>();
     }
-   
-    // 아이템 구매 가격
-    public int GetBuyPrice(ItemTableData item)
+
+    public void SetShopList(ShopTableData data)
     {
-        if (item == null) return 0;
-        return buyPrice;
+        shopList.Add(data);
+    }
+
+    // 아이템 구매 가격
+    public int GetBuyPrice(ShopTableData itemid)
+    {
+        if (shopList.Contains(itemid) == false) return 0;
+
+        return itemid.buyPrice;
     }
 
     // 아이템 판매 가격

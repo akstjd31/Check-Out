@@ -1,10 +1,8 @@
-﻿using System;
 using TMPro;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HoverUI : MonoBehaviour
+public class InventoryHoverUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI typeText;
@@ -14,7 +12,7 @@ public class HoverUI : MonoBehaviour
 
     private string firstPriceText;
 
-    private void Start()
+    private void Awake()
     {
         firstPriceText = priceText.text;
     }
@@ -29,7 +27,6 @@ public class HoverUI : MonoBehaviour
         priceText.text = firstPriceText;
         priceText.text = priceText.text.Replace("{price}", data.sellPrice.ToString());
         itemImage.sprite = sprite;
-        nameText.text = data.itemName;
         
         transform.position = pos.position;
     }

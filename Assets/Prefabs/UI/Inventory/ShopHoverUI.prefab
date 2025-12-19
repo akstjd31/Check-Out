@@ -567,7 +567,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAC00\uACA9 : {price}\n"
+  m_text: "\uAD6C\uB9E4 \uAC00\uACA9 : {price}\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -861,10 +861,10 @@ GameObject:
   - component: {fileID: 2299703850549851665}
   - component: {fileID: 4387926472366913205}
   - component: {fileID: 1428077540055650081}
-  - component: {fileID: 7048294223841803308}
   - component: {fileID: 887193423350280303}
+  - component: {fileID: 675269483125804458}
   m_Layer: 5
-  m_Name: HoverUI
+  m_Name: ShopHoverUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -942,23 +942,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
   m_ShowMaskGraphic: 1
---- !u!114 &7048294223841803308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7602775824517600072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e123517d1ae3144d8f8cb402cb3f62a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HoverUI
-  nameText: {fileID: 1519070209054929347}
-  typeText: {fileID: 5187968102300545411}
-  descText: {fileID: 1218772398313144008}
-  priceText: {fileID: 1334472591783350459}
-  itemImage: {fileID: 2221673814254842264}
 --- !u!225 &887193423350280303
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -971,6 +954,23 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &675269483125804458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602775824517600072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e9e4f8b788899045bf96dd5d5fe6db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopHoverUI
+  nameText: {fileID: 1519070209054929347}
+  typeText: {fileID: 5187968102300545411}
+  descText: {fileID: 1218772398313144008}
+  priceText: {fileID: 1334472591783350459}
+  itemImage: {fileID: 2221673814254842264}
 --- !u!1 &8713463181180974286
 GameObject:
   m_ObjectHideFlags: 0

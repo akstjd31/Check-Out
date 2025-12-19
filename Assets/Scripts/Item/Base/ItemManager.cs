@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemManager : Singleton<ItemManager>
 {
     [SerializeField] private Item itemPrefab;
 
-    private int length = 0;
     private ObjPool<Item> itemPool;
     private Dictionary<int, ItemTableData> dataID;
-    
+
 
     protected override void Awake()
     {
@@ -44,7 +44,7 @@ public class ItemManager : Singleton<ItemManager>
 
     public void Test(int itemid)
     {
-        SpawnItem(itemid+1000, transform.position);
+        SpawnItem(itemid + 1000, transform.position);
     }
 
     public Item SpawnItem(int itemID, Vector3 pos)
@@ -60,5 +60,12 @@ public class ItemManager : Singleton<ItemManager>
     public void ReturnItem(Item item)
     {
         itemPool.ReturnObject(itemPrefab, item);
+    }
+
+    public ItemTableData GetItemData(int itemid)
+    {
+        if (dataID.TryGetValue(itemid, out var item) == false) return null;
+
+        return item;
     }
 }
