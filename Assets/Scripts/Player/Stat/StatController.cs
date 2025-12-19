@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerStatHolder))]
 public class StatController : MonoBehaviour
 {
-    [SerializeField] private PlayerView playerView;
+    private PlayerView playerView;
     private PlayerStatHolder holder;
     public int CurrentSanity { get; private set; }          // 현재 정신력
     public int CurrentRecoverStamina { get; private set; }  // 현재 스태미나 회복력
@@ -16,6 +16,7 @@ public class StatController : MonoBehaviour
     private void Awake()
     {
         holder = this.GetComponent<PlayerStatHolder>();
+        playerView = GameObject.Find("Canvas").GetComponent<PlayerView>();
     }
 
     public void Init()

@@ -379,7 +379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
   playerView: {fileID: 0}
-  playerHead: {fileID: 0}
+  playerHead: {fileID: 753602095481127051}
   distance: 2
 --- !u!114 &8289058912994371948
 MonoBehaviour:
@@ -405,6 +405,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805bdaf4b5d9afb4fb0fec20b2fd9d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAreaDetector
+  lightCount: 0
+  safeCount: 0
+  monsterCount: 0
 --- !u!114 &2594696585418424042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,7 +420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be57962e60aafe84d9b500f1fe74d121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSanity
-  view: {fileID: 0}
 --- !u!1 &7996910433432002895
 GameObject:
   m_ObjectHideFlags: 0

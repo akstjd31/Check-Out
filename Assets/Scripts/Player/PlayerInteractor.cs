@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteractor : MonoBehaviour
 {
-    [SerializeField] private PlayerView playerView;
+    private PlayerView playerView;
     [SerializeField] private GameObject playerHead;
     [SerializeField] private float distance = 2f;
 
@@ -14,6 +14,7 @@ public class PlayerInteractor : MonoBehaviour
     private void Awake()
     {
         interactiveMask = LayerMask.GetMask("Interactive");
+        playerView = GameObject.Find("Canvas").GetComponent<PlayerView>();
     }
 
     private void Update()

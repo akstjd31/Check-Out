@@ -8,9 +8,16 @@ public class LoadingState : IState
 
     public void Enter()
     {
+        Init();
+        Debug.Log("로딩 상태 진입");
+    }
+
+    private void Init()
+    {
         timer = 3f;
         isLoading = false;
-        Debug.Log("로딩 상태 진입");
+
+        FadeController.Instance.Init();
     }
 
     public void Exit()

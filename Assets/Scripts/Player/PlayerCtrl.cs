@@ -33,6 +33,7 @@ public class PlayerCtrl : MonoBehaviour
         HandleState();
     }
 
+    // 이동
     private void HandleMovement()
     {
         if (input.MoveInput == Vector3.zero)
@@ -41,6 +42,7 @@ public class PlayerCtrl : MonoBehaviour
         movement.Move(input.MoveInput);
     }
 
+    // 상태 갱신을 위한 작업
     private void HandleState()
     {
         bool isMoving = input.MoveInput != Vector3.zero;

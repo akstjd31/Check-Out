@@ -26,6 +26,11 @@ public class PlayerInputHandler : MonoBehaviour
         scrollAction = playerInput.actions[playerActions[3]];
     }
 
+    private void Start()
+    {
+        IgnoreInput();
+    }
+
     private void OnEnable()
     {
         moveAction.performed += OnMovePerformed;
@@ -36,6 +41,12 @@ public class PlayerInputHandler : MonoBehaviour
 
         interactAction.performed += OnInteractKey;
         scrollAction.performed += OnScrollWheel;
+    }
+
+    private void Update()
+    {
+        if (FadeController.Instance.IsFadeEnded)
+            ReleaseIgnoreInput();
     }
 
     private void OnDisable()
@@ -61,6 +72,24 @@ public class PlayerInputHandler : MonoBehaviour
         {
             scrollAction.performed -= OnScrollWheel;
         }
+    }
+
+    // 입력 활성화
+    public void IgnoreInput()
+    {
+        moveAction.Disable();
+        runAction.Disable();
+        interactAction.Disable();
+        scrollAction.Disable();
+    }
+
+    // 입력 비활성화
+    public void ReleaseIgnoreInput()
+    {
+        moveAction.Enable();
+        runAction.Enable();
+        interactAction.Enable();
+        scrollAction.Enable();
     }
 
     public void OnMovePerformed(InputAction.CallbackContext ctx) => MoveInput = ctx.ReadValue<Vector3>();

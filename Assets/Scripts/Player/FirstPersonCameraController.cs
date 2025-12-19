@@ -19,14 +19,17 @@ public class FirstPersonCameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        if (FadeController.Instance.IsFadeEnded)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        this.transform.Rotate(Vector3.up * mouseX);
+            this.transform.Rotate(Vector3.up * mouseX);
 
-        pitch -= mouseY;
-        pitch = Mathf.Clamp(pitch, -maxPitch, maxPitch);
+            pitch -= mouseY;
+            pitch = Mathf.Clamp(pitch, -maxPitch, maxPitch);
 
-        cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+            cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+        }
     }
 }

@@ -6,13 +6,20 @@ public class FadeController : Singleton<FadeController>
 {
     [SerializeField] private Image fadeImage;
     [SerializeField] private float fadeDuration = 1f;
+    public bool IsFadeEnded { get; private set; }
 
     private void Start()
     {
         StartFadeIn();
     }
 
-    public void StartFadeIn() => StartCoroutine(FadeIn());
+    public void Init() => IsFadeEnded = false;
+
+    public void StartFadeIn()
+    {
+        if (!IsFadeEnded)
+            StartCoroutine(FadeIn());
+    }
 
     private IEnumerator FadeIn()
     {
@@ -25,6 +32,7 @@ public class FadeController : Singleton<FadeController>
         }
         
         SetAlpha(0f);
+        IsFadeEnded = true;
     }
 
     private void SetAlpha(float alpha)
