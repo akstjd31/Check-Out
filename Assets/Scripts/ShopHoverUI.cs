@@ -15,6 +15,7 @@ public class ShopHoverUI : MonoBehaviour
     private void Awake()
     {
         firstPriceText = priceText.text;
+        gameObject.SetActive(false);
     }
 
     // 마우스가 위로 올라가져 있을때
