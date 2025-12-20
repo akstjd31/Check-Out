@@ -45,8 +45,9 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.Return))
-        //     ItemManager.Instance.Test(1);
+        if (Input.GetKeyDown(KeyCode.Return))
+            ItemManager.Instance.Test(1);
+            
         stateMachine?.Update();
 
         // Debug.Log(Money);
