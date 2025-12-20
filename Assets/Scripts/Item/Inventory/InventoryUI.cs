@@ -16,8 +16,6 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] bool IsStorageOpen = false;
     [SerializeField] bool IsStoreOpen = false;
 
-
-
     private void Awake()
     {
         inventory = FindAnyObjectByType<Inventory>();
@@ -30,12 +28,13 @@ public class InventoryUI : MonoBehaviour
 
     private void Start()
     {
-        if (inventory != null)
-        {
-            invenSize = inventory.GetDefaultInventorySize();
-            inventory.SetInventory(invenSize);
-            SetInventoryUI(invenSize);
-        }
+        Init();
+    }
+
+    public void Init()
+    {
+        invenSize = inventory.GetDefaultInventorySize();
+        SetInventoryUI(invenSize);
     }
 
     private void OnEnable()

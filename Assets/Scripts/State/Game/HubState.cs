@@ -3,8 +3,6 @@ using UnityEngine;
 // 휴식 공간에 접어든 상태
 public class HubState : IState
 {
-    private float timer;
-    private bool isCompleted;
     public void Enter()
     {
         Debug.Log("휴식 상태 진입");
@@ -14,7 +12,6 @@ public class HubState : IState
     public void Exit()
     {
         Debug.Log("휴식 상태 종료");
-        StorageManager.Instance.SaveStorage();
         LoadingManager.Instance.InitSceneActivation();
     }
 
@@ -30,7 +27,7 @@ public class HubState : IState
 
     private void Init()
     {
-        StorageManager.Instance.LoadStorage();
+        FadeController.Instance.Init();
         // isCompleted = false;
         // timer = 3f;
         

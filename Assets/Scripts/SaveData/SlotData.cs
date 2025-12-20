@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public class StorageSaveData : SaveBase
+public class SlotSaveData : SaveBase
 {
-    public List<StorageSlotData> slots = new();
+    public List<SlotData> slots = new();
 }
 
 [Serializable]
-public class StorageSlotData
+public class SlotData
 {
     public int index;
     public int itemId;
