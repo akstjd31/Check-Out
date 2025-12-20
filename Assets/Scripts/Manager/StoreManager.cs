@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class StoreManager : Singleton<StoreManager>
 {
-    [SerializeField] int money = 1000;
     [SerializeField] private Store store;
     // private GameObject player;
     [SerializeField] private Inventory inventory;
@@ -70,8 +69,7 @@ public class StoreManager : Singleton<StoreManager>
 
         inventory.GetItem(item, inventoryIndex);
 
-        //player.Money -= price;
-        money -= price;
+        GameManager.Instance.ChangeMoney(-price);
     }
 
     // 아이템 판매
@@ -96,7 +94,7 @@ public class StoreManager : Singleton<StoreManager>
         int price = store.GetSellPrice(item);
         Debug.Log($"가격 {price}");
 
-        money += price;
+        GameManager.Instance.ChangeMoney(price);
     }
 
     // 돈 충분한지 체크
@@ -107,7 +105,7 @@ public class StoreManager : Singleton<StoreManager>
         //if (player.money > price)
         //return true;
 
-        if (money >= price)
+        if (GameManager.Instance.Money >= price)
             return true;
 
         return false;

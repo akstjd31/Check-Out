@@ -4,7 +4,7 @@ using UnityEngine;
 public class InventoryManager : Singleton<InventoryManager>
 {
     [SerializeField] private GameObject player;
-    [SerializeField] private Transform playerHandTransform;
+    // [SerializeField] private Transform playerHandTransform;
 
     [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryUI invenUI;
@@ -13,18 +13,20 @@ public class InventoryManager : Singleton<InventoryManager>
     protected override void Awake()
     {
         base.Awake();
-
+        
         inventory = this.GetComponent<Inventory>();
-        invenUI = FindAnyObjectByType<InventoryUI>();
 
         int size = inventory.GetDefaultInventorySize();
         inventory.SetInventory(size);
-        invenUI.Init();
     }
 
+    public void InventoryDebug()
+    {
+        Debug.Log($"인벤토리 크기: {inventory.slots.Length}");
+    }
 
     // 인벤토리 저장 기능
-    public void SaveInventory()
+    public bool SaveInventory()
     {
         SlotSaveData saveData = new SlotSaveData();
 
@@ -41,23 +43,26 @@ public class InventoryManager : Singleton<InventoryManager>
 
         SaveLoadManager.Instance.Save(fileName, saveData);
         Debug.Log("인벤토리 데이터 저장 완료!");
+        return true;
     }
 
     // 인벤토리 불러오기
-    public void LoadInventory()
+    public bool LoadInventory()
     {
         SlotSaveData saveData =
             SaveLoadManager.Instance.Load<SlotSaveData>(fileName);
 
-        if (saveData == null) return;
+        if (saveData == null) return false;
 
         foreach (var slot in saveData.slots)
         {
             ItemTableData item = ItemManager.Instance.GetItemData(slot.itemId);
             inventory.GetItem(item, slot.index);
+            Debug.Log($"현재 불러온 아이템: {item.itemName}");
         }
 
         Debug.Log("인벤토리 데이터 로드 완료!");
+        return true;
     }
 
     // 아이템 줍기

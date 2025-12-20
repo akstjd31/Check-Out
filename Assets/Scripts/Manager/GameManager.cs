@@ -1,12 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class GameManager : Singleton<GameManager>
 {
-    public GameState CurrentState { get; private set; }
+    [Header("State")]
+    // public GameState CurrentState { get; private set; }
+    public GameState CurrentState;
     private StateMachine<GameState> stateMachine;
-    [SerializeField] private SaveLoadManager saveLoadManager;
+
+    [Header("Value")]
+    public int Money { get; private set; } = 0;
+    private string fileName = "MoneyData.json";
 
     protected override void Awake()
     {
@@ -14,6 +18,7 @@ public class GameManager : Singleton<GameManager>
         
         stateMachine = new StateMachine<GameState>();
 
+        stateMachine.AddState(GameState.Main, new MainState());
         stateMachine.AddState(GameState.Hub, new HubState());
         stateMachine.AddState(GameState.Loading, new LoadingState());
         stateMachine.AddState(GameState.Session, new RunState());
@@ -21,17 +26,16 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        ChangeState(GameState.Hub);
+        ChangeState(GameState.Main);
+    }
 
-        // 테스트용 데이터 저장
-        // ItemSaveData data = new ItemSaveData();
-        // data.itemId = 1;
-        // saveLoadManager.Save("ItemSaveData.json", data);
-        // Debug.Log("데이터 저장 완료!");
+    public void OnGameStartButton()
+    {
+        ChangeState(GameState.Loading);
 
-        // 테스트용 데이터 로드
-        // var data = saveLoadManager.Load<ItemSaveData>("ItemSaveData.json");
-        // Debug.Log($"불러온 데이터 ID: {data.itemId}");
+        LoadMoney();
+        StorageManager.Instance.LoadStorage();
+        InventoryManager.Instance.LoadInventory();
     }
 
     private void OnEnable()
@@ -45,6 +49,8 @@ public class GameManager : Singleton<GameManager>
             ItemManager.Instance.Test(1);
             
         stateMachine.Update();
+
+        // Debug.Log(Money);
     }
 
     private void OnDisable()
@@ -52,6 +58,31 @@ public class GameManager : Singleton<GameManager>
         if (LoadingManager.Instance != null)
             LoadingManager.Instance.OnLoadingEnded -= HandleLoadingEnded;
     }
+
+    // 돈 저장 기능
+
+    public void SaveMoney()
+    {
+        MoneyData data = new MoneyData();
+        data.money = Money;
+
+        SaveLoadManager.Instance.Save<MoneyData>(fileName, data);
+        Debug.Log("돈 데이터 저장 완료!");
+    }
+
+    // 돈 불러오기 기능
+    public void LoadMoney()
+    {
+        var data = SaveLoadManager.Instance.Load<MoneyData>(fileName);
+
+        if (data == null) return;
+
+        Money = data.money;
+
+        Debug.Log("돈 데이터 불러오기 완료!");
+    }
+
+    public void ChangeMoney(int amount) => Money += amount;
 
     // 상태 변경
     public void ChangeState(GameState newState)

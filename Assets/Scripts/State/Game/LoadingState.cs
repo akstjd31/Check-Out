@@ -13,11 +13,11 @@ public class LoadingState : IState
     }
 
     private void Init()
-    {
+    {        
         timer = 3f;
         isLoading = false;
 
-        FadeController.Instance.Init();
+        // FadeController.Instance.Init();
     }
 
     public void Exit()
