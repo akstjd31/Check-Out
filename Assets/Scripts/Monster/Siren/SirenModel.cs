@@ -1,19 +1,14 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkerModel : Monster
+public class SirenModel : Monster
 {
     // 워커 상태 정의 : 배회, 추격, 어그로 해제, 발견
-    //public enum WalkerState { WanderingAround, Chase, MissingPlayer,FindPlayer }
     
     [Header("IndividualProperties")]
-    [Header("Speed")]
-    [SerializeField]private float chaseFast = 4.5f;
-    [SerializeField] private float chaseSlow = 2.0f;
     [Header("Delay")]
-    [SerializeField] private float stopToMissingDelay = 2.0f;
+    [SerializeField] private float stopToMissingDelay = 3.0f;
     [Header("MonsterFieldOfView")]
     // 시야 범위 조정
     [SerializeField] private float viewRadius;
@@ -32,12 +27,12 @@ public class WalkerModel : Monster
     [Header("delay")]
     [SerializeField] int minimumStopDelay = 2;
     [SerializeField] int maxStopDelay = 3;
+    // 비명 범위
+    [Header("scream")]
+    [SerializeField] float distance = 20f;
 
     [HideInInspector]
-    public MonsterState walkerState;
     //프로퍼티
-    public float ChaseFast { get { return chaseFast; } }
-    public float ChaseSlow { get { return chaseSlow; } }
     public float StopToMissingDelay {  get { return stopToMissingDelay; } }
     public float ViewRadius { get { return viewRadius; } }
     public float ViewAngle { get { return viewAngle; } }
@@ -46,15 +41,12 @@ public class WalkerModel : Monster
     public float Delay { get { return delay; } }
     public int MinimumStopDelay { get { return minimumStopDelay; } }
     public int MaxStopDelay { get { return maxStopDelay; } }
-
+    public float Distance { get { return distance; } }
 
     // 이벤트 생성
     public event Action OnWanderingAround;
-    public event Action OnChase;
-    public event Action OnMissingPlayer;
+    public event Action OnAlert;
     public event Action OnFindPlayer;
-    public event Action OnAlerted;
-
 
     public override void ChangeState(MonsterState inputState)
     {
@@ -62,34 +54,17 @@ public class WalkerModel : Monster
         switch (inputState)
         {
             case MonsterState.WanderingAround:
-                Debug.Log($"{walkerState} : WanderingAround");
-                walkerState = MonsterState.WanderingAround;
+                monsterState = MonsterState.WanderingAround;
                 OnWanderingAround?.Invoke();
                 break;
-            case MonsterState.Chase:
-                Debug.Log($"{walkerState} : Chase");
-                walkerState = MonsterState.Chase;
-                OnChase?.Invoke();
-                // OnChaseAfter?.Invoke();
-                break;
-            case MonsterState.MissingPlayer:
-                Debug.Log($"{walkerState} : MissingPlayer");
-                walkerState = MonsterState.MissingPlayer;
-                OnMissingPlayer?.Invoke();
-                // OnMissingPlayerAfter?.Invoke();
+            case MonsterState.Alert:
+                monsterState = MonsterState.Alert;
+                OnAlert?.Invoke();
                 break;
             case MonsterState.FindPlayer:
-                Debug.Log($"{walkerState} : FindPlayer");
-                if (OnFindPlayer == null)
-                    Debug.LogWarning("OnFindPlayer에 구독자가 없습니다.");
-                walkerState = MonsterState.FindPlayer;
+                monsterState = MonsterState.FindPlayer;
                 OnFindPlayer?.Invoke();
                 break;
-            case MonsterState.Alerted:
-                walkerState = MonsterState.Alerted;
-                OnAlerted?.Invoke();
-                break;
-
         }
     }
 }

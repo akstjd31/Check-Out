@@ -22,6 +22,7 @@ public class PlayerStateMachine : MonoBehaviour
     // 상태 변경
     public void ChangeState(PlayerState state)
     {
+        Debug.Log(stat.ToString());
         // 이미 같은 상태면 할게 없음
         if (CurrentState == state) return;
         CurrentState = state;
@@ -30,6 +31,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void ChangeSituation(PlayerSituation situation)
     {
+        Debug.Log(stat.ToString());
         if (CurrentSituation == situation) return;
         CurrentSituation = situation;
         stat.UpdateSituationUsedValue(situation);

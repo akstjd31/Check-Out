@@ -52,7 +52,7 @@ public class MonsterFieldOfView : MonoBehaviour
             if(Vector3.Angle(transform.forward, directionToTarget) < viewAngle / 2)
             {
                 // 타겟과의 거리를 확인
-                float dstToTarget = Vector3.Distance (transform.position, target.position);
+                float dstToTarget = Vector3.Distance (transform.position, target.transform.position);
                 // 몬스터와 플레이어 사이에 장애물이 없을 경우 다음 내용을 수행
                 if( !Physics.Raycast (transform.position, directionToTarget, dstToTarget, obstacleMask))
                 {

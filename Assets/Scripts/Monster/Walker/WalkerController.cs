@@ -12,14 +12,22 @@ public class WalkerController : MonoBehaviour
     private float chaseTimer;
     private float checkTimer;
     private bool onRun = true;
+    private Transform sirenTransform;
 
-    
+    private void Awake()
+    {
+        // 컴포넌트 추가
+        walkerView = GetComponent<WalkerView>();
+        walkerModel = GetComponent<WalkerModel>();
+        walkerFieldOfView = GetComponent<MonsterFieldOfView>();
+        walkerMovement = GetComponent<MonsterMovement>();
+    }
 
     private void Start()
     {
         Init();
         Debug.Log("워커 컨트롤러 배회 시작");
-        walkerModel.walkerState = WalkerModel.WalkerState.WanderingAround;
+        walkerModel.walkerState = Monster.MonsterState.WanderingAround;
         walkerMovement.ChangeSpeed(walkerModel.PatrolSpeed);
         walkerMovement.PatrolNextOne();
         StartCoroutine(walkerFieldOfView.FindTargetsWithDelay());
@@ -32,38 +40,40 @@ public class WalkerController : MonoBehaviour
         //Debug.Log($"visibleTargets : {walkerFieldOfView.visibleTargets.Count}");
         //Debug.Log(walkerModel.walkerState != WalkerModel.WalkerState.Chase);
         // 만약 플레이어가 시야에 들어온다면 발견 상태 실행 후 추격 진행
-        if (walkerFieldOfView.visibleTargets.Count > 0 && walkerModel.walkerState != WalkerModel.WalkerState.Chase)
+        if (walkerFieldOfView.visibleTargets.Count > 0 && walkerModel.walkerState != Monster.MonsterState.Chase)
         {
             //Debug.Log("조건 만족");
             // 발견 상태 수행
-            walkerModel.ChangeState(WalkerModel.WalkerState.FindPlayer);
+            walkerModel.ChangeState(Monster.MonsterState.FindPlayer);
         }
-        if (walkerFieldOfView.visibleTargets.Count == 0 && walkerModel.walkerState == WalkerModel.WalkerState.Chase)
+        if (walkerFieldOfView.visibleTargets.Count == 0 && walkerModel.walkerState == Monster.MonsterState.Chase)
         {
             // 만약 플레이어를 시야에 놓치면 MissingPlayer 전환
-            walkerModel.ChangeState(WalkerModel.WalkerState.MissingPlayer);
+            walkerModel.ChangeState(Monster.MonsterState.MissingPlayer);
         }
     }
-
-    private void OnDestroy()
+    private void OnEnable()
     {
         // 이벤트 구독 설정
+        walkerModel.OnWanderingAround += StartPatrol;
+        walkerModel.OnFindPlayer += Find;
+        walkerModel.OnChase += StartChase;
+        walkerModel.OnMissingPlayer += StartMissingPlayer;
+        walkerModel.OnAlerted += StartAlerted;
+    }
+
+    private void OnDisable()
+    {
+        // 이벤트 구독 해제
         walkerModel.OnWanderingAround -= StartPatrol;
         walkerModel.OnFindPlayer -= Find;
         walkerModel.OnChase -= StartChase;
         walkerModel.OnMissingPlayer -= StartMissingPlayer;
+        walkerModel.OnAlerted -= StartAlerted;
     }
 
     private void Init()
     {
-        // 컴포넌트 추가
-        walkerView = GetComponent<WalkerView>();
-        walkerModel = GetComponent<WalkerModel>();
-        walkerFieldOfView = GetComponent<MonsterFieldOfView>();
-        walkerMovement = GetComponent<MonsterMovement>();
-
-
-
         // 모델 값을 해당 컴포넌트에 전달
         // Monster Field Of View
         //Debug.Log($"Rdaius : {walkerModel.ViewRadius}");
@@ -81,10 +91,7 @@ public class WalkerController : MonoBehaviour
         walkerMovement.MaxStopDelay = walkerModel.MaxStopDelay;
 
         // 이벤트 구독 설정
-        walkerModel.OnWanderingAround += StartPatrol;
-        walkerModel.OnFindPlayer += Find;
-        walkerModel.OnChase += StartChase;
-        walkerModel.OnMissingPlayer += StartMissingPlayer;
+        
 
         // 어그로 해제 딜레이 변수 초기화
         stopToMissing = new WaitForSeconds(walkerModel.StopToMissingDelay);
@@ -99,7 +106,7 @@ public class WalkerController : MonoBehaviour
     {
         Debug.Log("발견 상태 수행 완료");
         // 추격으로 전환
-        walkerModel.ChangeState(WalkerModel.WalkerState.Chase);
+        walkerModel.ChangeState(Monster.MonsterState.Chase);
     }
 
     private IEnumerator Chase()
@@ -156,7 +163,7 @@ public class WalkerController : MonoBehaviour
         Debug.Log("MissingPlayer 수행");
         walkerMovement.StopToMissing();
         checkTimer = 0;
-        while(walkerFieldOfView.visibleTargets.Count == 0 && walkerModel.walkerState == WalkerModel.WalkerState.MissingPlayer)
+        while(walkerFieldOfView.visibleTargets.Count == 0 && walkerModel.walkerState == Monster.MonsterState.MissingPlayer)
         {
             // 플레이어를 다시 찾으면 추격 상태 전환
             if(walkerFieldOfView.visibleTargets.Count == 0 && checkTimer < 2)
@@ -170,7 +177,7 @@ public class WalkerController : MonoBehaviour
             {
                 Debug.Log("배회로 다시 전환합니다.");
                 checkTimer = 0;
-                walkerModel.ChangeState(WalkerModel.WalkerState.WanderingAround);
+                walkerModel.ChangeState(Monster.MonsterState.WanderingAround);
             }
             
         }
@@ -182,7 +189,18 @@ public class WalkerController : MonoBehaviour
     private void StartPatrol()
     {
         Debug.Log("배회 실행");
+        sirenTransform = null;
         walkerMovement.ChangeSpeed(walkerModel.PatrolSpeed);
         walkerMovement.PatrolNextOne();
+    }
+
+    public void StartAlerted()
+    {
+        walkerMovement.Move(sirenTransform, walkerModel.PatrolSpeed);
+    }
+
+    public void GetTransform(Transform transform)
+    {
+        sirenTransform = transform;
     }
 }

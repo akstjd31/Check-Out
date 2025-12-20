@@ -1,4 +1,3 @@
-using System.Drawing;
 using UnityEngine;
 
 /// <summary>
@@ -49,7 +48,13 @@ public class InventoryController : MonoBehaviour
     // 공통 작업 (인벤토리 세팅)
     private void ApplyFocusedSlot(int index)
     {
-        focusedIndex = index;
+        if (focusedIndex != index)
+        {
+            focusedIndex = index;
+        }
+
+        else
+            focusedIndex = -1;
 
         InventoryManager.Instance.SelectInventory(focusedIndex);
         invenUI.SelectUI(focusedIndex);

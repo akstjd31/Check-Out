@@ -40,8 +40,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Monster
+  - Collider
   - 
   m_SortingLayers:
   - name: Default
