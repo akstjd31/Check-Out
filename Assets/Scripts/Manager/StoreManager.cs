@@ -89,12 +89,13 @@ public class StoreManager : Singleton<StoreManager>
         if (inventory.slots[index] == null) return;
 
         ItemTableData item = inventory.MoveItem(index);
+        Debug.Log(item.itemName);
 
         if (item == null) return;
 
         int price = store.GetSellPrice(item);
+        Debug.Log($"가격 {price}");
 
-        //player.money += price;
         money += price;
     }
 

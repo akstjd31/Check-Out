@@ -7,6 +7,7 @@ public class StorageUI : MonoBehaviour
     [SerializeField] GameObject uiPrefab;
     [SerializeField] GameObject[] uiObjs;
     [SerializeField] StorageHoverUI hover;
+    [SerializeField] GameObject storageObj;
 
     private Storage storage;
     private InventoryUI inventoryUI;
@@ -17,6 +18,9 @@ public class StorageUI : MonoBehaviour
     {
         storage = FindAnyObjectByType<Storage>();
         inventoryUI = FindAnyObjectByType<InventoryUI>();
+
+        Init();
+
         if (storage == null)
         {
             Debug.Log("UI - 창고를 찾지 못했습니다");
@@ -59,7 +63,7 @@ public class StorageUI : MonoBehaviour
 
         for (int i = 0; i < size; i++)
         {
-            uiObjs[i] = Instantiate(uiPrefab, transform);
+            uiObjs[i] = Instantiate(uiPrefab, storageObj.transform);
             uiObjs[i].name = $"Storage_Slot_{i + 1}";
         }
 
@@ -100,12 +104,12 @@ public class StorageUI : MonoBehaviour
             return;
         }
 
-        // 🔥 반드시 먼저 제거
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() =>
         {
             StorageManager.Instance.StorageToInventory(index);
         });
+
         Sprite sprite = Resources.Load<Sprite>(storage.storageList[index].imgPath);
 
         ItemImage.sprite = sprite;

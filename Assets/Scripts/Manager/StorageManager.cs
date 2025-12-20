@@ -15,8 +15,6 @@ public class StorageManager : Singleton<StorageManager>
         
         storage = FindAnyObjectByType<Storage>();
         inventory = FindAnyObjectByType<Inventory>();
-
-        storageUI.Init();
     }
 
     // 창고 저장 기능
@@ -50,13 +48,10 @@ public class StorageManager : Singleton<StorageManager>
         foreach (var slot in saveData.slots)
         {
             ItemTableData item = ItemManager.Instance.GetItemData(slot.itemId);
-
-            storage.storageList[slot.index] = item;
-            storage.OnSlotUpdated?.Invoke(slot.index);
+            storage.ItemStorage(item, slot.index);
         }
 
         Debug.Log("창고 데이터 로드 완료!");
-        // storageUI.transform.root.GetChild(0).gameObject.SetActive(false);
     }
 
     // 창고 가져오기

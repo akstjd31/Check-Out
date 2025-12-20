@@ -1,7 +1,5 @@
-using Unity.Hierarchy;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 
 [RequireComponent(typeof(MonsterSpawnLocation))]
@@ -19,6 +17,18 @@ public class RandomSelector : MonoBehaviour
     [SerializeField]int itemSpawnCount;
     [SerializeField]int monsterSpawnCount;
     [SerializeField]int elevatorSpawnCount;
+    bool isPlaying = false;
+
+    private void Update()
+    {
+        if (!isPlaying)
+        {
+            SetItemSpawnLocation();
+            SetMonsterSpawnLocation();
+            SetElevatorActivate();
+            isPlaying = true;
+        }
+    }
 
     /// <summary>
     /// 아이템의 생성을 담당하는 메서드입니다.

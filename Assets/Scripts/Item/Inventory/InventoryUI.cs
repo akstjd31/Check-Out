@@ -110,11 +110,7 @@ public class InventoryUI : MonoBehaviour
         ItemImage.sprite = sprite;
 
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(delegate
-        {
-            StorageManager.Instance.InventoryToStorage(index);
-        });
-
+        
         if (IsStorageOpen)
             OnStorageUI(button, index);
 
