@@ -20,13 +20,13 @@ public class StorageManager : Singleton<StorageManager>
     // 창고 저장 기능
     public void SaveStorage()
     {
-        StorageSaveData saveData = new StorageSaveData();
+        SlotSaveData saveData = new SlotSaveData();
 
         for (int i = 0; i < storage.storageList.Length; i++)
         {
             if (storage.storageList[i] == null) continue;
 
-            saveData.slots.Add(new StorageSlotData
+            saveData.slots.Add(new SlotData
             {
                 index = i,
                 itemId = storage.storageList[i].id
@@ -40,8 +40,8 @@ public class StorageManager : Singleton<StorageManager>
     // 창고 불러오기
     public void LoadStorage()
     {
-        StorageSaveData saveData = 
-            SaveLoadManager.Instance.Load<StorageSaveData>(fileName);
+        SlotSaveData saveData = 
+            SaveLoadManager.Instance.Load<SlotSaveData>(fileName);
         
         if (saveData == null) return;
 

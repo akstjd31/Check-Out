@@ -15,6 +15,7 @@ public class HubState : IState
     {
         Debug.Log("휴식 상태 종료");
         StorageManager.Instance.SaveStorage();
+        InventoryManager.Instance.SaveInventory();
         LoadingManager.Instance.InitSceneActivation();
     }
 
