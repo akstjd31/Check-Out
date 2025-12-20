@@ -32,6 +32,7 @@ public class HubState : IState
     private void Init()
     {
         StorageManager.Instance.LoadStorage();
+        InventoryManager.Instance.LoadInventory();
         // isCompleted = false;
         // timer = 3f;
         

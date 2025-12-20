@@ -17,7 +17,10 @@ public class LookPlayer : MonoBehaviour
     // 플레이어 바라보게 하기
     void Update()
     {
-        pos = new Vector3 (target.position.x, transform.position.y, target.position.z);
-        transform.LookAt(pos);
+        if (target != null)
+        {
+            pos = new Vector3 (target.position.x, transform.position.y, target.position.z);
+            transform.LookAt(pos);
+        }
     }
 }

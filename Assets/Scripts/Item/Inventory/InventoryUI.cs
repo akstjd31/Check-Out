@@ -28,14 +28,10 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void Init()
     {
-        if (inventory != null)
-        {
-            invenSize = inventory.GetDefaultInventorySize();
-            inventory.SetInventory(invenSize);
-            SetInventoryUI(invenSize);
-        }
+        invenSize = inventory.GetDefaultInventorySize();
+        SetInventoryUI(invenSize);
     }
 
     private void OnEnable()

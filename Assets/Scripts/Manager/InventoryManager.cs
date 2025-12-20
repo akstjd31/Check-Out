@@ -10,10 +10,18 @@ public class InventoryManager : Singleton<InventoryManager>
     [SerializeField] private InventoryUI invenUI;
     private string fileName = "InventorySaveData.json";
 
-    private void Start()
+    protected override void Awake()
     {
-        inventory = FindAnyObjectByType<Inventory>();
+        base.Awake();
+
+        inventory = this.GetComponent<Inventory>();
+        invenUI = FindAnyObjectByType<InventoryUI>();
+
+        int size = inventory.GetDefaultInventorySize();
+        inventory.SetInventory(size);
+        invenUI.Init();
     }
+
 
     // 인벤토리 저장 기능
     public void SaveInventory()
@@ -33,6 +41,23 @@ public class InventoryManager : Singleton<InventoryManager>
 
         SaveLoadManager.Instance.Save(fileName, saveData);
         Debug.Log("인벤토리 데이터 저장 완료!");
+    }
+
+    // 인벤토리 불러오기
+    public void LoadInventory()
+    {
+        SlotSaveData saveData =
+            SaveLoadManager.Instance.Load<SlotSaveData>(fileName);
+
+        if (saveData == null) return;
+
+        foreach (var slot in saveData.slots)
+        {
+            ItemTableData item = ItemManager.Instance.GetItemData(slot.itemId);
+            inventory.GetItem(item, slot.index);
+        }
+
+        Debug.Log("인벤토리 데이터 로드 완료!");
     }
 
     // 아이템 줍기
