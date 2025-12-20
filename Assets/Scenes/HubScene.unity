@@ -1723,7 +1723,7 @@ PrefabInstance:
     - target: {fileID: 2697199619715537205, guid: 719f3c311cde38e49b4e4a53f660faf0, type: 3}
       propertyPath: storageUIObj
       value: 
-      objectReference: {fileID: 5672211944734531064}
+      objectReference: {fileID: 5044137167683758386}
     - target: {fileID: 2697199619715537205, guid: 719f3c311cde38e49b4e4a53f660faf0, type: 3}
       propertyPath: storageCanvas
       value: 
@@ -1895,11 +1895,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcb0501be6e90b04cbafae377e11c34d, type: 3}
---- !u!1 &5672211944734531064 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3386439353805184081, guid: 0f77705b207865c449dcfc6ab668dbba, type: 3}
-  m_PrefabInstance: {fileID: 2822300760172677522}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5841231017461001687
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2236,6 +2231,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4650009705637910482, guid: 6ea7c896e5c262e4db37d6c38ba64683, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449226141954708077, guid: 6ea7c896e5c262e4db37d6c38ba64683, type: 3}
+      propertyPath: IsStorageOpen
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7470513341348861699, guid: 6ea7c896e5c262e4db37d6c38ba64683, type: 3}

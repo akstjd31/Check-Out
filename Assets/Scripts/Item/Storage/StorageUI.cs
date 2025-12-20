@@ -28,6 +28,17 @@ public class StorageUI : MonoBehaviour
         }
     }
 
+    public void StorageOpen()
+    {
+        inventoryUI.StorageOpen();
+        inventoryUI.OnButtonRefresh();
+    }
+
+    public void StorageClose()
+    {
+        inventoryUI.StorageClosed();
+    }
+
     public void Init()
     {
         storageSize = storage.GetDefaultStorageSize();
@@ -38,16 +49,11 @@ public class StorageUI : MonoBehaviour
 
     private void OnEnable()
     {
-        inventoryUI.StorageOpen();
-
         storage.OnSlotUpdated += UpdateUI;
-        UpdateAll();
     }
 
     private void OnDisable()
     {
-        inventoryUI.StorageClosed();
-
         storage.OnSlotUpdated -= UpdateUI;
     }
 

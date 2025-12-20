@@ -32,6 +32,7 @@ public class StoreUI : MonoBehaviour
     public void OnEnable()
     {
         inventoryUI.StoreChangeOpen();
+        inventoryUI.OnButtonRefresh();
     }
 
     public void OnDisable()

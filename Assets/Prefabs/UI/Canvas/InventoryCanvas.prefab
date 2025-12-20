@@ -78,6 +78,8 @@ MonoBehaviour:
   uiPrefab: {fileID: 2421131637641645138, guid: d520e45aaf06ec442bd60ad722f21b9b, type: 3}
   uiObjs: []
   hover: {fileID: 7799600450630165554}
+  IsStorageOpen: 0
+  IsStoreOpen: 0
 --- !u!1 &7470513341348861699
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,8 +111,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5083537104495365426}
   - {fileID: 966454138934194115}
+  - {fileID: 5083537104495365426}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

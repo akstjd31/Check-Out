@@ -9,13 +9,12 @@ public class Chest : Interactable
     private void Awake()
     {
         if (storageUIObj != null)
-            storageUI = storageUIObj.GetComponentInChildren<StorageUI>();
+            storageUI = storageUIObj.GetComponent<StorageUI>();
     }
 
     public override void OnFocusEnter()
     {
         promptText = "Press [E] to Open Storage";
-        // StorageManager.Instance.LoadStorage();
     }
 
     public override void OnFocusExit()
@@ -31,7 +30,9 @@ public class Chest : Interactable
 
     public void OpenChest()
     {
-        storageUIObj.SetActive(true);
+        storageUIObj.transform.GetChild(0).gameObject.SetActive(true);
+        storageUI.StorageOpen();
+
         Cursor.lockState = CursorLockMode.Confined;
         StorageManager.Instance.IsOpen = true;
         Cursor.visible = true;
@@ -39,7 +40,9 @@ public class Chest : Interactable
 
     public void CloseChest()
     {
-        storageUIObj.SetActive(false);
+        storageUIObj.transform.GetChild(0).gameObject.SetActive(false);
+        storageUI.StorageClose();
+
         Cursor.lockState = CursorLockMode.Locked;
         StorageManager.Instance.IsOpen = false;
         Cursor.visible = false;

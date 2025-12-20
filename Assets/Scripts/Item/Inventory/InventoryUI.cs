@@ -13,8 +13,8 @@ public class InventoryUI : MonoBehaviour
     private Inventory inventory;
     private int invenSize;
 
-    bool IsStorageOpen = false;
-    bool IsStoreOpen = false;
+    [SerializeField] bool IsStorageOpen = false;
+    [SerializeField] bool IsStoreOpen = false;
 
 
 
@@ -110,7 +110,7 @@ public class InventoryUI : MonoBehaviour
         ItemImage.sprite = sprite;
 
         button.onClick.RemoveAllListeners();
-        
+
         if (IsStorageOpen)
             OnStorageUI(button, index);
 
@@ -133,6 +133,26 @@ public class InventoryUI : MonoBehaviour
 
             trigger.triggers.Add(Enterentry);
             trigger.triggers.Add(Exitentry);
+        }
+    }
+
+    public void OnButtonRefresh()
+    {
+        int invenIndex = 0;
+        foreach (var uiObj in uiObjs)
+        {
+            Button button = uiObj.transform.GetChild(0).GetComponent<Button>();
+
+            if (inventory.slots[invenIndex] != null)
+            {
+                if (IsStorageOpen)
+                    OnStorageUI(button, invenIndex);
+
+                else if (IsStoreOpen)
+                    OnStoreUI(button, invenIndex);
+            }
+            
+            invenIndex++;
         }
     }
 
