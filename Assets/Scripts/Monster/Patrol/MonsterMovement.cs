@@ -58,7 +58,11 @@ public class MonsterMovement : MonoBehaviour
     private void Update()
     {
         // 만약 몬스터가 멈춰있을 경우 타이머를 진행
-        if (navMeshAgent.velocity == Vector3.zero && exceptionTimer < 7f) {exceptionTimer += Time.deltaTime;}
+        if (navMeshAgent.velocity == Vector3.zero && exceptionTimer < 7f) 
+        {
+            //Debug.Log($"몬스터 움직임 감지 못 함 : {exceptionTimer}");
+            exceptionTimer += Time.deltaTime;
+        }
         // 몬스터가 일정 시간 동안 멈춰있을 경우 자체적으로 배회 진행
         else if (navMeshAgent.velocity == Vector3.zero && exceptionTimer >= 7f)
         {
@@ -158,12 +162,24 @@ public class MonsterMovement : MonoBehaviour
         }
     }
 
+    public void PatrolNextOne(float inputSpeed)
+    {
+        ChooseNextDestination();
+        // 목적지 설정
+        currentDestination = tempTransform;
+        // 속도 설정
+        navMeshAgent.speed = inputSpeed;
+
+        // 현재 목적지로 이동
+        Move();
+    }
+
     public void PatrolNextOne()
     {
         ChooseNextDestination();
         // 목적지 설정
         currentDestination = tempTransform;
-        
+
         // 현재 목적지로 이동
         Move();
     }

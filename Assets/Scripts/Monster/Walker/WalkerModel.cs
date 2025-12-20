@@ -51,11 +51,8 @@ public class WalkerModel : Monster
     // 이벤트 생성
     public event Action OnWanderingAround;
     public event Action OnChase;
-    public event Action<IEnumerator> OnChaseAfter;
     public event Action OnMissingPlayer;
-    public event Action<IEnumerator> OnMissingPlayerAfter;
     public event Action OnFindPlayer;
-    public event Action<WalkerState> OnFindPlayerAfter;
 
 
     public void ChangeState(WalkerState inputState)
@@ -64,23 +61,26 @@ public class WalkerModel : Monster
         switch (inputState)
         {
             case WalkerState.WanderingAround:
+                Debug.Log($"{walkerState} : WanderingAround");
                 walkerState = WalkerState.WanderingAround;
                 OnWanderingAround?.Invoke();
                 break;
             case WalkerState.Chase:
+                Debug.Log($"{walkerState} : Chase");
                 walkerState = WalkerState.Chase;
                 OnChase?.Invoke();
-                OnChaseAfter?.Invoke();
                 break;
             case WalkerState.MissingPlayer:
+                Debug.Log($"{walkerState} : MissingPlayer");
                 walkerState = WalkerState.MissingPlayer;
                 OnMissingPlayer?.Invoke();
-                OnMissingPlayerAfter?.Invoke();
                 break;
             case WalkerState.FindPlayer:
+                Debug.Log($"{walkerState} : FindPlayer");
+                if (OnFindPlayer == null)
+                    Debug.LogWarning("OnFindPlayer에 구독자가 없습니다.");
                 walkerState = WalkerState.FindPlayer;
                 OnFindPlayer?.Invoke();
-                OnFindPlayerAfter?.Invoke(walkerState);
                 break;
         }
     }
