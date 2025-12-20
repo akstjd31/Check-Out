@@ -150,10 +150,10 @@ public class MonsterMovement : MonoBehaviour
         Move(nextDestination.position);
     }
 
-    private void TestLoop()
-    {
-        while (true) { PatrolNextOne(); }
-    }
+    // private void TestLoop()
+    // {
+    //     while (true) { PatrolNextOne(); }
+    // }
 
     // 다음 목적지 뽑기
     private Transform ChooseNextDestination()

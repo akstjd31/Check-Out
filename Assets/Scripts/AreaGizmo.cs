@@ -14,7 +14,7 @@ public class AreaGizmo : MonoBehaviour
 
         if (this.CompareTag("SafeArea"))
             Gizmos.color = Color.blue;
-        else if (this.CompareTag("Monster"))
+        else if (this.CompareTag("MonsterArea"))
             Gizmos.color = Color.red;
         else
             Gizmos.color = Color.yellow;
