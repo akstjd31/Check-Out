@@ -5,12 +5,7 @@ public class Storage : MonoBehaviour
 {
     [SerializeField] private int storageSize = 16;
     [SerializeField] public ItemTableData[] storageList;
-    public event Action<int> OnSlotUpdated;
-
-    private void Start()
-    {
-        SetStorage(storageSize);
-    }
+    public Action<int> OnSlotUpdated;
 
     public int GetDefaultStorageSize() => storageSize;
 
@@ -67,13 +62,23 @@ public class Storage : MonoBehaviour
     public ItemTableData MoveItem(int index)
     {
         if (storageList == null)
+        {
+            Debug.Log("1");
             return null;
+        }
 
         if (index < 0 || index >= storageList.Length)
+        {
+            Debug.Log("2");
             return null;
+        }
 
         if (storageList[index] == null)
+        {
+            Debug.Log("3");
             return null;
+        }
+        
 
         ItemTableData item = storageList[index];
 

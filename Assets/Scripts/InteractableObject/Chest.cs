@@ -15,6 +15,7 @@ public class Chest : Interactable
     public override void OnFocusEnter()
     {
         promptText = "Press [E] to Open Storage";
+        // StorageManager.Instance.LoadStorage();
     }
 
     public override void OnFocusExit()

@@ -15,9 +15,14 @@ public class ItemManager : Singleton<ItemManager>
         base.Awake();
         itemPool = new ObjPool<Item>();
         dataID = new Dictionary<int, ItemTableData>();
+
+        Init();
+        if (itemPrefab == null) return;
+
+        itemPool.CreatePool(itemPrefab, 10, transform);
     }
 
-    private void Start()
+    public void Init()
     {
         var itemTable = TableManager.Instance.GetTable<int, ItemTableData>();
 
@@ -36,10 +41,6 @@ public class ItemManager : Singleton<ItemManager>
                 dataID[ItemTableData.id] = ItemTableData;
             }
         }
-
-        if (itemPrefab == null) return;
-
-        itemPool.CreatePool(itemPrefab, 10, transform);
     }
 
     public void Test(int itemid)

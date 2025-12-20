@@ -13,8 +13,8 @@ public class InventoryUI : MonoBehaviour
     private Inventory inventory;
     private int invenSize;
 
-    bool IsStorageOpen;
-    bool IsStoreOpen;
+    bool IsStorageOpen = false;
+    bool IsStoreOpen = false;
 
 
 
@@ -110,11 +110,7 @@ public class InventoryUI : MonoBehaviour
         ItemImage.sprite = sprite;
 
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(delegate
-        {
-            StorageManager.Instance.InventoryToStorage(index);
-        });
-
+        
         if (IsStorageOpen)
             OnStorageUI(button, index);
 
