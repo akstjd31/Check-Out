@@ -17,7 +17,8 @@ public class MonsterMovement : MonoBehaviour
     private Transform currentDestination;
     private Transform tempTransform;
     private Transform emptyTransform;
-    private Transform nextDestination;
+    //private Transform nextDestination;
+    private Vector3 nextDestination;
     // NavMesh 관련 
     private NavMeshAgent navMeshAgent;
     // 테스트용 인풋
@@ -93,12 +94,13 @@ public class MonsterMovement : MonoBehaviour
     {
         navMeshAgent.SetDestination(target);
         navMeshAgent.isStopped = false;
-        currentDestination = nextDestination;
+        //currentDestination = nextDestination;
     }
 
     public void Move(Transform inputTransform, float inputSpeed)
     {
         Debug.Log("플레이어를 발견. 해당 좌표로 이동합니다.");
+        //currentDestination = inputTransform;
         navMeshAgent.speed = inputSpeed;
         navMeshAgent.SetDestination(inputTransform.position);
         navMeshAgent.isStopped = false;
@@ -127,7 +129,7 @@ public class MonsterMovement : MonoBehaviour
         //Debug.Log("Random Delay :" + tempRandom);
         return tempRandom;
     }
-
+    
     //public void PatrolNextOne(float inputSpeed)
     //{
     //    ChooseNextDestination();
@@ -144,16 +146,18 @@ public class MonsterMovement : MonoBehaviour
     // 패트롤 시작
     public void PatrolNextOne()
     {
-        nextDestination = ChooseNextDestination();
+        //nextDestination = ChooseNextDestination();
 
+        nextDestination = GetRandomPositionOnNavMesh();
         // 현재 목적지로 이동
-        Move(nextDestination.position);
+        //Move(nextDestination.position);
+        Move(nextDestination);
     }
 
-    // private void TestLoop()
-    // {
-    //     while (true) { PatrolNextOne(); }
-    // }
+    private void TestLoop()
+    {
+        while (true) { PatrolNextOne(); }
+    }
 
     // 다음 목적지 뽑기
     private Transform ChooseNextDestination()
@@ -176,5 +180,21 @@ public class MonsterMovement : MonoBehaviour
         if (navMeshAgent == null)
             navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = speed;
+    }
+
+    Vector3 GetRandomPositionOnNavMesh()
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * 20f; // 원하는 범위 내의 랜덤한 방향 벡터를 생성합니다.
+        randomDirection += transform.position; // 랜덤 방향 벡터를 현재 위치에 더합니다.
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomDirection, out hit, 20f, NavMesh.AllAreas)) // 랜덤 위치가 NavMesh 위에 있는지 확인합니다.
+        {
+            return hit.position; // NavMesh 위의 랜덤 위치를 반환합니다.
+        }
+        else
+        {
+            return transform.position; // NavMesh 위의 랜덤 위치를 찾지 못한 경우 현재 위치를 반환합니다.
+        }
     }
 }
