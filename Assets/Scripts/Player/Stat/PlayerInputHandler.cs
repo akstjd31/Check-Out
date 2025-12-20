@@ -116,8 +116,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnInteractKey(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-            OnInteract?.Invoke();
+        OnInteract?.Invoke();
     }
 
     public void OnScrollWheel(InputAction.CallbackContext ctx)

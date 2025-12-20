@@ -32,7 +32,7 @@ public class LoadingState : IState
 
         timer -= Time.deltaTime;
 
-        if (timer <= 0f)
+        if (timer <= 0f) 
         {
             isLoading = true;
             LoadingManager.Instance.LoadScene(LoadingData.TargetScene);

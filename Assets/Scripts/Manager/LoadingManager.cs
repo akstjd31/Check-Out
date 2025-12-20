@@ -18,12 +18,12 @@ public class LoadingManager : Singleton<LoadingManager>
 
     public void LoadScene(string sceneName)
     {
+        StartCoroutine(LoadSceneAsync(sceneName));
+
         if (GameManager.Instance.CurrentState == GameState.Loading)
         {
             OnLoadingEnded?.Invoke();
         }
-
-        StartCoroutine(LoadSceneAsync(sceneName));
     }
 
     // 씬 로드 비동기 작업
@@ -40,12 +40,12 @@ public class LoadingManager : Singleton<LoadingManager>
         }
         
         // 씬 로딩이 끝날때까지 반복
-        while (operation.progress < 0.9f)
-        {
-            float progress = operation.progress / 0.9f;
-            loadingBar.value = progress;
-            yield return null;
-        }
+        // while (operation.progress < 0.9f)
+        // {
+        //     float progress = operation.progress / 0.9f;
+        //     loadingBar.value = progress;
+        //     yield return null;
+        // }
 
         // 로딩 완료 처리
         // progressBar.value = 1f;
