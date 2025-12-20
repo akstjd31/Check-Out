@@ -27,18 +27,31 @@ public class WalkerController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log($"visibleTargets : {walkerFieldOfView.visibleTargets.Count}");
-        Debug.Log($"walkerState : {walkerModel.walkerState}");
-        Debug.Log(walkerFieldOfView.visibleTargets.Count > 0);
-        Debug.Log(walkerModel.walkerState != WalkerModel.WalkerState.Chase);
+        //Debug.Log($"walkerState : {walkerModel.walkerState}");
+        //Debug.Log(walkerFieldOfView.visibleTargets.Count > 0);
+        //Debug.Log($"visibleTargets : {walkerFieldOfView.visibleTargets.Count}");
+        //Debug.Log(walkerModel.walkerState != WalkerModel.WalkerState.Chase);
         // 만약 플레이어가 시야에 들어온다면 발견 상태 실행 후 추격 진행
         if (walkerFieldOfView.visibleTargets.Count > 0 && walkerModel.walkerState != WalkerModel.WalkerState.Chase)
         {
-            Debug.Log("조건 만족");
+            //Debug.Log("조건 만족");
             // 발견 상태 수행
             walkerModel.ChangeState(WalkerModel.WalkerState.FindPlayer);
-            //FindAndChase();
         }
+        if (walkerFieldOfView.visibleTargets.Count == 0 && walkerModel.walkerState == WalkerModel.WalkerState.Chase)
+        {
+            // 만약 플레이어를 시야에 놓치면 MissingPlayer 전환
+            walkerModel.ChangeState(WalkerModel.WalkerState.MissingPlayer);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // 이벤트 구독 설정
+        walkerModel.OnWanderingAround -= StartPatrol;
+        walkerModel.OnFindPlayer -= Find;
+        walkerModel.OnChase -= StartChase;
+        walkerModel.OnMissingPlayer -= StartMissingPlayer;
     }
 
     private void Init()
@@ -68,8 +81,10 @@ public class WalkerController : MonoBehaviour
         walkerMovement.MaxStopDelay = walkerModel.MaxStopDelay;
 
         // 이벤트 구독 설정
+        walkerModel.OnWanderingAround += StartPatrol;
         walkerModel.OnFindPlayer += Find;
         walkerModel.OnChase += StartChase;
+        walkerModel.OnMissingPlayer += StartMissingPlayer;
 
         // 어그로 해제 딜레이 변수 초기화
         stopToMissing = new WaitForSeconds(walkerModel.StopToMissingDelay);
@@ -78,58 +93,12 @@ public class WalkerController : MonoBehaviour
         walkerModel.isObseredFromPlayer = false;
     }
 
-    private IEnumerator FindAndChase()
-    {
-        Debug.Log("Find And Chase 실행");
-        // 발견 상태 수행
-        walkerModel.ChangeState(WalkerModel.WalkerState.FindPlayer);
-        // 추격 상태 수행
-        walkerModel.ChangeState(WalkerModel.WalkerState.Chase);
-        while(walkerFieldOfView.visibleTargets.Count > 0)
-        {
-            // 빠른 추격 상태 동안 수행
-            if(chaseTimer <= 5f && onRun)
-            {
-                walkerMovement.Move(walkerFieldOfView.visibleTargets[0], walkerModel.ChaseFast);
-                chaseTimer += walkerModel.Delay;
-                yield return walkerFieldOfView.delay;
-            }
-            // 느린 추격 상태 동안 수행
-            else if(chaseTimer <= 5f && !onRun)
-            {
-                walkerMovement.Move(walkerFieldOfView.visibleTargets[0], walkerModel.ChaseSlow);
-                chaseTimer += walkerModel.Delay;
-                yield return walkerFieldOfView.delay;
-            }
-            // 5초가 지나면 onRun을 전환하고 chase Timer 초기화
-            else if(chaseTimer > 5f && onRun)
-            {
-                onRun = false;
-                chaseTimer = 0;
-            }
-            else if (chaseTimer > 5f && !onRun)
-            {
-                onRun = true;
-                chaseTimer = 0;
-            }
-
-        }
-        // 어그로가 해제되면 2초 동안 멈춤
-        Debug.Log("플레이어가 시야에서 사라졌습니다.");
-        walkerModel.ChangeState(WalkerModel.WalkerState.MissingPlayer);
-        walkerMovement.StopToMissing();
-        yield return stopToMissing;
-        // stopToMissing만큼 대기 후 배회 상태로 변환
-        walkerModel.ChangeState(WalkerModel.WalkerState.WanderingAround);
-        walkerMovement.PatrolNextOne();
-    }
+   
 
     private void Find()
     {
-        Debug.Log("발견 상태 수행");
-        // 발견 상태 수행
-        walkerModel.ChangeState(WalkerModel.WalkerState.FindPlayer);
-        // 추격 상태 수행
+        Debug.Log("발견 상태 수행 완료");
+        // 추격으로 전환
         walkerModel.ChangeState(WalkerModel.WalkerState.Chase);
     }
 
@@ -140,6 +109,7 @@ public class WalkerController : MonoBehaviour
             // 빠른 추격 상태 동안 수행
             if (chaseTimer <= 5f && onRun)
             {
+                Debug.Log($"추격 진행 시간 : {chaseTimer}, 빠른 추적 {onRun}");
                 walkerMovement.Move(walkerFieldOfView.visibleTargets[0], walkerModel.ChaseFast);
                 chaseTimer += walkerModel.Delay;
                 yield return walkerFieldOfView.delay;
@@ -147,6 +117,7 @@ public class WalkerController : MonoBehaviour
             // 느린 추격 상태 동안 수행
             else if (chaseTimer <= 5f && !onRun)
             {
+                Debug.Log($"추격 진행 시간 : {chaseTimer}, 빠른 추적 {onRun}");
                 walkerMovement.Move(walkerFieldOfView.visibleTargets[0], walkerModel.ChaseSlow);
                 chaseTimer += walkerModel.Delay;
                 yield return walkerFieldOfView.delay;
@@ -154,16 +125,17 @@ public class WalkerController : MonoBehaviour
             // 5초가 지나면 onRun을 전환하고 chase Timer 초기화
             else if (chaseTimer > 5f && onRun)
             {
+                Debug.Log("타이머 초기화 느린 추적 실행");
                 onRun = false;
                 chaseTimer = 0;
             }
             else if (chaseTimer > 5f && !onRun)
             {
+                Debug.Log("타이머 초기화 빠른 추적 실행");
+                onRun = false;
                 onRun = true;
                 chaseTimer = 0;
             }
-            // 플레이어를 놓치면 MissingPlayer 수행
-            else { walkerModel.ChangeState(WalkerModel.WalkerState.MissingPlayer); }
         }
     }
 
@@ -173,35 +145,44 @@ public class WalkerController : MonoBehaviour
         StartCoroutine(Chase());
     }
 
-    private IEnumerator MissingPlayer()
+    private void StartMissingPlayer()
     {
         // 어그로가 해제되면 상태를 바꿈 + 추격 멈춤
         Debug.Log("플레이어가 시야에서 사라졌습니다.");
-        walkerModel.ChangeState(WalkerModel.WalkerState.MissingPlayer);
+        StartCoroutine(MissingPlayer());
+    }
+    private IEnumerator MissingPlayer()
+    {
+        Debug.Log("MissingPlayer 수행");
         walkerMovement.StopToMissing();
-        StopCoroutine(Chase());
         checkTimer = 0;
-        while(true)
+        while(walkerFieldOfView.visibleTargets.Count == 0 && walkerModel.walkerState == WalkerModel.WalkerState.MissingPlayer)
         {
             // 플레이어를 다시 찾으면 추격 상태 전환
-            if(walkerFieldOfView.visibleTargets.Count > 0)
+            if(walkerFieldOfView.visibleTargets.Count == 0 && checkTimer < 2)
             {
-                checkTimer = 0;
-                walkerModel.StartCoroutine(Chase());
-            }
-            //플레이어를 다시 못찾으면 타이머를 진행
-            else if(walkerFieldOfView.visibleTargets.Count == 0 && checkTimer < 2)
-            {
+                Debug.Log($"놓친 시간 : {checkTimer}");
                 checkTimer += 0.2f;
                 yield return new WaitForSeconds(0.2f);
             }
-            // 플레이어를 못 찾은 상태로 2초가 지나면 배회로 전환
-            else if(walkerFieldOfView.visibleTargets.Count == 0 && checkTimer >= 2)
+            //플레이어를 다시 못찾으면 타이머를 진행
+            else
             {
-                Debug.Log("");
+                Debug.Log("배회로 다시 전환합니다.");
                 checkTimer = 0;
                 walkerModel.ChangeState(WalkerModel.WalkerState.WanderingAround);
             }
+            
         }
+        // 초기화 및 추격 진행
+        checkTimer = 0;
+        walkerModel.StartCoroutine(Chase());
+    }
+
+    private void StartPatrol()
+    {
+        Debug.Log("배회 실행");
+        walkerMovement.ChangeSpeed(walkerModel.PatrolSpeed);
+        walkerMovement.PatrolNextOne();
     }
 }
