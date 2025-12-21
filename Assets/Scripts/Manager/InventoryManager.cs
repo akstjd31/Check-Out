@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
@@ -109,6 +109,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
         if (item == null) return;
 
+        ItemManager.Instance.SpawnItem(item.id, player.transform.position);
         // 아이템 스폰 코드 필요
     }
     

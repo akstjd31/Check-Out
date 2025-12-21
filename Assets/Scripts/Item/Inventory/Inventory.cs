@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -116,5 +116,15 @@ public class Inventory : MonoBehaviour
 
         slots[index] = null;
         // OnSlotUpdated?.Invoke(index);
+    }
+
+    // 인벤토리 초기화
+    public void InventoryClear()
+    {
+        int index = 0;
+        foreach (var slot in slots)
+        {
+            slots[index++] = null;
+        }
     }
 }
