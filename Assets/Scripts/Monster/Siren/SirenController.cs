@@ -20,7 +20,7 @@ public class SirenController : MonoBehaviour
         sirenView = GetComponent<SirenView>();
         sirenModel = GetComponent<SirenModel>();
         sirenMovement = GetComponent<MonsterMovement>();
-        sceramCollider = transform.GetChild(0).GetComponent<SphereCollider>();
+        sceramCollider = GetComponent<SphereCollider>();
     }
 
     private void Start()
