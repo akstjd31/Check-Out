@@ -66,9 +66,8 @@ public class InventoryUI : MonoBehaviour
         }
 
         UpdateAll();
-
-        SelectUI(0);
     }
+    
     public void UpdateAll()
     {
         int index = 0;
@@ -175,6 +174,11 @@ public class InventoryUI : MonoBehaviour
     {
         selectIndex = index;
 
+        if (index == -1)
+        {
+            return;
+        }
+        
         Image slotImage = uiObjs[index].transform.GetComponent<Image>();
 
         if (slotImage == null || inventory == null) return;

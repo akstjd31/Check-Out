@@ -109,6 +109,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
         if (item == null) return;
 
+        // 아이템 스폰 코드 필요
     }
     
     // 인벤토리 슬롯 선택
