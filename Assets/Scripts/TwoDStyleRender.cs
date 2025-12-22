@@ -44,6 +44,7 @@ public abstract class TwoDStyleRender : TwoDStyleObj
         set { sideRender = value; }
     }
 
+    // 플레이트 설정
     protected virtual void activePlate(Transform plate)
     {
         activeRender = plate;
@@ -51,6 +52,7 @@ public abstract class TwoDStyleRender : TwoDStyleObj
         activeRenderer = activeRender.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
+    // 방향에 따른 스프라이트 넣기
     protected virtual void SetActualShowedState(ShowedState state)
     {
         //Debug.Log("ActiveRenderer: " + activeRenderer + " frontTexture: " + frontTexture);

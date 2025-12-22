@@ -11,12 +11,12 @@ public class FourView : TwoDStyleRender
 
     public override void FixTheCamera(Transform camera)
     {
-        Debug.Log($"{name}: FixTheCamera called");
         orentationChecker.LookAt(camera);
         faceToShow(orentationChecker.localEulerAngles.y);
         activeRender.localEulerAngles = new Vector3(0.0f, orentationChecker.localEulerAngles.y, 0.0f);
     }
 
+    // 각도에 따라 상태변환
     protected override void faceToShow(float yAngle)
     {
         if (yAngle >= 7 * heightSlide || yAngle < heightSlide)
