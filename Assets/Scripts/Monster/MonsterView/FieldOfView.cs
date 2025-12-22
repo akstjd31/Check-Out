@@ -28,10 +28,12 @@ public class FieldOfView : MonoBehaviour
     {
         viewMesh = new Mesh();
         viewMesh.name = "View Mesh";
-        viewMeshFilter.mesh = viewMesh;
+        
         // 딜레이 0.2초로 설정
         delay = new WaitForSeconds(0.2f);
         //viewRadius = 1;
+        if (viewMeshFilter != null)
+            viewMeshFilter.mesh = viewMesh;
     }
 
     private void Start()

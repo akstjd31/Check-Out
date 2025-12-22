@@ -39,7 +39,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3072799788657124049}
-  - {fileID: 7157786187079706897}
   - {fileID: 1391708421053316577}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -147,7 +146,7 @@ MonoBehaviour:
   chaseSlow: 2
   stopToMissingDelay: 2
   viewRadius: 20
-  viewAngle: 40
+  viewAngle: 90
   playerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -200,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FieldOfView
   viewRadius: 20
-  viewAngle: 60
+  viewAngle: 40
   targetMask:
     serializedVersion: 2
     m_Bits: 64
