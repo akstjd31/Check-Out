@@ -9,7 +9,7 @@ public class FieldOfView : MonoBehaviour
     [Range(0, 360)]
     public float viewAngle;
     // 해당 레이어에 있는 오브젝트만 탐지하도록 입력받음
-    public LayerMask playerMask;
+    public LayerMask targetMask;
     public LayerMask obstacleMask;
 
     public WaitForSeconds delay;
@@ -41,7 +41,7 @@ public class FieldOfView : MonoBehaviour
         // 매서드 시작 시 리스트를 초기화
         visibleTargets.Clear();
         // 타겟에 해당하는 레이어에 존재하는 객체만을 콜라이더에 저장
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
         // 콜라이더에 들어간 객체를 차례로 수행 과정 진행
         for (int i = 0; i < targetsInViewRadius.Length; i++)
         {
