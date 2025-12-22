@@ -26,7 +26,7 @@ public class PlayerAreaDetector : MonoBehaviour
                 else
                     monsterCount = -1;
             }
-            
+
             return;
         }
 

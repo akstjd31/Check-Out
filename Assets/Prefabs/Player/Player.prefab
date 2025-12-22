@@ -147,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6838308826154166241}
   - component: {fileID: 6435381362268947486}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: SoundSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 4650590073838223967}
   - component: {fileID: 8471909941514904880}
   - component: {fileID: 4115532196129444300}
+  - component: {fileID: 4134672709769429309}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -500,6 +501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70432590e22fbbd4489025b8ede51bc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryController
+  focusedIndex: -1
 --- !u!114 &4115532196129444300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,6 +516,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundDistance
   soundCollider: {fileID: 6867758591509983542}
   distance: 10
+--- !u!114 &4134672709769429309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfef4d5cd444ce14a844e939fbfa7c36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInvincibility
 --- !u!1 &7996910433432002895
 GameObject:
   m_ObjectHideFlags: 0

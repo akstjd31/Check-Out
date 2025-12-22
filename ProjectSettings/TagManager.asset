@@ -12,6 +12,7 @@ TagManager:
   - SafeArea
   - WayPoint
   - MonsterArea
+  - DamagedArea
   layers:
   - Default
   - TransparentFX
@@ -41,7 +42,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - SoundSensor
   - Monster
   - Collider
   - 

@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 [RequireComponent(typeof(PlayerStatHolder))]
 public class StatController : MonoBehaviour
@@ -16,7 +14,7 @@ public class StatController : MonoBehaviour
     public float CurrentMoveSpeed { get; private set; }         // 현재 이동 속도
     public int CurrentSanityDps { get; private set; }           // 정신력 감소량
     public int CurrentRunStaminaCost { get; private set; }      // 달리기 코스트
-    public float CurrentInvincibilityTime { get; private set; }  // 무적시간
+    public float DefaultInvincibilityTime { get; private set; }  // 무적시간
     
     //현재 정신력 비율 측정
     public float CurrentSanityPercent
@@ -39,7 +37,7 @@ public class StatController : MonoBehaviour
         CurrentStamina = holder.Stat.MaxStamina;
         CurrentSanity = holder.Stat.MaxSanity;
         CurrentRunStaminaCost = holder.Stat.RunStaminaCost;
-        CurrentInvincibilityTime = holder.Stat.InvincibilityTime;
+        DefaultInvincibilityTime = holder.Stat.InvincibilityTime;
 
         playerView.UpdateStaminaText(CurrentStamina);
         playerView.UpdateSanityText((int)CurrentSanityPercent);
@@ -111,45 +109,12 @@ public class StatController : MonoBehaviour
     public bool IsRemainStamina() => CurrentStamina >= holder.Stat.RunStaminaCost;
     
     //정신력 감소
-    public void ConsumeSanity()
+    public void ConsumeSanity(int amount)
     {
-        CurrentSanity = Mathf.Max(0, CurrentSanity - CurrentSanityDps);
+        CurrentSanity = Mathf.Max(0, CurrentSanity - amount);
         playerView.UpdateSanityText((int)CurrentSanityPercent);
     }
 
-
     // 정신력이 남아있는지?
     public bool IsRemainSanity() => CurrentSanity > 0;
-
-    public int damage = 1000; //피격시 데미지
-    private bool isInvincible = false;
-    public float invincibleTime = 1f;
-    public void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag("Monster")) return;
-        if (isInvincible) return;
-        CurrentSanity -= damage;
-        StartCoroutine(InvincibleCoroutine());
-    }
-
-    IEnumerator InvincibleCoroutine()
-    {
-        isInvincible = true;
-
-        Physics.IgnoreLayerCollision(
-            LayerMask.NameToLayer("Player"),
-            LayerMask.NameToLayer("Monster"),
-            true
-        );
-
-        yield return new WaitForSeconds(1f);
-
-        Physics.IgnoreLayerCollision(
-            LayerMask.NameToLayer("Player"),
-            LayerMask.NameToLayer("Monster"),
-            false
-        );
-
-        isInvincible = false;
-    }
 }
