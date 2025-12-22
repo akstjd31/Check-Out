@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8436702261183004244}
   - component: {fileID: 7572923040892253076}
   - component: {fileID: 5593786359285410987}
+  - component: {fileID: -164413669308260223}
   m_Layer: 8
   m_Name: ItemObj
   m_TagString: Untagged
@@ -166,3 +167,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8b93ccaab1db44c92024bd11b777c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
+  promptText: 
+--- !u!114 &-164413669308260223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180113295543886370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd75c0447216b7e4aab72430f1d585a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemFloatY
+  floatHeight: 0.1
+  floatSpeed: 2
