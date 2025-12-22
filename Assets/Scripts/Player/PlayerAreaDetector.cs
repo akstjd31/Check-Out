@@ -16,12 +16,15 @@ public class PlayerAreaDetector : MonoBehaviour
     {
         if (other.CompareTag("MonsterArea"))
         {
-            Debug.Log(other.transform.parent.name);
-            var walkerModel = other.transform.parent.GetComponent<WalkerModel>();
-
-            if (walkerModel != null && walkerModel.walkerState.Equals(Monster.MonsterState.Chase))
+            var monster = other.GetComponentInParent<Monster>();
+            if (monster != null)
             {
-                monsterCount = 1;
+                if (monster.monsterState == Monster.MonsterState.Chase)
+                {
+                    monsterCount = 1;
+                }
+                else
+                    monsterCount = -1;
             }
             
             return;
@@ -43,11 +46,6 @@ public class PlayerAreaDetector : MonoBehaviour
     // 태그를 통해서 범위를 벗어나면 발동이됨(빛, 안전지대, 몬스터)
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("MonsterArea"))
-        {
-            monsterCount = -1;
-        }
-
         if (other.CompareTag("LightArea"))
         {
             lightCount = -1;

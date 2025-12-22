@@ -52,7 +52,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 3
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5343424161974981186
 MonoBehaviour:
@@ -209,8 +209,8 @@ MonoBehaviour:
   chaseFast: 4.5
   chaseSlow: 2
   stopToMissingDelay: 2
-  viewRadius: 5
-  viewAngle: 90
+  viewRadius: 20
+  viewAngle: 40
   playerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -218,9 +218,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   delay: 0.2
-  moveTransformList:
-  - {fileID: 0}
-  - {fileID: 0}
+  moveTransformList: []
   minimumStopDelay: 2
   maxStopDelay: 3
   walkerState: 0

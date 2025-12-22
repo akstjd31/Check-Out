@@ -27,7 +27,7 @@ public class WalkerController : MonoBehaviour
     {
         Init();
         Debug.Log("워커 컨트롤러 배회 시작");
-        walkerModel.walkerState = Monster.MonsterState.WanderingAround;
+        walkerModel.monsterState = Monster.MonsterState.WanderingAround;
         walkerMovement.ChangeSpeed(walkerModel.PatrolSpeed);
         walkerMovement.PatrolNextOne();
         StartCoroutine(walkerFieldOfView.FindTargetsWithDelay());
@@ -40,13 +40,13 @@ public class WalkerController : MonoBehaviour
         //Debug.Log($"visibleTargets : {walkerFieldOfView.visibleTargets.Count}");
         //Debug.Log(walkerModel.walkerState != WalkerModel.WalkerState.Chase);
         // 만약 플레이어가 시야에 들어온다면 발견 상태 실행 후 추격 진행
-        if (walkerFieldOfView.visibleTargets.Count > 0 && walkerModel.walkerState != Monster.MonsterState.Chase)
+        if (walkerFieldOfView.visibleTargets.Count > 0 && walkerModel.monsterState != Monster.MonsterState.Chase)
         {
             //Debug.Log("조건 만족");
             // 발견 상태 수행
             walkerModel.ChangeState(Monster.MonsterState.FindPlayer);
         }
-        if (walkerFieldOfView.visibleTargets.Count == 0 && walkerModel.walkerState == Monster.MonsterState.Chase)
+        if (walkerFieldOfView.visibleTargets.Count == 0 && walkerModel.monsterState == Monster.MonsterState.Chase)
         {
             // 만약 플레이어를 시야에 놓치면 MissingPlayer 전환
             walkerModel.ChangeState(Monster.MonsterState.MissingPlayer);
@@ -163,7 +163,7 @@ public class WalkerController : MonoBehaviour
         Debug.Log("MissingPlayer 수행");
         walkerMovement.StopToMissing();
         checkTimer = 0;
-        while(walkerFieldOfView.visibleTargets.Count == 0 && walkerModel.walkerState == Monster.MonsterState.MissingPlayer)
+        while(walkerFieldOfView.visibleTargets.Count == 0 && walkerModel.monsterState == Monster.MonsterState.MissingPlayer)
         {
             // 플레이어를 다시 찾으면 추격 상태 전환
             if(walkerFieldOfView.visibleTargets.Count == 0 && checkTimer < 2)
