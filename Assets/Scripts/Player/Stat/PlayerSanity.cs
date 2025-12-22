@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(StatController))]
@@ -24,7 +25,8 @@ public class PlayerSanity : MonoBehaviour
     {
         if (!FadeController.Instance.IsFadeEnded)
             return;
-            
+
+
         // 정신력(체력)이 남아있지 않은 경우
         if (!stat.IsRemainSanity())
         {
@@ -72,4 +74,5 @@ public class PlayerSanity : MonoBehaviour
             stateMachine.ChangeSituation(PlayerSituation.Dark);
         }
     }
+
 }
