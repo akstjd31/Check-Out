@@ -16,6 +16,7 @@ public class PlayerInputHandler : MonoBehaviour
     public event Action OnInteract;
     public event Action<int> OnScroll;              // 슬롯 변경 관련 이벤트 구독 필요
     public event Action<int> OnSelected;
+    public event Action OnDrop;
 
     private void Awake()
     {
@@ -136,6 +137,6 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnDropKeyInput(InputAction.CallbackContext ctx)
     {
-        Debug.Log("G");
+        OnDrop?.Invoke();
     }
 }

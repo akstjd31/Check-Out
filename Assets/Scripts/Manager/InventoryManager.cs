@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
 {
-    [SerializeField] private GameObject player;
     // [SerializeField] private Transform playerHandTransform;
 
     [SerializeField] private Inventory inventory;
@@ -101,16 +100,12 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         if (inventory == null) return;
         Debug.Log("성공적 1");
-        if (player == null) return;
-        Debug.Log("성공적 2");
 
         ItemTableData item = inventory.MoveItem(index);
         Debug.Log("성공적 6");
-
         if (item == null) return;
 
-        ItemManager.Instance.SpawnItem(item.id, player.transform.position);
-        // 아이템 스폰 코드 필요
+        ItemManager.Instance.SpawnItem(item.id, GameManager.Instance.GetPlayer().transform.position);
     }
     
     // 인벤토리 슬롯 선택
