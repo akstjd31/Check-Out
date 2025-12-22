@@ -64,6 +64,19 @@ public class ItemManager : Singleton<ItemManager>
         itemPool.ReturnObject(itemPrefab, item);
     }
 
+    // 스포너에 의해 생성된 아이템들 씬 전환 전에 회수하는 작업 
+    public void ReturnAllItem()
+    {
+        var items = GetComponentsInChildren<Item>(true);
+
+        foreach (var item in items)
+        {
+            if (item != null)
+                itemPool.ReturnObject(itemPrefab, item);
+        }
+    }
+
+
     public ItemTableData GetItemData(int itemid)
     {
         if (dataID.TryGetValue(itemid, out var item) == false) return null;

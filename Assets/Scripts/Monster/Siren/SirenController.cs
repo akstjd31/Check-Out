@@ -129,7 +129,6 @@ public class SirenController : MonsterController
     // 플레이어 발견했을때 비명 지르는 상태로 진입
     private IEnumerator Alert()
     {
-        
         while (true)
         {
             // 3초 동안 비명

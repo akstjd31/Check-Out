@@ -7,6 +7,7 @@ public class GameManager : Singleton<GameManager>
     // public GameState CurrentState { get; private set; }
     public GameState CurrentState;
     private StateMachine<GameState> stateMachine;
+    private GameObject player;
 
     [Header("Value")]
     public int Money { get; private set; } = 0;
@@ -32,10 +33,6 @@ public class GameManager : Singleton<GameManager>
     public void OnGameStartButton()
     {
         ChangeState(GameState.Loading);
-
-        LoadMoney();
-        StorageManager.Instance.LoadStorage();
-        InventoryManager.Instance.LoadInventory();
     }
 
     private void OnEnable()
@@ -45,13 +42,26 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
+        if (CurrentState.Equals(GameState.Hub) && player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+
+        
+        
         if (Input.GetKeyDown(KeyCode.Return))
             ItemManager.Instance.Test(1);
+        else if (Input.GetKeyDown(KeyCode.C))
+            StorageManager.Instance.SaveStorage();
+        else if (Input.GetKeyDown(KeyCode.X))
+            StorageManager.Instance.LoadStorage();
             
         stateMachine?.Update();
 
         // Debug.Log(Money);
     }
+
+    public GameObject GetPlayer() => player;
 
     private void OnDisable()
     {

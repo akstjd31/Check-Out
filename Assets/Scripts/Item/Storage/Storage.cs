@@ -46,13 +46,18 @@ public class Storage : MonoBehaviour
     {
         if (item == null)
             return;
+        Debug.Log("일단 아이템은 null이 아님");
 
         if (storageList == null)
             return;
+        Debug.Log("스토리지 리스트도 null이 아님");
 
         if (index < 0 || index >= storageList.Length) return;
+        Debug.Log("인덱스도 잘 들어갔음");
 
         if (storageList[index] != null) return;
+
+        Debug.Log($"아이템: {item.itemName}, 인덱스: {index}");
 
         storageList[index] = item;
         OnSlotUpdated?.Invoke(index);

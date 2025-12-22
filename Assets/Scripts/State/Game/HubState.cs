@@ -3,6 +3,8 @@ using UnityEngine;
 // 휴식 공간에 접어든 상태
 public class HubState : IState
 {
+    private float timer;
+    private bool isLoaded;
     public void Enter()
     {
         Debug.Log("휴식 상태 진입");
@@ -17,19 +19,22 @@ public class HubState : IState
 
     public void Update()
     {
-        // timer -= Time.deltaTime;
-        // if (timer <= 0f && !isCompleted)
-        // {
-        //     isCompleted = true;
-        //     StorageManager.Instance.LoadStorage();
-        // }
+        timer -= Time.deltaTime;
+        if (timer <= 0f && !isLoaded)
+        {
+            isLoaded = true;
+            GameManager.Instance.LoadMoney();
+            StorageManager.Instance.LoadStorage();
+            InventoryManager.Instance.LoadInventory();
+        }
     }
 
     private void Init()
     {
         FadeController.Instance.Init();
-        // isCompleted = false;
-        // timer = 3f;
+        
+        isLoaded = false;
+        timer = 0.5f;
         
         // 다음 씬 정보 미리 설정
         LoadingData.NextState = GameState.Session;

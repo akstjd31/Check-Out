@@ -160,7 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6838308826154166241}
   - component: {fileID: 6435381362268947486}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: SoundSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 4115532196129444300}
   - component: {fileID: 1839199503718076983}
   - component: {fileID: 6775976921377368825}
+
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -516,6 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70432590e22fbbd4489025b8ede51bc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryController
+  focusedIndex: -1
 --- !u!114 &4115532196129444300
 MonoBehaviour:
   m_ObjectHideFlags: 0

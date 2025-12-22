@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
 {
-    [SerializeField] private GameObject player;
     // [SerializeField] private Transform playerHandTransform;
 
     [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryUI invenUI;
+
+    //private Vector3 playerPos;
+
     private string fileName = "InventorySaveData.json";
 
     protected override void Awake()
@@ -101,7 +103,7 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         if (inventory == null) return;
         Debug.Log("성공적 1");
-        if (player == null) return;
+        if (GameManager.Instance.GetPlayer() == null) return;
         Debug.Log("성공적 2");
 
         ItemTableData item = inventory.MoveItem(index);
@@ -109,8 +111,14 @@ public class InventoryManager : Singleton<InventoryManager>
 
         if (item == null) return;
 
-        ItemManager.Instance.SpawnItem(item.id, player.transform.position);
-        // 아이템 스폰 코드 필요
+        Transform playerTrf = GameManager.Instance.GetPlayer().transform;
+        Vector3 newPos = new Vector3
+        (
+            playerTrf.position.x,
+            playerTrf.up.y,
+            playerTrf.position.z
+        );
+        ItemManager.Instance.SpawnItem(item.id, newPos);
     }
     
     // 인벤토리 슬롯 선택

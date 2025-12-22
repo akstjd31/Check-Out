@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(StatController))]
@@ -26,7 +27,8 @@ public class PlayerSanity : MonoBehaviour
     {
         if (!FadeController.Instance.IsFadeEnded)
             return;
-            
+
+
         // 정신력(체력)이 남아있지 않은 경우
         if (!stat.IsRemainSanity())
         {
@@ -46,7 +48,7 @@ public class PlayerSanity : MonoBehaviour
     // 정신력 수치 갱신
     private void UpdateSanityValue()
     {
-        stat.ConsumeSanity();
+        stat.ConsumeSanity(stat.CurrentSanityDps);
         santyVisual.UpdateSanity(stat.CurrentSanityPercent / 100);
     }
 

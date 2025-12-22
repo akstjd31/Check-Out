@@ -33,8 +33,6 @@ public class WalkerModel : Monster
     [SerializeField] int minimumStopDelay = 2;
     [SerializeField] int maxStopDelay = 3;
 
-    [HideInInspector]
-    public MonsterState walkerState;
     //프로퍼티
     public float ChaseFast { get { return chaseFast; } }
     public float ChaseSlow { get { return chaseSlow; } }
@@ -62,31 +60,31 @@ public class WalkerModel : Monster
         switch (inputState)
         {
             case MonsterState.WanderingAround:
-                Debug.Log($"{walkerState} : WanderingAround");
-                walkerState = MonsterState.WanderingAround;
+                Debug.Log($"{monsterState} : WanderingAround");
+                monsterState = MonsterState.WanderingAround;
                 OnWanderingAround?.Invoke();
                 break;
             case MonsterState.Chase:
-                Debug.Log($"{walkerState} : Chase");
-                walkerState = MonsterState.Chase;
+                Debug.Log($"{monsterState} : Chase");
+                monsterState = MonsterState.Chase;
                 OnChase?.Invoke();
                 // OnChaseAfter?.Invoke();
                 break;
             case MonsterState.MissingPlayer:
-                Debug.Log($"{walkerState} : MissingPlayer");
-                walkerState = MonsterState.MissingPlayer;
+                Debug.Log($"{monsterState} : MissingPlayer");
+                monsterState = MonsterState.MissingPlayer;
                 OnMissingPlayer?.Invoke();
                 // OnMissingPlayerAfter?.Invoke();
                 break;
             case MonsterState.FindPlayer:
-                Debug.Log($"{walkerState} : FindPlayer");
+                Debug.Log($"{monsterState} : FindPlayer");
                 if (OnFindPlayer == null)
                     Debug.LogWarning("OnFindPlayer에 구독자가 없습니다.");
-                walkerState = MonsterState.FindPlayer;
+                monsterState = MonsterState.FindPlayer;
                 OnFindPlayer?.Invoke();
                 break;
             case MonsterState.Alerted:
-                walkerState = MonsterState.Alerted;
+                monsterState = MonsterState.Alerted;
                 OnAlerted?.Invoke();
                 break;
 
