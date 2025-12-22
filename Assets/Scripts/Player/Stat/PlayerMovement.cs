@@ -16,4 +16,5 @@ public class PlayerMovement : MonoBehaviour
         Vector3 dir = new Vector3(input.x, 0, input.y);
         this.transform.Translate(dir * stat.CurrentMoveSpeed * Time.deltaTime);
     }
+
 }

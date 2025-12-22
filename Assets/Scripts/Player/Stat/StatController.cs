@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 [RequireComponent(typeof(PlayerStatHolder))]
@@ -116,6 +117,39 @@ public class StatController : MonoBehaviour
         playerView.UpdateSanityText((int)CurrentSanityPercent);
     }
 
+
     // 정신력이 남아있는지?
     public bool IsRemainSanity() => CurrentSanity > 0;
+
+    public int damage = 1000; //피격시 데미지
+    private bool isInvincible = false;
+    public float invincibleTime = 1f;
+    public void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Monster")) return;
+        if (isInvincible) return;
+        CurrentSanity -= damage;
+        StartCoroutine(InvincibleCoroutine());
+    }
+
+    IEnumerator InvincibleCoroutine()
+    {
+        isInvincible = true;
+
+        Physics.IgnoreLayerCollision(
+            LayerMask.NameToLayer("Player"),
+            LayerMask.NameToLayer("Monster"),
+            true
+        );
+
+        yield return new WaitForSeconds(1f);
+
+        Physics.IgnoreLayerCollision(
+            LayerMask.NameToLayer("Player"),
+            LayerMask.NameToLayer("Monster"),
+            false
+        );
+
+        isInvincible = false;
+    }
 }
