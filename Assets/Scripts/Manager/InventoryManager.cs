@@ -111,7 +111,14 @@ public class InventoryManager : Singleton<InventoryManager>
 
         if (item == null) return;
 
-        ItemManager.Instance.SpawnItem(item.id, GameManager.Instance.GetPlayer().transform.up);
+        Transform playerTrf = GameManager.Instance.GetPlayer().transform;
+        Vector3 newPos = new Vector3
+        (
+            playerTrf.position.x,
+            playerTrf.up.y,
+            playerTrf.position.z
+        );
+        ItemManager.Instance.SpawnItem(item.id, newPos);
     }
     
     // 인벤토리 슬롯 선택
