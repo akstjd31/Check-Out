@@ -7,6 +7,7 @@ using UnityEngine;
 public class EventManager : Singleton<EventManager>
 {
     public Dictionary<int, EventTableData> eventTable;  // <ID, 이벤트 테이블 데이터>
+    private Dictionary<string, IEventHandler> handlers; // 이벤트 핸들러
 
     public void ExecuteEvent(int eventId)
     {
@@ -14,6 +15,6 @@ public class EventManager : Singleton<EventManager>
         if (!eventTable.TryGetValue(eventId, out var eventData))
             return;
         
-        
+
     }
 }
