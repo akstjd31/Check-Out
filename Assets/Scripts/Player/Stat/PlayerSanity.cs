@@ -12,6 +12,8 @@ public class PlayerSanity : MonoBehaviour
     private PlayerSanityVisualController santyVisual;
     private float sanityTimer = 1f;
 
+    private bool darkness = false;
+
     private void Awake()
     {
         stat = this.GetComponent<StatController>();
@@ -51,6 +53,9 @@ public class PlayerSanity : MonoBehaviour
     // 영역별 상태(Situation) 변경
     private void UpdateSituationByArea()
     {
+        if (darkness)
+            return;
+
         if (areaDetector.IsSafe)
         {
             stateMachine.ChangeSituation(PlayerSituation.Safe);
@@ -71,5 +76,10 @@ public class PlayerSanity : MonoBehaviour
         {
             stateMachine.ChangeSituation(PlayerSituation.Dark);
         }
+    }
+
+    public void SetDarkness(bool state)
+    {
+        darkness = state;
     }
 }

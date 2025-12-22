@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class Monster : MonoBehaviour
 {
 
-    public enum MonsterState { WanderingAround, Alert, Chase, MissingPlayer, FindPlayer, Alerted, Observe, EyeContact, makeEyeContactPlayer, Stop, Approach }
+    public enum MonsterState { WanderingAround, Alert, Chase, MissingPlayer, FindPlayer, Alerted, Observe, EyeContact, makeEyeContactPlayer, Stop, Approach, contactPlayer }
 
     // 몬스터가 공통적으로 가지는 속성
     [Header("Common")]
@@ -11,7 +11,6 @@ public abstract class Monster : MonoBehaviour
     [SerializeField] private float patrolSpeed;
     [SerializeField] private int power;
     // 몬스터의 내부적인 속성
-    [HideInInspector]
     public bool isObservedFromPlayer;
 
     public MonsterState monsterState;

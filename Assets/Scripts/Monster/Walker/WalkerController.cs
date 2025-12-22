@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class WalkerController : MonoBehaviour
+public class WalkerController : MonsterController
 {
     [SerializeField] private WalkerView walkerView;
     private WalkerModel walkerModel;
@@ -102,7 +102,7 @@ public class WalkerController : MonoBehaviour
 
    
 
-    private void Find()
+    protected override void Find()
     {
         Debug.Log("발견 상태 수행 완료");
         // 추격으로 전환
@@ -186,7 +186,7 @@ public class WalkerController : MonoBehaviour
         walkerModel.StartCoroutine(Chase());
     }
 
-    private void StartPatrol()
+    protected override void StartPatrol()
     {
         Debug.Log("배회 실행");
         sirenTransform = null;
@@ -194,13 +194,8 @@ public class WalkerController : MonoBehaviour
         walkerMovement.PatrolNextOne();
     }
 
-    public void StartAlerted()
+    protected override void StartAlerted()
     {
         walkerMovement.Move(sirenTransform, walkerModel.PatrolSpeed);
-    }
-
-    public void GetTransform(Transform transform)
-    {
-        sirenTransform = transform;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MannequinController : MonoBehaviour
+public class MannequinController : MonsterController
 {
     [SerializeField] private MannequinView mannequinView;
     private MannequinModel mannequinModel;
@@ -12,7 +12,6 @@ public class MannequinController : MonoBehaviour
     private float chaseTimer;
     private float checkTimer;
     private bool onRun = true;
-    private Transform sirenTransform;
 
     private void Awake()
     {
@@ -27,7 +26,7 @@ public class MannequinController : MonoBehaviour
     {
         Init();
         Debug.Log("마네킹 컨트롤러 배회 시작");
-        mannequinModel.mannequinState = Monster.MonsterState.WanderingAround;
+        mannequinModel.monsterState = Monster.MonsterState.WanderingAround;
         mannequinMovement.ChangeSpeed(mannequinModel.PatrolSpeed);
         mannequinMovement.PatrolNextOne();
         StartCoroutine(mannequinFieldOfView.FindTargetsWithDelay());
@@ -40,23 +39,23 @@ public class MannequinController : MonoBehaviour
         //Debug.Log($"visibleTargets : {walkerFieldOfView.visibleTargets.Count}");
         //Debug.Log(walkerModel.walkerState != WalkerModel.WalkerState.Chase);
         // 만약 접근 / 정지 상태가 아닐 때 플레이어가 시야에 들어온다면 발견 상태 실행 후 추격 진행
-        if (mannequinFieldOfView.visibleTargets.Count > 0 && mannequinModel.mannequinState != Monster.MonsterState.Approach && mannequinModel.mannequinState != Monster.MonsterState.Stop)
+        if (mannequinFieldOfView.visibleTargets.Count > 0 && mannequinModel.monsterState != Monster.MonsterState.Approach && mannequinModel.monsterState != Monster.MonsterState.Stop)
         {
             //Debug.Log("조건 만족");
             // 발견 상태 수행
             mannequinModel.ChangeState(Monster.MonsterState.FindPlayer);
         }
-        if (mannequinFieldOfView.visibleTargets.Count > 0 && mannequinModel.mannequinState == Monster.MonsterState.Approach && mannequinModel.isObservedFromPlayer)
+        if (mannequinFieldOfView.visibleTargets.Count > 0 && mannequinModel.monsterState == Monster.MonsterState.Approach && mannequinModel.isObservedFromPlayer)
         {
             //
             mannequinModel.ChangeState(Monster.MonsterState.Stop);
         }
-        if (mannequinFieldOfView.visibleTargets.Count > 0 && mannequinModel.mannequinState == Monster.MonsterState.Stop && !mannequinModel.isObservedFromPlayer)
+        if (mannequinFieldOfView.visibleTargets.Count > 0 && mannequinModel.monsterState == Monster.MonsterState.Stop && !mannequinModel.isObservedFromPlayer)
         {
             //
             mannequinModel.ChangeState(Monster.MonsterState.Approach);
         }
-        if (mannequinFieldOfView.visibleTargets.Count == 0 && mannequinModel.mannequinState == Monster.MonsterState.Approach)
+        if (mannequinFieldOfView.visibleTargets.Count == 0 && mannequinModel.monsterState == Monster.MonsterState.Approach)
         {
             // 만약 플레이어를 시야에 놓치면 MissingPlayer 전환
             mannequinModel.ChangeState(Monster.MonsterState.MissingPlayer);
@@ -93,8 +92,6 @@ public class MannequinController : MonoBehaviour
         //Debug.Log($"PlayerMask : {walkerModel.PlayerMask.value}");
         //Debug.Log($"Obstacle : {walkerModel.ObstacleMask.value}");
 
-        mannequinFieldOfView.viewRadius = mannequinModel.ViewRadius;
-        mannequinFieldOfView.viewAngle = mannequinModel.ViewAngle;
         mannequinFieldOfView.delay = new WaitForSeconds(mannequinModel.Delay);
 
         // MonsterMovement
@@ -113,7 +110,7 @@ public class MannequinController : MonoBehaviour
 
    
 
-    private void Find()
+    protected override void Find()
     {
         Debug.Log("발견 상태 수행 완료");
         // 추격으로 전환
@@ -145,9 +142,10 @@ public class MannequinController : MonoBehaviour
         {
             // 시야에 확보된 상태일 경우 이동 불가
             Debug.Log("플레이어가 관찰 중입니다.");
-            mannequinMovement.StopToMissing();
+            mannequinMovement.Move(targetTransform, 0f);
             yield return mannequinFieldOfView.delay;
         }
+        mannequinModel.ChangeState(Monster.MonsterState.Approach);
     }
 
     private void StartStop()
@@ -172,7 +170,7 @@ public class MannequinController : MonoBehaviour
         Debug.Log("MissingPlayer 수행");
         mannequinMovement.StopToMissing();
         checkTimer = 0;
-        while(mannequinFieldOfView.visibleTargets.Count == 0 && mannequinModel.mannequinState == Monster.MonsterState.MissingPlayer)
+        while(mannequinFieldOfView.visibleTargets.Count == 0 && mannequinModel.monsterState == Monster.MonsterState.MissingPlayer)
         {
             // 플레이어를 다시 찾으면 추격 상태 전환
             if(mannequinFieldOfView.visibleTargets.Count == 0)
@@ -192,10 +190,10 @@ public class MannequinController : MonoBehaviour
     /// <summary>
     /// 배회 상태일 때 실행할 메서드입니다.
     /// </summary>
-    private void StartPatrol()
+    protected override void StartPatrol()
     {
         Debug.Log("배회 실행");
-        sirenTransform = null;
+        targetTransform = null;
         mannequinMovement.ChangeSpeed(mannequinModel.PatrolSpeed);
         mannequinMovement.PatrolNextOne();
     }
@@ -203,22 +201,8 @@ public class MannequinController : MonoBehaviour
     /// <summary>
     /// 사이렌에 의한 경보 발동 시 해당 위치로 이동합니다.
     /// </summary>
-    public void StartAlerted()
+    protected override void StartAlerted()
     {
-        mannequinMovement.Move(sirenTransform, mannequinModel.PatrolSpeed);
-    }
-
-    /// <summary>
-    /// 사이렌의 위치를 받아오기 위한 메서드입니다.
-    /// </summary>
-    /// <param name="transform"></param>
-    public void GetTransform(Transform transform)
-    {
-        sirenTransform = transform;
-    }
-
-    public void ObservedChecker()
-    {
-        mannequinModel.isObservedFromPlayer = true ? mannequinModel.isObservedFromPlayer = false : mannequinModel.isObservedFromPlayer = true;
+        mannequinMovement.Move(targetTransform, mannequinModel.PatrolSpeed);
     }
 }

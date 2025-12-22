@@ -11,15 +11,6 @@ public class MannequinModel : Monster
     [Header("IndividualProperties")]
     [Header("Speed")]
     [SerializeField]private float approachSpeed = 9.0f;
-    [Header("MonsterFieldOfView")]
-    // 시야 범위 조정
-    [SerializeField] private float viewRadius;
-    // 각도 360으로 제한
-    [Range(0, 360)]
-    [SerializeField] private float viewAngle;
-    // 필요한 레이어
-    [SerializeField] private LayerMask playerMask;
-    [SerializeField] private LayerMask obstacleMask;
     // 시야 갱신 시점 조정
     [SerializeField] private float delay;
     [Header("Patrol")]
@@ -31,13 +22,8 @@ public class MannequinModel : Monster
     [SerializeField] int maxStopDelay = 3;
 
     [HideInInspector]
-    public MonsterState mannequinState;
     //프로퍼티
     public float ApproachSpeed { get { return approachSpeed; } }
-    public float ViewRadius { get { return viewRadius; } }
-    public float ViewAngle { get { return viewAngle; } }
-    public LayerMask PlayerMask { get { return playerMask; } }
-    public LayerMask ObstacleMask { get { return obstacleMask; } }
     public float Delay { get { return delay; } }
     public int MinimumStopDelay { get { return minimumStopDelay; } }
     public int MaxStopDelay { get { return maxStopDelay; } }
@@ -58,37 +44,33 @@ public class MannequinModel : Monster
         switch (inputState)
         {
             case MonsterState.WanderingAround:
-                Debug.Log($"{mannequinState} : WanderingAround");
-                mannequinState = MonsterState.WanderingAround;
+                monsterState = MonsterState.WanderingAround;
                 OnWanderingAround?.Invoke();
                 break;
             case MonsterState.Approach:
-                Debug.Log($"{mannequinState} : Approach");
-                mannequinState = MonsterState.Approach;
+                monsterState = MonsterState.Approach;
                 OnApproach?.Invoke();
                 // OnChaseAfter?.Invoke();
                 break;
             case MonsterState.Stop:
-                Debug.Log($"{mannequinState} : Stop");
-                mannequinState = MonsterState.Stop;
+                isObservedFromPlayer = true;
+                monsterState = MonsterState.Stop;
                 OnStop?.Invoke();
                 // OnChaseAfter?.Invoke();
                 break;
             case MonsterState.MissingPlayer:
-                Debug.Log($"{mannequinState} : MissingPlayer");
-                mannequinState = MonsterState.MissingPlayer;
+                monsterState = MonsterState.MissingPlayer;
                 OnMissingPlayer?.Invoke();
                 // OnMissingPlayerAfter?.Invoke();
                 break;
             case MonsterState.FindPlayer:
-                Debug.Log($"{mannequinState} : FindPlayer");
                 if (OnFindPlayer == null)
                     Debug.LogWarning("OnFindPlayer에 구독자가 없습니다.");
-                mannequinState = MonsterState.FindPlayer;
+                monsterState = MonsterState.FindPlayer;
                 OnFindPlayer?.Invoke();
                 break;
             case MonsterState.Alerted:
-                mannequinState = MonsterState.Alerted;
+                monsterState = MonsterState.Alerted;
                 OnAlerted?.Invoke();
                 break;
 
