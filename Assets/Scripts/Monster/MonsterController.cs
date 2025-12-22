@@ -1,19 +1,19 @@
 using UnityEngine;
 
-public class MonsterController : MonoBehaviour
+public abstract class MonsterController : MonoBehaviour
 {
-    private void StartPatrol()
+    public virtual void StartPatrol()
     {
     }
 
-    private void Find()
+    public virtual void Find()
     {
     }
-    private void StartAlert()
+    public virtual void StartAlert()
     {
     }
 
-    public void StateChange(Monster.MonsterState state)
+    public virtual void StateChange(Monster.MonsterState state)
     {
     }
 }
