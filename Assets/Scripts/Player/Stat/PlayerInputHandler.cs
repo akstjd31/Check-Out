@@ -7,10 +7,10 @@ public class PlayerInputHandler : MonoBehaviour
 {
     [Header("Component")]
     private PlayerInput playerInput;
-    private InputAction moveAction, runAction, interactAction, scrollAction, selectAction;
+    private InputAction moveAction, runAction, interactAction, scrollAction, selectAction, dropAction;
 
     [Header("Value")]
-    private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll", "Select" };
+    private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll", "Select", "Drop"};
     public Vector3 MoveInput { get; private set; }
     public bool IsRunPressed { get; private set; }
     public event Action OnInteract;
@@ -26,6 +26,7 @@ public class PlayerInputHandler : MonoBehaviour
         interactAction = playerInput.actions[playerActions[2]];
         scrollAction = playerInput.actions[playerActions[3]];
         selectAction = playerInput.actions[playerActions[4]];
+        dropAction = playerInput.actions[playerActions[5]];
     }
 
     private void Start()
@@ -41,11 +42,13 @@ public class PlayerInputHandler : MonoBehaviour
         runAction.performed += OnRunPerformed;
         runAction.canceled += OnRunCanceled;
 
-        interactAction.performed += OnInteractKey;
+        interactAction.performed += OnInteractKeyInput;
 
         scrollAction.performed += OnScrollWheel;
 
-        selectAction.performed += OnSelectSlotButton;
+        selectAction.performed += OnSelectSlotInput;
+
+        dropAction.performed += OnDropKeyInput;
     }
 
     private void Update()
@@ -75,7 +78,7 @@ public class PlayerInputHandler : MonoBehaviour
 
         if (interactAction != null)
         {
-            interactAction.performed -= OnInteractKey;
+            interactAction.performed -= OnInteractKeyInput;
         }
 
         if (scrollAction != null)
@@ -85,7 +88,7 @@ public class PlayerInputHandler : MonoBehaviour
 
         if (selectAction != null)
         {
-            selectAction.performed -= OnSelectSlotButton;
+            selectAction.performed -= OnSelectSlotInput;
         }
     }
 
@@ -114,7 +117,7 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnRunPerformed(InputAction.CallbackContext ctx) => IsRunPressed = true;
     public void OnRunCanceled(InputAction.CallbackContext ctx) => IsRunPressed = false;
 
-    public void OnInteractKey(InputAction.CallbackContext ctx)
+    public void OnInteractKeyInput(InputAction.CallbackContext ctx)
     {
         OnInteract?.Invoke();
     }
@@ -125,9 +128,14 @@ public class PlayerInputHandler : MonoBehaviour
         OnScroll?.Invoke(value > 0 ? 1 : -1);
     }
 
-    public void OnSelectSlotButton(InputAction.CallbackContext ctx)
+    public void OnSelectSlotInput(InputAction.CallbackContext ctx)
     {
         int slotIndex = int.Parse(ctx.control.name) - 1;
         OnSelected?.Invoke(slotIndex);
+    }
+
+    public void OnDropKeyInput(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("G");
     }
 }
