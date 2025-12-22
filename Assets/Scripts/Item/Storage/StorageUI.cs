@@ -44,6 +44,8 @@ public class StorageUI : MonoBehaviour
         storageSize = storage.GetDefaultStorageSize();
         storage.SetStorage(storageSize);
         SetStorageUI(storageSize);
+
+        Debug.Log("창고 만들어짐!");
     }
 
 

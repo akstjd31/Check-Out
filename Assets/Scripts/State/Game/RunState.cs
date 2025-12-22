@@ -13,9 +13,6 @@ public class RunState : IState
     public void Exit()
     {
         Debug.Log("세션 상태 종료");
-        GameManager.Instance.SaveMoney();
-        StorageManager.Instance.SaveStorage();
-        InventoryManager.Instance.SaveInventory();
         LoadingManager.Instance.InitSceneActivation();
     }
 
@@ -25,6 +22,10 @@ public class RunState : IState
 
     private void Init()
     {
+        GameManager.Instance.SaveMoney();
+        StorageManager.Instance.SaveStorage();
+        InventoryManager.Instance.SaveInventory();
+        
         FadeController.Instance.Init();
         
         // 다음 씬 정보 미리 설정

@@ -33,10 +33,6 @@ public class GameManager : Singleton<GameManager>
     public void OnGameStartButton()
     {
         ChangeState(GameState.Loading);
-
-        LoadMoney();
-        StorageManager.Instance.LoadStorage();
-        InventoryManager.Instance.LoadInventory();
     }
 
     private void OnEnable()
@@ -50,9 +46,15 @@ public class GameManager : Singleton<GameManager>
         {
             player = GameObject.FindGameObjectWithTag("Player");
         }
+
+        
         
         if (Input.GetKeyDown(KeyCode.Return))
             ItemManager.Instance.Test(1);
+        else if (Input.GetKeyDown(KeyCode.C))
+            StorageManager.Instance.SaveStorage();
+        else if (Input.GetKeyDown(KeyCode.X))
+            StorageManager.Instance.LoadStorage();
             
         stateMachine?.Update();
 
