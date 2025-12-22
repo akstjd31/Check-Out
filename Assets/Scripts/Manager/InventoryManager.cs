@@ -7,6 +7,9 @@ public class InventoryManager : Singleton<InventoryManager>
 
     [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryUI invenUI;
+
+    //private Vector3 playerPos;
+
     private string fileName = "InventorySaveData.json";
 
     protected override void Awake()
@@ -100,12 +103,15 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         if (inventory == null) return;
         Debug.Log("성공적 1");
+        if (GameManager.Instance.GetPlayer() == null) return;
+        Debug.Log("성공적 2");
 
         ItemTableData item = inventory.MoveItem(index);
         Debug.Log("성공적 6");
+
         if (item == null) return;
 
-        ItemManager.Instance.SpawnItem(item.id, GameManager.Instance.GetPlayer().transform.position);
+        ItemManager.Instance.SpawnItem(item.id, GameManager.Instance.GetPlayer().transform.up);
     }
     
     // 인벤토리 슬롯 선택
