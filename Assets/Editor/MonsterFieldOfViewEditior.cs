@@ -3,14 +3,14 @@ using UnityEditor;
 
 
 // 몬스터 필드 오브 뷰에 관련한 에디터입니다.
-[CustomEditor(typeof(MonsterFieldOfView))]
+[CustomEditor(typeof(FieldOfView))]
 public class MonsterFieldOfViewEditior : Editor
 {
 
     private void OnSceneGUI()
     {
         // 관측된 오브젝트를 fov에 대입합니다.
-        MonsterFieldOfView fov = (MonsterFieldOfView)target;
+        FieldOfView fov = (FieldOfView)target;
         Handles.color = Color.white;
         // 3D 공간에 시야각을 표현합니다.
         Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.viewRadius);

@@ -2,11 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class WalkerController : MonoBehaviour
+public class WalkerController : MonsterController
 {
     [SerializeField] private WalkerView walkerView;
     private WalkerModel walkerModel;
-    private MonsterFieldOfView walkerFieldOfView;
+    private FieldOfView walkerFieldOfView;
     private MonsterMovement walkerMovement;
     private WaitForSeconds stopToMissing;
     private float chaseTimer;
@@ -19,7 +19,7 @@ public class WalkerController : MonoBehaviour
         // 컴포넌트 추가
         walkerView = GetComponent<WalkerView>();
         walkerModel = GetComponent<WalkerModel>();
-        walkerFieldOfView = GetComponent<MonsterFieldOfView>();
+        walkerFieldOfView = GetComponent<FieldOfView>();
         walkerMovement = GetComponent<MonsterMovement>();
     }
 
@@ -97,12 +97,12 @@ public class WalkerController : MonoBehaviour
         stopToMissing = new WaitForSeconds(walkerModel.StopToMissingDelay);
 
         // 플레이어한테 보이는 지에 대한 변수 초기화
-        walkerModel.isObseredFromPlayer = false;
+        walkerModel.isObservedFromPlayer = false;
     }
 
    
 
-    private void Find()
+    protected override void Find()
     {
         Debug.Log("발견 상태 수행 완료");
         // 추격으로 전환
@@ -186,7 +186,7 @@ public class WalkerController : MonoBehaviour
         walkerModel.StartCoroutine(Chase());
     }
 
-    private void StartPatrol()
+    protected override void StartPatrol()
     {
         Debug.Log("배회 실행");
         sirenTransform = null;
@@ -194,13 +194,8 @@ public class WalkerController : MonoBehaviour
         walkerMovement.PatrolNextOne();
     }
 
-    public void StartAlerted()
+    protected override void StartAlerted()
     {
         walkerMovement.Move(sirenTransform, walkerModel.PatrolSpeed);
-    }
-
-    public void GetTransform(Transform transform)
-    {
-        sirenTransform = transform;
     }
 }

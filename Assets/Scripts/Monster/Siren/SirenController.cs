@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SirenController : MonoBehaviour
+public class SirenController : MonsterController
 {
     [SerializeField] private SirenView sirenView;
     private SirenModel sirenModel;
@@ -70,7 +70,7 @@ public class SirenController : MonoBehaviour
         stopToMissing = new WaitForSeconds(sirenModel.StopToMissingDelay);
 
         // 플레이어한테 보이는 지에 대한 변수 초기화
-        sirenModel.isObseredFromPlayer = false;
+        sirenModel.isObservedFromPlayer = false;
 
         // 비명내 몬스터리스트 초기화
         screamInMonster = new List<Monster>();
@@ -95,14 +95,14 @@ public class SirenController : MonoBehaviour
         sirenModel.OnAlert -= StartAlert;
     }
 
-    private void StartPatrol()
+    protected override void StartPatrol()
     {
         Debug.Log("배회 실행");
         sirenMovement.ChangeSpeed(sirenModel.PatrolSpeed);
         sirenMovement.PatrolNextOne();
     }
 
-    private void Find()
+    protected override void Find()
     {
         Debug.Log("발견 상태 수행 완료");
         // 추격 상태 수행
@@ -134,7 +134,7 @@ public class SirenController : MonoBehaviour
             // 3초 동안 비명
             if (alertTimer <= 3f)
             {
-                sirenMovement.Move(transform, 0f);
+                sirenMovement.Move(transform,0f);
                 Debug.Log("비명 지르는 중");
 
                 Debug.Log($"현재 {screamInMonster.Count}마리 호출 중");
@@ -147,7 +147,7 @@ public class SirenController : MonoBehaviour
                     // 배회상태에서만 몬스터를 자기 위치로 불러옴
                     if (target.monsterState == Monster.MonsterState.WanderingAround)
                     {
-                        target.GetComponent<WalkerController>().GetTransform(transform);
+                        target.GetComponent<MonsterController>().GetTransform(transform);
                         target.ChangeState(Monster.MonsterState.Alerted);
                     }
                 }
@@ -164,7 +164,7 @@ public class SirenController : MonoBehaviour
                         continue;
 
                     // 배회상태에서 불려온 몬스터는 다시 배회상태로
-                    if (target.monsterState == Monster.MonsterState.WanderingAround)
+                    if (target.monsterState == Monster.MonsterState.Alerted)
                     {
                         target.ChangeState(Monster.MonsterState.WanderingAround);
                     }
@@ -182,13 +182,5 @@ public class SirenController : MonoBehaviour
     {
         Debug.Log("비명 시작");
         StartCoroutine(Alert());
-    }
-
-    public void StateChange(Monster.MonsterState state)
-    {
-        if (sirenModel == null)
-            sirenModel = GetComponent<SirenModel>();
-
-        sirenModel.ChangeState(state);
     }
 }
