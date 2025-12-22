@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 3029327642943884836}
   - component: {fileID: 2330446851178434476}
   - component: {fileID: 1594996792662283249}
-  - component: {fileID: 4488566595728316767}
+  - component: {fileID: 3818408127474550692}
   m_Layer: 29
   m_Name: Walker
   m_TagString: Monster
@@ -204,12 +204,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WalkerModel
   patrolSpeed: 1
   power: 34
-  isObseredFromPlayer: 0
+  isObservedFromPlayer: 0
   monsterState: 0
   chaseFast: 4.5
   chaseSlow: 2
   stopToMissingDelay: 2
-  viewRadius: 5
+  viewRadius: 20
   viewAngle: 90
   playerMask:
     serializedVersion: 2
@@ -253,7 +253,7 @@ MonoBehaviour:
   minimumStopDelay: 0
   maxStopDelay: 0
   isExceptionTimer: 7
---- !u!114 &4488566595728316767
+--- !u!114 &3818408127474550692
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -262,12 +262,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5085514986687526861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e73c4f47ac4c1d8469c4285061184d71, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b10bfdde18fb4c4d86d536447b6ac08, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MonsterFieldOfView
-  viewRadius: 0
-  viewAngle: 0
-  playerMask:
+  m_EditorClassIdentifier: Assembly-CSharp::FieldOfView
+  viewRadius: 20
+  viewAngle: 60
+  targetMask:
     serializedVersion: 2
     m_Bits: 64
   obstacleMask:

@@ -70,7 +70,7 @@ public class SirenController : MonoBehaviour
         stopToMissing = new WaitForSeconds(sirenModel.StopToMissingDelay);
 
         // 플레이어한테 보이는 지에 대한 변수 초기화
-        sirenModel.isObseredFromPlayer = false;
+        sirenModel.isObservedFromPlayer = false;
 
         // 비명내 몬스터리스트 초기화
         screamInMonster = new List<Monster>();

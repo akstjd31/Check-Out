@@ -34,7 +34,7 @@ public class SoundDistance : MonoBehaviour
         {
             Debug.Log($" 현재 사이렌 상태 : {sirenModel.monsterState.ToString()}");
             if (sirenModel.monsterState == Monster.MonsterState.WanderingAround)
-                sirenController.StateChange(Monster.MonsterState.Alert);
+                sirenModel.ChangeState(Monster.MonsterState.Alert);
         }
     }
 }

@@ -97,7 +97,7 @@ public class WalkerController : MonoBehaviour
         stopToMissing = new WaitForSeconds(walkerModel.StopToMissingDelay);
 
         // 플레이어한테 보이는 지에 대한 변수 초기화
-        walkerModel.isObseredFromPlayer = false;
+        walkerModel.isObservedFromPlayer = false;
     }
 
    
