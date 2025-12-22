@@ -442,7 +442,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.33333334
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 53ca3500f7384ad48afbea4d9849d053, type: 2}
   m_BuildHeightMesh: 0
@@ -2642,7 +2642,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Siren
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 4416655947400930686, guid: ffb40da9450283744abd68006400f9c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6613068496251755801, guid: ffb40da9450283744abd68006400f9c7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
