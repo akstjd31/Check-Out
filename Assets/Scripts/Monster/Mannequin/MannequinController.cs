@@ -56,7 +56,7 @@ public class MannequinController : MonoBehaviour
             //
             mannequinModel.ChangeState(Monster.MonsterState.Approach);
         }
-        if (mannequinFieldOfView.visibleTargets.Count == 0 && mannequinModel.mannequinState == Monster.MonsterState.Chase)
+        if (mannequinFieldOfView.visibleTargets.Count == 0 && mannequinModel.mannequinState == Monster.MonsterState.Approach)
         {
             // 만약 플레이어를 시야에 놓치면 MissingPlayer 전환
             mannequinModel.ChangeState(Monster.MonsterState.MissingPlayer);
@@ -175,15 +175,9 @@ public class MannequinController : MonoBehaviour
         while(mannequinFieldOfView.visibleTargets.Count == 0 && mannequinModel.mannequinState == Monster.MonsterState.MissingPlayer)
         {
             // 플레이어를 다시 찾으면 추격 상태 전환
-            if(mannequinFieldOfView.visibleTargets.Count == 0 && checkTimer < 2)
+            if(mannequinFieldOfView.visibleTargets.Count == 0)
             {
-                Debug.Log($"놓친 시간 : {checkTimer}");
-                checkTimer += 0.2f;
                 yield return new WaitForSeconds(0.2f);
-            }
-            //플레이어를 다시 못찾으면 타이머를 진행
-            else
-            {
                 Debug.Log("배회로 다시 전환합니다.");
                 checkTimer = 0;
                 mannequinModel.ChangeState(Monster.MonsterState.WanderingAround);
@@ -221,5 +215,10 @@ public class MannequinController : MonoBehaviour
     public void GetTransform(Transform transform)
     {
         sirenTransform = transform;
+    }
+
+    public void ObservedChecker()
+    {
+        mannequinModel.isObservedFromPlayer = true ? mannequinModel.isObservedFromPlayer = false : mannequinModel.isObservedFromPlayer = true;
     }
 }
