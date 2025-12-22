@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class Monster : MonoBehaviour
 {
 
-    public enum MonsterState { WanderingAround, Alert, Chase, MissingPlayer, FindPlayer, Alerted, Observe, EyeContact, makeEyeContactPlayer }
+    public enum MonsterState { WanderingAround, Alert, Chase, MissingPlayer, FindPlayer, Alerted, Observe, EyeContact, makeEyeContactPlayer, Stop, Approach }
 
     // 몬스터가 공통적으로 가지는 속성
     [Header("Common")]
