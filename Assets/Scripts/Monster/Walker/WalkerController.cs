@@ -6,7 +6,7 @@ public class WalkerController : MonoBehaviour
 {
     [SerializeField] private WalkerView walkerView;
     private WalkerModel walkerModel;
-    private MonsterFieldOfView walkerFieldOfView;
+    private FieldOfView walkerFieldOfView;
     private MonsterMovement walkerMovement;
     private WaitForSeconds stopToMissing;
     private float chaseTimer;
@@ -19,7 +19,7 @@ public class WalkerController : MonoBehaviour
         // 컴포넌트 추가
         walkerView = GetComponent<WalkerView>();
         walkerModel = GetComponent<WalkerModel>();
-        walkerFieldOfView = GetComponent<MonsterFieldOfView>();
+        walkerFieldOfView = GetComponent<FieldOfView>();
         walkerMovement = GetComponent<MonsterMovement>();
     }
 

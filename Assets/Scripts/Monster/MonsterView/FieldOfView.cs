@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class MonsterFieldOfView : MonoBehaviour
+public class FieldOfView : MonoBehaviour
 {
     public float viewRadius;
     // 각도 360으로 제한
@@ -53,7 +53,7 @@ public class MonsterFieldOfView : MonoBehaviour
             {
                 // 타겟과의 거리를 확인
                 float dstToTarget = Vector3.Distance (transform.position, target.transform.position);
-                // 몬스터와 플레이어 사이에 장애물이 없을 경우 다음 내용을 수행
+                // 자기자신과 타겟 사이에 장애물이 없을 경우 다음 내용을 수행
                 if( !Physics.Raycast (transform.position, directionToTarget, dstToTarget, obstacleMask))
                 {
                     Debug.Log($"{targetsInViewRadius[i]} 발견");
