@@ -18,7 +18,7 @@ enum ConditionOperator
     Off,
     Above,
     Below,
-    Has
+    Have
 }
 
 public static class ConditionCheckingMachine
@@ -38,7 +38,7 @@ public static class ConditionCheckingMachine
         { "Off", ConditionOperator.Off },
         { "Above", ConditionOperator.Above },
         { "Below", ConditionOperator.Below },
-        { "Has", ConditionOperator.Has }
+        { "Have", ConditionOperator.Have }
     };
 
     public static bool Check(EventTableData data)

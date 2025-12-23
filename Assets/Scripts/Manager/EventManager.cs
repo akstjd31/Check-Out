@@ -10,12 +10,24 @@ using UnityEngine.EventSystems;
 public class EventManager : Singleton<EventManager>
 {
     public Dictionary<int, List<EventTableData>> eventGroups;  // <ID, 이벤트 테이블 데이터>
+    public Dictionary<string, IEventHandler> handlers;
 
     protected override void Awake()
     {
         base.Awake();
 
         TableDataParsing();
+        Init();
+    }
+
+    private void Init()
+    {
+        // handlers = new Dictionary<string, IEventHandler>
+        // {
+        //     {
+                    // 인터페이스를 상속받는 핸들러 관련된 객체 생성
+        //     }
+        // }
     }
 
     // 테이블 데이터 파싱
@@ -36,10 +48,11 @@ public class EventManager : Singleton<EventManager>
             if (eventTableData != null)
             {
                 // 없으면 리스트 생성 후 넣어주기
-                if (!eventGroups[eventTableData.id].Any())
-                    eventGroups[eventTableData.id] = new List<EventTableData>();
+                if (!eventGroups[eventTableData.groupId].Any())
+                    eventGroups[eventTableData.groupId] = new List<EventTableData>();
                 
-                eventGroups[eventTableData.id].Add(eventTableData);
+                // 하나의 그룹 ID로 실행해야하는 이벤트 테이블 데이터 묶기
+                eventGroups[eventTableData.groupId].Add(eventTableData);
             }
         }
     }

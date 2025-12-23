@@ -17,6 +17,8 @@ public enum IDType
     Talk,           // 100001 ~ 199999
     String          // 200001 ~ 299999
 }
+
+// ID값에 따른 타입 판별
 public struct EventParam
 {
     public IDType type;
