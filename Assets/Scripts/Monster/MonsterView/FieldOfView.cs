@@ -6,10 +6,12 @@ using UnityEngine.Rendering;
 
 public class FieldOfView : MonoBehaviour
 {
+    
     public float viewRadius;
     // 각도 360으로 제한
     [Range(0, 360)]
     public float viewAngle;
+    public float circleRadius;
     // 해당 레이어에 있는 오브젝트만 탐지하도록 입력받음
     public LayerMask targetMask;
     public LayerMask obstacleMask;
@@ -53,23 +55,29 @@ public class FieldOfView : MonoBehaviour
         //Debug.Log("시야 갱신");
         // 매서드 시작 시 리스트를 초기화
         visibleTargets.Clear();
+
+        float maxRadius = Mathf.Max(viewRadius, circleRadius);
         // 타겟에 해당하는 레이어에 존재하는 객체만을 콜라이더에 저장
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
+        Collider[] targetsInInRadius = Physics.OverlapSphere(transform.position, maxRadius, targetMask);
         // 콜라이더에 들어간 객체를 차례로 수행 과정 진행
-        for (int i = 0; i < targetsInViewRadius.Length; i++)
+        for (int i = 0; i < targetsInInRadius.Length; i++)
         {
             // 타겟의 트랜스폼 정보를 받아옴
-            Transform target = targetsInViewRadius[i].transform;
-            Vector3 directionToTarget = (target.position - transform.position).normalized;
+            Transform target = targetsInInRadius[i].transform;
+            Vector3 directionToTarget = (target.position - transform.position);
+            float distanceToTarget =  directionToTarget.magnitude;
+            Vector3 directionNormalized = directionToTarget.normalized;
+
+
             // 만약 타겟이 시야각 안에 있다면 다음 내용을 수행
-            if(Vector3.Angle(transform.forward, directionToTarget) < viewAngle / 2)
+            if (Vector3.Angle(transform.forward, directionNormalized) < viewAngle / 2 || distanceToTarget <= circleRadius)
             {
                 // 타겟과의 거리를 확인
                 float dstToTarget = Vector3.Distance (transform.position, target.transform.position);
                 // 자기자신과 타겟 사이에 장애물이 없을 경우 다음 내용을 수행
                 if( !Physics.Raycast (transform.position, directionToTarget, dstToTarget, obstacleMask))
                 {
-                    Debug.Log($"{targetsInViewRadius[i]} 발견");
+                    Debug.Log($"{targetsInInRadius[i]} 발견");
                     visibleTargets.Add(target);
                 }
             }
@@ -88,41 +96,78 @@ public class FieldOfView : MonoBehaviour
     //시각화
     void DrawFieldOfView()
     {
-        int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
-        float stepAngleSize = viewAngle / stepCount;
+        float fullAngle = 360f;
+        int stepCount = Mathf.RoundToInt(fullAngle * meshResolution);
+        float stepAngleSize = fullAngle / stepCount;
         List<Vector3> viewPoints = new List<Vector3>();
         ViewCastInfo prevViewCast = new ViewCastInfo();
+        bool prevInCone = false;
 
         for (int i = 0; i <= stepCount; i++)
         {
             float angle = transform.eulerAngles.y - viewAngle / 2 + stepAngleSize * i;
-            ViewCastInfo newViewCast = ViewCast(angle);
 
-            // i가 0이면 prevViewCast에 아무 값이 없어 정점 보간을 할 수 없으므로 건너뛴다.
-            if (i != 0)
-            {
-                bool edgeDstThresholdExceed = Mathf.Abs(prevViewCast.dst - newViewCast.dst) > edgeDstThreshold;
+            float delta = Mathf.DeltaAngle(transform.eulerAngles.y, angle);
+            bool inCone = Mathf.Abs(delta) <= viewAngle * 0.5f;
 
-                // 둘 중 한 raycast가 장애물을 만나지 않았거나 두 raycast가 서로 다른 장애물에 hit 된 것이라면(edgeDstThresholdExceed 여부로 계산)
-                if (prevViewCast.hit != newViewCast.hit || (prevViewCast.hit && newViewCast.hit && edgeDstThresholdExceed))
+            Vector3 point;
+
+            if ( inCone )
+            {  
+                ViewCastInfo newViewCast = ViewCast(angle, viewRadius);
+                point = newViewCast.point;
+                
+                // i가 0이면 prevViewCast에 아무 값이 없어 정점 보간을 할 수 없으므로 건너뛴다.
+                if (i != 0  && prevInCone)
                 {
-                    Edge e = FindEdge(prevViewCast, newViewCast);
+                    bool edgeDstThresholdExceed = Mathf.Abs(prevViewCast.dst - newViewCast.dst) > edgeDstThreshold;
 
-                    // zero가 아닌 정점을 추가함
-                    if (e.PointA != Vector3.zero)
+                    // 둘 중 한 raycast가 장애물을 만나지 않았거나 두 raycast가 서로 다른 장애물에 hit 된 것이라면(edgeDstThresholdExceed 여부로 계산)
+                    if (prevViewCast.hit != newViewCast.hit || (prevViewCast.hit && newViewCast.hit && edgeDstThresholdExceed))
                     {
-                        viewPoints.Add(e.PointA);
-                    }
+                        Edge e = FindEdge(prevViewCast, newViewCast);
 
-                    if (e.PointB != Vector3.zero)
-                    {
-                        viewPoints.Add(e.PointB);
+                        // zero가 아닌 정점을 추가함
+                        if (e.PointA != Vector3.zero)
+                        {
+                            viewPoints.Add(e.PointA);
+                        }
+
+                        if (e.PointB != Vector3.zero)
+                        {
+                            viewPoints.Add(e.PointB);
+                        }
                     }
+                }
+
+                prevViewCast = newViewCast;
+            }
+            else
+            {
+                ViewCastInfo circleCast = ViewCast(angle, circleRadius);
+                point = circleCast.point;
+            }
+            
+            if (i != 0 && prevInCone != inCone)
+            {
+                ViewCastInfo otherCircleCast = ViewCast(angle, circleRadius);
+                ViewCastInfo otherNewViewCast = ViewCast(angle, viewRadius);
+
+                if (inCone)
+                {
+                    viewPoints.Add(otherCircleCast.point);
+                    viewPoints.Add(otherNewViewCast.point);
+                    prevViewCast = otherNewViewCast;
+                }
+                else
+                {
+                    viewPoints.Add(otherNewViewCast.point);
+                    viewPoints.Add(otherCircleCast.point);
                 }
             }
 
-            viewPoints.Add(newViewCast.point);
-            prevViewCast = newViewCast;
+            viewPoints.Add(point);
+            prevInCone = inCone;
         }
 
         int vertexCount = viewPoints.Count + 1;
@@ -168,17 +213,17 @@ public class FieldOfView : MonoBehaviour
         }
     }
 
-    ViewCastInfo ViewCast(float globalAngle)
+    ViewCastInfo ViewCast(float globalAngle, float distance )
     {
         Vector3 dir = DirectionFromAngle(globalAngle, true);
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, dir, out hit, viewRadius, obstacleMask))
+        if (Physics.Raycast(transform.position, dir, out hit, distance, obstacleMask))
         {
             return new ViewCastInfo(true, hit.point, hit.distance, globalAngle);
         }
         else
         {
-            return new ViewCastInfo(false, transform.position + dir * viewRadius, viewRadius, globalAngle);
+            return new ViewCastInfo(false, transform.position + dir * distance, distance, globalAngle);
         }
     }
 
@@ -205,17 +250,19 @@ public class FieldOfView : MonoBehaviour
         for (int i = 0; i < edgeResolveIterations; i++)
         {
             float angle = minAngle + (maxAngle - minAngle) / 2;
-            ViewCastInfo newViewCast = ViewCast(angle);
+            ViewCastInfo newViewCast = ViewCast(angle, viewRadius);
             bool edgeDstThresholdExceed = Mathf.Abs(minViewCast.dst - newViewCast.dst) > edgeDstThreshold;
             if (newViewCast.hit == minViewCast.hit && !edgeDstThresholdExceed)
             {
                 minAngle = angle;
                 minPoint = newViewCast.point;
+                minViewCast = newViewCast;
             }
             else
             {
                 maxAngle = angle;
                 maxPoint = newViewCast.point;
+                maxViewCast = newViewCast;
             }
         }
 

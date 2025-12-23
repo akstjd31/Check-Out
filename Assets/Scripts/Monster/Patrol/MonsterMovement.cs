@@ -151,7 +151,7 @@ public class MonsterMovement : MonoBehaviour
         nextDestination = GetRandomPositionOnNavMesh();
         // 현재 목적지로 이동
         //Move(nextDestination.position);
-        Move(nextDestination);
+        Move(nextDestination); 
     }
 
     private void TestLoop()
@@ -197,4 +197,9 @@ public class MonsterMovement : MonoBehaviour
             return transform.position; // NavMesh 위의 랜덤 위치를 찾지 못한 경우 현재 위치를 반환합니다.
         }
     }
+
+    public void VelocityZero() => navMeshAgent.velocity = Vector3.zero;
+    public void NavRotationOff() => navMeshAgent.updateRotation = false;
+
+    public void NavRotationOn() => navMeshAgent.updateRotation = true;
 }

@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class WalkerController : MonsterController
 {
     [SerializeField] private WalkerView walkerView;
+    [SerializeField] private float rotateSpeed;
     private WalkerModel walkerModel;
     private FieldOfView walkerFieldOfView;
     private MonsterMovement walkerMovement;
@@ -13,6 +14,7 @@ public class WalkerController : MonsterController
     private float checkTimer;
     private bool onRun = true;
     private Transform sirenTransform;
+   
 
     private void Awake()
     {
@@ -81,8 +83,6 @@ public class WalkerController : MonsterController
         //Debug.Log($"PlayerMask : {walkerModel.PlayerMask.value}");
         //Debug.Log($"Obstacle : {walkerModel.ObstacleMask.value}");
 
-        walkerFieldOfView.viewRadius = walkerModel.ViewRadius;
-        walkerFieldOfView.viewAngle = walkerModel.ViewAngle;
         walkerFieldOfView.delay = new WaitForSeconds(walkerModel.Delay);
 
         // MonsterMovement
@@ -111,6 +111,7 @@ public class WalkerController : MonsterController
 
     private IEnumerator Chase()
     {
+       
         while (walkerFieldOfView.visibleTargets.Count > 0)
         {
             // 빠른 추격 상태 동안 수행

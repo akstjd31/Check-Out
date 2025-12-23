@@ -14,15 +14,6 @@ public class WalkerModel : Monster
     [SerializeField] private float chaseSlow = 2.0f;
     [Header("Delay")]
     [SerializeField] private float stopToMissingDelay = 2.0f;
-    [Header("MonsterFieldOfView")]
-    // 시야 범위 조정
-    [SerializeField] private float viewRadius;
-    // 각도 360으로 제한
-    [Range(0, 360)]
-    [SerializeField] private float viewAngle;
-    // 필요한 레이어
-    [SerializeField] private LayerMask playerMask;
-    [SerializeField] private LayerMask obstacleMask;
     // 시야 갱신 시점 조정
     [SerializeField] private float delay;
     [Header("Patrol")]
@@ -37,10 +28,6 @@ public class WalkerModel : Monster
     public float ChaseFast { get { return chaseFast; } }
     public float ChaseSlow { get { return chaseSlow; } }
     public float StopToMissingDelay {  get { return stopToMissingDelay; } }
-    public float ViewRadius { get { return viewRadius; } }
-    public float ViewAngle { get { return viewAngle; } }
-    public LayerMask PlayerMask { get { return playerMask; } }
-    public LayerMask ObstacleMask { get { return obstacleMask; } }
     public float Delay { get { return delay; } }
     public int MinimumStopDelay { get { return minimumStopDelay; } }
     public int MaxStopDelay { get { return maxStopDelay; } }

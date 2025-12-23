@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Monster;
 
 public class SirenController : MonsterController
 {
     [SerializeField] private SirenView sirenView;
     [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private float rotateSpeed;
     private SirenModel sirenModel;
     private MonsterMovement sirenMovement;
     private float alertTimer;
@@ -15,6 +17,7 @@ public class SirenController : MonsterController
     private bool onScream = false;
     private WaitForSeconds delay;
 
+    private Transform player;
 
     private void Awake()
     {
@@ -33,6 +36,7 @@ public class SirenController : MonsterController
         sirenMovement.ChangeSpeed(sirenModel.PatrolSpeed);
         Debug.Log(sirenModel.PatrolSpeed);
         sirenMovement.PatrolNextOne();
+
     }
 
     private void Update()
@@ -79,6 +83,8 @@ public class SirenController : MonsterController
 
         // 비명질렀을 시 몬스터 호출 범위
         sceramCollider.radius = 0.5f * sirenModel.Distance;
+
+        player = FindAnyObjectByType<PlayerCtrl>().transform;
     }
 
     private void OnEnable()
@@ -137,6 +143,8 @@ public class SirenController : MonsterController
             if (alertTimer <= 3f)
             {
                 sirenMovement.Move(transform,0f);
+                sirenMovement.NavRotationOff();
+                transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
                 sprite.color = Color.red;
                 Debug.Log("비명 지르는 중");
 
@@ -172,6 +180,7 @@ public class SirenController : MonsterController
                         target.ChangeState(Monster.MonsterState.WanderingAround);
                     }
                 }
+                sirenMovement.NavRotationOn();
                 sprite.color = Color.white;
                 screamInMonster.Clear();
                 yield return new WaitForSeconds(3f);
@@ -186,5 +195,10 @@ public class SirenController : MonsterController
     {
         Debug.Log("비명 시작");
         StartCoroutine(Alert());
+    }
+
+    void MonsterRotate(Transform player)
+    {
+        transform.forward = Vector3.Lerp(transform.forward, player.position - transform.position, rotateSpeed);
     }
 }
