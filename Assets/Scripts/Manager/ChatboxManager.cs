@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ChatboxManager : MonoBehaviour
+public class ChatboxManager : Singleton<ChatboxManager>
 {
     [Header("대화창 UI")]
     [SerializeField] ChatboxUI chatboxUI;
@@ -17,14 +17,20 @@ public class ChatboxManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            
             if (chatboxUI.IsTyping)
             {
                 chatboxUI.SkipTyping(chatboxUI.Script);
             }
             else
             {
-                eventId = chatboxUI.DescriptionInput(eventId);
-                chatboxUI.Description(eventId);
+                if (eventId != 0)
+                {
+                    eventId = chatboxUI.DescriptionInput(eventId);
+                    chatboxUI.Description(eventId);
+                }
+                else if (eventId == 0)
+                    EndDialogue();
             }
         }
     }

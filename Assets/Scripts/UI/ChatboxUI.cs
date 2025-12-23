@@ -21,6 +21,9 @@ public class ChatboxUI : MonoBehaviour
     [Header("대화 창")]
     [SerializeField] CanvasGroup chatboxGroup;
 
+    [Header("CG 출력용 이미지 칸")]
+    [SerializeField] Image spriteCG;
+
     //대사 출력 정보를 받아올 테이블 ( 미구현 상태이므로 관련 오류는 무시하고 작성 )
     Table<int, TalkTableData> talkTable;
 
@@ -73,8 +76,8 @@ public class ChatboxUI : MonoBehaviour
     public void Hide()
     {
         chatboxGroup.alpha = 0f;
-        chatboxGroup.interactable = false;
         chatboxGroup.blocksRaycasts = false;
+        chatboxGroup.interactable = false;
     }
 
     /// <summary>
@@ -88,10 +91,22 @@ public class ChatboxUI : MonoBehaviour
             Hide();
             return;
         }
-
+        
+        
         //이름과 대사를 테이블 내의 해당 아이디값에서 불러온다.
         nameText.text = talkTable[desc_id].name;
         description = talkTable[desc_id].line_desc;
+        if (talkTable[desc_id].CG != null)
+        {
+            spriteCG.gameObject.SetActive(true);
+            spriteCG.sprite = Resources.Load<Sprite>(talkTable[desc_id].CG);
+        }
+        else if (talkTable[desc_id].CG == null || talkTable[desc_id].CG == "")
+        {
+            spriteCG.sprite = null;
+            spriteCG.gameObject.SetActive(false);
+        }
+        
         StartTyping(description);
     }
 
@@ -104,7 +119,10 @@ public class ChatboxUI : MonoBehaviour
     {
         //대사 테이블에서 해당 아이디의 next_id 값이 존재하지 않을 경우, 0을 반환한다.
         if (talkTable[desc_id].next_id == 0)
+        {
+            Hide();
             return 0;
+        }
 
         //존재하는 경우, 그 next_id 값을 반환한다.
         return talkTable[desc_id].next_id;
