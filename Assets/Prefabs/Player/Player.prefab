@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 4115532196129444300}
   - component: {fileID: 1839199503718076983}
   - component: {fileID: 6775976921377368825}
-
+  - component: {fileID: 3308391328890093632}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -530,6 +530,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd6cde9ae9e910449715bcdfa1c977e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundDistance
+  soundClip:
+  - {fileID: 8300000, guid: b995bc1775ea83b4b8f861763e9a1424, type: 3}
+  - {fileID: 8300000, guid: f8e559768bed7ed4680ab0449da7ec3a, type: 3}
+  volume: 0
   soundCollider: {fileID: 6867758591509983542}
   distance: 10
 --- !u!114 &1839199503718076983
@@ -569,6 +573,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1f7209c0b031f48b4aac410cba6325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerViewController
+--- !u!114 &3308391328890093632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014595832380163571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0928062638ad3894cb1abc3953b44b79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCamera
+  fallAngle: -70
+  fallDuration: 1.2
+  playerRb: {fileID: 0}
+  disableScripts: []
 --- !u!1 &7548294924499836803
 GameObject:
   m_ObjectHideFlags: 0

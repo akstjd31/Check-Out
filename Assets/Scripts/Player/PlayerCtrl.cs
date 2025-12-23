@@ -15,6 +15,7 @@ public class PlayerCtrl : MonoBehaviour
     private PlayerStamina stamina;
     private PlayerStateMachine state;
     private PlayerInteractor interactor;
+    private SoundDistance soundDistance;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class PlayerCtrl : MonoBehaviour
         stamina = this.GetComponent<PlayerStamina>();
         state = this.GetComponent<PlayerStateMachine>();
         interactor = this.GetComponent<PlayerInteractor>();
+        soundDistance = this.GetComponent<SoundDistance>();
 
         input.OnInteract += OnInteract; 
     }
@@ -56,9 +58,17 @@ public class PlayerCtrl : MonoBehaviour
         if (!isMoving)
             state.ChangeState(PlayerState.Idle);
         else if (canRun)
+        {
+            // 뛰는 소리 재생
+            soundDistance.PlayClip(0, false);
             state.ChangeState(PlayerState.Run);
+        }
         else
+        {
+            // 걷는 소리 재생
+            soundDistance.PlayClip(1, false);
             state.ChangeState(PlayerState.Walk);
+        }
     }
 
     private void OnInteract() => interactor.Interaction();

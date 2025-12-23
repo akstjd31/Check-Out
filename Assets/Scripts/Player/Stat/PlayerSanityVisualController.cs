@@ -7,7 +7,13 @@ public class PlayerSanityVisualController : MonoBehaviour
     [SerializeField] private Volume volume;
     private Vignette vignette;
 
-    private void Awake() => volume.profile.TryGet(out vignette);
+    private void Awake()
+    {
+        volume = FindAnyObjectByType<Volume>();
+
+        if (volume != null)
+            volume.profile.TryGet(out vignette);
+    }
 
     public void UpdateSanity(float sanityPercent)
     {
