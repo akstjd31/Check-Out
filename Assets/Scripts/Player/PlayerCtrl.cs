@@ -60,13 +60,13 @@ public class PlayerCtrl : MonoBehaviour
         else if (canRun)
         {
             // 뛰는 소리 재생
-            soundDistance.PlayClip(0, false);
+            //soundDistance.PlayClip(0, false);
             state.ChangeState(PlayerState.Run);
         }
         else
         {
             // 걷는 소리 재생
-            soundDistance.PlayClip(1, false);
+            //soundDistance.PlayClip(1, false);
             state.ChangeState(PlayerState.Walk);
         }
     }
