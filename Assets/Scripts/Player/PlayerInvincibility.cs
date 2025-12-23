@@ -4,14 +4,18 @@ using System.Collections;
 
 [RequireComponent(typeof(PlayerSanity))]
 [RequireComponent(typeof(StatController))]
+[RequireComponent(typeof(PlayerCamera))]
 public class PlayerInvincibility : MonoBehaviour
 {
     private StatController stat;
+    private PlayerCamera playerCamera;
     [SerializeField] private bool isInvincible = false;  // 무적 상태인지?
+    private int power = 5000;
     
     private void Awake()
     {
         stat = this.GetComponent<StatController>();
+        playerCamera = this.GetComponent<PlayerCamera>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,6 +28,7 @@ public class PlayerInvincibility : MonoBehaviour
             
             if (monster != null)
             {
+                playerCamera.Hit();
                 Debug.LogWarning("데미지 입음!");
                 stat.ConsumeSanity(monster.Power);
                 StartCoroutine(InvincibleCoroutine());

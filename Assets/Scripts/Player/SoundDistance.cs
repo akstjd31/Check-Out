@@ -20,21 +20,19 @@ public class SoundDistance : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        //if (other.TryGetComponent<SirenController>(out var sirenController)
-        //    && other.TryGetComponent<SirenModel>(out var sirenModel)
-        //    && (state.CurrentState == PlayerState.Run || state.CurrentState == PlayerState.Walk))
-        //{
-        //    if (sirenModel.monsterState == Monster.MonsterState.WanderingAround)
-        //        sirenController.StateChange(Monster.MonsterState.Alert);
-        //}
-
-        if (other.TryGetComponent<SirenController>(out var sirenController)
-            && other.TryGetComponent<SirenModel>(out var sirenModel)
-            )
+        if (other.TryGetComponent<SirenModel>(out var sirenModel) && (state.CurrentState == PlayerState.Run || state.CurrentState == PlayerState.Walk))
         {
-            Debug.Log($" 현재 사이렌 상태 : {sirenModel.monsterState.ToString()}");
             if (sirenModel.monsterState == Monster.MonsterState.WanderingAround)
                 sirenModel.ChangeState(Monster.MonsterState.Alert);
         }
+
+        //if (other.TryGetComponent<SirenController>(out var sirenController)
+        //    && other.TryGetComponent<SirenModel>(out var sirenModel)
+        //    )
+        //{
+        //    Debug.Log($" 현재 사이렌 상태 : {sirenModel.monsterState.ToString()}");
+        //    if (sirenModel.monsterState == Monster.MonsterState.WanderingAround)
+        //        sirenModel.ChangeState(Monster.MonsterState.Alert);
+        //}
     }
 }

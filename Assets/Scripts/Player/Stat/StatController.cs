@@ -78,7 +78,8 @@ public class StatController : MonoBehaviour
                 CurrentSanityDps = holder.Stat.SanityDpsNormal;
                 break;
             case PlayerSituation.Dark:
-                CurrentSanityDps = holder.Stat.SanityDpsDark;
+                //CurrentSanityDps = holder.Stat.SanityDpsDark;
+                CurrentSanityDps = 1000;
                 break;
             case PlayerSituation.Chase:
                 CurrentSanityDps = holder.Stat.SanityDpsChased;
@@ -86,6 +87,19 @@ public class StatController : MonoBehaviour
         }
 
         playerView.UpdatePlayerSituationText(situation.ToString());
+    }
+
+    public void UpdatePlayerDeath(playerDeath death)
+    {
+        switch(death)
+        {
+            case playerDeath.None:
+                break;
+            case playerDeath.Normal:
+                break;
+            case playerDeath.Hit:
+                break;
+        }
     }
 
     // 탈진 지속 시간

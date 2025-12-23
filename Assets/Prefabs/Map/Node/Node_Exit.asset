@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b36244e2b67dd344aed8805abe1c036, type: 3}
   m_Name: Node_Exit
   m_EditorClassIdentifier: Assembly-CSharp-Editor::Spawn3DPrefabTile
-  previewSprite: {fileID: 21300000, guid: b374fa4a490ec4748affa19d1cf7492b, type: 3}
+  previewSprite: {fileID: 21300000, guid: bd393bd82f753a24b83ebb64d10e1bae, type: 3}
   nodeType: 4
+  index: 1

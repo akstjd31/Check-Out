@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour
 {
@@ -10,6 +10,7 @@ public class PlayerInteractor : MonoBehaviour
     private LayerMask interactiveMask;
     private Interactable interactableObj;
     private string playerStatCanvasName = "PlayerStatCanvas";
+    
 
     private void Awake()
     {
