@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public enum ItemType
 {
@@ -16,4 +16,5 @@ public interface IItem
     bool Sellable { get; }
     int SellPrice { get; }
     string ImgPath { get; }
+    int ItemEffect {  get; }
 }
