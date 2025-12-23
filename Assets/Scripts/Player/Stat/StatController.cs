@@ -89,6 +89,19 @@ public class StatController : MonoBehaviour
         playerView.UpdatePlayerSituationText(situation.ToString());
     }
 
+    public void UpdatePlayerDeath(playerDeath death)
+    {
+        switch(death)
+        {
+            case playerDeath.None:
+                break;
+            case playerDeath.Normal:
+                break;
+            case playerDeath.Hit:
+                break;
+        }
+    }
+
     // 탈진 지속 시간
     public float GetDefaultExhaustTime() => holder.Stat.StaminaExhaustTime;
 

@@ -10,7 +10,7 @@ using UnityEngine;
 public class PlayerSanity : MonoBehaviour
 {
     private StatController stat;
-    private PlayerAreaDetector areaDetector;   
+    private PlayerAreaDetector areaDetector;
     private PlayerStateMachine stateMachine;
     private PlayerSanityVisualController santyVisual;
     private PlayerCamera playerCamera;
@@ -32,11 +32,12 @@ public class PlayerSanity : MonoBehaviour
         if (!FadeController.Instance.IsFadeEnded)
             return;
 
-
+        Die();
         // 정신력(체력)이 남아있지 않은 경우
         if (!stat.IsRemainSanity())
         {
             playerCamera.SwitchToDeathCam();
+
             return;
         }
 
@@ -88,4 +89,14 @@ public class PlayerSanity : MonoBehaviour
     {
         darkness = state;
     }
+
+    public void Die()
+    {
+        if (!stat.IsRemainSanity())
+        {
+            playerCamera.SwitchToDeathCam();
+            return;
+        }
+    }
+
 }
