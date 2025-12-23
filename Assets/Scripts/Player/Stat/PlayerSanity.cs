@@ -5,12 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerAreaDetector))]
 [RequireComponent(typeof(PlayerStateMachine))]
 [RequireComponent(typeof(PlayerSanityVisualController))]
+[RequireComponent(typeof(PlayerCamera))]
+
 public class PlayerSanity : MonoBehaviour
 {
     private StatController stat;
     private PlayerAreaDetector areaDetector;   
     private PlayerStateMachine stateMachine;
     private PlayerSanityVisualController santyVisual;
+    private PlayerCamera playerCamera;
     private float sanityTimer = 1f;
 
     private bool darkness = false;
@@ -21,6 +24,7 @@ public class PlayerSanity : MonoBehaviour
         areaDetector = this.GetComponent<PlayerAreaDetector>();
         stateMachine = this.GetComponent<PlayerStateMachine>();
         santyVisual = this.GetComponent<PlayerSanityVisualController>();
+        playerCamera = this.GetComponent<PlayerCamera>();
     }
 
     private void Update()
@@ -32,7 +36,7 @@ public class PlayerSanity : MonoBehaviour
         // 정신력(체력)이 남아있지 않은 경우
         if (!stat.IsRemainSanity())
         {
-            // 게임 오버 관련
+            playerCamera.SwitchToDeathCam();
             return;
         }
 

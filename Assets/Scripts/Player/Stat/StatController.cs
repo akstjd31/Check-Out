@@ -78,7 +78,8 @@ public class StatController : MonoBehaviour
                 CurrentSanityDps = holder.Stat.SanityDpsNormal;
                 break;
             case PlayerSituation.Dark:
-                CurrentSanityDps = holder.Stat.SanityDpsDark;
+                //CurrentSanityDps = holder.Stat.SanityDpsDark;
+                CurrentSanityDps = 1000;
                 break;
             case PlayerSituation.Chase:
                 CurrentSanityDps = holder.Stat.SanityDpsChased;
