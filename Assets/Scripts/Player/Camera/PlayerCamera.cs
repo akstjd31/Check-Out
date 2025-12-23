@@ -6,8 +6,8 @@ using System.Collections;
 public class PlayerCamera : MonoBehaviour
 {
 
-    private float shakeDuration = 0.2f;
-    private float shakeAmount = 0.3f;
+    private float shakeDuration = 0.1f;
+    private float shakeAmount = 0.2f;
 
     public float fallAngle = -70f;
     public float fallDuration = 1.2f;
@@ -58,10 +58,10 @@ public class PlayerCamera : MonoBehaviour
             yield return null;
         }
 
-        //쓰러짐이 끝난 뒤 플레이어 차단
         LockPlayer();
     }
 
+    //쓰러짐이 끝난 뒤 플레이어 차단
     void LockPlayer()
     {
         if (isLocked) return;
