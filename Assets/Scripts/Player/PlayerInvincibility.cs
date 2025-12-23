@@ -4,18 +4,18 @@ using System.Collections;
 
 [RequireComponent(typeof(PlayerSanity))]
 [RequireComponent(typeof(StatController))]
-[RequireComponent(typeof(PlayerCamera))]
+[RequireComponent(typeof(PlayerCameraController))]
 public class PlayerInvincibility : MonoBehaviour
 {
     private StatController stat;
-    private PlayerCamera playerCamera;
+    private PlayerCameraController playerCamera;
     [SerializeField] private bool isInvincible = false;  // 무적 상태인지?
     private int power = 5000;
     
     private void Awake()
     {
         stat = this.GetComponent<StatController>();
-        playerCamera = this.GetComponent<PlayerCamera>();
+        playerCamera = this.GetComponent<PlayerCameraController>();
     }
 
     private void OnTriggerEnter(Collider other)

@@ -1,17 +1,27 @@
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(PlayerStateMachine))]
 
 public class SoundDistance : MonoBehaviour
 {
+    [SerializeField] private List<AudioClip> soundClip;
+    private AudioSource soundSource;
+    [UnityEngine.Range(0f, 1f)]
+    [SerializeField] private float volume;
     [SerializeField] private GameObject soundCollider;
     [SerializeField] private float distance;
     private PlayerStateMachine state;
     private SphereCollider distanceCollider;
-    
+
+    // 프로퍼티
+    public AudioSource SoundSource { get { return soundSource; } }
+    public float Volume { get { return volume; } }
 
     private void Awake()
     {
+        soundSource = GetComponent<AudioSource>();
         state = this.GetComponent<PlayerStateMachine>();
         distanceCollider = soundCollider.GetComponent<SphereCollider>();
 
@@ -34,5 +44,21 @@ public class SoundDistance : MonoBehaviour
         //    if (sirenModel.monsterState == Monster.MonsterState.WanderingAround)
         //        sirenModel.ChangeState(Monster.MonsterState.Alert);
         //}
+    }
+
+    public void PlayClip(int index, bool isLoop)
+    {
+        soundSource.clip = soundClip[index];
+        soundSource.loop = isLoop;
+        soundSource.Play();
+    }
+
+    public void SetVolume(int volume)
+    {
+        soundSource.volume = volume;
+    }
+    public void Stop()
+    {
+        soundSource?.Stop();
     }
 }

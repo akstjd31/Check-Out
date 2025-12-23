@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerAreaDetector))]
 [RequireComponent(typeof(PlayerStateMachine))]
 [RequireComponent(typeof(PlayerSanityVisualController))]
-[RequireComponent(typeof(PlayerCamera))]
+[RequireComponent(typeof(PlayerCameraController))]
 
 public class PlayerSanity : MonoBehaviour
 {
@@ -13,7 +13,6 @@ public class PlayerSanity : MonoBehaviour
     private PlayerAreaDetector areaDetector;   
     private PlayerStateMachine stateMachine;
     private PlayerSanityVisualController santyVisual;
-    private PlayerCamera playerCamera;
     private float sanityTimer = 1f;
 
     private bool darkness = false;
@@ -24,7 +23,6 @@ public class PlayerSanity : MonoBehaviour
         areaDetector = this.GetComponent<PlayerAreaDetector>();
         stateMachine = this.GetComponent<PlayerStateMachine>();
         santyVisual = this.GetComponent<PlayerSanityVisualController>();
-        playerCamera = this.GetComponent<PlayerCamera>();
     }
 
     private void Update()
@@ -32,7 +30,7 @@ public class PlayerSanity : MonoBehaviour
         if (!FadeController.Instance.IsFadeEnded)
             return;
 
-        Die();
+        //Die();
         sanityTimer -= Time.deltaTime;
         if (sanityTimer > 0f) return;
 
@@ -82,15 +80,5 @@ public class PlayerSanity : MonoBehaviour
         darkness = state;
     }
 
-    public bool IsSanityBelow(int value) => stat.CurrentSanityPercent >= value;
-
-    public void Die()
-    {
-        if (!stat.IsRemainSanity())
-        {
-            playerCamera.SwitchToDeathCam();
-            return;
-        }
-    }
-
+    public bool IsSanityBelow(int value) => stat.CurrentSanityPercent <= value;
 }

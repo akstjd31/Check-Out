@@ -13,20 +13,31 @@ public class RunState : IState
     public void Exit()
     {
         Debug.Log("세션 상태 종료");
+        SaveData();
+
         ItemManager.Instance.ReturnAllItem();
         LoadingManager.Instance.InitSceneActivation();
     }
 
     public void Update()
     {
+        if (GameManager.Instance.isGameOver)
+        {
+            GameManager.Instance.isGameOver = false;
+            InventoryManager.Instance.ResetInventory();
+            GameManager.Instance.ChangeState(GameState.Loading);
+        }
     }
 
-    private void Init()
+    private void SaveData()
     {
         GameManager.Instance.SaveMoney();
         StorageManager.Instance.SaveStorage();
         InventoryManager.Instance.SaveInventory();
+    }
 
+    private void Init()
+    {
         FadeController.Instance.Init();
         
         // 다음 씬 정보 미리 설정
