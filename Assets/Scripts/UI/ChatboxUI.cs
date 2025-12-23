@@ -66,6 +66,9 @@ public class ChatboxUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 대화창을 띄우는 메서드입니다.
+    /// </summary>
     public void Show()
     {
         chatboxGroup.alpha = 1f;
@@ -73,6 +76,9 @@ public class ChatboxUI : MonoBehaviour
         chatboxGroup.blocksRaycasts = true;
     }
 
+    /// <summary>
+    /// 대화창을 숨기는 메서드입니다.
+    /// </summary>
     public void Hide()
     {
         chatboxGroup.alpha = 0f;
@@ -86,6 +92,7 @@ public class ChatboxUI : MonoBehaviour
     /// <param name="desc_id">대사의 id값.</param>
     public void Description(int desc_id)
     {
+        //다음 대사가 없는 것을 거쳐 해당 과정을 거쳤을 경우 종료하기 위한 대비코드.
         if(desc_id == 0)
         {
             Hide();
@@ -96,17 +103,26 @@ public class ChatboxUI : MonoBehaviour
         //이름과 대사를 테이블 내의 해당 아이디값에서 불러온다.
         nameText.text = talkTable[desc_id].name;
         description = talkTable[desc_id].line_desc;
+
+        //테이블에서 CG가 있는 id값이었을 경우
         if (talkTable[desc_id].CG != null)
         {
+            //CG창 활성화
             spriteCG.gameObject.SetActive(true);
+            //CG창의 스프라이트를 Resource 폴더 내 경로에서 받아와 대입
             spriteCG.sprite = Resources.Load<Sprite>(talkTable[desc_id].CG);
         }
+
+        //그 외, 테이블에서 CG가 없는 id값이었을 경우 (안전을 위해 null 및 비어있는 칸으로 입력)
         else if (talkTable[desc_id].CG == null || talkTable[desc_id].CG == "")
         {
+            //CG창 스프라이트를 제거
             spriteCG.sprite = null;
+            //CG창 비활성화
             spriteCG.gameObject.SetActive(false);
         }
         
+        //아이디값으로부터 찾아온 대사를 출력 시작한다.
         StartTyping(description);
     }
 
