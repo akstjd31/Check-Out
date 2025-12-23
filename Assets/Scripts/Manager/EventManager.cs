@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 /// <summary>
 /// 이벤트 관련 제어 클래스
@@ -20,14 +18,39 @@ public class EventManager : Singleton<EventManager>
         Init();
     }
 
+    private void Start()
+    {
+        
+    }
+
     private void Init()
     {
+        eventGroups = new Dictionary<int, List<EventTableData>>();
+        
         // handlers = new Dictionary<string, IEventHandler>
         // {
         //     {
                     // 인터페이스를 상속받는 핸들러 관련된 객체 생성
         //     }
         // }
+
+        // 테스트용
+        EventTableData data = new EventTableData();
+        data.id = 1;
+        data.groupId = 1;
+        data.startType = "interaction";
+        data.startValue = "none";
+        data.conditionType1 = "checkSanityBelow";
+        data.conditionValue1 = "40";
+        data.conditionType2 = "none";
+        data.conditionValue2 = "none";
+        data.eventType = "playSound";
+        data.eventValue = "Laugh";
+        data.targetObject = "system";
+        data.description = "explain";
+        
+        eventGroups[data.groupId] = new List<EventTableData>();
+        eventGroups[data.groupId].Add(data);
     }
 
     // 테이블 데이터 파싱
@@ -79,7 +102,7 @@ public class EventManager : Singleton<EventManager>
         {
             if (!ConditionCheckingMachine.Check(evt))
                 continue;
-
+            
             ExecuteEvent(evt);
         }
     }
@@ -89,8 +112,10 @@ public class EventManager : Singleton<EventManager>
         switch (evt.eventType)
         {
             case "playAnim":
+                Debug.Log("애니메이션 재생!");
                 break;
             case "playSound":
+                Debug.Log("소리 재생!");
                 break;
             case "setSwitchOn":
                 break;

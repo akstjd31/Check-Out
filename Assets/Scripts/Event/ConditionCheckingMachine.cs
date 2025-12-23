@@ -55,6 +55,7 @@ public static class ConditionCheckingMachine
             return true;
 
         var words = SplitWords(type);
+        EventParam eventParam = EventParam.Parse(value);
 
         ConditionTarget target = ConditionTarget.None;
         ConditionOperator op = ConditionOperator.None;
@@ -71,26 +72,32 @@ public static class ConditionCheckingMachine
         }
 
         // 조건에 부합하는지 확인
-        //return ExecuteCondition(target, op, value);
-        return true;
+        return ExecuteCondition(target, op, eventParam);
     }
 
-    // static bool ExecuteCondition(ConditionTarget target, ConditionOperator op, string value)
-    // {
-    //     switch (target)
-    //     {
-    //         case ConditionTarget.Switch:
-    //             return CheckSwitch(op, value);
+    // 실제 조건 확인
+    static bool ExecuteCondition(ConditionTarget target, ConditionOperator op, EventParam evtParam)
+    {
+        switch (target)
+        {
+            // case ConditionTarget.Switch:
+            //     return CheckSwitch(op, value);
 
-    //         case ConditionTarget.Sanity:
-    //             return CheckSanity(op, value);
+            case ConditionTarget.Sanity:
+                if (op.Equals(ConditionOperator.Below))
+                {
+                    GameObject player = GameManager.Instance.GetPlayer();
+                    PlayerSanity sanity = player.GetComponent<PlayerSanity>();
+                    return sanity.IsSanityBelow(evtParam.id);
+                }
+                else
+                {
+                    return true;
+                }
+        }
 
-    //         case ConditionTarget.Item:
-    //             return CheckItem(op, value);
-    //     }
-
-    //     return false;
-    // }
+        return false;
+    }
 
     // 컨디션조건을 대소문자로 분리
     static string[] SplitWords(string input)

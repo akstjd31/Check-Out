@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum IDType
 {
-    None,
+    None,           // 일반 수치인 경우 여기 포함
     Item,           // 1001 ~ 1999
     Shop,           // 2001 ~ 2999
     ItemSpawn,      // 3001 ~ 3999
@@ -22,7 +22,7 @@ public enum IDType
 public struct EventParam
 {
     public IDType type;
-    public int id;
+    public int id;      // ID 혹은 Value
 
     public static EventParam Parse(string value)
     {

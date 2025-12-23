@@ -84,4 +84,6 @@ public class PlayerSanity : MonoBehaviour
     {
         darkness = state;
     }
+
+    public bool IsSanityBelow(int value) => stat.CurrentSanityPercent >= value;
 }
