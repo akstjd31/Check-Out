@@ -1,0 +1,8 @@
+대사 ID,다음ID,이름,대사,출력CG,딜레이
+id,next_id,name,line_desc,CG,delay
+int,int,string,string,string,float
+92001,92002,Player,정말 끔찍한 호텔이군,,0.5
+92002,92003,Player,하지만 나 같은 놈이 일하기에는 좋은 호텔이야,CGImage/ContactCG,0.5
+92003,,Player,망할 엘리베이터만 제대로 작동되면 더 좋을테지만,,0.5
+92004,92005,Player,여보세요?,,0.5
+92005,,Host,지배인일세. 야간 경비 근무로 장기 계약할 생각 없나?,,0.5
