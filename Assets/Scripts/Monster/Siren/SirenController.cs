@@ -5,6 +5,7 @@ using UnityEngine;
 public class SirenController : MonsterController
 {
     [SerializeField] private SirenView sirenView;
+    [SerializeField] private SpriteRenderer sprite;
     private SirenModel sirenModel;
     private MonsterMovement sirenMovement;
     private float alertTimer;
@@ -13,6 +14,7 @@ public class SirenController : MonsterController
     private WaitForSeconds stopToMissing;
     private bool onScream = false;
     private WaitForSeconds delay;
+
 
     private void Awake()
     {
@@ -135,6 +137,7 @@ public class SirenController : MonsterController
             if (alertTimer <= 3f)
             {
                 sirenMovement.Move(transform,0f);
+                sprite.color = Color.red;
                 Debug.Log("비명 지르는 중");
 
                 Debug.Log($"현재 {screamInMonster.Count}마리 호출 중");
@@ -169,6 +172,7 @@ public class SirenController : MonsterController
                         target.ChangeState(Monster.MonsterState.WanderingAround);
                     }
                 }
+                sprite.color = Color.white;
                 screamInMonster.Clear();
                 yield return new WaitForSeconds(3f);
                 sirenModel.ChangeState(Monster.MonsterState.WanderingAround);
