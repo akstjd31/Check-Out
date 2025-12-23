@@ -59,11 +59,11 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.IsOpenedUI())
-        {
-            IgnoreInput();
-            return;    
-        }
+        // if (GameManager.Instance.IsOpenedUI())
+        // {
+        //     IgnoreInput();
+        //     return;    
+        // }
 
         ReleaseIgnoreInput();
     }

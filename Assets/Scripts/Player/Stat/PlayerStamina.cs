@@ -21,8 +21,8 @@ public class PlayerStamina : MonoBehaviour
     // 스태미나 갱신
     public void UpdateStamina(bool isRunning, bool isMoving)
     {
-        if (!FadeController.Instance.IsFadeEnded)
-            return;
+        // if (!FadeController.Instance.IsFadeEnded)
+        //     return;
 
         // 탈진 상태라면
         if (IsExhausted)

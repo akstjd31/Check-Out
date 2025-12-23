@@ -27,8 +27,8 @@ public class PlayerSanity : MonoBehaviour
 
     private void Update()
     {
-        if (!FadeController.Instance.IsFadeEnded)
-            return;
+        // if (!FadeController.Instance.IsFadeEnded)
+        //     return;
 
         //Die();
         sanityTimer -= Time.deltaTime;

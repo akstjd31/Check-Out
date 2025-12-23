@@ -20,8 +20,8 @@ public class PlayerInteractor : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.IsOpenedUI())
-        {
+        // if (!GameManager.Instance.IsOpenedUI())
+        // {
             // 현재 보고 있는 오브젝트
             var currentObj = GetInteractable<Interactable>();
 
@@ -39,7 +39,7 @@ public class PlayerInteractor : MonoBehaviour
 
             playerView.UpdateObjNameText(interactableObj == null ? "[null]" : $"[{interactableObj.name}]");
             playerView.UpdateInteractionText(interactableObj?.GetPromptText());
-        }
+        // }
     }
 
     // 플레이어 정면 상호작용가능 물체 감지
