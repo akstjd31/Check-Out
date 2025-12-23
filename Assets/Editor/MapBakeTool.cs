@@ -437,7 +437,7 @@ public class MapBakeTool : EditorWindow
                 continue;
 
             // 같은 고유번호인지 확인. 탈출구 한정이므로 -1만 체크하는 길 타일의 예외 처리를 두지 않아도 된다.
-            if (node.index != neighbor.index || node.index != neighbor.index + 4)
+            if (node.index != neighbor.index && node.index != neighbor.index + 4)
                 continue;
 
             //같은 고유번호를 가진 타일이 확인된 경우 해당 타일을 바라보는 방향으로 변경.
