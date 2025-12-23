@@ -20,6 +20,16 @@ public class EchoSpawnSystem : MonoBehaviour
 
     bool obstacleCheck = true;
 
+
+    public void Init()
+    {
+        if(player == null)
+        {
+            player = GameManager.Instance.GetPlayer().transform;
+            playerView = player.GetComponent<FieldOfView>();
+        }
+    }
+
     private bool GetRandomPosition(out Vector3 position)
     {
         position = default;
@@ -69,7 +79,7 @@ public class EchoSpawnSystem : MonoBehaviour
     // 장애물 넘어에 있는지 확인
     private bool HasObstacle(Vector3 pos)
     {
-        Vector3 eye = player.position + Vector3.up; // 플레이어 눈
+        Vector3 eye = player.position + Vector3.up ; // 플레이어 눈
         Vector3 target = pos + Vector3.up; // 몬스터 높이
 
         Vector3 dir = (target - eye);
