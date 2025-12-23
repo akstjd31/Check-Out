@@ -30,8 +30,7 @@ public class PlayerInvincibility : MonoBehaviour
             {
                 playerCamera.Hit();
                 Debug.LogWarning("데미지 입음!");
-                //stat.ConsumeSanity(monster.Power);
-                stat.ConsumeSanity(power);
+                stat.ConsumeSanity(monster.Power);
                 StartCoroutine(InvincibleCoroutine());
             }
         }
