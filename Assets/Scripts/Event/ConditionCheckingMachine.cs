@@ -1,32 +1,102 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Linq;
+
+enum ConditionTarget
+{
+    None,
+    Switch,
+    Sanity,
+    Item
+}
+
+enum ConditionOperator
+{
+    None,
+    On,
+    Off,
+    Above,
+    Below,
+    Has
+}
 
 public static class ConditionCheckingMachine
 {
-    // public static bool Check(EventTableData data)
+    static readonly Dictionary<string, ConditionTarget> TargetMap =
+    new()
+    {
+        { "Switch", ConditionTarget.Switch },
+        { "Sanity", ConditionTarget.Sanity },
+        { "Item", ConditionTarget.Item }
+    };
+
+    static readonly Dictionary<string, ConditionOperator> OperatorMap =
+    new()
+    {
+        { "On", ConditionOperator.On },
+        { "Off", ConditionOperator.Off },
+        { "Above", ConditionOperator.Above },
+        { "Below", ConditionOperator.Below },
+        { "Has", ConditionOperator.Has }
+    };
+
+    public static bool Check(EventTableData data)
+    {
+        // 두 조건을 모두 통과할 떄 이벤트 발생
+        return CheckCondition(data.conditionType1, data.conditionValue1) &&
+                CheckCondition(data.conditionType2, data.conditionValue2);
+    }
+
+    static bool CheckCondition(string type, string value)
+    {
+        // type이 none이면 value값도 none임 (자동 패스)
+        if (type == "none")
+            return true;
+
+        var words = SplitWords(type);
+
+        ConditionTarget target = ConditionTarget.None;
+        ConditionOperator op = ConditionOperator.None;
+
+        // 타입 비교
+        // 중점이 되는 대상(target)과 연산(Operator)을 매핑
+        foreach (var word in words)
+        {
+            if (TargetMap.TryGetValue(word, out var t))
+                target = t;
+
+            if (OperatorMap.TryGetValue(word, out var o))
+                op = o;
+        }
+
+        // 조건에 부합하는지 확인
+        //return ExecuteCondition(target, op, value);
+        return true;
+    }
+
+    // static bool ExecuteCondition(ConditionTarget target, ConditionOperator op, string value)
     // {
-        
+    //     switch (target)
+    //     {
+    //         case ConditionTarget.Switch:
+    //             return CheckSwitch(op, value);
+
+    //         case ConditionTarget.Sanity:
+    //             return CheckSanity(op, value);
+
+    //         case ConditionTarget.Item:
+    //             return CheckItem(op, value);
+    //     }
+
+    //     return false;
     // }
 
-    // static bool CheckOne(string type, string value)
-    // {
-    //     // type이 none이면 value값도 none임 (자동 패스)
-    //     if (type == "none")
-    //         return true;
-
-    //     EventParam param = EventParam.Parse(value);
-
-    //     // 일반 수치인 경우
-    //     if (param.type.Equals(IDType.None))
-    //     {
-            
-    //     }
-    //     else
-    //     {
-    //         switch (param.type)
-    //         {
-    //             case IDType.Item:
-    //                 return 
-    //         }
-    //     }
-    // }
+    // 컨디션조건을 대소문자로 분리
+    static string[] SplitWords(string input)
+    {
+        return Regex.Matches(input, @"[A-Z][a-z]*|[a-z]+")
+                    .Select(m => m.Value)
+                    .ToArray();
+    }
 }
