@@ -14,9 +14,11 @@ public class PlayerSanity : MonoBehaviour
     private PlayerStateMachine stateMachine;
     private PlayerSanityVisualController santyVisual;
     private PlayerCamera playerCamera;
+    private PlayerInvincibility invincibility;
     private float sanityTimer = 1f;
 
     private bool darkness = false;
+    private bool isDead = false;
 
     private void Awake()
     {
@@ -25,6 +27,7 @@ public class PlayerSanity : MonoBehaviour
         stateMachine = this.GetComponent<PlayerStateMachine>();
         santyVisual = this.GetComponent<PlayerSanityVisualController>();
         playerCamera = this.GetComponent<PlayerCamera>();
+        invincibility = this.GetComponent<PlayerInvincibility>();
     }
 
     private void Update()
@@ -33,13 +36,6 @@ public class PlayerSanity : MonoBehaviour
             return;
 
         Die();
-        // 정신력(체력)이 남아있지 않은 경우
-        if (!stat.IsRemainSanity())
-        {
-            playerCamera.SwitchToDeathCam();
-
-            return;
-        }
 
         sanityTimer -= Time.deltaTime;
         if (sanityTimer > 0f) return;
@@ -92,10 +88,16 @@ public class PlayerSanity : MonoBehaviour
 
     public void Die()
     {
+        if (isDead) return;
+
         if (!stat.IsRemainSanity())
         {
-            playerCamera.SwitchToDeathCam();
-            return;
+            isDead = true;
+
+            if (invincibility.isHit)
+                stateMachine.ChangeDie(playerDeath.Hit);
+            else
+                stateMachine.ChangeDie(playerDeath.Normal);
         }
     }
 

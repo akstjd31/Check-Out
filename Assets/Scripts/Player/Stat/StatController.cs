@@ -6,7 +6,7 @@ public class StatController : MonoBehaviour
     [Header("Component")]
     private PlayerView playerView;
     private PlayerStatHolder holder;
-
+    private PlayerCamera playerCamera;
     [Header("Property")]
     public int CurrentSanity { get; private set; }              // 현재 정신력
     public int CurrentRecoverStamina { get; private set; }      // 현재 스태미나 회복력
@@ -30,6 +30,7 @@ public class StatController : MonoBehaviour
     {
         holder = this.GetComponent<PlayerStatHolder>();
         playerView = GameObject.Find(playerStatCanvasName).GetComponent<PlayerView>();
+        playerCamera = this.GetComponent<PlayerCamera>();
     }
 
     public void Init()
@@ -96,8 +97,10 @@ public class StatController : MonoBehaviour
             case playerDeath.None:
                 break;
             case playerDeath.Normal:
+                playerCamera.SwitchToDeathCam();
                 break;
             case playerDeath.Hit:
+
                 break;
         }
     }

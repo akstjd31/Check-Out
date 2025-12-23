@@ -13,6 +13,7 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerState CurrentState { get; private set; }
     public PlayerSituation CurrentSituation { get; private set; }
 
+    public playerDeath CurrentDeath { get; private set; }
     private StatController stat;
 
     private void Awake()
@@ -34,5 +35,12 @@ public class PlayerStateMachine : MonoBehaviour
         if (CurrentSituation == situation) return;
         CurrentSituation = situation;
         stat.UpdateSituationUsedValue(situation);
+    }
+    public void ChangeDie(playerDeath death)
+    {
+        // 이미 같은 상태면 할게 없음
+        if (CurrentDeath == death) return;
+        CurrentDeath = death;
+        stat.UpdatePlayerDeath(death);
     }
 }

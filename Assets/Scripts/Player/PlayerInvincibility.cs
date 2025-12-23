@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine.Lumin;
 
 [RequireComponent(typeof(PlayerSanity))]
 [RequireComponent(typeof(StatController))]
@@ -11,6 +12,7 @@ public class PlayerInvincibility : MonoBehaviour
     private PlayerCamera playerCamera;
     [SerializeField] private bool isInvincible = false;  // 무적 상태인지?
     private int power = 5000;
+    public bool isHit;
     
     private void Awake()
     {
@@ -31,6 +33,10 @@ public class PlayerInvincibility : MonoBehaviour
                 playerCamera.Hit();
                 Debug.LogWarning("데미지 입음!");
                 stat.ConsumeSanity(monster.Power);
+                if (!stat.IsRemainSanity())
+                {
+                    isHit = true;
+                }
                 StartCoroutine(InvincibleCoroutine());
             }
         }
