@@ -18,6 +18,11 @@ public class InventoryManager : Singleton<InventoryManager>
         
         inventory = this.GetComponent<Inventory>();
 
+        ResetInventory();
+    }
+
+    public void ResetInventory()
+    {
         int size = inventory.GetDefaultInventorySize();
         inventory.SetInventory(size);
     }

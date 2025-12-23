@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager>
     public GameState CurrentState;
     private StateMachine<GameState> stateMachine;
     private GameObject player;
+    public bool isGameOver = false;
 
     [Header("Value")]
     public int Money { get; private set; } = 0;
@@ -47,12 +48,10 @@ public class GameManager : Singleton<GameManager>
             player = GameObject.FindGameObjectWithTag("Player");
         }
 
-        
-        
         if (Input.GetKeyDown(KeyCode.Return))
             ItemManager.Instance.Test(1);
-        else if (Input.GetKeyDown(KeyCode.C))
-            EventManager.Instance.ExecuteByStart("interaction", "none");    // 테스트용
+        // else if (Input.GetKeyDown(KeyCode.C))
+        //     EventManager.Instance.ExecuteByStart("interaction", "none");    // 테스트용
             
         stateMachine?.Update();
 

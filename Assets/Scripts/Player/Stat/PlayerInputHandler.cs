@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(StatController))]
 // 플레이어 입력 관련 클래스
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -17,10 +18,12 @@ public class PlayerInputHandler : MonoBehaviour
     public event Action<int> OnScroll;              // 슬롯 변경 관련 이벤트 구독 필요
     public event Action<int> OnSelected;
     public event Action OnDrop;
+    private StatController stat;
 
     private void Awake()
     {
         playerInput = this.GetComponent<PlayerInput>();
+        stat = this.GetComponent<StatController>();
 
         moveAction = playerInput.actions[playerActions[0]];
         runAction = playerInput.actions[playerActions[1]];
@@ -50,6 +53,8 @@ public class PlayerInputHandler : MonoBehaviour
         selectAction.performed += OnSelectSlotInput;
 
         dropAction.performed += OnDropKeyInput;
+
+        stat.OnDeath += IgnoreInput;
     }
 
     private void Update()
@@ -91,6 +96,8 @@ public class PlayerInputHandler : MonoBehaviour
         {
             selectAction.performed -= OnSelectSlotInput;
         }
+
+        stat.OnDeath -= IgnoreInput;
     }
 
     // 입력 비활성화

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerStatHolder))]
@@ -15,6 +16,8 @@ public class StatController : MonoBehaviour
     public int CurrentSanityDps { get; private set; }           // 정신력 감소량
     public int CurrentRunStaminaCost { get; private set; }      // 달리기 코스트
     public float DefaultInvincibilityTime { get; private set; }  // 무적시간
+    public event Action OnDeath;
+    public bool isDie = false;
     
     //현재 정신력 비율 측정
     public float CurrentSanityPercent
@@ -44,7 +47,7 @@ public class StatController : MonoBehaviour
     }
 
     // 각 상태에 따른 기본 수치 적용
-    public void UpdateUsedValue(PlayerState state)
+    public void UpdatePlayerState(PlayerState state)
     {
         // 정신력 수치에 따른 상태 변화 적용
         bool isSanityWarning = CurrentSanityPercent <= 0.33f && CurrentSanityPercent > 0f;
@@ -62,6 +65,11 @@ public class StatController : MonoBehaviour
                 CurrentRecoverStamina = isSanityWarning ? holder.Stat.StaminaRecoverWalk / 2 : holder.Stat.StaminaRecoverWalk;
                 CurrentMoveSpeed = isSanityWarning ? holder.Stat.MoveSpeed * speedMultiplier : holder.Stat.MoveSpeed;
                 break;
+            case PlayerState.Die:
+                CurrentMoveSpeed = 0f;
+                CurrentStamina = 0;
+                CurrentSanity = 0;
+                break;
         }
     }
 
@@ -78,8 +86,8 @@ public class StatController : MonoBehaviour
                 CurrentSanityDps = holder.Stat.SanityDpsNormal;
                 break;
             case PlayerSituation.Dark:
-                //CurrentSanityDps = holder.Stat.SanityDpsDark;
-                CurrentSanityDps = 1000;
+                // CurrentSanityDps = 1000;  // 테스트용 
+                CurrentSanityDps = holder.Stat.SanityDpsDark;
                 break;
             case PlayerSituation.Chase:
                 CurrentSanityDps = holder.Stat.SanityDpsChased;
@@ -87,19 +95,6 @@ public class StatController : MonoBehaviour
         }
 
         playerView.UpdatePlayerSituationText(situation.ToString());
-    }
-
-    public void UpdatePlayerDeath(playerDeath death)
-    {
-        switch(death)
-        {
-            case playerDeath.None:
-                break;
-            case playerDeath.Normal:
-                break;
-            case playerDeath.Hit:
-                break;
-        }
     }
 
     // 탈진 지속 시간
@@ -127,6 +122,10 @@ public class StatController : MonoBehaviour
     {
         CurrentSanity = Mathf.Max(0, CurrentSanity - amount);
         playerView.UpdateSanityText((int)CurrentSanityPercent);
+
+        // 사망 처리
+        if (CurrentSanity <= 0)
+            OnDeath?.Invoke();
     }
 
     // 정신력이 남아있는지?
