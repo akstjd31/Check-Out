@@ -35,6 +35,7 @@ public class PlayerSanity : MonoBehaviour
         if (!FadeController.Instance.IsFadeEnded)
             return;
 
+
         Die();
 
         sanityTimer -= Time.deltaTime;
@@ -98,6 +99,10 @@ public class PlayerSanity : MonoBehaviour
                 stateMachine.ChangeDie(playerDeath.Hit);
             else
                 stateMachine.ChangeDie(playerDeath.Normal);
+        }
+        else
+        {
+            stateMachine.ChangeDie(playerDeath.None);
         }
     }
 
