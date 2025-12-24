@@ -195,7 +195,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 234881024
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -251,7 +251,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1026049967558348888}
@@ -532,9 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd6cde9ae9e910449715bcdfa1c977e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundDistance
-  soundClip:
-  - {fileID: 8300000, guid: b995bc1775ea83b4b8f861763e9a1424, type: 3}
-  - {fileID: 8300000, guid: f8e559768bed7ed4680ab0449da7ec3a, type: 3}
+  soundClip: []
   volume: 0
   soundDelay: 0.5
   soundCollider: {fileID: 6867758591509983542}
@@ -562,7 +560,7 @@ MonoBehaviour:
     m_Bits: 128
   visibleTargets: []
   meshResolution: 1
-  viewMeshFilter: {fileID: 4710837641642048573}
+  viewMeshFilter: {fileID: 0}
   edgeResolveIterations: 0
   edgeDstThreshold: 0
 --- !u!114 &6775976921377368825
@@ -605,7 +603,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 [RequireComponent(typeof(PlayerStateMachine))]
 
@@ -53,12 +54,12 @@ public class SoundDistance : MonoBehaviour
 
     public void PlayClip(int index, bool isLoop)
     {
-        if (soundClip[index] != null)
-        {
-            soundSource.clip = soundClip[index];
-            soundSource.loop = isLoop;
-            soundSource.Play();
-        }
+        if (soundSource == null || !soundClip.Any())
+            return;
+            
+        soundSource.clip = soundClip[index];
+        soundSource.loop = isLoop;
+        soundSource.Play();
     }
 
     public void SetVolume(int volume)

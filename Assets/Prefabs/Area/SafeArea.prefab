@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3501614248639678230}
   - component: {fileID: 6405682873927324737}
   - component: {fileID: 7280176267810385918}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: SafeArea
   m_TagString: SafeArea
   m_Icon: {fileID: 0}
