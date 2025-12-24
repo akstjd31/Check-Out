@@ -43,7 +43,7 @@ public class PlayerSanity : MonoBehaviour
     // 정신력 수치 갱신
     private void UpdateSanityValue()
     {
-        stat.ConsumeSanity(stat.CurrentSanityDps);
+        stat.ConsumeSanity(false,stat.CurrentSanityDps);
         santyVisual.UpdateSanity(stat.CurrentSanityPercent / 100);
     }
 

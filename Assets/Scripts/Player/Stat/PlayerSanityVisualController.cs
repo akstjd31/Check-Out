@@ -35,6 +35,25 @@ public class PlayerSanityVisualController : MonoBehaviour
         }
     }
 
+    public void UpdateShake(bool onHit)
+    {
+        if (!onHit)
+            return;
+        Shake(onHit);
+        Invoke(nameof(ShakeOff), 0.3f);
+    }
+
+    public void ShakeOff()
+    {
+        Shake(false);
+    }
+
+    public void Shake(bool hit)
+    {
+        vignette.intensity.value = hit ? 0.4f : 0f;
+        vignette.smoothness.value = hit ? 0.4f : 0f;
+    }
+
     private void SetWarningFirst(bool active)
     {
         vignette.intensity.value = active ? 0.3f : 0f;

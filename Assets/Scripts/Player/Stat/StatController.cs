@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static UnityEngine.InputSystem.HID.HID;
 
 [RequireComponent(typeof(PlayerStatHolder))]
 public class StatController : MonoBehaviour
@@ -7,6 +8,8 @@ public class StatController : MonoBehaviour
     [Header("Component")]
     private PlayerView playerView;
     private PlayerStatHolder holder;
+    private PlayerInvincibility invincibility;
+    private PlayerStateMachine stateMachine;
 
     [Header("Property")]
     public int CurrentSanity { get; private set; }              // 현재 정신력
@@ -33,6 +36,8 @@ public class StatController : MonoBehaviour
     {
         holder = this.GetComponent<PlayerStatHolder>();
         playerView = GameObject.Find(playerStatCanvasName).GetComponent<PlayerView>();
+        invincibility = this.GetComponentInChildren<PlayerInvincibility>();
+        stateMachine = this.GetComponentInChildren<PlayerStateMachine>();
     }
 
     public void Init()
@@ -86,8 +91,8 @@ public class StatController : MonoBehaviour
                 CurrentSanityDps = holder.Stat.SanityDpsNormal;
                 break;
             case PlayerSituation.Dark:
-                // CurrentSanityDps = 1000;  // 테스트용 
                 CurrentSanityDps = holder.Stat.SanityDpsDark;
+                 //CurrentSanityDps = 1000;  // 테스트용 
                 break;
             case PlayerSituation.Chase:
                 CurrentSanityDps = holder.Stat.SanityDpsChased;
@@ -95,6 +100,26 @@ public class StatController : MonoBehaviour
         }
 
         playerView.UpdatePlayerSituationText(situation.ToString());
+    }
+
+    public void UpdateDeath(playerDeath death)
+    {
+        switch(death)
+        {
+            case playerDeath.None:
+                break;
+            case playerDeath.Normal:
+                Debug.Log("죽음");
+                OnDeath?.Invoke();
+                break;
+            case playerDeath.Hit:
+                Debug.Log("맞아죽음");
+                OnDeath?.Invoke();
+                break;
+
+        }
+
+        playerView.UpdatePlayerTestText(death.ToString());
     }
 
     // 탈진 지속 시간
@@ -116,18 +141,31 @@ public class StatController : MonoBehaviour
     
     // 스태미나가 남아있는지?
     public bool IsRemainStamina() => CurrentStamina >= holder.Stat.RunStaminaCost;
-    
+
     //정신력 감소
-    public void ConsumeSanity(int amount)
+    public void ConsumeSanity(bool onhit,int amount)
     {
+
         CurrentSanity = Mathf.Max(0, CurrentSanity - amount);
         playerView.UpdateSanityText((int)CurrentSanityPercent);
+        if (!IsRemainSanity())
+            playerDie(onhit);
 
-        // 사망 처리
-        if (CurrentSanity <= 0)
-            OnDeath?.Invoke();
     }
 
     // 정신력이 남아있는지?
     public bool IsRemainSanity() => CurrentSanity > 0;
+    public void playerDie(bool onhit)
+    {
+        
+        if (onhit)
+          {
+            stateMachine.ChangeDeath(playerDeath.Hit);
+          }
+        else
+          {
+            stateMachine.ChangeDeath(playerDeath.Normal);
+          }
+
+    }
 }

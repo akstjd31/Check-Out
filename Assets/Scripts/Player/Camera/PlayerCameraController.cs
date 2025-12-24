@@ -5,8 +5,11 @@ using System.Collections;
 [RequireComponent(typeof(StatController))]
 public class PlayerCameraController : MonoBehaviour
 {
-    private float shakeDuration = 0.1f;
-    private float shakeAmount = 0.2f;
+    /// <summary>
+    ///
+    /// </summary>
+    [SerializeField] private float shakeDuration = 0.3f; // 흔들리는 총 시간
+    [SerializeField] private float shakeAmount = 0.1f;  // 흔들림의 세기
 
     public float fallAngle = -70f;
     public float fallDuration = 1.2f;
