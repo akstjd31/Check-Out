@@ -14,43 +14,13 @@ public class EventManager : Singleton<EventManager>
     {
         base.Awake();
 
+        eventGroups = new Dictionary<int, List<EventTableData>>();
         TableDataParsing();
-        Init();
     }
 
     private void Start()
     {
         
-    }
-
-    private void Init()
-    {
-        eventGroups = new Dictionary<int, List<EventTableData>>();
-        
-        // handlers = new Dictionary<string, IEventHandler>
-        // {
-        //     {
-                    // 인터페이스를 상속받는 핸들러 관련된 객체 생성
-        //     }
-        // }
-
-        // 테스트용
-        EventTableData data = new EventTableData();
-        data.id = 1;
-        data.groupId = 1;
-        data.startType = "interaction";
-        data.startValue = "none";
-        data.conditionType1 = "checkSanityBelow";
-        data.conditionValue1 = "40";
-        data.conditionType2 = "none";
-        data.conditionValue2 = "none";
-        data.eventType = "playSound";
-        data.eventValue = "Laugh";
-        data.targetObject = "system";
-        data.description = "explain";
-        
-        eventGroups[data.groupId] = new List<EventTableData>();
-        eventGroups[data.groupId].Add(data);
     }
 
     // 테이블 데이터 파싱
@@ -71,7 +41,7 @@ public class EventManager : Singleton<EventManager>
             if (eventTableData != null)
             {
                 // 없으면 리스트 생성 후 넣어주기
-                if (!eventGroups[eventTableData.groupId].Any())
+                if (!eventGroups.ContainsKey(eventTableData.groupId))
                     eventGroups[eventTableData.groupId] = new List<EventTableData>();
                 
                 // 하나의 그룹 ID로 실행해야하는 이벤트 테이블 데이터 묶기
@@ -80,9 +50,18 @@ public class EventManager : Singleton<EventManager>
         }
     }
 
-    // 시작 타입, 밸류를 어떻게 구분해야할지 아직 잘 모르겠음 (왜 필요한가?)
     public void ExecuteByStart(string startType, string startValue)
     {
+        // // enterCollider : 콜라이더 진입 시 1회
+        // if (startType.Equals("enterCollider"))
+        // {
+        //     // 특정 오브젝트 경로 (진입을 감지할 영역의 식별자)
+        // }
+        // else
+        // {
+        //     // 상호작용이 일어날 대상 ID or 이름
+        // }
+
         foreach (var group in eventGroups.Values)
         {
             var first = group[0];
@@ -100,6 +79,7 @@ public class EventManager : Singleton<EventManager>
     {
         foreach (var evt in group)
         {
+            Debug.Log($"[{evt.description}] 실행!");
             if (!ConditionCheckingMachine.Check(evt))
                 continue;
             
@@ -111,11 +91,8 @@ public class EventManager : Singleton<EventManager>
     {
         switch (evt.eventType)
         {
-            case "playAnim":
-                Debug.Log("애니메이션 재생!");
-                break;
-            case "playSound":
-                Debug.Log("소리 재생!");
+            case "soundOnce":
+                SoundManager.Instance.PlaySound(evt.eventValue);
                 break;
             case "setSwitchOn":
                 break;

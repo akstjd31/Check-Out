@@ -1,0 +1,5 @@
+﻿아이디,이벤트그룹,시작 타입,시작 타입 값 (경로),시작 조건1,시작 조건1 값,시작 조건2,시작 조건2 값,이벤트 타입,이벤트 타입 값,대상 타겟,설명 (기획용)
+id,groupId,startType,startValue,conditionType1,conditionValue1,conditionType2,conditionValue2,eventType,eventValue,targetObject,description
+int,int,string,string,string,string,string,string,string,string,string,string
+8001,200,enterCollider,SessionScene/EventObject/200_enter_tile,checkSwitchOff,9009,none,none,soundOnce,Sound/Event/200_Excuse,self,임시 사운드 출력
+8002,200,enterCollider,SessionScene/EventObject/200_enter_tile,checkSwitchOff,9009,none,none,setSwitchOn,9009,none,임시 스위치온
