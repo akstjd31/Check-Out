@@ -6,6 +6,13 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private AudioSource audioSource;
     // [SerializeField] private List<AudioClip> clipList;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        
+        audioSource = this.GetComponent<AudioSource>();
+    }
+
     // 재생
     public void PlaySound(string filePath)
     {

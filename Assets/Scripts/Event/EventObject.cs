@@ -7,12 +7,12 @@ public class EventObject : MonoBehaviour
 
     private void Awake()
     {
-        startValue = GetHierarchyPath(transform);
+        startValue = "SessionScene/" + GetHierarchyPath(transform);
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter(Collider col)
     {
-        if (!col.gameObject.CompareTag("Player")) return;
+        if (!col.CompareTag("Player")) return;
 
         EventManager.Instance.OnEventTriggered(startType, startValue);
     }

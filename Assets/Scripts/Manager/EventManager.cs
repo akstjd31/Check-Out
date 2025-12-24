@@ -14,6 +14,10 @@ public class EventManager : Singleton<EventManager>
         base.Awake();
 
         eventGroups = new Dictionary<int, List<EventTableData>>();
+    }
+
+    private void Start()
+    {
         TableDataParsing();
     }
 
@@ -47,25 +51,26 @@ public class EventManager : Singleton<EventManager>
     // 이벤트가 실제로 동작할 떄
     public void OnEventTriggered(string startType, string startValue)
     {
+        
         foreach (var group in eventGroups.Values)
         {
-            foreach (var evt in group)
-            {
-                if (!IsStartMatch(evt, startType, startValue))
-                    continue;
+            if (!IsGroupTriggered(group, startType, startValue))
+                continue;
 
-                if (!CheckConditions(evt))
-                    continue;
-
-                ExecuteEvent(evt);
-            }
+            ExecuteGroup(group);
         }
     }
 
-    // 시작 부분이 일치하는가?
-    private bool IsStartMatch(EventTableData evt, string type, string value)
+    private bool IsGroupTriggered(List<EventTableData> group, string startType, string startValue)
     {
-        return evt.startType == type && evt.startValue == value;
+        foreach (var evt in group)
+        {
+            Debug.Log("hi");
+            if (evt.startType == startType &&
+                evt.startValue == startValue)
+                return true;
+        }
+        return false;
     }
 
     // 조건 확인
@@ -84,11 +89,22 @@ public class EventManager : Singleton<EventManager>
             if (!cond.Check(evt.conditionValue2))
                 return false;
         }
-
         return true;
     }
 
-    // 이벤트 실행
+    // 그룹 이벤트 수행
+    private void ExecuteGroup(List<EventTableData> group)
+    {
+        foreach (var evt in group)
+        {
+            if (!CheckConditions(evt))
+                continue;
+
+            ExecuteEvent(evt);
+        }
+    }
+
+    // 단일 이벤트 실행
     private void ExecuteEvent(EventTableData evt)
     {
         if (evt == null)
@@ -102,6 +118,7 @@ public class EventManager : Singleton<EventManager>
             return;
         }
 
+        Debug.Log("이벤트 실행!");
         action.Execute(evt.eventValue, evt.targetObject);
     }
 }

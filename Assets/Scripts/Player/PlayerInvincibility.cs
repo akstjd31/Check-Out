@@ -12,7 +12,6 @@ public class PlayerInvincibility : MonoBehaviour
     private PlayerCameraController playerCamera;
     private PlayerSanityVisualController visual;
     [SerializeField] private bool isInvincible = false;  // 무적 상태인지?
-    private int power = 5000;
     public bool onHit = false;
 
     private void Awake()
@@ -38,6 +37,7 @@ public class PlayerInvincibility : MonoBehaviour
                 stat.ConsumeSanity(onHit, monster.Power);
                 StartCoroutine(InvincibleCoroutine());
                 visual.UpdateShake(onHit);
+                onHit = false;
             }
         }
 

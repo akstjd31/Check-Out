@@ -20,7 +20,6 @@ public class StatController : MonoBehaviour
     public int CurrentRunStaminaCost { get; private set; }      // 달리기 코스트
     public float DefaultInvincibilityTime { get; private set; }  // 무적시간
     public event Action OnDeath;
-    public bool isDie = false;
     
     //현재 정신력 비율 측정
     public float CurrentSanityPercent
@@ -140,9 +139,8 @@ public class StatController : MonoBehaviour
     public bool IsRemainStamina() => CurrentStamina >= holder.Stat.RunStaminaCost;
 
     //정신력 감소
-    public void ConsumeSanity(bool onhit,int amount)
+    public void ConsumeSanity(bool onhit, int amount)
     {
-
         CurrentSanity = Mathf.Max(0, CurrentSanity - amount);
         playerView.UpdateSanityText((int)CurrentSanityPercent);
         if (!IsRemainSanity())
@@ -154,7 +152,6 @@ public class StatController : MonoBehaviour
     public bool IsRemainSanity() => CurrentSanity > 0;
     public void playerDie(bool onhit)
     {
-        
         if (onhit)
           {
             stateMachine.ChangeDeath(playerDeath.Hit);

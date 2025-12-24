@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.InputSystem.HID.HID;
 
 // 플레이어 상태
 public enum PlayerState { Idle, Walk, Run, Die }

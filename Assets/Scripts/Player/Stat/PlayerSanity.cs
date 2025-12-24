@@ -30,7 +30,6 @@ public class PlayerSanity : MonoBehaviour
         // if (!FadeController.Instance.IsFadeEnded)
         //     return;
 
-        //Die();
         sanityTimer -= Time.deltaTime;
         if (sanityTimer > 0f) return;
 
