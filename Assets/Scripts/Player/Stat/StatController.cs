@@ -116,10 +116,7 @@ public class StatController : MonoBehaviour
                 Debug.Log("맞아죽음");
                 OnDeath?.Invoke();
                 break;
-
         }
-
-        playerView.UpdatePlayerTestText(death.ToString());
     }
 
     // 탈진 지속 시간

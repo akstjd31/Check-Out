@@ -14,7 +14,7 @@ public class EventObject : MonoBehaviour
     {
         if (!col.gameObject.CompareTag("Player")) return;
 
-        EventManager.Instance.ExecuteByStart(startType, startValue);
+        EventManager.Instance.OnEventTriggered(startType, startValue);
     }
 
     // 하이에라키 경로 추적 후 문자열 변환

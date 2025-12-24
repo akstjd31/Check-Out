@@ -8,7 +8,6 @@ using UnityEngine;
 public class EventManager : Singleton<EventManager>
 {
     public Dictionary<int, List<EventTableData>> eventGroups;  // <ID, 이벤트 테이블 데이터>
-    public Dictionary<string, IEventHandler> handlers;
 
     protected override void Awake()
     {
@@ -16,11 +15,6 @@ public class EventManager : Singleton<EventManager>
 
         eventGroups = new Dictionary<int, List<EventTableData>>();
         TableDataParsing();
-    }
-
-    private void Start()
-    {
-        
     }
 
     // 테이블 데이터 파싱
@@ -43,75 +37,71 @@ public class EventManager : Singleton<EventManager>
                 // 없으면 리스트 생성 후 넣어주기
                 if (!eventGroups.ContainsKey(eventTableData.groupId))
                     eventGroups[eventTableData.groupId] = new List<EventTableData>();
-                
+
                 // 하나의 그룹 ID로 실행해야하는 이벤트 테이블 데이터 묶기
                 eventGroups[eventTableData.groupId].Add(eventTableData);
             }
         }
     }
 
-    public void ExecuteByStart(string startType, string startValue)
+    // 이벤트가 실제로 동작할 떄
+    public void OnEventTriggered(string startType, string startValue)
     {
-        // // enterCollider : 콜라이더 진입 시 1회
-        // if (startType.Equals("enterCollider"))
-        // {
-        //     // 특정 오브젝트 경로 (진입을 감지할 영역의 식별자)
-        // }
-        // else
-        // {
-        //     // 상호작용이 일어날 대상 ID or 이름
-        // }
-
         foreach (var group in eventGroups.Values)
         {
-            var first = group[0];
+            foreach (var evt in group)
+            {
+                if (!IsStartMatch(evt, startType, startValue))
+                    continue;
 
-            // 그룹에서 첫 시작이 되는 부분만 확인해서 실행
-            if (!IsStartMatched(first, startType, startValue))
-                continue;
+                if (!CheckConditions(evt))
+                    continue;
 
-            ExecuteGroup(group);
+                ExecuteEvent(evt);
+            }
         }
     }
 
-    // 한 그룹을 체킹 후 실행
-    private void ExecuteGroup(List<EventTableData> group)
+    // 시작 부분이 일치하는가?
+    private bool IsStartMatch(EventTableData evt, string type, string value)
     {
-        foreach (var evt in group)
-        {
-            Debug.Log($"[{evt.description}] 실행!");
-            if (!ConditionCheckingMachine.Check(evt))
-                continue;
-            
-            ExecuteEvent(evt);
-        }
+        return evt.startType == type && evt.startValue == value;
     }
 
+    // 조건 확인
+    private bool CheckConditions(EventTableData evt)
+    {
+        if (evt.conditionType1 != "none")
+        {
+            var cond = ConditionFactory.Create(evt.conditionType1);
+            if (!cond.Check(evt.conditionValue1))
+                return false;
+        }
+
+        if (evt.conditionType2 != "none")
+        {
+            var cond = ConditionFactory.Create(evt.conditionType2);
+            if (!cond.Check(evt.conditionValue2))
+                return false;
+        }
+
+        return true;
+    }
+
+    // 이벤트 실행
     private void ExecuteEvent(EventTableData evt)
     {
-        switch (evt.eventType)
+        if (evt == null)
+            return;
+
+        IEventAction action = EventFactory.Create(evt.eventType);
+
+        if (action == null)
         {
-            case "soundOnce":
-                SoundManager.Instance.PlaySound(evt.eventValue);
-                break;
-            case "setSwitchOn":
-                break;
-            case "showText":
-                break;
-            case "spawnObject":
-                break;
-            default:
-                Debug.Log("해당 이벤트 타입에 맞는 데이터가 없습니다! (아니면 데이터가 추가가 안됨)");
-                break;
+            Debug.LogError($"알 수 없는 EventType: {evt.eventType}");
+            return;
         }
-    }
 
-    private bool IsStartMatched(EventTableData data, string startType, string startValue)
-    {
-        if (data.startType != startType)
-            return false;
-
-        // startValue는 문자열 비교 or 숫자 비교 둘 다 가능
-        return data.startValue == startValue;
+        action.Execute(evt.eventValue, evt.targetObject);
     }
 }
