@@ -12,7 +12,7 @@ public class Door : Interactable
 
     private void Awake()
     {
-        anim = this.transform.root.GetComponent<Animator>();
+        anim = this.GetComponent<Animator>();
     }
 
     string[] doorText = new string[2]
