@@ -7,7 +7,7 @@ enum DoorType
 
 public class Door : Interactable
 {
-    private Animator anim;
+    [SerializeField] private Animator anim;
     [SerializeField] private DoorType currentDoorType;
 
     private void Awake()
@@ -40,13 +40,11 @@ public class Door : Interactable
         switch (currentDoorType)
         {
             case DoorType.Open:
-                anim.SetBool("isClosed", true);
                 anim.SetBool("isOpen", false);
                 currentDoorType = DoorType.Closed;
                 break;
             case DoorType.Closed:
                 anim.SetBool("isOpen", true);
-                anim.SetBool("isClosed", false);
                 currentDoorType = DoorType.Open;
                 break;
         }
