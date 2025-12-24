@@ -30,6 +30,7 @@ public class MannequinController : MonsterController
         mannequinMovement.ChangeSpeed(mannequinModel.PatrolSpeed);
         mannequinMovement.PatrolNextOne();
         StartCoroutine(mannequinFieldOfView.FindTargetsWithDelay());
+        
     }
 
     private void Update()
@@ -140,6 +141,7 @@ public class MannequinController : MonsterController
     {
         while (mannequinModel.isObservedFromPlayer)
         {
+            mannequinMovement.VelocityZero();
             // 시야에 확보된 상태일 경우 이동 불가
             Debug.Log("플레이어가 관찰 중입니다.");
             mannequinMovement.Move(targetTransform, 0f);

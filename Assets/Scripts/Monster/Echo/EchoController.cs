@@ -1,11 +1,11 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Playables;
-using static UnityEngine.GraphicsBuffer;
 
 public class EchoController : MonsterController
 {
     [SerializeField] private EchoView echoView;
+    [SerializeField] private float rotateSpeed;
     private EchoModel echoModel;
 
     private FieldOfView echoFieldOfView;
@@ -13,6 +13,7 @@ public class EchoController : MonsterController
 
     private PlayerStateMachine playerState;
     private PlayerSanity playerSanity;
+    private Transform player;
 
     public bool inRange;
 
@@ -31,19 +32,18 @@ public class EchoController : MonsterController
     private void OnEnable()
     {
         //구독 설정
-        echoModel.OnObserve += StartObservePlayer;
         echoModel.OnEyeContact += StartEyeContact;
     }
 
     private void OnDisable()
     {
         // 구독 해제
-        echoModel.OnObserve -= StartObservePlayer;
         echoModel.OnEyeContact -= StartEyeContact;
     }
 
     private void Update()
     {
+        transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
         if (inRange && echoModel.isObservedFromPlayer && echoModel.monsterState != Monster.MonsterState.EyeContact)
         {
             echoModel.ChangeState(Monster.MonsterState.EyeContact);
@@ -72,45 +72,20 @@ public class EchoController : MonsterController
     {
         Init();
         echoModel.ChangeState(Monster.MonsterState.Observe);
+        player = FindAnyObjectByType<PlayerCtrl>().transform;
     }
 
     private void Init()
     {
-        // FieldOfView
-        echoFieldOfView.viewRadius = echoModel.ViewRadius;
-        echoFieldOfView.viewAngle = echoModel.ViewAngle;
         echoFieldOfView.delay = new WaitForSeconds(echoModel.Delay);
 
         // 플레이어한테 보이는 지에 대한 변수 초기화
         echoModel.isObservedFromPlayer = false;
     }
 
-    private void StartObservePlayer()
-    {
-        StartCoroutine(ObservePlayer());
-    }
-
-    private IEnumerator ObservePlayer()
-    {
-        while(true)
-        {
-            if(echoFieldOfView.visibleTargets.Count > 0)
-            {
-                // 플레이어가 시야에 있으면 플레이어를 바라봄
-                transform.LookAt(echoFieldOfView.visibleTargets[0]);
-
-                // 플레이어가 지정 범위 내에 있으면 상태 전환
-                directionToTarget = (echoFieldOfView.visibleTargets[0].position - transform.position).normalized;
-
-            }
-            yield return echoFieldOfView.delay;
-        }
-    }
-
     public void StartEyeContact()
     {
         StartCoroutine (EyeContact());
-        
     }
 
     private IEnumerator EyeContact()
@@ -127,5 +102,10 @@ public class EchoController : MonsterController
         playerSanity.SetDarkness(false);
         secondTime = 0;
         echoModel.ChangeState(Monster.MonsterState.Observe);
+    }
+
+    void MonsterRotate(Transform player)
+    {
+        transform.forward = Vector3.Lerp(transform.forward, player.position - transform.position, rotateSpeed);
     }
 }

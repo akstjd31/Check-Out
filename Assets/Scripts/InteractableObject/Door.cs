@@ -7,7 +7,14 @@ enum DoorType
 
 public class Door : Interactable
 {
+    [SerializeField] private Animator anim;
     [SerializeField] private DoorType currentDoorType;
+
+    private void Awake()
+    {
+        anim = this.GetComponent<Animator>();
+    }
+
     string[] doorText = new string[2]
     {
         "Press [E] to Open",
@@ -30,7 +37,18 @@ public class Door : Interactable
     public override void Interact()
     {
         // 애니메이션 수행
-        currentDoorType = currentDoorType.Equals(DoorType.Closed) ? DoorType.Open : DoorType.Closed;
+        switch (currentDoorType)
+        {
+            case DoorType.Open:
+                anim.SetBool("isOpen", false);
+                currentDoorType = DoorType.Closed;
+                break;
+            case DoorType.Closed:
+                anim.SetBool("isOpen", true);
+                currentDoorType = DoorType.Open;
+                break;
+        }
+
         promptText = doorText[(int)currentDoorType];
     }
 }

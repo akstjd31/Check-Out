@@ -31,8 +31,8 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Update()
     {
-        if (!FadeController.Instance.IsFadeEnded)
-            return;
+        // if (!FadeController.Instance.IsFadeEnded)
+        //     return;
 
         HandleMovement();
         HandleState();
@@ -56,17 +56,25 @@ public class PlayerCtrl : MonoBehaviour
         stamina.UpdateStamina(canRun, isMoving);
 
         if (!isMoving)
+        {
             state.ChangeState(PlayerState.Idle);
+        }
         else if (canRun)
         {
-            // 뛰는 소리 재생
-            soundDistance.PlayClip(0, false);
+            // 소리가 진행 중이 아닐 때 뛰는 소리 재생
+            if (!soundDistance.IsPlaying())
+            {
+                soundDistance.PlayClip(0, false);
+            }
             state.ChangeState(PlayerState.Run);
         }
         else
         {
-            // 걷는 소리 재생
-            soundDistance.PlayClip(1, false);
+            // 소리가 진행 중이 아닐 때 걷는 소리 재생
+            if (!soundDistance.IsPlaying())
+            {
+                soundDistance.PlayClip(1, false);
+            }
             state.ChangeState(PlayerState.Walk);
         }
     }

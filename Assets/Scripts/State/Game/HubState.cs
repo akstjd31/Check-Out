@@ -31,7 +31,7 @@ public class HubState : IState
 
     private void Init()
     {
-        FadeController.Instance.Init();
+        //FadeController.Instance.Init();
         
         isLoaded = false;
         timer = 0.5f;

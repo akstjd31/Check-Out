@@ -12,7 +12,6 @@ public class PlayerCameraController : MonoBehaviour
     public float fallDuration = 1.2f;
 
     public Rigidbody playerRb;
-    public MonoBehaviour[] disableScripts;
     private StatController stat;
     private void Awake()
     {

@@ -61,4 +61,10 @@ public class ChatboxManager : Singleton<ChatboxManager>
         //대사창 비활성화하기
         chatboxUI.Hide();
     }
+
+    public void StartChatbox(int id)
+    {
+        eventId = id;
+        StartDialogue();
+    }
 }

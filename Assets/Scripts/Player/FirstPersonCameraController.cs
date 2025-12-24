@@ -19,8 +19,8 @@ public class FirstPersonCameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!GameManager.Instance.IsOpenedUI())
-        {
+        // if (!GameManager.Instance.IsOpenedUI())
+        // {
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
@@ -30,6 +30,6 @@ public class FirstPersonCameraController : MonoBehaviour
             pitch = Mathf.Clamp(pitch, -maxPitch, maxPitch);
 
             cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
-        }
+        // }
     }
 }

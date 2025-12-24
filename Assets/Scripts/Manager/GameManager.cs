@@ -43,7 +43,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if (CurrentState.Equals(GameState.Hub) && player == null)
+        if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
         }
@@ -109,5 +109,5 @@ public class GameManager : Singleton<GameManager>
     public void HandleLoadingEnded() => ChangeState(LoadingData.NextState);
 
     // UI 열려있는지?
-    public bool IsOpenedUI() => !FadeController.Instance.IsFadeEnded || StorageManager.Instance.IsOpen || StoreManager.Instance.IsOpen;
+    //public bool IsOpenedUI() => StorageManager.Instance.IsOpen || StoreManager.Instance.IsOpen; // !FadeController.Instance.IsFadeEnded
 }

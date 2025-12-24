@@ -39,9 +39,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - MonsterArea
+  - LightArea
+  - SafeArea
   - SoundSensor
   - Monster
   - Collider

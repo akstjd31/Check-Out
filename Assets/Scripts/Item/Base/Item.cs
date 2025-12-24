@@ -16,6 +16,8 @@ public class Item : Interactable, IItem
 
     public string ImgPath { get; private set; }
 
+    public int ItemEffect { get; private set; }
+
     private SpriteRenderer spriteRenderer;
 
     public ItemTableData data;

@@ -14,6 +14,7 @@ public class MonsterFieldOfViewEditior : Editor
         Handles.color = Color.white;
         // 3D 공간에 시야각을 표현합니다.
         Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.viewRadius);
+        Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.circleRadius);
         // 몬스터가 바라보는 각도 설정
         Vector3 viewAngleA = fov.DirectionFromAngle (-fov.viewAngle / 2, false);
         Vector3 viewAngleB = fov.DirectionFromAngle (fov.viewAngle / 2, false);
