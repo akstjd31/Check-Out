@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 [RequireComponent(typeof(PlayerStateMachine))]
 
@@ -10,14 +11,17 @@ public class SoundDistance : MonoBehaviour
     private AudioSource soundSource;
     [UnityEngine.Range(0f, 1f)]
     [SerializeField] private float volume;
+    [SerializeField] private float soundDelay = 0.5f;
     [SerializeField] private GameObject soundCollider;
     [SerializeField] private float distance;
+    private WaitForSeconds delay;
     private PlayerStateMachine state;
     private SphereCollider distanceCollider;
 
     // 프로퍼티
     public AudioSource SoundSource { get { return soundSource; } }
     public float Volume { get { return volume; } }
+    public float SoundDelay { get { return soundDelay; } }
 
     private void Awake()
     {
@@ -26,6 +30,7 @@ public class SoundDistance : MonoBehaviour
         distanceCollider = soundCollider.GetComponent<SphereCollider>();
 
         distanceCollider.radius = 0.5f * distance;
+        delay = new WaitForSeconds(soundDelay);
     }
 
     private void OnTriggerStay(Collider other)
@@ -48,9 +53,12 @@ public class SoundDistance : MonoBehaviour
 
     public void PlayClip(int index, bool isLoop)
     {
-        soundSource.clip = soundClip[index];
-        soundSource.loop = isLoop;
-        soundSource.Play();
+        if (soundClip[index] != null)
+        {
+            soundSource.clip = soundClip[index];
+            soundSource.loop = isLoop;
+            soundSource.Play();
+        }
     }
 
     public void SetVolume(int volume)
@@ -61,4 +69,6 @@ public class SoundDistance : MonoBehaviour
     {
         soundSource?.Stop();
     }
+
+    public bool IsPlaying() {  return soundSource.isPlaying; }
 }
