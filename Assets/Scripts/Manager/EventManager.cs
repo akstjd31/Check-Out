@@ -51,7 +51,6 @@ public class EventManager : Singleton<EventManager>
     // 이벤트가 실제로 동작할 떄
     public void OnEventTriggered(string startType, string startValue)
     {
-        
         foreach (var group in eventGroups.Values)
         {
             if (!IsGroupTriggered(group, startType, startValue))
@@ -65,7 +64,6 @@ public class EventManager : Singleton<EventManager>
     {
         foreach (var evt in group)
         {
-            Debug.Log("hi");
             if (evt.startType == startType &&
                 evt.startValue == startValue)
                 return true;
