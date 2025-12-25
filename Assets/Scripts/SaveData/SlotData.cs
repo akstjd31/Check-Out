@@ -12,4 +12,5 @@ public class SlotData
 {
     public int index;
     public int itemId;
+    public int duration;
 }

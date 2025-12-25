@@ -1,12 +1,15 @@
+using JetBrains.Annotations;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] public ItemTableData[] slots;
-
+    [SerializeField] public ItemInstance[] slots;
     [SerializeField] private int inventorySize = 4;
     public event Action<int> OnSlotUpdated;
+
+    private Dictionary<int, List<ItemEffect>> effectslot;
 
     public void SetInventory(int size)
     {
@@ -16,7 +19,8 @@ public class Inventory : MonoBehaviour
             return;
         }
             
-        slots = new ItemTableData[size];
+        slots = new ItemInstance[size];
+        effectslot = new Dictionary<int, List<ItemEffect>>();
     }
 
     public int GetDefaultInventorySize() => inventorySize;
@@ -48,7 +52,7 @@ public class Inventory : MonoBehaviour
     }
 
     // 아이템 가져오기
-    public void GetItem(ItemTableData item, int index)
+    public void GetItem(ItemInstance item, int index)
     {
         if (slots == null)
         {
@@ -72,13 +76,13 @@ public class Inventory : MonoBehaviour
         }
              
         slots[index] = item;
-        Debug.Log($"{item.id}을 {index + 1}슬롯에 성공적으로 넣었습니다");
+        Debug.Log($"{item.itemdata.id}을 {index + 1}슬롯에 성공적으로 넣었습니다");
         OnSlotUpdated?.Invoke(index);
         return;
     }
 
     // 아이템 이동(버리거나 창고)
-    public ItemTableData MoveItem(int index)
+    public ItemInstance MoveItem(int index)
     {
         if (slots == null)
             return null;
@@ -94,10 +98,10 @@ public class Inventory : MonoBehaviour
             return null;
         Debug.Log("성공적 5");
 
-        ItemTableData item = slots[index];
+        ItemInstance item = slots[index];
 
         RemoveItem(index);
-        Debug.Log($"{item.id}을 {index + 1}슬롯에서 성공적으로 버렸습니다");
+        Debug.Log($"{item.itemdata.id}을 {index + 1}슬롯에서 성공적으로 버렸습니다");
         OnSlotUpdated?.Invoke(index);
         return item;
     }

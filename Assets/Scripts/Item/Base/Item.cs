@@ -1,10 +1,11 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public class Item : Interactable, IItem
 {
     public int ID { get; private set; }
-    public ItemType Type { get; private set; }
+    public ItemType ItemType { get; private set; }
 
     public string Name { get; private set; }
 
@@ -16,28 +17,26 @@ public class Item : Interactable, IItem
 
     public string ImgPath { get; private set; }
 
-    public int ItemEffect { get; private set; }
-
     private SpriteRenderer spriteRenderer;
 
-    public ItemTableData data;
+    public ItemInstance item;
 
     private void Start()
     {
       
     }
 
-    public void Init(ItemTableData itemTable)
+    public void Init(ItemInstance itemInstance)
     {
-        data = itemTable;
-        ID = data.id;
-        Type = (ItemType)Enum.Parse(typeof(ItemType), data.itemType);
-        Name = data.itemName;
+        item = itemInstance;
+        ID = item.itemdata.id;
+        ItemType = (ItemType)Enum.Parse(typeof(ItemType), item.itemdata.itemType);
+        Name = item.itemdata.itemName;
         gameObject.name = Name;
-        Desc = data.itemDescription;
-        Sellable = data.isCanSell;
-        SellPrice = data.sellPrice;
-        ImgPath = data.imgPath;
+        Desc = item.itemdata.itemDescription;
+        Sellable = item.itemdata.isCanSell;
+        SellPrice = item.itemdata.sellPrice;
+        ImgPath = item.itemdata.imgPath;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 

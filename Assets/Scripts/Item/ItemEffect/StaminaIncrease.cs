@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class SanityIncrease : ItemEffect
+public class StaminaIncrease : ItemEffect
 {
-    public SanityIncrease(string name, int value1, int value2, string controlKey)
+    public StaminaIncrease(string name,int value1, int value2, string controlKey)
     {
         EffectName = name;
         Value1 = value1;
@@ -15,7 +15,7 @@ public class SanityIncrease : ItemEffect
     {
         StatController playerStat = GameManager.Instance.GetPlayer().transform.GetComponent<StatController>();
 
-        playerStat.ConsumeSanity(false,-Value1);
+        playerStat.AddStamina(Value1);
 
         InventoryManager.Instance.RemoveInventoryItem();
 

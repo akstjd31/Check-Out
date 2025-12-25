@@ -104,7 +104,7 @@ public class InventoryUI : MonoBehaviour
             return;
         }
 
-        Sprite sprite = Resources.Load<Sprite>(inventory.slots[index].imgPath);
+        Sprite sprite = Resources.Load<Sprite>(inventory.slots[index].itemdata.imgPath);
         ItemImage.sprite = sprite;
 
         button.onClick.RemoveAllListeners();

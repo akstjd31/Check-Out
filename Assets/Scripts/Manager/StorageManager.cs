@@ -29,7 +29,8 @@ public class StorageManager : Singleton<StorageManager>
             saveData.slots.Add(new SlotData
             {
                 index = i,
-                itemId = storage.storageList[i].id
+                itemId = storage.storageList[i].itemdata.id,
+                duration = storage.storageList[i].duration
             });
         }
 
@@ -47,8 +48,11 @@ public class StorageManager : Singleton<StorageManager>
 
         foreach (var slot in saveData.slots)
         {
-            ItemTableData item = ItemManager.Instance.GetItemData(slot.itemId);
-            storage.ItemStorage(item, slot.index);
+            var instance = ItemManager.Instance.Createinstance(slot.itemId);
+
+            instance.duration = slot.duration;
+
+            storage.ItemStorage(instance, slot.index);
         }
 
         Debug.Log("창고 데이터 로드 완료!");
@@ -80,7 +84,7 @@ public class StorageManager : Singleton<StorageManager>
             return;
         }
 
-        ItemTableData item = inventory.MoveItem(index);
+        var item = InventoryManager.Instance.MoveItem(index);
 
         if (item == null) return;
 
@@ -109,7 +113,7 @@ public class StorageManager : Singleton<StorageManager>
             return;
         }
 
-        ItemTableData item = storage.MoveItem(index);
+        var item = storage.MoveItem(index);
 
         if (item == null) return;
 

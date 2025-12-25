@@ -25,10 +25,10 @@ public class Store : MonoBehaviour
     }
 
     // 아이템 판매 가격
-    public int GetSellPrice(ItemTableData item)
+    public int GetSellPrice(ItemInstance item)
     {
         if (item == null) return 0;
 
-        return item.sellPrice;
+        return item.itemdata.sellPrice;
     }
 }

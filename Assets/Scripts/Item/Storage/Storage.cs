@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class Storage : MonoBehaviour
 {
     [SerializeField] private int storageSize = 16;
-    [SerializeField] public ItemTableData[] storageList;
+    [SerializeField] public ItemInstance[] storageList;
     public Action<int> OnSlotUpdated;
 
     public int GetDefaultStorageSize() => storageSize;
@@ -17,7 +17,7 @@ public class Storage : MonoBehaviour
             return;
         }
 
-        storageList = new ItemTableData[size];
+        storageList = new ItemInstance[size];
     }
 
     // 창고가 비어있는지 체크
@@ -42,7 +42,7 @@ public class Storage : MonoBehaviour
     }
 
     // 창고에 아이템 넣기
-    public void ItemStorage(ItemTableData item, int index)
+    public void ItemStorage(ItemInstance item, int index)
     {
         if (item == null)
             return;
@@ -57,14 +57,14 @@ public class Storage : MonoBehaviour
 
         if (storageList[index] != null) return;
 
-        Debug.Log($"아이템: {item.itemName}, 인덱스: {index}");
+        Debug.Log($"아이템: {item.itemdata.itemName}, 인덱스: {index}");
 
         storageList[index] = item;
         OnSlotUpdated?.Invoke(index);
     }
 
     // 아이템 이동(인벤토리에 넣기)
-    public ItemTableData MoveItem(int index)
+    public ItemInstance MoveItem(int index)
     {
         if (storageList == null)
         {
@@ -83,9 +83,9 @@ public class Storage : MonoBehaviour
             Debug.Log("3");
             return null;
         }
-        
 
-        ItemTableData item = storageList[index];
+
+        ItemInstance item = storageList[index];
 
         RemoveItem(index);
         OnSlotUpdated?.Invoke(index);

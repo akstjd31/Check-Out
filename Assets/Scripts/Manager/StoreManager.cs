@@ -65,7 +65,7 @@ public class StoreManager : Singleton<StoreManager>
 
         if (empty == false) return;
 
-        var item = ItemManager.Instance.GetItemData(data.itemId);
+        var item = ItemManager.Instance.Createinstance(data.itemId);
 
         inventory.GetItem(item, inventoryIndex);
 
@@ -87,8 +87,8 @@ public class StoreManager : Singleton<StoreManager>
 
         if (inventory.slots[index] == null) return;
 
-        ItemTableData item = inventory.MoveItem(index);
-        Debug.Log(item.itemName);
+        var item = InventoryManager.Instance.MoveItem(index);
+        Debug.Log(item.itemdata.itemName);
 
         if (item == null) return;
 

@@ -19,14 +19,14 @@ public class InventoryHoverUI : MonoBehaviour
     }
 
     // 마우스가 위로 올라가져 있을때
-    public void OnEnter(Transform pos, ItemTableData data, Sprite sprite)
+    public void OnEnter(Transform pos, ItemInstance item, Sprite sprite)
     {
         gameObject.SetActive(true);
-        nameText.text = data.itemName;
-        typeText.text = data.itemType;
-        descText.text = data.itemDescription;
+        nameText.text = item.itemdata.itemName;
+        typeText.text = item.itemdata.itemType;
+        descText.text = item.itemdata.itemDescription;
         priceText.text = firstPriceText;
-        priceText.text = priceText.text.Replace("{price}", data.sellPrice.ToString());
+        priceText.text = priceText.text.Replace("{price}", item.itemdata.sellPrice.ToString());
         itemImage.sprite = sprite;
         
         transform.position = pos.position;

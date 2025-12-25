@@ -164,13 +164,18 @@ public class StatController : MonoBehaviour
     public void playerDie(bool onhit)
     {
         if (onhit)
-          {
+        {
             stateMachine.ChangeDeath(playerDeath.Hit);
-          }
+        }
         else
-          {
+        {
             stateMachine.ChangeDeath(playerDeath.Normal);
-          }
+        }
+    }
 
+    public void AddStamina(int amount)
+    {
+        CurrentStamina = Mathf.Min(holder.Stat.MaxStamina, CurrentStamina + amount);
+        playerCtrl.GetPlayerView().UpdateStaminaText(CurrentStamina);
     }
 }

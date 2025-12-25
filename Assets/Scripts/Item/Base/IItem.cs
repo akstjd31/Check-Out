@@ -10,11 +10,10 @@ public enum ItemType
 public interface IItem
 {
     int ID { get; }
-    ItemType Type { get; }
+    ItemType ItemType { get; }
     string Name { get; }
     string Desc { get; }
     bool Sellable { get; }
     int SellPrice { get; }
     string ImgPath { get; }
-    int ItemEffect {  get; }
 }

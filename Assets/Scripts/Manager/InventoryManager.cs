@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
@@ -8,6 +10,10 @@ public class InventoryManager : Singleton<InventoryManager>
     [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryUI invenUI;
 
+    private InventoryController inventoryController;
+    private ItemInstance currentItem;
+    private int currentIndex = -1;
+
     //private Vector3 playerPos;
 
     private string fileName = "InventorySaveData.json";
@@ -15,7 +21,7 @@ public class InventoryManager : Singleton<InventoryManager>
     protected override void Awake()
     {
         base.Awake();
-        
+
         inventory = this.GetComponent<Inventory>();
 
         ResetInventory();
@@ -44,7 +50,8 @@ public class InventoryManager : Singleton<InventoryManager>
             saveData.slots.Add(new SlotData
             {
                 index = i,
-                itemId = inventory.slots[i].id
+                itemId = inventory.slots[i].itemdata.id,
+                duration = inventory.slots[i].duration
             });
         }
 
@@ -63,9 +70,12 @@ public class InventoryManager : Singleton<InventoryManager>
 
         foreach (var slot in saveData.slots)
         {
-            ItemTableData item = ItemManager.Instance.GetItemData(slot.itemId);
-            inventory.GetItem(item, slot.index);
-            Debug.Log($"현재 불러온 아이템: {item.itemName}");
+            var instance = ItemManager.Instance.Createinstance(slot.itemId);
+
+            instance.duration = slot.duration;
+
+            inventory.GetItem(instance, slot.index);
+            Debug.Log($"현재 불러온 아이템: {instance.itemdata.itemName}");
         }
 
         Debug.Log("인벤토리 데이터 로드 완료!");
@@ -91,7 +101,7 @@ public class InventoryManager : Singleton<InventoryManager>
         }
 
         Debug.Log($"{inventoryIndex} 번째 칸의 인벤토리에 넣는 중");
-        inventory.GetItem(item.data, inventoryIndex);
+        inventory.GetItem(item.item, inventoryIndex);
         Debug.Log($"{item.Name}을 성공적으로 넣었습니다");
 
         return true;
@@ -107,12 +117,10 @@ public class InventoryManager : Singleton<InventoryManager>
     public void DropItem(int index)
     {
         if (inventory == null) return;
-        Debug.Log("성공적 1");
-        if (GameManager.Instance.GetPlayer() == null) return;
-        Debug.Log("성공적 2");
 
-        ItemTableData item = inventory.MoveItem(index);
-        Debug.Log("성공적 6");
+        if (GameManager.Instance.GetPlayer() == null) return;
+
+        ItemInstance item = inventory.MoveItem(index);
 
         if (item == null) return;
 
@@ -123,7 +131,19 @@ public class InventoryManager : Singleton<InventoryManager>
             playerTrf.up.y,
             playerTrf.position.z
         );
-        ItemManager.Instance.SpawnItem(item.id, newPos);
+        ItemManager.Instance.SpawnItem(item, newPos);
+    }
+
+    public ItemInstance MoveItem(int index)
+    {
+        if (currentItem != null)
+        {
+            currentItem.ChangeState(ItemState.Off);
+            currentItem.OnItem -= StartConsumption;
+            currentItem.OffItem -= StopConsumption;
+        }
+        
+        return inventory.MoveItem(index);
     }
     
     // 인벤토리 슬롯 선택
@@ -135,7 +155,21 @@ public class InventoryManager : Singleton<InventoryManager>
         if (index < 0 || index >= inventory.slots.Length)
             return;
 
-        ItemTableData currentItem = inventory.slots[index];
+        if (currentItem != null)
+        {
+            currentItem.ChangeState(ItemState.Off);
+            currentItem.OnItem -= StartConsumption;
+            currentItem.OffItem -= StopConsumption;
+        }
+
+        currentItem = inventory.slots[index];
+        currentIndex = index;
+
+        if (currentItem != null)
+        {
+            currentItem.OnItem += StartConsumption;
+            currentItem.OffItem += StopConsumption;
+        }
 
         if (currentItem == null)
             return;
@@ -145,6 +179,63 @@ public class InventoryManager : Singleton<InventoryManager>
 
         return;
     }
+
+    public void UseItem(string key)
+    {
+        if (currentItem == null)
+            return;
+
+        if(currentItem.Use(key))
+        {
+            var currentItemType = (ItemType)Enum.Parse(typeof(ItemType), currentItem.itemdata.itemType);
+
+            if (currentItemType == ItemType.Consumable && currentItem.state == ItemState.On)
+            {
+                var item = inventory.MoveItem(currentIndex);
+
+                if (currentItem != null)
+                {
+                    currentItem.OnItem -= StartConsumption;
+                    currentItem.OffItem -= StopConsumption;
+                    currentItem = null;
+                }
+                
+                if (item == null) return;
+
+                ConsumableItemUse(item);
+            }
+        }
+    }
+
+    public void ConsumableItemUse(ItemInstance item)
+    {
+        var groundItem = Instantiate(gameObject);
+        // item의 id로 아이템이 무엇인지 탐지
+        // groundItem 컴포넌트들 빛이라던지 소리 애니메이션
+        // item안에 있는 용량? 지속시간 만큼 부여 파티클시스템이라던지
+        // item의 상태가 off가 되었을때 종료
+    }
+
+    public void SetController(Transform controller)
+    {
+        if (inventoryController == null)
+        {
+            inventoryController = controller.GetComponent<InventoryController>();
+            inventoryController.OnUseItem -= UseItem;
+            inventoryController.OnUseItem += UseItem;
+        }
+    }
+
+    public void StartConsumption()
+    {
+        StartCoroutine(currentItem.Consumption());
+    }
+
+    public void StopConsumption()
+    {
+        StopCoroutine(currentItem.Consumption());
+    }
+
 
     // 손에 들고있는 아이템
     // public void HandItem(ItemTable item)
@@ -166,4 +257,15 @@ public class InventoryManager : Singleton<InventoryManager>
     // {
     //
     // }
+
+
+    public void RemoveInventoryItem()
+    {
+        if (inventory == null) return;
+        if (GameManager.Instance.GetPlayer() == null) return;
+
+        ItemInstance item = inventory.MoveItem(currentIndex);
+    }
+
+    public Inventory GetInvetory() { return inventory; }
 }

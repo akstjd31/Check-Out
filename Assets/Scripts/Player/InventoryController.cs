@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -11,10 +12,13 @@ public class InventoryController : MonoBehaviour
     private InventoryUI invenUI;
     [SerializeField] private int focusedIndex = -1;
 
+    public event Action<string> OnUseItem;
+
     private void Awake()
     {
         input = this.GetComponent<PlayerInputHandler>();
         invenUI = FindAnyObjectByType<InventoryUI>();
+        InventoryManager.Instance.SetController(transform);
     }
 
     private void OnEnable()
@@ -22,6 +26,7 @@ public class InventoryController : MonoBehaviour
         input.OnScroll += QuickSlotFocusedByScroll;
         input.OnSelected += QuickSlotFocusedByButton;
         input.OnDrop += OnItemDrop;
+        input.OnUsedItem += UseItem;
     }
 
     private void OnDisable()
@@ -70,6 +75,20 @@ public class InventoryController : MonoBehaviour
         InventoryManager.Instance.SelectInventory(focusedIndex);
         invenUI.SelectUI(focusedIndex);
         invenUI.UpdateAll();
+    }
+
+   private void UseItem(string key)
+    {
+        switch(key)
+        {
+            case "LeftClick":
+                OnUseItem?.Invoke(key);
+                break;
+            case "R":
+                OnUseItem?.Invoke(key);
+                break;
+            // 사용할 키 추가할때 추가
+        }
     }
 
     private void OnItemDrop()

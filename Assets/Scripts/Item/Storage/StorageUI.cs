@@ -118,7 +118,7 @@ public class StorageUI : MonoBehaviour
             StorageManager.Instance.StorageToInventory(index);
         });
 
-        Sprite sprite = Resources.Load<Sprite>(storage.storageList[index].imgPath);
+        Sprite sprite = Resources.Load<Sprite>(storage.storageList[index].itemdata.imgPath);
 
         ItemImage.sprite = sprite;
 
