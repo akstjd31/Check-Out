@@ -29,8 +29,6 @@ public class ItemManager : Singleton<ItemManager>
 
         if (itemPrefab == null) return;
 
-        if (itemPrefab) return;
-
         itemPool.CreatePool(itemPrefab, 10, itemPoolParent);
 
         if (itemObjects == null) return;

@@ -1,4 +1,4 @@
-public class ItemTableData : TableBase
+﻿public class ItemTableData : TableBase
 {
     public int id { get; set; }
     public string itemType { get; set; }

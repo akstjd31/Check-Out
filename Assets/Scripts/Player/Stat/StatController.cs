@@ -39,18 +39,18 @@ public class StatController : MonoBehaviour
         stateMachine = this.GetComponentInChildren<PlayerStateMachine>();
     }
 
-    private void Start()
-    {
-        playerCtrl.GetPlayerView().UpdateStaminaText(CurrentStamina);
-        playerCtrl.GetPlayerView().UpdateSanityText((int)CurrentSanityPercent);
-    }
-
     public void Init()
     {
         CurrentStamina = holder.Stat.MaxStamina;
         CurrentSanity = holder.Stat.MaxSanity;
         CurrentRunStaminaCost = holder.Stat.RunStaminaCost;
         DefaultInvincibilityTime = holder.Stat.InvincibilityTime;
+
+        if (playerCtrl != null)
+        {
+            playerCtrl.GetPlayerView().UpdateStaminaText(CurrentStamina);
+            playerCtrl.GetPlayerView().UpdateSanityText((int)CurrentSanityPercent);
+        }
     }
 
     // 각 상태에 따른 기본 수치 적용

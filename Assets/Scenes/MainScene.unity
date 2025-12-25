@@ -925,9 +925,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1971204675105539025, guid: 8b992a24aff3d2e4c9f980c48ffad398, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2517330043916105864, guid: 8b992a24aff3d2e4c9f980c48ffad398, type: 3}
       propertyPath: fadeDuration
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3021986146568371250, guid: 8b992a24aff3d2e4c9f980c48ffad398, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3565908883269936474, guid: 8b992a24aff3d2e4c9f980c48ffad398, type: 3}
       propertyPath: m_Name

@@ -13,7 +13,6 @@ public class RunState : IState
     public void Exit()
     {
         Debug.Log("세션 상태 종료");
-        SaveData();
 
         ItemManager.Instance.ReturnAllItem();
         LoadingManager.Instance.InitSceneActivation();
@@ -29,15 +28,10 @@ public class RunState : IState
         }
     }
 
-    private void SaveData()
-    {
-        GameManager.Instance.SaveMoney();
-        StorageManager.Instance.SaveStorage();
-        InventoryManager.Instance.SaveInventory();
-    }
-
     private void Init()
     {
+        FadeController.Instance.StartFadeIn();
+
         // 다음 씬 정보 미리 설정
         LoadingData.NextState = GameState.Hub;
         LoadingData.TargetScene = "HubScene";

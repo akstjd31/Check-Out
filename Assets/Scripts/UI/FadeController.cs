@@ -25,9 +25,10 @@ public class FadeController : Singleton<FadeController>
 
     public void StartFadeIn()
     {
-        OnFadeStarted?.Invoke();
         StartCoroutine(FadeIn());
     }
+
+    public void LoadingComplete() => OnFadeStarted?.Invoke();
 
     private IEnumerator FadeIn()
     {

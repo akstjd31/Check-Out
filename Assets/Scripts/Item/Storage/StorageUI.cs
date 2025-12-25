@@ -11,8 +11,6 @@ public class StorageUI : MonoBehaviour
 
     private Storage storage;
     private InventoryUI inventoryUI;
-    private int storageSize;
-
 
     private void Awake()
     {
@@ -41,11 +39,9 @@ public class StorageUI : MonoBehaviour
 
     public void Init()
     {
-        storageSize = storage.GetDefaultStorageSize();
-        storage.SetStorage(storageSize);
-        SetStorageUI(storageSize);
+        SetStorageUI(storage.GetDefaultStorageSize());
 
-        Debug.Log("창고 만들어짐!");
+        Debug.Log("창고 UI 만들어짐!");
     }
 
 

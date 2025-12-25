@@ -17,7 +17,6 @@ public class PlayerCtrl : MonoBehaviour
     private PlayerStateMachine state;
     private PlayerInteractor interactor;
     private SoundDistance soundDistance;
-    [SerializeField] private GameObject playerStatCanvas;
     private PlayerView playerView;
 
     private void Awake()
@@ -31,8 +30,7 @@ public class PlayerCtrl : MonoBehaviour
 
         input.OnInteract += OnInteract; 
 
-        if (playerStatCanvas != null)
-            playerView = Instantiate(playerStatCanvas.gameObject).GetComponent<PlayerView>();
+        playerView = FindAnyObjectByType<PlayerView>();
     }
 
     private void Update()

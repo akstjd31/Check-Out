@@ -41,6 +41,8 @@ public class StorageManager : Singleton<StorageManager>
     // 창고 불러오기
     public void LoadStorage()
     {
+        storage.SetStorage(storage.GetDefaultStorageSize());
+
         SlotSaveData saveData = 
             SaveLoadManager.Instance.Load<SlotSaveData>(fileName);
         
@@ -48,6 +50,7 @@ public class StorageManager : Singleton<StorageManager>
 
         foreach (var slot in saveData.slots)
         {
+            Debug.Log($"{slot.itemId} 있음!!");
             var instance = ItemManager.Instance.Createinstance(slot.itemId);
 
             instance.duration = slot.duration;

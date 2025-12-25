@@ -26,6 +26,23 @@ public class LoadingManager : Singleton<LoadingManager>
         }
     }
 
+    private void LoadData()
+    {
+        if (GameManager.Instance.PreviousState != GameState.Main)
+            SaveData();
+
+        GameManager.Instance.LoadMoney();
+        StorageManager.Instance.LoadStorage();
+        InventoryManager.Instance.LoadInventory();
+    }
+
+    private void SaveData()
+    {
+        GameManager.Instance.SaveMoney();
+        StorageManager.Instance.SaveStorage();
+        InventoryManager.Instance.SaveInventory();
+    }
+
     // 씬 로드 비동기 작업
     IEnumerator LoadSceneAsync(string sceneName)
     {
@@ -53,13 +70,15 @@ public class LoadingManager : Singleton<LoadingManager>
         // 로딩 완료 후에 외부 신호(readyToActivate) 대기
         Debug.Log("준비가 완료될때까지 대기 중..");
 
+        LoadData();
+
         // 외부에서 신호를 기다림
         yield return new WaitUntil(() => readyToActivate); 
 
         // 씬 전환
         operation.allowSceneActivation = true;
 
-        FadeController.Instance.StartFadeIn();
+        FadeController.Instance.LoadingComplete();
 
         Debug.Log("씬 전환됨!");
     }

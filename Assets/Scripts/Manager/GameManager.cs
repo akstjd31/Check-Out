@@ -1,11 +1,14 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
     [Header("State")]
-    // public GameState CurrentState { get; private set; }
-    public GameState CurrentState;
+    public GameState CurrentState { get; private set; }
+    public GameState PreviousState { get; private set; }
+    // public GameState CurrentState;
     private StateMachine<GameState> stateMachine;
     private GameObject player;
     private PlayerView playerView;                  // 임시 돈 텍스트 확인용
@@ -90,6 +93,7 @@ public class GameManager : Singleton<GameManager>
         if (data == null) return;
 
         Money = data.money;
+        //playerView.UpdateMoneyText(Money);
 
         Debug.Log("돈 데이터 불러오기 완료!");
     }
@@ -106,6 +110,7 @@ public class GameManager : Singleton<GameManager>
     public void ChangeState(GameState newState)
     {
         Debug.Log($"{CurrentState} -> {newState} 변경");
+        PreviousState = CurrentState;
         CurrentState = newState;
         stateMachine.ChangeState(newState);
 
