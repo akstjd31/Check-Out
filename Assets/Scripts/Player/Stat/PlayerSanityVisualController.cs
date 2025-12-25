@@ -6,6 +6,13 @@ public class PlayerSanityVisualController : MonoBehaviour
 {
     [SerializeField] private Volume volume;
     private Vignette vignette;
+    [Header("첫 번째로 해당 수치만큼 낮아졌을 때 처리")]
+    [SerializeField, Range(0, 1)] private float firstWarningValue;
+
+    [Header("두 번째로 해당 수치만큼 낮아졌을 때 처리")]
+    [SerializeField, Range(0, 1)] private float secondWarningValue;
+    private float currentIntensity;
+    private float currentSmoothness;
 
     private void Awake()
     {
@@ -15,16 +22,28 @@ public class PlayerSanityVisualController : MonoBehaviour
             volume.profile.TryGet(out vignette);
     }
 
+    private void Start()
+    {
+        if (firstWarningValue < secondWarningValue)
+        {
+            Debug.Log("수치를 잘못 입력하셨습니다. 현재 두 번째 값이 더 큼");
+            return;
+        }
+    }
+
     public void UpdateSanity(float sanityPercent)
     {
-        if (sanityPercent <= 0.66f && sanityPercent > 0.33f)
+        if (firstWarningValue < secondWarningValue)
+            return;
+
+        if (sanityPercent <= firstWarningValue && sanityPercent > secondWarningValue)
         {
             SetWarningFirst(true);
         }
         else
         {
             SetWarningFirst(false);
-            if(sanityPercent <= 0.33f && sanityPercent > 0f)
+            if(sanityPercent <= secondWarningValue && sanityPercent > 0f)
             {
                 SetWarningSecond(true);
             }
@@ -50,14 +69,17 @@ public class PlayerSanityVisualController : MonoBehaviour
 
     public void Shake(bool hit)
     {
-        vignette.intensity.value = hit ? 0.4f : 0f;
-        vignette.smoothness.value = hit ? 0.4f : 0f;
+        vignette.intensity.value = hit ? 0.4f : currentIntensity;
+        vignette.smoothness.value = hit ? 0.4f : currentSmoothness;
     }
 
     private void SetWarningFirst(bool active)
     {
         vignette.intensity.value = active ? 0.3f : 0f;
         vignette.smoothness.value = active ? 0.3f : 0f;
+
+        currentIntensity = vignette.intensity.value;
+        currentSmoothness = vignette.smoothness.value;
     }
     private void SetWarningSecond(bool active)
     {
@@ -65,5 +87,8 @@ public class PlayerSanityVisualController : MonoBehaviour
 
         vignette.intensity.value = active ? 0.4f : 0f;   // 시야 어두워짐
         vignette.smoothness.value = active ? 0.4f : 0f;   // 시야각 축소 느낌
+
+        currentIntensity = vignette.intensity.value;
+        currentSmoothness = vignette.smoothness.value;
     }
 }

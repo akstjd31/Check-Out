@@ -496,6 +496,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSanityVisualController
   volume: {fileID: 0}
+  firstWarningValue: 0.66
+  secondWarningValue: 0.33
 --- !u!114 &4650590073838223967
 MonoBehaviour:
   m_ObjectHideFlags: 0
