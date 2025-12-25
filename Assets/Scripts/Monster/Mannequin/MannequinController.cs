@@ -127,7 +127,10 @@ public class MannequinController : MonsterController
         {
             // 접근 상태 동안 수행
             Debug.Log("접근 시작");
-            mannequinMovement.Move(mannequinFieldOfView.visibleTargets[0], mannequinModel.ApproachSpeed);
+            var target = mannequinFieldOfView.visibleTargets[0];
+            mannequinMovement.NavRotationOff();
+            transform.LookAt(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z));
+            mannequinMovement.Move(target, mannequinModel.ApproachSpeed);
             yield return mannequinFieldOfView.delay;
         }
     }
@@ -141,6 +144,7 @@ public class MannequinController : MonsterController
     {
         while (mannequinModel.isObservedFromPlayer)
         {
+            mannequinMovement.NavRotationOn();
             mannequinMovement.VelocityZero();
             // 시야에 확보된 상태일 경우 이동 불가
             Debug.Log("플레이어가 관찰 중입니다.");
@@ -195,6 +199,7 @@ public class MannequinController : MonsterController
     protected override void StartPatrol()
     {
         Debug.Log("배회 실행");
+        mannequinMovement.NavRotationOn();
         targetTransform = null;
         mannequinMovement.ChangeSpeed(mannequinModel.PatrolSpeed);
         mannequinMovement.PatrolNextOne();

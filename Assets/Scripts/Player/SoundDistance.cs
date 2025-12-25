@@ -36,10 +36,16 @@ public class SoundDistance : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.TryGetComponent<SirenModel>(out var sirenModel) && (state.CurrentState == PlayerState.Run || state.CurrentState == PlayerState.Walk))
+        if (other.TryGetComponent<SirenModel>(out var sirenModel) &&
+            other.TryGetComponent<SirenController>(out var sirenController) &&
+            (state.CurrentState == PlayerState.Run || state.CurrentState == PlayerState.Walk))
         {
             if (sirenModel.monsterState == Monster.MonsterState.WanderingAround)
+            {
+                sirenController.GetTransform(transform);
                 sirenModel.ChangeState(Monster.MonsterState.Alert);
+            }
+                
         }
 
         //if (other.TryGetComponent<SirenController>(out var sirenController)

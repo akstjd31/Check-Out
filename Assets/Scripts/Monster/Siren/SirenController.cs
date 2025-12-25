@@ -142,7 +142,7 @@ public class SirenController : MonsterController
             // 3초 동안 비명
             if (alertTimer <= 3f)
             {
-                sirenMovement.Move(transform,0f);
+                sirenMovement.Move(targetTransform, 0f);
                 sirenMovement.NavRotationOff();
                 transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
                 sprite.color = Color.red;
@@ -180,6 +180,7 @@ public class SirenController : MonsterController
                         target.ChangeState(Monster.MonsterState.WanderingAround);
                     }
                 }
+                targetTransform = null;
                 sirenMovement.NavRotationOn();
                 sprite.color = Color.white;
                 screamInMonster.Clear();
