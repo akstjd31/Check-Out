@@ -6,7 +6,7 @@ using static UnityEngine.InputSystem.HID.HID;
 public class StatController : MonoBehaviour
 {
     [Header("Component")]
-    private PlayerView playerView;
+    private PlayerCtrl playerCtrl;
     private PlayerStatHolder holder;
     private PlayerInvincibility invincibility;
     private PlayerStateMachine stateMachine;
@@ -34,9 +34,15 @@ public class StatController : MonoBehaviour
     private void Awake()
     {
         holder = this.GetComponent<PlayerStatHolder>();
-        playerView = GameObject.Find(playerStatCanvasName).GetComponent<PlayerView>();
+        playerCtrl = this.GetComponent<PlayerCtrl>();
         invincibility = this.GetComponentInChildren<PlayerInvincibility>();
         stateMachine = this.GetComponentInChildren<PlayerStateMachine>();
+    }
+
+    private void Start()
+    {
+        playerCtrl.GetPlayerView().UpdateStaminaText(CurrentStamina);
+        playerCtrl.GetPlayerView().UpdateSanityText((int)CurrentSanityPercent);
     }
 
     public void Init()
@@ -45,9 +51,6 @@ public class StatController : MonoBehaviour
         CurrentSanity = holder.Stat.MaxSanity;
         CurrentRunStaminaCost = holder.Stat.RunStaminaCost;
         DefaultInvincibilityTime = holder.Stat.InvincibilityTime;
-
-        playerView.UpdateStaminaText(CurrentStamina);
-        playerView.UpdateSanityText((int)CurrentSanityPercent);
     }
 
     // 각 상태에 따른 기본 수치 적용
@@ -98,7 +101,8 @@ public class StatController : MonoBehaviour
                 break;
         }
 
-        playerView.UpdatePlayerSituationText(situation.ToString());
+        if (playerCtrl != null)
+            playerCtrl.GetPlayerView().UpdatePlayerSituationText(situation.ToString());
     }
 
     public void UpdateDeath(playerDeath death)
@@ -125,14 +129,18 @@ public class StatController : MonoBehaviour
     public void ConsumeStamina()
     {
         CurrentStamina = Mathf.Max(0, CurrentStamina - CurrentRunStaminaCost);
-        playerView.UpdateStaminaText(CurrentStamina);
+        
+        if (playerCtrl != null)
+            playerCtrl.GetPlayerView().UpdateStaminaText(CurrentStamina);
     } 
     
     // 스태미나 회복
     public void RecoverStamina()
     {
         CurrentStamina = Mathf.Min(holder.Stat.MaxStamina, CurrentStamina + CurrentRecoverStamina);
-        playerView.UpdateStaminaText(CurrentStamina);
+        
+        if (playerCtrl != null)
+            playerCtrl.GetPlayerView().UpdateStaminaText(CurrentStamina);
     }
     
     // 스태미나가 남아있는지?
@@ -142,7 +150,10 @@ public class StatController : MonoBehaviour
     public void ConsumeSanity(bool onhit, int amount)
     {
         CurrentSanity = Mathf.Max(0, CurrentSanity - amount);
-        playerView.UpdateSanityText((int)CurrentSanityPercent);
+        
+        if (playerCtrl != null)
+            playerCtrl.GetPlayerView().UpdateSanityText((int)CurrentSanityPercent);
+            
         if (!IsRemainSanity())
             playerDie(onhit);
 

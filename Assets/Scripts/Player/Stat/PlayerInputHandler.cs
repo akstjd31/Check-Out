@@ -11,7 +11,7 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction moveAction, runAction, interactAction, scrollAction, selectAction, dropAction;
 
     [Header("Value")]
-    private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll", "Select", "Drop"};
+    private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll", "Select", "Drop" };
     public Vector3 MoveInput { get; private set; }
     public bool IsRunPressed { get; private set; }
     public event Action OnInteract;
@@ -55,17 +55,19 @@ public class PlayerInputHandler : MonoBehaviour
         dropAction.performed += OnDropKeyInput;
 
         stat.OnDeath += IgnoreInput;
+
+        FadeController.Instance.OnFadeStarted += IgnoreInput;
+        FadeController.Instance.OnFadeEnded += ReleaseIgnoreInput;
+
     }
 
     private void Update()
     {
-        // if (GameManager.Instance.IsOpenedUI())
-        // {
-        //     IgnoreInput();
-        //     return;    
-        // }
-
-        ReleaseIgnoreInput();
+        if (GameManager.Instance.IsOpenedUI() && !moveAction.enabled)
+        {
+            IgnoreInput();
+            return;
+        }
     }
 
     private void OnDisable()
@@ -98,6 +100,12 @@ public class PlayerInputHandler : MonoBehaviour
         }
 
         stat.OnDeath -= IgnoreInput;
+
+        if (FadeController.Instance != null)
+        {
+            FadeController.Instance.OnFadeStarted -= IgnoreInput;
+            FadeController.Instance.OnFadeEnded -= ReleaseIgnoreInput;
+        }
     }
 
     // 입력 비활성화

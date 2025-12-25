@@ -393,7 +393,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bffaf0b9eee4a714dab1813ecf6cba3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatController
-  isDie: 0
 --- !u!114 &6494831983528423991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,6 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a643f42547e08f4688c52fa9976eec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCtrl
+  playerStatCanvas: {fileID: 3539786806591427095, guid: 9b3e7cd4ffb24e94aa4f5cfb8c5208d7, type: 3}
 --- !u!114 &3956227001367125626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,6 +588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0928062638ad3894cb1abc3953b44b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCamera
+  shakeDuration: 0.3
+  shakeAmount: 0.1
   fallAngle: -70
   fallDuration: 1.2
   playerRb: {fileID: 0}
@@ -701,6 +703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInvincibility
   isInvincible: 0
+  onHit: 0
 --- !u!1 &7548294924499836803
 GameObject:
   m_ObjectHideFlags: 0

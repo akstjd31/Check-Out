@@ -38,8 +38,6 @@ public class RunState : IState
 
     private void Init()
     {
-        //FadeController.Instance.Init();
-        
         // 다음 씬 정보 미리 설정
         LoadingData.NextState = GameState.Hub;
         LoadingData.TargetScene = "HubScene";

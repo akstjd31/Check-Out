@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager>
     public GameState CurrentState;
     private StateMachine<GameState> stateMachine;
     private GameObject player;
+    private PlayerView playerView;                  // 임시 돈 텍스트 확인용
     public bool isGameOver = false;
 
     [Header("Value")]
@@ -24,6 +25,7 @@ public class GameManager : Singleton<GameManager>
         stateMachine.AddState(GameState.Hub, new HubState());
         stateMachine.AddState(GameState.Loading, new LoadingState());
         stateMachine.AddState(GameState.Session, new RunState());
+
     }
 
     private void Start()
@@ -43,9 +45,12 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if (player == null)
+        if (SceneManager.GetActiveScene().name.Equals("HubScene") && player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
+            playerView = player.GetComponent<PlayerCtrl>().GetPlayerView();
+
+            ChangeMoney(0);
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
@@ -89,7 +94,13 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("돈 데이터 불러오기 완료!");
     }
 
-    public void ChangeMoney(int amount) => Money += amount;
+    public void ChangeMoney(int amount)
+    {
+        Money += amount;
+
+        if (playerView != null)
+            playerView.UpdateMoneyText(Money);
+    }
 
     // 상태 변경
     public void ChangeState(GameState newState)
@@ -109,5 +120,5 @@ public class GameManager : Singleton<GameManager>
     public void HandleLoadingEnded() => ChangeState(LoadingData.NextState);
 
     // UI 열려있는지?
-    //public bool IsOpenedUI() => StorageManager.Instance.IsOpen || StoreManager.Instance.IsOpen; // !FadeController.Instance.IsFadeEnded
+    public bool IsOpenedUI() => StorageManager.Instance.IsOpen || StoreManager.Instance.IsOpen;
 }

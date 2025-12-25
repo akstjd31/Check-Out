@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6225368157949316294}
   - component: {fileID: 4064850547496078805}
   - component: {fileID: 2702602004803060926}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: ExaminableObj
-  m_TagString: Untagged
+  m_TagString: Interactive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,4 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279f29e29fd2e3a4c946dc380609b11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Examinable
-  text: {fileID: 0}
+  promptText: 

@@ -13,6 +13,7 @@ TagManager:
   - WayPoint
   - MonsterArea
   - DamagedArea
+  - Interactive
   layers:
   - Default
   - TransparentFX

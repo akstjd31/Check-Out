@@ -325,6 +325,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: StorageUI
       objectReference: {fileID: 0}
+    - target: {fileID: 8632164559102322220, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632164559102322220, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632164559102322220, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632164559102322220, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ReleaseIgnoreInput
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632164559102322220, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PlayerInputHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632164559102322220, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

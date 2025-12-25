@@ -209,10 +209,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3419532622017969298, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304883111990700140, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4304883111990700140, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304883111990700140, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4304883111990700140, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
@@ -220,12 +228,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4304883111990700140, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304883111990700140, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CloseShop
       objectReference: {fileID: 0}
     - target: {fileID: 4304883111990700140, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ReleaseIgnoreInput
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304883111990700140, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: VendingMachine, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304883111990700140, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PlayerInputHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304883111990700140, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6746468600761761430, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
       propertyPath: m_AnchorMax.x

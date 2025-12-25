@@ -12,6 +12,7 @@ public enum playerDeath { None, Normal, Hit}
 public class PlayerStateMachine : MonoBehaviour
 {
     public PlayerState CurrentState { get; private set; }
+    public PlayerSituation PreviousSituation { get; private set; }
     public PlayerSituation CurrentSituation { get; private set; }
     public playerDeath CurrentDeath { get; private set; }
 
@@ -54,6 +55,9 @@ public class PlayerStateMachine : MonoBehaviour
     public void ChangeSituation(PlayerSituation situation)
     {
         if (CurrentSituation == situation) return;
+
+        if (PreviousSituation != CurrentSituation)
+            PreviousSituation = CurrentSituation;
         CurrentSituation = situation;
         stat.UpdateSituationUsedValue(situation);
     }

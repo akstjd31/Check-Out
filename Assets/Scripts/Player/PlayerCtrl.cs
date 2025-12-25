@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInputHandler))]
@@ -16,6 +17,8 @@ public class PlayerCtrl : MonoBehaviour
     private PlayerStateMachine state;
     private PlayerInteractor interactor;
     private SoundDistance soundDistance;
+    [SerializeField] private GameObject playerStatCanvas;
+    private PlayerView playerView;
 
     private void Awake()
     {
@@ -27,6 +30,9 @@ public class PlayerCtrl : MonoBehaviour
         soundDistance = this.GetComponent<SoundDistance>();
 
         input.OnInteract += OnInteract; 
+
+        if (playerStatCanvas != null)
+            playerView = Instantiate(playerStatCanvas.gameObject).GetComponent<PlayerView>();
     }
 
     private void Update()
@@ -80,4 +86,6 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     private void OnInteract() => interactor.Interaction();
+
+    public PlayerView GetPlayerView() => playerView;
 }

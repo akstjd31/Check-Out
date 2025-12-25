@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3134101305108247838}
   - component: {fileID: 2913623588517660098}
   - component: {fileID: 2697199619715537205}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Chest
-  m_TagString: Untagged
+  m_TagString: Interactive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,3 +124,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8955f369aed0ee244b465a939383cf4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chest
+  promptText: 
+  storageUIObj: {fileID: 0}

@@ -8,8 +8,8 @@ public class FirstPersonCameraController : MonoBehaviour
     [SerializeField] private float mouseSensitivity;
     [SerializeField] private float cameraDistance = 0.1f;
     private float maxPitch = 90f;
-
     private float pitch;
+    private bool canCameraRotate;
 
     private void Start()
     {
@@ -17,19 +17,35 @@ public class FirstPersonCameraController : MonoBehaviour
         Cursor.visible = false;
     }
 
+    private void OnEnable()
+    {
+        FadeController.Instance.OnFadeStarted += () => canCameraRotate = false;
+        FadeController.Instance.OnFadeEnded += () => canCameraRotate = true;
+
+    }
+
+    private void OnDisable()
+    {
+        FadeController.Instance.OnFadeStarted -= () => canCameraRotate = false;
+        FadeController.Instance.OnFadeEnded -= () => canCameraRotate = true;
+    }
+
     private void LateUpdate()
     {
-        // if (!GameManager.Instance.IsOpenedUI())
-        // {
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        if (canCameraRotate && !GameManager.Instance.IsOpenedUI())
+            UpdateCameraRotation();
+    }
 
-            this.transform.Rotate(Vector3.up * mouseX);
+    private void UpdateCameraRotation()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-            pitch -= mouseY;
-            pitch = Mathf.Clamp(pitch, -maxPitch, maxPitch);
+        this.transform.Rotate(Vector3.up * mouseX);
 
-            cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
-        // }
+        pitch -= mouseY;
+        pitch = Mathf.Clamp(pitch, -maxPitch, maxPitch);
+
+        cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
     }
 }

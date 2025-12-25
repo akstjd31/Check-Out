@@ -63,6 +63,10 @@ public class PlayerSanity : MonoBehaviour
             stateMachine.ChangeSituation(PlayerSituation.Chase);
             return;
         }
+        else
+        {
+            stateMachine.ChangeSituation(stateMachine.PreviousSituation);
+        }
 
         if (areaDetector.IsLight)
         {

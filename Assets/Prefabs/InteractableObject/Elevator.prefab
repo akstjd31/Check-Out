@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1049897192064273968}
   - component: {fileID: 4747386873687375546}
   - component: {fileID: 3593088386768331539}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: Interactive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 466f3cc9bbd492345b5c1abbec62ccbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Elevator
+  promptText: 
 --- !u!1 &4114163984707820987
 GameObject:
   m_ObjectHideFlags: 0

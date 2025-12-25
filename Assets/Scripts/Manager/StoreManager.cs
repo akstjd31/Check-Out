@@ -70,6 +70,7 @@ public class StoreManager : Singleton<StoreManager>
         inventory.GetItem(item, inventoryIndex);
 
         GameManager.Instance.ChangeMoney(-price);
+        
     }
 
     // 아이템 판매

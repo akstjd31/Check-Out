@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,16 +6,27 @@ using UnityEngine.UI;
 public class FadeController : Singleton<FadeController>
 {
     [SerializeField] private Image fadeImage;
-    [SerializeField] private float fadeDuration = 1f;
+    [SerializeField] private float fadeDuration;
     // public bool IsFadeEnded { get; private set; }
-    public bool IsFadeEnded;
+    public event Action OnFadeStarted;
+    public event Action OnFadeEnded;
 
-    public void Init() => IsFadeEnded = false;
+    private void OnEnable()
+    {
+        OnFadeStarted += () => fadeImage.gameObject.SetActive(true);
+        OnFadeEnded += () => fadeImage.gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        OnFadeStarted -= () => fadeImage.gameObject.SetActive(true);
+        OnFadeEnded -= () => fadeImage.gameObject.SetActive(false);
+    }
 
     public void StartFadeIn()
     {
-        if (!IsFadeEnded)
-            StartCoroutine(FadeIn());
+        OnFadeStarted?.Invoke();
+        StartCoroutine(FadeIn());
     }
 
     private IEnumerator FadeIn()
@@ -28,7 +40,7 @@ public class FadeController : Singleton<FadeController>
         }
         
         SetAlpha(0f);
-        IsFadeEnded = true;
+        OnFadeEnded?.Invoke();
     }
 
     private void SetAlpha(float alpha)

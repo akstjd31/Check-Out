@@ -128,6 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WalkerController
   targetTransform: {fileID: 0}
   walkerView: {fileID: 0}
+  rotateSpeed: 0
 --- !u!114 &3029327642943884836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,14 +148,6 @@ MonoBehaviour:
   chaseFast: 4.5
   chaseSlow: 2
   stopToMissingDelay: 2
-  viewRadius: 20
-  viewAngle: 40
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 128
   delay: 0.2
   moveTransformList: []
   minimumStopDelay: 2
@@ -200,8 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b10bfdde18fb4c4d86d536447b6ac08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FieldOfView
-  viewRadius: 0
-  viewAngle: 0
+  viewRadius: 20
+  viewAngle: 40
+  circleRadius: 5
   targetMask:
     serializedVersion: 2
     m_Bits: 64
@@ -532,6 +526,10 @@ PrefabInstance:
     - target: {fileID: 7317130955084507916, guid: f1e581e91d1b25b4394a6b91e971449a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325943438997211690, guid: f1e581e91d1b25b4394a6b91e971449a, type: 3}
+      propertyPath: m_Radius
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
