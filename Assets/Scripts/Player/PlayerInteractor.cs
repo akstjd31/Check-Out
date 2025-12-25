@@ -51,9 +51,10 @@ public class PlayerInteractor : MonoBehaviour
 
         Debug.DrawRay(head, direction * distance, Color.red);
 
-        if (Physics.Raycast(head, direction, out hit, distance, interactiveMask))
+        if (Physics.Raycast(head, direction, out hit, distance))
         {
-            return hit.collider.GetComponentInParent<T>();
+            if (hit.transform.CompareTag("Interactive"))
+                return hit.collider.GetComponentInParent<T>();
         }
 
         return null;
