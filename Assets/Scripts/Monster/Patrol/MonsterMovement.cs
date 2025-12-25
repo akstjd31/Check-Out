@@ -31,11 +31,12 @@ public class MonsterMovement : MonoBehaviour
     private float exceptionTimer = 0;
     [Header("Exception")]
     // 몬스터 움직이지 않는지 판단할 시간
-    [SerializeField]private float isExceptionTimer = 7;
+    [SerializeField] private float defaultExceptionTimer = 2f;
 
     // 프로퍼티 
     public int MinimumStopDelay { get; set; }
     public int MaxStopDelay { get; set; }
+    private Monster monster;
     private void Awake()
     {
         //Debug.Log(gameObject.name);
@@ -43,34 +44,28 @@ public class MonsterMovement : MonoBehaviour
         // 다음 목표 지점으로 이동
         //PatrolNextOne();
         //TestLoop();
-        Debug.Log("움직임 컴포넌트 스타트 실행 완료");
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("WayPoint"))
-        {
-            Debug.Log($"currentDestination : {currentDestination.name}");
-            // stopDelay만큼 멈춰있음
-            StartCoroutine(Stop());
-        }
+        Debug.Log("움직임 컴포넌트 스타트 실행 완료");
     }
 
     private void Update()
     {
         // 만약 몬스터가 멈춰있을 경우 타이머를 진행
-        if (navMeshAgent.velocity == Vector3.zero && exceptionTimer < 7f) 
+        if (monster.monsterState == Monster.MonsterState.WanderingAround)
         {
-            //Debug.Log($"몬스터 움직임 감지 못 함 : {exceptionTimer}");
-            exceptionTimer += Time.deltaTime;
+            if (navMeshAgent.velocity == Vector3.zero && exceptionTimer < defaultExceptionTimer)
+            {
+                //Debug.Log($"몬스터 움직임 감지 못 함 : {exceptionTimer}");
+                exceptionTimer += Time.deltaTime;
+            }
+            // 몬스터가 일정 시간 동안 멈춰있을 경우 자체적으로 배회 진행
+            else if (navMeshAgent.velocity == Vector3.zero && exceptionTimer >= defaultExceptionTimer)
+            {
+                // 타이머 초기화
+                PatrolNextOne();
+            }
+            else { return; }
         }
-        // 몬스터가 일정 시간 동안 멈춰있을 경우 자체적으로 배회 진행
-        else if (navMeshAgent.velocity == Vector3.zero && exceptionTimer >= 7f)
-        {
-            // 타이머 초기화
-            PatrolNextOne();
-        }
-        else { return; }
     }
 
     public void Init()
@@ -87,6 +82,8 @@ public class MonsterMovement : MonoBehaviour
         // 사용할 랜덤 변수 초기화
         patrolOrder = new System.Random();
         stopDelay = new System.Random();
+
+        monster = GetComponent<Monster>();
     }
 
 
@@ -105,16 +102,7 @@ public class MonsterMovement : MonoBehaviour
         navMeshAgent.SetDestination(inputTransform.position);
         navMeshAgent.isStopped = false;
     }
-   
-    private IEnumerator Stop()
-    {
-        // StopDelay만큼 멈춤
-        Debug.Log("멈춤");
-        navMeshAgent.isStopped = true;
-        yield return new WaitForSeconds(RandomStopDelay());
-        // 다음 목표 지점으로 이동
-        PatrolNextOne();
-    }
+
     public void StopToMissing()
     {
         // StopDelay만큼 멈춤
@@ -129,7 +117,7 @@ public class MonsterMovement : MonoBehaviour
         //Debug.Log("Random Delay :" + tempRandom);
         return tempRandom;
     }
-    
+
     //public void PatrolNextOne(float inputSpeed)
     //{
     //    ChooseNextDestination();
@@ -147,11 +135,11 @@ public class MonsterMovement : MonoBehaviour
     public void PatrolNextOne()
     {
         //nextDestination = ChooseNextDestination();
-
+        exceptionTimer = 0f;
         nextDestination = GetRandomPositionOnNavMesh();
         // 현재 목적지로 이동
         //Move(nextDestination.position);
-        Move(nextDestination); 
+        Move(nextDestination);
     }
 
     private void TestLoop()
@@ -184,6 +172,7 @@ public class MonsterMovement : MonoBehaviour
 
     Vector3 GetRandomPositionOnNavMesh()
     {
+        Debug.Log($"위치 한개 찍음 : {transform.name}");
         Vector3 randomDirection = Random.insideUnitSphere * 20f; // 원하는 범위 내의 랜덤한 방향 벡터를 생성합니다.
         randomDirection += transform.position; // 랜덤 방향 벡터를 현재 위치에 더합니다.
 

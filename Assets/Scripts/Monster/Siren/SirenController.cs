@@ -155,7 +155,7 @@ public class SirenController : MonsterController
                     if (target == null)
                         continue;
 
-                    // 배회상태에서만 몬스터를 자기 위치로 불러옴
+                    // 배회상태의 몬스터를 자기 위치로 불러옴
                     if (target.monsterState == Monster.MonsterState.WanderingAround)
                     {
                         target.GetComponent<MonsterController>().GetTransform(transform);
@@ -166,7 +166,6 @@ public class SirenController : MonsterController
                 Debug.Log(alertTimer);
                 yield return delay;
             }
-
             else
             {
                 foreach (var target in screamInMonster)

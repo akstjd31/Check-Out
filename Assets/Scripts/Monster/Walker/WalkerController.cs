@@ -13,7 +13,6 @@ public class WalkerController : MonsterController
     private float chaseTimer;
     private float checkTimer;
     private bool onRun = true;
-    private Transform sirenTransform;
    
 
     private void Awake()
@@ -190,13 +189,13 @@ public class WalkerController : MonsterController
     protected override void StartPatrol()
     {
         Debug.Log("배회 실행");
-        sirenTransform = null;
+        targetTransform = null;
         walkerMovement.ChangeSpeed(walkerModel.PatrolSpeed);
         walkerMovement.PatrolNextOne();
     }
 
     protected override void StartAlerted()
     {
-        walkerMovement.Move(sirenTransform, walkerModel.PatrolSpeed);
+        walkerMovement.Move(targetTransform, walkerModel.PatrolSpeed);
     }
 }
