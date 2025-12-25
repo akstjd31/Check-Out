@@ -1411,6 +1411,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Elevator
       objectReference: {fileID: 0}
+    - target: {fileID: 8760755016235771891, guid: 5239038bf6d645741beddb5142cfe298, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1683,7 +1687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9110932944380609734, guid: ca649cbaff2759440889360b4a21b1a7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 9110932944380609734, guid: ca649cbaff2759440889360b4a21b1a7, type: 3}
       propertyPath: m_LocalPosition.z

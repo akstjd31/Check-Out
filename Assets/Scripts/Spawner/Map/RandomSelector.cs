@@ -24,7 +24,7 @@ public class RandomSelector : MonoBehaviour
         if (!isPlaying)
         {
             SetItemSpawnLocation();
-            SetMonsterSpawnLocation();
+            //SetMonsterSpawnLocation();
             SetElevatorActivate();
             isPlaying = true;
         }
@@ -76,6 +76,9 @@ public class RandomSelector : MonoBehaviour
     /// </summary>
     public void SetMonsterSpawnLocation()
     {
+        if (spawnTableChecker == null)
+            return;
+
         int count = monsterSpawnCount;
         //위치값에 따른 몬스터 아이디 찾기
         int tableCount = spawnTableChecker.CheckTableCount();

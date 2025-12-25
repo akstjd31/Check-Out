@@ -140,7 +140,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
@@ -223,6 +223,7 @@ MonoBehaviour:
   targetTransform: {fileID: 0}
   sirenView: {fileID: 0}
   sprite: {fileID: 4520715237324926212}
+  rotateSpeed: 0
   screamInMonster: []
 --- !u!114 &1225967816738829382
 MonoBehaviour:
@@ -240,7 +241,7 @@ MonoBehaviour:
   moveSpeed: 0
   minimumStopDelay: 0
   maxStopDelay: 0
-  isExceptionTimer: 7
+  defaultExceptionTimer: 2
 --- !u!114 &2711752802489250415
 MonoBehaviour:
   m_ObjectHideFlags: 0
