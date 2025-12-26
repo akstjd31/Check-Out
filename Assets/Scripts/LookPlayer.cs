@@ -2,25 +2,20 @@
 
 public class LookPlayer : MonoBehaviour
 {
-
-    private GameObject maimCamera;
-    private Transform target;
-    Vector3 pos;
+    private Transform cam;
 
     void Start()
     {
-        maimCamera = GameObject.Find("Main Camera");
-        Debug.Log(maimCamera.name);
-        target = maimCamera.transform;
+        cam = Camera.main.transform;
     }
-    
-    // 플레이어 바라보게 하기
-    void Update()
+
+    void LateUpdate()
     {
-        if (target != null)
-        {
-            pos = new Vector3 (target.position.x, transform.position.y, target.position.z);
-            transform.LookAt(pos);
-        }
+        if (cam == null) return;
+
+        // 카메라 방향 그대로 바라보게
+        transform.rotation = Quaternion.LookRotation(
+            transform.position - cam.position
+        );
     }
 }

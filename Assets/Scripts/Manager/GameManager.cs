@@ -105,7 +105,6 @@ public class GameManager : Singleton<GameManager>
     }
 
     // 돈 저장 기능
-
     public void SaveMoney()
     {
         MoneyData data = new MoneyData();
