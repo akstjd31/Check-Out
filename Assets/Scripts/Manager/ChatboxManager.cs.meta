@@ -1,2 +1,12 @@
 fileFormatVersion: 2
 guid: 0db5580e33157d746b6fa4fb8116f3c7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - chatboxUI: {fileID: 2601859688418209318, guid: c6ff082172559a04f912ec23347d21b1, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
