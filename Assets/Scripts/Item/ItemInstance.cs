@@ -15,7 +15,7 @@ public class ItemInstance
     public int duration {  get; set; }
     public int consumption { get; set; }
     public ItemState state { get; private set; } = ItemState.Off;
-
+    
     public ItemInstance(ItemTableData itemdata, List<ItemEffect> effects)
     {
         this.itemdata = itemdata;

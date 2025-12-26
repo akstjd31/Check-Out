@@ -216,7 +216,7 @@ public class ItemManager : Singleton<ItemManager>
     {
         var data = GetItemData(itemId);
         var effects = GetItemEffectData(data.itemEffect);
-
+        
         return new ItemInstance(data, effects);
     }
 

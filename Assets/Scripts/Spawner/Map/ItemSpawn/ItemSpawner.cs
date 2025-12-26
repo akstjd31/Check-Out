@@ -19,6 +19,11 @@ public class ItemSpawner : MonoBehaviour
     Table<int, ItemTableData> itemTable;
     Table<int, ItemGroupTableData> groupTable;
     Table<int, ItemSpawnTableData> spawnTable;
+    public int GetSpawnGroup(int index)
+    {
+        return spawnTable[3000 + index].itemGroup;
+    }
+
     private void Start()
     {
         itemTable = TableManager.Instance.GetTable<int, ItemTableData>();
@@ -68,7 +73,7 @@ public class ItemSpawner : MonoBehaviour
     /// <returns></returns>
     public int GetItemCount(string tableType)
     {
-        switch(tableType)
+        switch (tableType)
         {
             case "ItemTable":
                 return itemCount;
@@ -89,7 +94,7 @@ public class ItemSpawner : MonoBehaviour
     /// <returns></returns>
     public Vector3 CheckPosition(int idValue)
     {
-        return new Vector3(spawnTable[3000+idValue].locationX, spawnTable[3000 + idValue].locationY, spawnTable[3000 + idValue].locationZ);
+        return new Vector3(spawnTable[3000 + idValue].locationX, spawnTable[3000 + idValue].locationY, spawnTable[3000 + idValue].locationZ);
     }
 
     /// <summary>
@@ -99,58 +104,40 @@ public class ItemSpawner : MonoBehaviour
     /// <returns></returns>
     public int DeclareObjectId(int groupValue)
     {
-        //일치하는 그룹 아이디를 가진 테이블 내의 데이터 아이디를 담아줄 리스트
-        List<int> idWithCorrectGroup = new List<int>();
+        List<int> idWithCorrectGroup = new List<int>();     // 일치하는 아이템 그룹 ID 리스트
+        int probabilityAdded = 0;                           // 가중치 총합
 
-        //랜덤값으로 가중치 내에서 아이템을 결정하기 위한, 랜덤값 최대치. ( 가중치 총합 )
-        int probabilityAdded = 0;
-
-        int correctId = 0;
-        //그룹 테이블 내의 모든 데이터들을 확인하면서 그룹아이디가 동일한 데이터의 아이디값을 저장
-        for(int i = 1; i <= groupCount; i++)
+        // 전체 그룹 ID 중에 파라미터로 들어온 그룹 ID가 동일하면 추가, 총 가중치 계산을 위한 합까지
+        foreach (int id in TableManager.Instance.GetAllIds(groupTable))
         {
-            if(groupTable[4000+i].itemGroup == groupTable[4000+groupValue].itemGroup)
-                idWithCorrectGroup.Add(4000+i);
+            if (groupTable[id].itemGroup == groupValue)
+            {
+                idWithCorrectGroup.Add(id);
+                probabilityAdded += groupTable[id].probability;
+            }
         }
 
-        //저장된 데이터값이 없을 경우 반환
-        if (idWithCorrectGroup.Count <= 0)
+        // 예외처리
+        if (idWithCorrectGroup.Count == 0)
         {
-            Debug.Log($"{4000 + groupValue} 그룹 아이디를 가진 아이템 테이블 내의 데이터가 존재하지 않습니다.");
+            Debug.Log($"{groupValue} 그룹 아이템이 존재하지 않습니다.");
             return 0;
         }
 
-        //카운트가 하나 이상일 경우 랜덤값을 돌려야 하기 때문에 따로 분류
-        else if(idWithCorrectGroup.Count > 1)
+        // 랜덤 가중치
+        int randomNumber = Random.Range(1, probabilityAdded + 1);
+        int acc = 0;                                                
+
+        // 누적해서 randomNumber가 해당 acc범위내에 들어가면 당첨
+        foreach (int id in idWithCorrectGroup)
         {
-
-            //이 코드가 실행되는 건 데이터값이 있을 경우이므로, 가중치의 총합을 더해준다.
-            for (int i = 0; i < idWithCorrectGroup.Count; i++)
+            acc += groupTable[id].probability;
+            if (randomNumber <= acc)
             {
-                probabilityAdded += groupTable[idWithCorrectGroup[i]].probability;
+                return groupTable[id].itemId;
             }
-
-            //해당 범위까지의 랜덤값을 굴리고...
-            int randomNumber = Random.Range(1, probabilityAdded + 1);
-
-            //값을 비교해 본다.
-            int counter = 0;
-            for(int i = 0; i < idWithCorrectGroup.Count; i++)
-            {
-                if(randomNumber <= groupTable[idWithCorrectGroup[i]].probability + counter)
-                {
-                    counter = groupTable[idWithCorrectGroup[i]].itemId;
-                    break;
-                }
-                else if (randomNumber > groupTable[idWithCorrectGroup[i]].probability + counter)
-                {
-                    counter += groupTable[idWithCorrectGroup[i]].probability;
-                }
-            }
-            //비교에 성공했을 때의 값을 저장
-            correctId = counter;
         }
-        //저장된 값을 반환
-        return correctId;
+
+        return 0;
     }
 }
