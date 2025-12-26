@@ -124,4 +124,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279f29e29fd2e3a4c946dc380609b11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Examinable
-  promptText: 
+  promptText:
+  - "E\uD0A4\uB97C \uB20C\uB7EC \uC870\uC0AC\uD558\uAE30"

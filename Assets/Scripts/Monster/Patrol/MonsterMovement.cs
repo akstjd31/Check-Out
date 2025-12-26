@@ -177,7 +177,10 @@ public class MonsterMovement : MonoBehaviour
         randomDirection += transform.position; // 랜덤 방향 벡터를 현재 위치에 더합니다.
 
         NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomDirection, out hit, 20f, NavMesh.AllAreas)) // 랜덤 위치가 NavMesh 위에 있는지 확인합니다.
+        NavMeshPath path = new NavMeshPath();
+        if (NavMesh.SamplePosition(randomDirection, out hit, 20f, NavMesh.AllAreas) && // 랜덤 위치가 NavMesh 위에 있는지 확인합니다.
+            navMeshAgent.CalculatePath(hit.position, path) && // 갈 수 있는 경로가 존재하는지 bool 값을 반환합니다.
+            path.status == NavMeshPathStatus.PathComplete) // 경로가 완성되었다면
         {
             return hit.position; // NavMesh 위의 랜덤 위치를 반환합니다.
         }

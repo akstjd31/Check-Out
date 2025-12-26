@@ -124,5 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8955f369aed0ee244b465a939383cf4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chest
-  promptText: 
+  promptText:
+  - "E\uD0A4\uB97C \uB20C\uB7EC \uCC3D\uACE0 \uC5F4\uAE30 "
   storageUIObj: {fileID: 0}

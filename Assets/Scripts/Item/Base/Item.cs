@@ -52,13 +52,13 @@ public class Item : Interactable, IItem
     public override void OnFocusEnter()
     {
         // 상호작용할 키나 하이라이트 기능
-        promptText = "E key press";
+        currentText = promptText[0];
     }
 
     public override void OnFocusExit()
     {
         // 빠져나갔을때
-        promptText = "";
+        currentText = "";
     }
 
     public override void Interact()

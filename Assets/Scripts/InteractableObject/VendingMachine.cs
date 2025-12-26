@@ -13,12 +13,12 @@ public class VendingMachine : Interactable
 
     public override void OnFocusEnter()
     {
-        promptText = "Press [E] to Open Shop";
+        currentText = promptText[0];
     }
 
     public override void OnFocusExit()
     {
-        promptText = "";
+        currentText = "";
     }
 
     public override void Interact()

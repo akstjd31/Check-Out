@@ -15,40 +15,38 @@ public class Door : Interactable
         anim = this.GetComponent<Animator>();
     }
 
-    string[] doorText = new string[2]
-    {
-        "Press [E] to Open",
-        "Press [E] to Close"
-    };
 
     // 문을 바라보는 상태
     public override void OnFocusEnter()
     {
-        promptText = doorText[(int)currentDoorType];
+        currentText = currentDoorType.Equals(DoorType.Closed) ? promptText[0] : promptText[1];
     }
 
     // 문에서 벗어날 때
     public override void OnFocusExit()
     {
-        promptText = "";
+        currentText = "";
     }
 
     // 실제 상호작용
     public override void Interact()
     {
+        string newText = "";
         // 애니메이션 수행
         switch (currentDoorType)
         {
             case DoorType.Open:
                 anim.SetBool("isOpen", false);
                 currentDoorType = DoorType.Closed;
+                newText = promptText[0];
                 break;
             case DoorType.Closed:
                 anim.SetBool("isOpen", true);
                 currentDoorType = DoorType.Open;
+                newText = promptText[1];
                 break;
         }
 
-        promptText = doorText[(int)currentDoorType];
+        currentText = newText;
     }
 }

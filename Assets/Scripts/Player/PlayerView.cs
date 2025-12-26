@@ -10,9 +10,9 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private TextMeshProUGUI situationText;     // 플레이어 시야 상태 텍스트
     [SerializeField] private TextMeshProUGUI moneyText;
 
-    public void UpdateStaminaText(int stamina) => staminaText.text = "Stamina: " + stamina;
+    public void UpdateStaminaText(int stamina) => staminaText.text = "스태미나: " + stamina;
 
-    public void UpdateSanityText(int sanity) => sanityText.text = $"Sanity: {sanity}%";
+    public void UpdateSanityText(int sanity) => sanityText.text = $"정신력: {sanity}%";
 
     public void UpdateInteractionText(string prompt) => interactionText.text = prompt;
 
@@ -20,5 +20,5 @@ public class PlayerView : MonoBehaviour
 
     public void UpdatePlayerSituationText(string curSitu) => situationText.text = $"[{curSitu}]";
 
-    public void UpdateMoneyText(int money) => moneyText.text = $"Money: {money.ToString("N0")}";
+    public void UpdateMoneyText(int money) => moneyText.text = $"돈: {money.ToString("N0")}";
 }

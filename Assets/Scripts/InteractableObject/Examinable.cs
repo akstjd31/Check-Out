@@ -8,12 +8,12 @@ public class Examinable : Interactable
     }
     public override void OnFocusEnter()
     {
-        promptText = "Press [E] to Examine";
+        currentText = promptText[0];
     }
 
     public override void OnFocusExit()
     {
-        promptText = "";
+        currentText = "";
     }
 
     public override void Interact()

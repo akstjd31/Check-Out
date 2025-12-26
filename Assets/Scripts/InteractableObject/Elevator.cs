@@ -4,12 +4,12 @@ public class Elevator : Interactable
 {
     public override void OnFocusEnter()
     {
-        promptText = "Press [E] to Use Elevator";
+        currentText = promptText[0];
     }
 
     public override void OnFocusExit()
     {
-        promptText = "";
+        currentText = "";
     }
 
     public override void Interact()

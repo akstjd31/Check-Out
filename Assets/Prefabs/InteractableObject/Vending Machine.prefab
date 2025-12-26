@@ -124,5 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31b252679da32746bb5b5ab61fdd2d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VendingMachine
-  promptText: 
+  promptText:
+  - "E\uD0A4\uB97C \uB20C\uB7EC \uC0C1\uC810 \uC5F4\uAE30"
   shopUIObj: {fileID: 0}

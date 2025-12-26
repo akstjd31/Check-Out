@@ -38,11 +38,13 @@ public class PlayerViewController : MonoBehaviour
             // 마네킹인지 체크
             if (target.TryGetComponent<MannequinModel>(out var mannequinModel))
             {
+                Debug.Log($"현재 옵저버 마네킹 갯수: {currentObservedMannequin.Count}");
                 mannequinModel.isObservedFromPlayer = true;
 
                 currentObservedMannequin.Add(mannequinModel);
 
-                if (mannequinModel.monsterState != Monster.MonsterState.Stop && target.TryGetComponent<MannequinController>(out var MannequinController))
+                if (mannequinModel.monsterState != Monster.MonsterState.Stop && 
+                    target.TryGetComponent<MannequinController>(out var MannequinController))
                 {
                     MannequinController.GetTransform(transform);
                     mannequinModel.ChangeState(Monster.MonsterState.Stop);

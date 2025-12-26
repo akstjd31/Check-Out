@@ -14,12 +14,12 @@ public class Chest : Interactable
 
     public override void OnFocusEnter()
     {
-        promptText = "Press [E] to Open Storage";
+        currentText = promptText[0];
     }
 
     public override void OnFocusExit()
     {
-        promptText = "";
+        currentText = "";
     }
 
     public override void Interact()

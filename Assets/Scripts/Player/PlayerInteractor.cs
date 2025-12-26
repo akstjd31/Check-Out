@@ -38,7 +38,7 @@ public class PlayerInteractor : MonoBehaviour
             }
 
             holder.PlayerView.UpdateObjNameText(interactableObj == null ? "[null]" : $"[{interactableObj.name}]");
-            holder.PlayerView.UpdateInteractionText(interactableObj?.GetPromptText());
+            holder.PlayerView.UpdateInteractionText(interactableObj?.GetCurrentText());
         // }
     }
 
