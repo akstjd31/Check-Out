@@ -30,11 +30,8 @@ public class PlayerCtrl : MonoBehaviour
         input.OnInteract += OnInteract; 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        // if (!FadeController.Instance.IsFadeEnded)
-        //     return;
-
         HandleMovement();
         HandleState();
     }

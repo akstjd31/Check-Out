@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class FirstPersonCameraController : MonoBehaviour
 {
+    private Rigidbody rigid;
     [SerializeField] private Transform cameraPivot;     // 카메라의 부모 (눈, 머리 등)
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private LayerMask wallMask;
@@ -10,6 +11,11 @@ public class FirstPersonCameraController : MonoBehaviour
     private float maxPitch = 90f;
     private float pitch;
     private bool canCameraRotate;
+
+    private void Awake()
+    {
+        rigid = this.GetComponent<Rigidbody>();
+    }
 
     private void Start()
     {
@@ -44,6 +50,7 @@ public class FirstPersonCameraController : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
+        // rigid.angularVelocity = Vector3.up * mouseX;
         this.transform.Rotate(Vector3.up * mouseX);
 
         pitch -= mouseY;
