@@ -13,7 +13,7 @@ public class SanityIncrease : ItemEffect
 
     public override bool Use()
     {
-        StatController playerStat = GameManager.Instance.GetPlayer().transform.GetComponent<StatController>();
+        StatController playerStat = GameManager.Instance.Player.transform.GetComponent<StatController>();
 
         playerStat.ChangeSanity(false,-Value1);
 

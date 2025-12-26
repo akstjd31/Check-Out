@@ -57,8 +57,8 @@ public class PlayerInputHandler : MonoBehaviour
 
         stat.OnDeath += IgnoreInput;
 
-        FadeController.Instance.OnFadeStarted += IgnoreInput;
-        FadeController.Instance.OnFadeEnded += ReleaseIgnoreInput;
+        FadeManager.Instance.OnFadeStarted += IgnoreInput;
+        FadeManager.Instance.OnFadeEnded += ReleaseIgnoreInput;
 
     }
 
@@ -102,10 +102,10 @@ public class PlayerInputHandler : MonoBehaviour
 
         stat.OnDeath -= IgnoreInput;
 
-        if (FadeController.Instance != null)
+        if (FadeManager.Instance != null)
         {
-            FadeController.Instance.OnFadeStarted -= IgnoreInput;
-            FadeController.Instance.OnFadeEnded -= ReleaseIgnoreInput;
+            FadeManager.Instance.OnFadeStarted -= IgnoreInput;
+            FadeManager.Instance.OnFadeEnded -= ReleaseIgnoreInput;
         }
     }
 

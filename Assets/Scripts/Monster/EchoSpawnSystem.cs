@@ -25,7 +25,7 @@ public class EchoSpawnSystem : MonoBehaviour
     {
         if(player == null)
         {
-            player = GameManager.Instance.GetPlayer().transform;
+            player = GameManager.Instance.Player.transform;
             playerView = player.GetComponent<FieldOfView>();
         }
     }

@@ -8,9 +8,10 @@ public class GameManager : Singleton<GameManager>
     [Header("State")]
     public GameState CurrentState { get; private set; }
     public GameState PreviousState { get; private set; }
-    // public GameState CurrentState;
+
     private StateMachine<GameState> stateMachine;
-    private GameObject player;
+    public GameObject Player { get; private set; }
+    public PlayerStat stat { get; private set; }
     private PlayerView playerView;                  // 임시 돈 텍스트 확인용
     public bool isGameOver = false;
 
@@ -21,7 +22,7 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        
+
         stateMachine = new StateMachine<GameState>();
 
         stateMachine.AddState(GameState.Main, new MainState());
@@ -29,11 +30,47 @@ public class GameManager : Singleton<GameManager>
         stateMachine.AddState(GameState.Loading, new LoadingState());
         stateMachine.AddState(GameState.Session, new RunState());
 
+        stat = new PlayerStat();
+        PlayerStatTableDataParsing();
     }
 
     private void Start()
     {
         ChangeState(GameState.Main);
+    }
+
+    public void PlayerInit(GameObject player, PlayerStatHolder holder, PlayerView playerView)
+    {
+        Player = player;
+        holder.Init(stat);
+        this.playerView = playerView;
+        ChangeMoney(0);
+    }
+
+    private void PlayerStatTableDataParsing()
+    {
+        var playerStatTable = TableManager.Instance.GetTable<int, PlayerConfigTableData>();
+
+        if (playerStatTable == null)
+        {
+            Debug.Log("플레이어 스탯 테이블이 null 입니다");
+            return;
+        }
+
+        // 한 줄 마다 value값을 PlayerStat에 넣어주는 작업
+        foreach (int targetId in TableManager.Instance.GetAllIds(playerStatTable))
+        {
+            PlayerConfigTableData playerConfigTableData = playerStatTable[targetId];
+
+            if (playerConfigTableData != null)
+            {
+                int id = playerConfigTableData.id;
+                string value = playerConfigTableData.configValue;
+                stat.Apply((PlayerStatId)id, value);
+            }
+        }
+
+        Debug.Log("플레이어 스탯 테이블 데이터 불러오기 완료!");
     }
 
     public void OnGameStartButton()
@@ -48,30 +85,19 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name.Equals("HubScene") && player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-            playerView = player.GetComponent<PlayerCtrl>().GetPlayerView();
-
-            ChangeMoney(0);
-        }
-
         if (Input.GetKeyDown(KeyCode.Return))
             ItemManager.Instance.Test(1);
-        // else if (Input.GetKeyDown(KeyCode.C))
-        //     EventManager.Instance.ExecuteByStart("interaction", "none");    // 테스트용
-            
+
         stateMachine?.Update();
-
-        // Debug.Log(Money);
     }
-
-    public GameObject GetPlayer() => player;
 
     private void OnDisable()
     {
         if (LoadingManager.Instance != null)
+        {
             LoadingManager.Instance.OnLoadingEnded -= HandleLoadingEnded;
+        }
+            
     }
 
     // 돈 저장 기능

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 
+/// </summary>
 public class PlayerStatInitializer : MonoBehaviour
 {
     private PlayerStatHolder holder;
@@ -9,32 +12,32 @@ public class PlayerStatInitializer : MonoBehaviour
         holder = this.GetComponent<PlayerStatHolder>();
     }
 
-    private void Start()
-    {
-        var playerStatTable = TableManager.Instance.GetTable<int, PlayerConfigTableData>();
+    // private void Start()
+    // {
+    //     var playerStatTable = TableManager.Instance.GetTable<int, PlayerConfigTableData>();
         
-        if (playerStatTable == null)
-        {
-            Debug.Log("플레이어 스탯 테이블이 null 입니다");
-            return;
-        }
+    //     if (playerStatTable == null)
+    //     {
+    //         Debug.Log("플레이어 스탯 테이블이 null 입니다");
+    //         return;
+    //     }
         
-        PlayerStat stat = new PlayerStat();
+    //     PlayerStat stat = new PlayerStat();
 
-        // 한 줄 마다 value값을 PlayerStat에 넣어주는 작업
-        foreach (int targetId in TableManager.Instance.GetAllIds(playerStatTable))
-        {
-            PlayerConfigTableData playerConfigTableData = playerStatTable[targetId];
+    //     // 한 줄 마다 value값을 PlayerStat에 넣어주는 작업
+    //     foreach (int targetId in TableManager.Instance.GetAllIds(playerStatTable))
+    //     {
+    //         PlayerConfigTableData playerConfigTableData = playerStatTable[targetId];
 
-            if (playerConfigTableData != null)
-            {
-                int id = playerConfigTableData.id;
-                string value = playerConfigTableData.configValue;
-                stat.Apply((PlayerStatId)id, value);
-            }
-        }
+    //         if (playerConfigTableData != null)
+    //         {
+    //             int id = playerConfigTableData.id;
+    //             string value = playerConfigTableData.configValue;
+    //             stat.Apply((PlayerStatId)id, value);
+    //         }
+    //     }
 
-        // 마지막으로 만들어진 stat을 holder에게 전달
-        holder.Init(stat);
-    }
+    //     // 마지막으로 만들어진 stat을 holder에게 전달
+    //     holder.Init(stat);
+    // }
 }

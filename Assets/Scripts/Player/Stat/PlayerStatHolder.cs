@@ -7,9 +7,12 @@ using UnityEngine;
 public class PlayerStatHolder : MonoBehaviour
 {
     public PlayerStat Stat { get; private set; }
+    public PlayerView PlayerView { get; private set; }
     private void Awake()
     {
-        Stat = new PlayerStat();
+        PlayerView = FindAnyObjectByType<PlayerView>();
+
+        GameManager.Instance.PlayerInit(this.gameObject, this, PlayerView);
     }
 
     public void Init(PlayerStat stat)

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour
 {
-    private PlayerCtrl playerCtrl;
+    private PlayerStatHolder holder;
     [SerializeField] private GameObject playerHead;     // 카메라
 
     [Header("Value")]
@@ -15,7 +15,7 @@ public class PlayerInteractor : MonoBehaviour
     private void Awake()
     {
         interactiveMask = LayerMask.GetMask("Interactive");
-        playerCtrl = this.GetComponent<PlayerCtrl>();
+        holder = this.GetComponent<PlayerStatHolder>();
     }
 
     private void Update()
@@ -37,11 +37,8 @@ public class PlayerInteractor : MonoBehaviour
                     interactableObj.OnFocusEnter();
             }
 
-            if (playerCtrl != null)
-            {
-                playerCtrl.GetPlayerView().UpdateObjNameText(interactableObj == null ? "[null]" : $"[{interactableObj.name}]");
-                playerCtrl.GetPlayerView().UpdateInteractionText(interactableObj?.GetPromptText());
-            }
+            holder.PlayerView.UpdateObjNameText(interactableObj == null ? "[null]" : $"[{interactableObj.name}]");
+            holder.PlayerView.UpdateInteractionText(interactableObj?.GetPromptText());
         // }
     }
 

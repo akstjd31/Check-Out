@@ -4,7 +4,6 @@ using UnityEngine;
 // 휴식 공간에 접어든 상태
 public class HubState : IState
 {
-    private bool isLoaded;
     public void Enter()
     {
         Debug.Log("휴식 상태 진입");
@@ -23,7 +22,7 @@ public class HubState : IState
 
     private void Init()
     {
-        FadeController.Instance.StartFadeIn();
+        FadeManager.Instance.StartFadeIn();
         
         // 다음 씬 정보 미리 설정
         LoadingData.NextState = GameState.Session;

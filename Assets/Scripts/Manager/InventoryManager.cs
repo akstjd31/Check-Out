@@ -118,13 +118,13 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         if (inventory == null) return;
 
-        if (GameManager.Instance.GetPlayer() == null) return;
+        if (GameManager.Instance.Player == null) return;
 
         ItemInstance item = inventory.MoveItem(index);
 
         if (item == null) return;
 
-        Transform playerTrf = GameManager.Instance.GetPlayer().transform;
+        Transform playerTrf = GameManager.Instance.Player.transform;
         Vector3 newPos = new Vector3
         (
             playerTrf.position.x,
@@ -262,7 +262,7 @@ public class InventoryManager : Singleton<InventoryManager>
     public void RemoveInventoryItem()
     {
         if (inventory == null) return;
-        if (GameManager.Instance.GetPlayer() == null) return;
+        if (GameManager.Instance.Player == null) return;
 
         ItemInstance item = inventory.MoveItem(currentIndex);
     }

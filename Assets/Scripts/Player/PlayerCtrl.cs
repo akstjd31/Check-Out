@@ -17,7 +17,6 @@ public class PlayerCtrl : MonoBehaviour
     private PlayerStateMachine state;
     private PlayerInteractor interactor;
     private SoundDistance soundDistance;
-    private PlayerView playerView;
 
     private void Awake()
     {
@@ -29,8 +28,6 @@ public class PlayerCtrl : MonoBehaviour
         soundDistance = this.GetComponent<SoundDistance>();
 
         input.OnInteract += OnInteract; 
-
-        playerView = FindAnyObjectByType<PlayerView>();
     }
 
     private void Update()
@@ -84,6 +81,4 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     private void OnInteract() => interactor.Interaction();
-
-    public PlayerView GetPlayerView() => playerView;
 }

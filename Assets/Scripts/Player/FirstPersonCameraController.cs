@@ -19,17 +19,17 @@ public class FirstPersonCameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        FadeController.Instance.OnFadeStarted += () => canCameraRotate = false;
-        FadeController.Instance.OnFadeEnded += () => canCameraRotate = true;
+        FadeManager.Instance.OnFadeStarted += () => canCameraRotate = false;
+        FadeManager.Instance.OnFadeEnded += () => canCameraRotate = true;
 
     }
 
     private void OnDisable()
     {
-        if (FadeController.Instance != null)
+        if (FadeManager.Instance != null)
         {
-            FadeController.Instance.OnFadeStarted -= () => canCameraRotate = false;
-            FadeController.Instance.OnFadeEnded -= () => canCameraRotate = true;
+            FadeManager.Instance.OnFadeStarted -= () => canCameraRotate = false;
+            FadeManager.Instance.OnFadeEnded -= () => canCameraRotate = true;
         }
     }
 
