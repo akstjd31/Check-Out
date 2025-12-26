@@ -93,8 +93,6 @@ public class GameManager : Singleton<GameManager>
         if (data == null) return;
 
         Money = data.money;
-        //playerView.UpdateMoneyText(Money);
-
         Debug.Log("돈 데이터 불러오기 완료!");
     }
 

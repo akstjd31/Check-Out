@@ -146,17 +146,17 @@ public class StatController : MonoBehaviour
     // 스태미나가 남아있는지?
     public bool IsRemainStamina() => CurrentStamina >= holder.Stat.RunStaminaCost;
 
-    //정신력 감소
-    public void ConsumeSanity(bool onhit, int amount)
+    //정신력 수치 변화
+    public void ChangeSanity(bool onhit, int amount)
     {
-        CurrentSanity = Mathf.Max(0, CurrentSanity - amount);
+        // 음수, 양수 값에 따른 처리
+        CurrentSanity = amount < 0 ? Mathf.Max(0, CurrentSanity + amount) : Mathf.Min(CurrentSanity + amount, holder.Stat.MaxSanity);
         
         if (playerCtrl != null)
             playerCtrl.GetPlayerView().UpdateSanityText((int)CurrentSanityPercent);
             
         if (!IsRemainSanity())
             playerDie(onhit);
-
     }
 
     // 정신력이 남아있는지?

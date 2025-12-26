@@ -15,7 +15,7 @@ public class SanityIncrease : ItemEffect
     {
         StatController playerStat = GameManager.Instance.GetPlayer().transform.GetComponent<StatController>();
 
-        playerStat.ConsumeSanity(false,-Value1);
+        playerStat.ChangeSanity(false,-Value1);
 
         InventoryManager.Instance.RemoveInventoryItem();
 
