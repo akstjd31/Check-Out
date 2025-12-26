@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3876499542587608300}
   - component: {fileID: 3212396482596405460}
   - component: {fileID: 7167667423877155428}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Vending Machine
   m_TagString: Interactive
   m_Icon: {fileID: 0}

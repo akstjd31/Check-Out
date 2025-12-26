@@ -7,14 +7,14 @@ public class PlayerInteractor : MonoBehaviour
 
     [Header("Value")]
     [SerializeField] private float distance = 2f;
-    private LayerMask interactiveMask;
+    [SerializeField] LayerMask obstacleLayer;
+    [SerializeField] private LayerMask interactiveLayer;
     private Interactable interactableObj;
     private string playerStatCanvasName = "PlayerStatCanvas";
-    
+
 
     private void Awake()
     {
-        interactiveMask = LayerMask.GetMask("Interactive");
         holder = this.GetComponent<PlayerStatHolder>();
     }
 
@@ -22,23 +22,23 @@ public class PlayerInteractor : MonoBehaviour
     {
         // if (!GameManager.Instance.IsOpenedUI())
         // {
-            // 현재 보고 있는 오브젝트
-            var currentObj = GetInteractable<Interactable>();
+        // 현재 보고 있는 오브젝트
+        var currentObj = GetInteractable<Interactable>();
 
-            // 전에 보던 오브젝트랑 현재 오브젝트가 다를경우
-            if (currentObj != interactableObj)
-            {
-                if (interactableObj != null)
-                    interactableObj.OnFocusExit();
+        // 전에 보던 오브젝트랑 현재 오브젝트가 다를경우
+        if (currentObj != interactableObj)
+        {
+            if (interactableObj != null)
+                interactableObj.OnFocusExit();
 
-                interactableObj = currentObj;
+            interactableObj = currentObj;
 
-                if (interactableObj != null)
-                    interactableObj.OnFocusEnter();
-            }
+            if (interactableObj != null)
+                interactableObj.OnFocusEnter();
+        }
 
-            holder.PlayerView.UpdateObjNameText(interactableObj == null ? "[null]" : $"[{interactableObj.name}]");
-            holder.PlayerView.UpdateInteractionText(interactableObj?.GetCurrentText());
+        holder.PlayerView.UpdateObjNameText(interactableObj == null ? "[null]" : $"[{interactableObj.name}]");
+        holder.PlayerView.UpdateInteractionText(interactableObj?.GetCurrentText());
         // }
     }
 
@@ -47,19 +47,18 @@ public class PlayerInteractor : MonoBehaviour
     {
         Vector3 head = playerHead.transform.position;
         Vector3 direction = playerHead.transform.forward;
-        RaycastHit hit;
 
-        Debug.DrawRay(head, direction * distance, Color.red);
+        // 벽에 닿으면 상호 작용 불가능
+        if (Physics.Raycast(head, direction, distance, obstacleLayer))
+            return null;
 
-        if (Physics.Raycast(head, direction, out hit, distance))
+        if (Physics.SphereCast(head, 0.2f, direction, out RaycastHit hit, distance, interactiveLayer, QueryTriggerInteraction.Collide))
         {
-            if (hit.transform.CompareTag("Interactive"))
-                return hit.collider.GetComponentInParent<T>();
+            return hit.collider.GetComponentInParent<T>();
         }
 
         return null;
     }
-
     public void Interaction()
     {
         interactableObj?.Interact();
