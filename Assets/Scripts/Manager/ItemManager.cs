@@ -6,13 +6,16 @@ public class ItemManager : Singleton<ItemManager>
 {
     [SerializeField] private Item itemPrefab;
     [SerializeField] private ItemObj[] itemObjects;
+    [SerializeField] private ItemObj[] handItemObjects;
     [SerializeField] int playerCount = 1;
 
     [SerializeField] private Transform itemPoolParent;
     [SerializeField] private Transform itemObjPoolParent;
+    [SerializeField] private Transform handitemObjPoolParent;
 
     private ObjPool<Item> itemPool;
     private ObjPool<ItemObj> itemObjPool;
+    private ObjPool<ItemObj> handItemObjPool;
     private Dictionary<int, ItemTableData> itemDataID;
     private Dictionary<int, EffectGroupTableData> effectDataID;
     //private Dictionary<ItemTableData, List<IItemEffect>> items;
@@ -23,6 +26,8 @@ public class ItemManager : Singleton<ItemManager>
         base.Awake();
         itemPool = new ObjPool<Item>();
         itemObjPool = new ObjPool<ItemObj>();
+        handItemObjPool = new ObjPool<ItemObj>();
+
         itemDataID = new Dictionary<int, ItemTableData>();
         effectDataID = new Dictionary<int, EffectGroupTableData>();
         //items = new Dictionary<ItemTableData, List<IItemEffect>>();
@@ -43,8 +48,18 @@ public class ItemManager : Singleton<ItemManager>
             itemObjPool.CreatePool(itemObj, playerCount, itemObjPoolParent);
         }
 
-        
-        
+        if (handItemObjects == null) return;
+
+        if (handItemObjects.Length <= 0) return;
+
+        foreach (var itemObj in handItemObjects)
+        {
+            Debug.Log(itemObj.name);
+            handItemObjPool.CreatePool(itemObj, playerCount, handitemObjPoolParent);
+        }
+
+
+
         //itemPool.CreatePool(flashLightPrefab, 1, transform);
     }
 
@@ -123,7 +138,28 @@ public class ItemManager : Singleton<ItemManager>
             }
         }
 
-        itemobject.transform.position = pos; 
+        if (itemobject != null)
+        {
+            itemobject.transform.position = pos;
+        }
+
+        return itemobject;
+    }
+
+    public ItemObj SpawnHandItemObj(int prefabId, Vector3 pos)
+    {
+        foreach (var itemobj in handItemObjects)
+        {
+            if (itemobj.ItemId == prefabId)
+            {
+                itemobject = handItemObjPool.GetObject(itemobj);
+            }
+        }
+
+        if (itemobject != null)
+        {
+            itemobject.transform.position = pos;
+        }
 
         return itemobject;
     }
@@ -145,6 +181,20 @@ public class ItemManager : Singleton<ItemManager>
                 Debug.Log("반환함");
                 item.transform.parent = itemObjPoolParent;
                 itemObjPool.ReturnObject(obj, item);
+                return;
+            }
+        }
+    }
+
+    public void ReturnObjHandItem(ItemObj item)
+    {
+        foreach (var obj in handItemObjects)
+        {
+            if (obj.ItemId == item.ItemId)
+            {
+                Debug.Log("반환함");
+                item.transform.parent = itemObjPoolParent;
+                handItemObjPool.ReturnObject(obj, item);
                 return;
             }
         }

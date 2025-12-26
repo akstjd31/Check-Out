@@ -17,7 +17,7 @@ public class SanityIncrease : ItemEffect
 
         playerStat.ChangeSanity(false,-Value1);
 
-        InventoryManager.Instance.RemoveInventoryItem();
+        //InventoryManager.Instance.RemoveInventoryItem();
 
         return true;
     }

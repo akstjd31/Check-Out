@@ -17,7 +17,7 @@ public class StaminaIncrease : ItemEffect
 
         playerStat.AddStamina(Value1);
 
-        InventoryManager.Instance.RemoveInventoryItem();
+        //InventoryManager.Instance.RemoveInventoryItem();
 
         return true;
     }

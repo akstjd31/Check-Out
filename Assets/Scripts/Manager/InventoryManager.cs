@@ -142,6 +142,14 @@ public class InventoryManager : Singleton<InventoryManager>
 
         ItemManager.Instance.SpawnItem(item, newPos);
 
+        if (itemObj != null)
+        {
+            ItemManager.Instance.ReturnObjHandItem(itemObj);
+            itemObj = null;
+        }
+
+        OffHande();
+
         currentItem = null;
     }
 
@@ -152,6 +160,14 @@ public class InventoryManager : Singleton<InventoryManager>
             currentItem.ChangeState(ItemState.Off);
             SelectInventory(index);
         }
+
+        if (itemObj != null)
+        {
+            ItemManager.Instance.ReturnObjHandItem(itemObj);
+            itemObj = null;
+        }
+
+        OffHande();
 
         return inventory.MoveItem(index);
     }
@@ -177,25 +193,17 @@ public class InventoryManager : Singleton<InventoryManager>
 
             else if (pervItem != null)
             {
+                Debug.Log("되는건가?");
                 pervItem.ChangeState(ItemState.Off);
             }
 
             if (itemObj != null)
             {
-                if (currentItem != null)
-                {
-                    currentItem.duration = itemObj.Returnduration();
-                }
-
-                else if (pervItem != null)
-                {
-                    pervItem.duration = itemObj.Returnduration();
-                }
-
-                ItemManager.Instance.ReturnObjItem(itemObj);
+                ItemManager.Instance.ReturnObjHandItem(itemObj);
+                itemObj = null;
             }
 
-            playerHandTransform.gameObject.SetActive(false);
+            OffHande();
             currentItem = null;
             return;
         }
@@ -216,28 +224,48 @@ public class InventoryManager : Singleton<InventoryManager>
     public void UseItem(string key)
     {
         if (currentItem == null)
+        {
+            Debug.Log("아이템 없어?");
+
             return;
+        }
+            
+        if (itemObj == null)
+        {
+            Debug.Log("아이템 오브젝트가 없어");
+            return;
+        }
+            
 
         if(currentItem.Use(key))
         {
             var currentItemType = (ItemType)Enum.Parse(typeof(ItemType), currentItem.itemdata.itemType);
 
-            if (currentItemType == ItemType.Gadget && currentItem.state == ItemState.On)
+            if (currentItemType == ItemType.Gadget)
             {
-                itemObj.ChangeState(ObjState.On);
-            }
-
-            else if (currentItemType == ItemType.Gadget && currentItem.state == ItemState.Off)
-            {
-                itemObj.ChangeState(ObjState.Off);
+                if (currentItem.state == ItemState.On)
+                {
+                    itemObj.ChangeState(ObjState.On);
+                }
+                else
+                {
+                    itemObj.ChangeState(ObjState.Off);
+                }
             }
 
             else if (currentItemType == ItemType.Consumable && currentItem.state == ItemState.On)
             {
                 Debug.Log("소모품 아이템이 사용됨");
                 var item = inventory.MoveItem(currentIndex);
-                
+
                 if (item == null) return;
+
+                if (itemObj != null)
+                {
+                    ItemManager.Instance.ReturnObjHandItem(itemObj);
+                    itemObj = null;
+                    OffHande();
+                }
 
                 ConsumableItemUse(item);
             }
@@ -288,9 +316,9 @@ public class InventoryManager : Singleton<InventoryManager>
         {
             if (itemObj != null && pervItem != null)
             {
-                pervItem.duration = itemObj.Returnduration();
                 pervItem.ChangeState(ItemState.Off);
-                ItemManager.Instance.ReturnObjItem(itemObj);
+                ItemManager.Instance.ReturnObjHandItem(itemObj);
+                itemObj = null;
             }
 
             playerHandTransform.gameObject.SetActive(false);
@@ -299,31 +327,28 @@ public class InventoryManager : Singleton<InventoryManager>
 
         if (pervItem != null && item != pervItem)
         {
-            pervItem.duration = itemObj.Returnduration();
             pervItem.ChangeState(ItemState.Off);
         }
 
         if (itemObj != null)
         {
-            ItemManager.Instance.ReturnObjItem(itemObj);
+            ItemManager.Instance.ReturnObjHandItem(itemObj);
+            itemObj = null;
         }
 
         playerHandTransform.gameObject.SetActive(true);
 
         Debug.Log($"{item.itemdata.id} 입니다.");
 
-        itemObj = ItemManager.Instance.SpawnItemObj(item.itemdata.id, playerHandTransform.position);
+        itemObj = ItemManager.Instance.SpawnHandItemObj(item.itemdata.id, playerHandTransform.position);
+        
+        if (itemObj == null) return;
+
         itemObj.transform.parent = playerHandTransform;
         itemObj.transform.rotation = playerHandTransform.rotation;
         itemObj.SetItemInfo(item);
         
     }
-
-    public void UpdateInventory(int index)
-    {
-    
-    }
-
 
     public void RemoveInventoryItem()
     {
@@ -334,4 +359,10 @@ public class InventoryManager : Singleton<InventoryManager>
     }
 
     public Inventory GetInvetory() { return inventory; }
+
+    public void OffHande()
+    {
+        if (playerHandTransform.gameObject.activeSelf == true)
+            playerHandTransform.gameObject.SetActive(false);
+    }
 }

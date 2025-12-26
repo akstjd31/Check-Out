@@ -7,8 +7,6 @@ public enum ObjState {On,Off}
 
 public class ItemObj : MonoBehaviour
 {
-    [SerializeField] public int Duration {  get; private set; }
-
     public int Consumption { get; private set; }
 
     public ItemInstance ItemInstance { get; set; }
@@ -17,7 +15,7 @@ public class ItemObj : MonoBehaviour
 
     public int ItemId;
 
-    bool used = false;
+    private Coroutine coroutine;
 
     public event Action OnItem;
     public event Action OffItem;
@@ -26,53 +24,58 @@ public class ItemObj : MonoBehaviour
     {
         ItemInstance = info;
 
-        Duration = info.duration;
         Consumption = info.consumption;
     }
 
-    public int Returnduration() => Duration;
-
-    private void Update()
+    public void StopConsumption()
     {
-        if (state == ObjState.On && used == false)
+        if (coroutine != null)
         {
-            Debug.Log("코루틴 시작함");
-            Debug.Log("남은 배터리 :" + Duration);
-            StartCoroutine(StartConsumption());
-        }
-        else if (state == ObjState.Off && used == true)
-        {
-            Debug.Log("코루틴 끝남");
-            StopCoroutine(StartConsumption());
-            used = false;
+            StopCoroutine(coroutine);
+            coroutine = null;
         }
     }
 
-    public IEnumerator StartConsumption()
+    public void StartConsumption()
     {
-        used = true;
-        while (Duration > 0)
+        StopConsumption();
+
+        coroutine = StartCoroutine(RunConsumption());
+    }
+
+    public IEnumerator RunConsumption()
+    {
+        
+        while (ItemInstance.duration > 0 && state == ObjState.On)
         {
-            Duration -= Consumption;
+            Debug.Log("남은 배터리 :" + ItemInstance.duration);
+            ItemInstance.duration -= Consumption;
+            if (ItemInstance.duration < 0)
+                ItemInstance.duration = 0;
             yield return new WaitForSeconds(1f);
         }
-        Debug.Log("배터리 없음");
-        ChangeState(ObjState.Off);
-        yield break;
+
+        if (state == ObjState.On)
+            ChangeState(ObjState.Off);
+
+        coroutine = null;
     }
 
     public void ChangeState(ObjState inputState)
     {
-        switch (inputState)
+        if (state == inputState) return;
+
+        state = inputState;
+
+        if (state == ObjState.On)
         {
-            case ObjState.On:
-                state = ObjState.On;
-                OnItem?.Invoke();
-                break;
-            case ObjState.Off:
-                state = ObjState.Off;
-                OffItem?.Invoke();
-                break;
+            OnItem?.Invoke();
+            StartConsumption();
+        }
+        else
+        {
+            OffItem?.Invoke();
+            StopConsumption();
         }
     }
 }

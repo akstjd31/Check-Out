@@ -16,16 +16,34 @@ public class GadgetReload : ItemEffect
 
     public override bool Use(out int value)
     {
+        
+        int index = 0;
         value = 0;
-        inventory = InventoryManager.Instance.GetInvetory();
+        if (inventory == null)
+            inventory = InventoryManager.Instance.GetInvetory();
+
+        Debug.Log(inventory);
+
+        if (inventory.slots == null)
+            return false;
 
         foreach(var slot in inventory.slots)
         {
+            if (slot == null)
+            {
+                index++;
+                continue;
+            }
+
             if (slot.itemdata.id == Value1)
             {
+                Debug.Log("찾음");
                 value = Value2;
+                Debug.Log(value);
+                inventory.MoveItem(index);
                 return true;
             }
+            index++;
         }
 
         return false;

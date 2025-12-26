@@ -53,6 +53,7 @@ public class ItemInstance
                         sucess = effect.Use(out int value);
                         if (sucess)
                             duration += value;
+                        Debug.Log($"배터리 {duration} 충전량 {value}");
                         break;
                     case "Light":
                         sucess = state == ItemState.On ? ChangeState(ItemState.Off) : ChangeState(ItemState.On);

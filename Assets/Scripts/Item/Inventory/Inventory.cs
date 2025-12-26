@@ -88,11 +88,9 @@ public class Inventory : MonoBehaviour
             return null;
         Debug.Log("성공적 3");
 
-
         if (index < 0 || index >= slots.Length)
             return null;
         Debug.Log("성공적 4");
-
 
         if (slots[index] == null)
             return null;
