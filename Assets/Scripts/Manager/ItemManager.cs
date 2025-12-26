@@ -14,15 +14,17 @@ public class ItemManager : Singleton<ItemManager>
     private ObjPool<Item> itemPool;
     private ObjPool<ItemObj> itemObjPool;
     private Dictionary<int, ItemTableData> itemDataID;
-    private Dictionary<int, ItemEffectData> effectDataID;
+    private Dictionary<int, EffectGroupTableData> effectDataID;
     //private Dictionary<ItemTableData, List<IItemEffect>> items;
 
+    ItemObj itemobject;
     protected override void Awake()
     {
         base.Awake();
         itemPool = new ObjPool<Item>();
+        itemObjPool = new ObjPool<ItemObj>();
         itemDataID = new Dictionary<int, ItemTableData>();
-        effectDataID = new Dictionary<int, ItemEffectData>();
+        effectDataID = new Dictionary<int, EffectGroupTableData>();
         //items = new Dictionary<ItemTableData, List<IItemEffect>>();
       
         Init();
@@ -37,6 +39,7 @@ public class ItemManager : Singleton<ItemManager>
 
         foreach (var itemObj in itemObjects)
         {
+            Debug.Log(itemObj.name);
             itemObjPool.CreatePool(itemObj, playerCount, itemObjPoolParent);
         }
 
@@ -48,7 +51,7 @@ public class ItemManager : Singleton<ItemManager>
     public void Init()
     {
         var itemTable = TableManager.Instance.GetTable<int, ItemTableData>();
-        var itemEffectTable = TableManager.Instance.GetTable<int, ItemEffectData>();
+        var itemEffectTable = TableManager.Instance.GetTable<int, EffectGroupTableData>();
 
         if (itemTable == null)
         {
@@ -65,7 +68,7 @@ public class ItemManager : Singleton<ItemManager>
         // 아이템 테이블 세팅
         foreach (var targetId in TableManager.Instance.GetAllIds(itemTable))
         {
-            ItemTableData ItemTableData = itemTable[targetId];
+            var ItemTableData = itemTable[targetId];
 
             if (ItemTableData != null)
             {
@@ -76,7 +79,7 @@ public class ItemManager : Singleton<ItemManager>
         // 아이템 효과 테이블 세팅
         foreach (var targetId in TableManager.Instance.GetAllIds(itemEffectTable))
         {
-            ItemEffectData ItemEffectData = itemEffectTable[targetId];
+            var ItemEffectData = itemEffectTable[targetId];
 
             if (ItemEffectData != null)
             {
@@ -110,12 +113,41 @@ public class ItemManager : Singleton<ItemManager>
         return item;
     }
 
+    public ItemObj SpawnItemObj(int prefabId, Vector3 pos)
+    {
+        foreach(var itemobj in itemObjects)
+        {
+            if (itemobj.ItemId == prefabId)
+            {
+                itemobject = itemObjPool.GetObject(itemobj);
+            }
+        }
+
+        itemobject.transform.position = pos; 
+
+        return itemobject;
+    }
+
     // 손에 가져올 아이템
 
     public void ReturnItem(Item item)
     {
         Debug.Log(item);
         itemPool.ReturnObject(itemPrefab, item);
+    }
+
+    public void ReturnObjItem(ItemObj item)
+    {
+        foreach (var obj in itemObjects)
+        {
+            if ( obj.ItemId == item.ItemId )
+            {
+                Debug.Log("반환함");
+                item.transform.parent = itemObjPoolParent;
+                itemObjPool.ReturnObject(obj, item);
+                return;
+            }
+        }
     }
 
     // 스포너에 의해 생성된 아이템들 씬 전환 전에 회수하는 작업 
@@ -178,7 +210,7 @@ public class ItemManager : Singleton<ItemManager>
                         effectList.Add(new GadgetReload(itemEffect.effectName,itemEffect.value1, itemEffect.value2, itemEffect.ControlKey));
                         break;
                     case "Light":
-                        effectList.Add(new Light(itemEffect.effectName,itemEffect.value1, itemEffect.value2, itemEffect.ControlKey));
+                        effectList.Add(new ItemLight(itemEffect.effectName,itemEffect.value1, itemEffect.value2, itemEffect.ControlKey));
                         break;
                 }
             }

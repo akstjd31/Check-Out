@@ -120,7 +120,7 @@ public class StorageManager : Singleton<StorageManager>
 
         if (item == null) return;
 
-        inventory.GetItem(item,inventoryIndex);
+        InventoryManager.Instance.PickUpItem(item);
     }
 
     public void SelectItem()

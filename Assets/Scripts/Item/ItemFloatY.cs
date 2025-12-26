@@ -7,14 +7,9 @@ public class ItemFloatY : MonoBehaviour
 
     private Vector3 startPos;
 
-    private void Start()
-    {
-        startPos = this.transform.position;
-    }
-
     private void Update()
     {
         float yOffset = Mathf.Sin(Time.time * floatSpeed) * floatHeight;
-        this.transform.position = startPos + Vector3.up * yOffset;
+        this.transform.position = this.transform.parent.position + Vector3.up * yOffset;
     }
 }

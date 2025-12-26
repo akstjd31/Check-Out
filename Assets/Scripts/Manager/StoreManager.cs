@@ -67,7 +67,7 @@ public class StoreManager : Singleton<StoreManager>
 
         var item = ItemManager.Instance.Createinstance(data.itemId);
 
-        inventory.GetItem(item, inventoryIndex);
+        InventoryManager.Instance.PickUpItem(item);
 
         GameManager.Instance.ChangeMoney(-price);
         

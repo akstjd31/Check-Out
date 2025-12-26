@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class InventoryManager : Singleton<InventoryManager>
 {
@@ -12,11 +13,17 @@ public class InventoryManager : Singleton<InventoryManager>
 
     private InventoryController inventoryController;
     private ItemInstance currentItem;
+    private ItemInstance pervItem;
     private int currentIndex = -1;
 
+    ItemObj preObj;
+    ItemObj itemObj;
     //private Vector3 playerPos;
 
     private string fileName = "InventorySaveData.json";
+
+    private Transform playerHandTransform;
+    private Transform player;
 
     protected override void Awake()
     {
@@ -83,7 +90,7 @@ public class InventoryManager : Singleton<InventoryManager>
     }
 
     // 아이템 줍기
-    public bool PickUpItem(Item item)
+    public bool PickUpItem(ItemInstance item)
     {
         if (inventory == null)
         {
@@ -99,16 +106,17 @@ public class InventoryManager : Singleton<InventoryManager>
             Debug.Log("인벤토리가 꽉 찼습니다");
             return false;
         }
-
+        
         Debug.Log($"{inventoryIndex} 번째 칸의 인벤토리에 넣는 중");
-        inventory.GetItem(item.item, inventoryIndex);
-        Debug.Log($"{item.Name}을 성공적으로 넣었습니다");
+        inventory.GetItem(item, inventoryIndex);
+        SelectInventory(currentIndex);
+        Debug.Log($"{item.itemdata.itemName}을 성공적으로 넣었습니다");
 
         return true;
     }
 
     // 테스트용
-    public void TestPickUp(Item item)
+    public void TestPickUp(ItemInstance item)
     {
         PickUpItem(item);
     }
@@ -131,18 +139,20 @@ public class InventoryManager : Singleton<InventoryManager>
             playerTrf.up.y,
             playerTrf.position.z
         );
+
         ItemManager.Instance.SpawnItem(item, newPos);
+
+        currentItem = null;
     }
 
     public ItemInstance MoveItem(int index)
     {
-        if (currentItem != null)
+        if (currentIndex == index)
         {
             currentItem.ChangeState(ItemState.Off);
-            currentItem.OnItem -= StartConsumption;
-            currentItem.OffItem -= StopConsumption;
+            SelectInventory(index);
         }
-        
+
         return inventory.MoveItem(index);
     }
     
@@ -152,30 +162,53 @@ public class InventoryManager : Singleton<InventoryManager>
         if (inventory == null)
             return;
 
-        if (index < 0 || index >= inventory.slots.Length)
-            return;
+        player = GameManager.Instance.Player.transform;
 
-        if (currentItem != null)
+        playerHandTransform = player.transform.GetChild(0).GetChild(1);
+
+        if (index < 0 || index >= inventory.slots.Length)
         {
-            currentItem.ChangeState(ItemState.Off);
-            currentItem.OnItem -= StartConsumption;
-            currentItem.OffItem -= StopConsumption;
+            currentIndex = index;
+
+            if (currentItem != null)
+            {
+                currentItem.ChangeState(ItemState.Off);
+            }
+
+            else if (pervItem != null)
+            {
+                pervItem.ChangeState(ItemState.Off);
+            }
+
+            if (itemObj != null)
+            {
+                if (currentItem != null)
+                {
+                    currentItem.duration = itemObj.Returnduration();
+                }
+
+                else if (pervItem != null)
+                {
+                    pervItem.duration = itemObj.Returnduration();
+                }
+
+                ItemManager.Instance.ReturnObjItem(itemObj);
+            }
+
+            playerHandTransform.gameObject.SetActive(false);
+            currentItem = null;
+            return;
         }
 
         currentItem = inventory.slots[index];
+        
         currentIndex = index;
 
-        if (currentItem != null)
-        {
-            currentItem.OnItem += StartConsumption;
-            currentItem.OffItem += StopConsumption;
-        }
+        HandItem(currentItem);
 
-        if (currentItem == null)
-            return;
-          
+        pervItem = currentItem;
+
         // 부가기능
-        // HandItem(currentItem);
 
         return;
     }
@@ -189,16 +222,20 @@ public class InventoryManager : Singleton<InventoryManager>
         {
             var currentItemType = (ItemType)Enum.Parse(typeof(ItemType), currentItem.itemdata.itemType);
 
-            if (currentItemType == ItemType.Consumable && currentItem.state == ItemState.On)
+            if (currentItemType == ItemType.Gadget && currentItem.state == ItemState.On)
             {
-                var item = inventory.MoveItem(currentIndex);
+                itemObj.ChangeState(ObjState.On);
+            }
 
-                if (currentItem != null)
-                {
-                    currentItem.OnItem -= StartConsumption;
-                    currentItem.OffItem -= StopConsumption;
-                    currentItem = null;
-                }
+            else if (currentItemType == ItemType.Gadget && currentItem.state == ItemState.Off)
+            {
+                itemObj.ChangeState(ObjState.Off);
+            }
+
+            else if (currentItemType == ItemType.Consumable && currentItem.state == ItemState.On)
+            {
+                Debug.Log("소모품 아이템이 사용됨");
+                var item = inventory.MoveItem(currentIndex);
                 
                 if (item == null) return;
 
@@ -209,54 +246,83 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public void ConsumableItemUse(ItemInstance item)
     {
-        var groundItem = Instantiate(gameObject);
+        
+
+        ItemObj groundItem;
+
+        var player = GameManager.Instance.Player.transform;
+        foreach (var itemeffect in item.effects)
+        {
+            switch(item.itemdata.id)
+            {
+                case 1103:
+                    groundItem = ItemManager.Instance.SpawnItemObj(item.itemdata.id, player.position);
+                    groundItem.SetItemInfo(item);
+                    groundItem.ChangeState(ObjState.On);
+                    break;
+                default:
+                    groundItem = ItemManager.Instance.SpawnItemObj(item.itemdata.id, player.position);
+                    break;
+            }
+        }
+
+        
         // item의 id로 아이템이 무엇인지 탐지
         // groundItem 컴포넌트들 빛이라던지 소리 애니메이션
         // item안에 있는 용량? 지속시간 만큼 부여 파티클시스템이라던지
         // item의 상태가 off가 되었을때 종료
     }
 
-    public void SetController(Transform controller)
-    {
-        if (inventoryController == null)
-        {
-            inventoryController = controller.GetComponent<InventoryController>();
-            inventoryController.OnUseItem -= UseItem;
-            inventoryController.OnUseItem += UseItem;
-        }
-    }
-
-    public void StartConsumption()
-    {
-        StartCoroutine(currentItem.Consumption());
-    }
-
-    public void StopConsumption()
-    {
-        StopCoroutine(currentItem.Consumption());
-    }
-
-
     // 손에 들고있는 아이템
-    // public void HandItem(ItemTable item)
-    // {
-    //    if (item == null)
-    //         return;
+    public void HandItem(ItemInstance item)
+    {
+        
 
-    //    if (player == null)
-    //         return;
+        if (player == null)
+            return;
 
-    //     if (playerHandTransform == null)
-    //         return;
+        if (playerHandTransform == null)
+            return;
+        
+        if (item == null)
+        {
+            if (itemObj != null && pervItem != null)
+            {
+                pervItem.duration = itemObj.Returnduration();
+                pervItem.ChangeState(ItemState.Off);
+                ItemManager.Instance.ReturnObjItem(itemObj);
+            }
 
-    //     item.gameObject.SetActive(true);
-    //     item.transform.position = playerHandTransform.position;
-    // }
+            playerHandTransform.gameObject.SetActive(false);
+            return;
+        }  
 
-    // public void UpdateInventory(int index)
-    // {
-    //
-    // }
+        if (pervItem != null && item != pervItem)
+        {
+            pervItem.duration = itemObj.Returnduration();
+            pervItem.ChangeState(ItemState.Off);
+        }
+
+        if (itemObj != null)
+        {
+            ItemManager.Instance.ReturnObjItem(itemObj);
+        }
+
+        playerHandTransform.gameObject.SetActive(true);
+
+        Debug.Log($"{item.itemdata.id} 입니다.");
+
+        itemObj = ItemManager.Instance.SpawnItemObj(item.itemdata.id, playerHandTransform.position);
+        itemObj.transform.parent = playerHandTransform;
+        itemObj.transform.rotation = playerHandTransform.rotation;
+        itemObj.SetItemInfo(item);
+        
+    }
+
+    public void UpdateInventory(int index)
+    {
+    
+    }
 
 
     public void RemoveInventoryItem()

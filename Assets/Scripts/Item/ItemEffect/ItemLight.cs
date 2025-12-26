@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Light : ItemEffect
+public class ItemLight : ItemEffect
 {
-    public Light(string name, int value1, int value2, string controlKey)
+    public ItemLight(string name, int value1, int value2, string controlKey)
     {
         EffectName = name;
         Value1 = value1;

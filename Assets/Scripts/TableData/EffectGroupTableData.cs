@@ -1,4 +1,4 @@
-public class ItemEffectData : TableBase
+﻿public class EffectGroupTableData : TableBase
 {
     public int id { get; set; }
     public int effectGroup { get; set; }

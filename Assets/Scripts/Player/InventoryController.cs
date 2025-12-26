@@ -12,13 +12,10 @@ public class InventoryController : MonoBehaviour
     private InventoryUI invenUI;
     [SerializeField] private int focusedIndex = -1;
 
-    public event Action<string> OnUseItem;
-
     private void Awake()
     {
         input = this.GetComponent<PlayerInputHandler>();
         invenUI = FindAnyObjectByType<InventoryUI>();
-        InventoryManager.Instance.SetController(transform);
     }
 
     private void OnEnable()
@@ -34,6 +31,7 @@ public class InventoryController : MonoBehaviour
         input.OnScroll -= QuickSlotFocusedByScroll;
         input.OnSelected -= QuickSlotFocusedByButton;
         input.OnDrop -= OnItemDrop;
+        input.OnUsedItem -= UseItem;
     }
 
     // 마우스 휠을 이용한 퀵 슬롯 인덱스 변경 방식
@@ -79,15 +77,18 @@ public class InventoryController : MonoBehaviour
 
    private void UseItem(string key)
     {
-        switch(key)
+        if (InventoryManager.Instance != null)
         {
-            case "LeftClick":
-                OnUseItem?.Invoke(key);
-                break;
-            case "R":
-                OnUseItem?.Invoke(key);
-                break;
-            // 사용할 키 추가할때 추가
+            switch (key)
+            {
+                case "LeftClick":
+                    InventoryManager.Instance.UseItem("LeftClick");
+                    break;
+                case "R":
+                    InventoryManager.Instance.UseItem("R");
+                    break;
+                    // 사용할 키 추가할때 추가
+            }
         }
     }
 

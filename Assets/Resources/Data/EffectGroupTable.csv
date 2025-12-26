@@ -1,0 +1,9 @@
+효과그룹ID,효과그룹,효과이름,파라미터 값1,파라미터 값2,조작키
+id,effectGroup,effectName,value1,value2,ControlKey
+int,int,string,int,int,string
+7001,1,SanityIncrease,3000,0,LeftClick
+7002,2,StaminaIncrease,50,0,LeftClick
+7003,3,ConsumableDuration,20,1,LeftClick
+7005,4,GadgetDuration,120,1,none
+7006,4,GadgetReload,1010,40,R
+7007,4,Light,0,0,LeftClick

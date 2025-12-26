@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +14,8 @@ public class GameManager : Singleton<GameManager>
     public PlayerStat stat { get; private set; }
     private PlayerView playerView;                  // 임시 돈 텍스트 확인용
     public bool isGameOver = false;
+
+    [SerializeField] private int testitemid = 1;
 
     [Header("Value")]
     public int Money { get; private set; } = 0;
@@ -86,8 +88,10 @@ public class GameManager : Singleton<GameManager>
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
-            ItemManager.Instance.Test(1);
-
+            ItemManager.Instance.Test(testitemid);
+        // else if (Input.GetKeyDown(KeyCode.C))
+        //     EventManager.Instance.ExecuteByStart("interaction", "none");    // 테스트용
+            
         stateMachine?.Update();
     }
 

@@ -8,10 +8,10 @@ public class PlayerInputHandler : MonoBehaviour
 {
     [Header("Component")]
     private PlayerInput playerInput;
-    private InputAction moveAction, runAction, interactAction, scrollAction, selectAction, dropAction;
+    private InputAction moveAction, runAction, interactAction, scrollAction, selectAction, dropAction , useAction;
 
     [Header("Value")]
-    private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll", "Select", "Drop" };
+    private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll", "Select", "Drop" , "Use" };
     public Vector3 MoveInput { get; private set; }
     public bool IsRunPressed { get; private set; }
     public event Action OnInteract;
@@ -32,6 +32,7 @@ public class PlayerInputHandler : MonoBehaviour
         scrollAction = playerInput.actions[playerActions[3]];
         selectAction = playerInput.actions[playerActions[4]];
         dropAction = playerInput.actions[playerActions[5]];
+        useAction = playerInput.actions[playerActions[6]];
     }
 
     private void Start()
@@ -55,6 +56,8 @@ public class PlayerInputHandler : MonoBehaviour
 
         dropAction.performed += OnDropKeyInput;
 
+        useAction.performed += OnUseKeyInput;
+
         stat.OnDeath += IgnoreInput;
 
         FadeManager.Instance.OnFadeStarted += IgnoreInput;
@@ -64,7 +67,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.IsOpenedUI() && !moveAction.enabled)
+        if (GameManager.Instance.IsOpenedUI() && moveAction.enabled)
         {
             IgnoreInput();
             return;
@@ -100,6 +103,11 @@ public class PlayerInputHandler : MonoBehaviour
             selectAction.performed -= OnSelectSlotInput;
         }
 
+        if (useAction != null)
+        {
+            useAction.performed -= OnUseKeyInput;
+        }
+
         stat.OnDeath -= IgnoreInput;
 
         if (FadeManager.Instance != null)
@@ -117,6 +125,7 @@ public class PlayerInputHandler : MonoBehaviour
         interactAction.Disable();
         scrollAction.Disable();
         selectAction.Disable();
+        useAction.Disable();
     }
 
     // 입력 활성화
@@ -127,6 +136,7 @@ public class PlayerInputHandler : MonoBehaviour
         interactAction.Enable();
         scrollAction.Enable();
         selectAction.Enable();
+        useAction.Enable();
     }
 
     public void OnMovePerformed(InputAction.CallbackContext ctx) => MoveInput = ctx.ReadValue<Vector3>();
@@ -154,6 +164,19 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnDropKeyInput(InputAction.CallbackContext ctx)
     {
         OnDrop?.Invoke();
+    }
+
+    public void OnUseKeyInput(InputAction.CallbackContext ctx)
+    {
+        if (ctx.control.name == "leftButton")
+        {
+            OnUsedItem?.Invoke("LeftClick");
+        }
+
+        if (ctx.control.name == "r")
+        {
+            OnUsedItem?.Invoke("R");
+        }
     }
 
     // 아이템 사용 키 메서드 필요

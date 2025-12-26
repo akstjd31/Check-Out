@@ -16,9 +16,6 @@ public class ItemInstance
     public int consumption { get; set; }
     public ItemState state { get; private set; } = ItemState.Off;
 
-    public event Action OnItem;
-    public event Action OffItem;
-
     public ItemInstance(ItemTableData itemdata, List<ItemEffect> effects)
     {
         this.itemdata = itemdata;
@@ -58,28 +55,20 @@ public class ItemInstance
                             duration += value;
                         break;
                     case "Light":
-                        sucess = state == ItemState.On ? ChangeState(ItemState.Off) : effect.Use();
+                        sucess = state == ItemState.On ? ChangeState(ItemState.Off) : ChangeState(ItemState.On);
                         break;
                     default:
-                        sucess = effect.Use();
+                        if (state == ItemState.Off)
+                        {
+                            sucess = effect.Use();
+                            ChangeState(ItemState.On);
+                        }
                         break;
                 }
             }
         }
 
         return sucess;
-    }
-
-
-    public IEnumerator Consumption()
-    {
-        while (duration <= 0)
-        {
-            duration -= consumption;
-            yield return new WaitForSeconds(1f);
-        }
-        ChangeState(ItemState.Off);
-        yield break;
     }
 
     // 아이템의 온 오프
@@ -89,11 +78,9 @@ public class ItemInstance
         {
             case ItemState.On:
                 state = ItemState.On;
-                OnItem?.Invoke();
                 return true;
             case ItemState.Off:
                 state = ItemState.Off;
-                OffItem?.Invoke();
                 return true;
         }
         return false;

@@ -17,7 +17,7 @@ public class Item : Interactable, IItem
 
     public string ImgPath { get; private set; }
 
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     public ItemInstance item;
 
@@ -38,12 +38,7 @@ public class Item : Interactable, IItem
         SellPrice = item.itemdata.sellPrice;
         ImgPath = item.itemdata.imgPath;
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        if (spriteRenderer == null) return;
-
         Sprite sprite = Resources.Load<Sprite>(ImgPath);
-        spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprite;
 
         Debug.Log($"ID : {ID} 와 이름 : {Name} 이 성공적으로 들어갔습니다");
@@ -63,7 +58,7 @@ public class Item : Interactable, IItem
 
     public override void Interact()
     {
-        bool success = InventoryManager.Instance.PickUpItem(this);
+        bool success = InventoryManager.Instance.PickUpItem(item);
 
         if (success)
         {
