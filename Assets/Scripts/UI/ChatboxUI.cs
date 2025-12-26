@@ -38,7 +38,7 @@ public class ChatboxUI : MonoBehaviour
 
     public int id { get; private set; }
     public int next_id { get; private set; }
-    public string name { get; private set; }
+    public string namae { get; private set; }
     public string line_desc { get; private set; }
     public string CG { get; private set; }
     public float delay { get; private set; }
@@ -51,6 +51,8 @@ public class ChatboxUI : MonoBehaviour
     {
         //테이블매니저로부터 대사 출력 정보를 담은 테이블을 받아온다.
         talkTable = TableManager.Instance.GetTable<int, TalkTableData>();
+
+        Debug.Log("데이터 받아오는 과정 거쳤음");
         //없을 경우 안내 후 반환.
         if (talkTable == null)
         {
@@ -64,6 +66,11 @@ public class ChatboxUI : MonoBehaviour
             //대사 테이블 데이터의 대상 아이디 데이터를 대입.
             TalkTableData talkTableData = talkTable[targetId];
         }
+    }
+
+    private void OnEnable()
+    {
+        if (!ChatboxManager.Instance.isUsingChatbox) Hide();
     }
 
     /// <summary>
@@ -101,7 +108,7 @@ public class ChatboxUI : MonoBehaviour
         
         
         //이름과 대사를 테이블 내의 해당 아이디값에서 불러온다.
-        nameText.text = talkTable[desc_id].name;
+        nameText.text = talkTable[desc_id].namae;
         description = talkTable[desc_id].line_desc;
 
         //테이블에서 CG가 있는 id값이었을 경우

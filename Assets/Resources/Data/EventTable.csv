@@ -1,6 +1,7 @@
-ï»¿ì•„ì´ë””,ì´ë²¤íŠ¸ê·¸ë£¹,ì‹œì‘ íƒ€ì…,ì‹œì‘ íƒ€ì… ê°’ (ì´ë¦„),ì‹œì‘ ì¡°ê±´1,ì‹œì‘ ì¡°ê±´1 ê°’,ì‹œì‘ ì¡°ê±´2,ì‹œì‘ ì¡°ê±´2 ê°’,ì´ë²¤íŠ¸ íƒ€ì…,ì´ë²¤íŠ¸ íƒ€ì… ê°’,ëŒ€ìƒ íƒ€ê²Ÿ,ì„¤ëª… (ê¸°íšìš©)
+¾ÆÀÌµğ,ÀÌº¥Æ®±×·ì,½ÃÀÛ Å¸ÀÔ,½ÃÀÛ Å¸ÀÔ °ª (ÀÌ¸§),½ÃÀÛ Á¶°Ç1,½ÃÀÛ Á¶°Ç1 °ª,½ÃÀÛ Á¶°Ç2,½ÃÀÛ Á¶°Ç2 °ª,ÀÌº¥Æ® Å¸ÀÔ,ÀÌº¥Æ® Å¸ÀÔ °ª,´ë»ó Å¸°Ù,¼³¸í (±âÈ¹¿ë)
 id,groupId,startType,startValue,conditionType1,conditionValue1,conditionType2,conditionValue2,eventType,eventValue,targetObject,description
 int,int,string,string,string,string,string,string,string,string,string,string
-8001,200,enterCollider,200_enter_tile,checkSwitchOff,9009,none,none,soundOnce,Sound/Event/200_Excuse,self,ì„ì‹œ ì‚¬ìš´ë“œ ì¶œë ¥
-8002,200,enterCollider,200_enter_tile,checkSwitchOff,9009,none,none,setSwitchOn,9010,none,ì„ì‹œ ìŠ¤ìœ„ì¹˜ì˜¨
-8002,200,enterCollider,200_enter_tile,checkSwitchOff,9009,none,none,setSwitchOn,9009,none,ì„ì‹œ ìŠ¤ìœ„ì¹˜ì˜¨
+8001,200,enterCollider,Capsule,checkSwitchOff,9009,none,none,showText,92001,none,ÀÓ½Ã ÅØ½ºÆ®Ãâ·Â
+8002,200,enterCollider,Capsule,checkSwitchOff,9009,none,none,soundOnce,Sound/Event/200_Excuse,self,ÀÓ½Ã »ç¿îµå Ãâ·Â
+8003,200,enterCollider,Capsule,checkSwitchOff,9009,none,none,setSwitchOn,9010,none,ÀÓ½Ã ½ºÀ§Ä¡¿Â
+8004,200,enterCollider,Capsule,checkSwitchOff,9009,none,none,setSwitchOn,9009,none,ÀÓ½Ã ½ºÀ§Ä¡¿Â

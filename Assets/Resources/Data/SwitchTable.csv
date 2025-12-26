@@ -1,5 +1,5 @@
-ï»¿ì•„ì´ë””,ì„¤ëª… (ê¸°íšìš©),ì´ˆê¸° ìƒíƒœ ê°’,ì„¸ì…˜ ì§„ìž… ì‹œ ì´ˆê¸°í™” ì—¬ë¶€
+¾ÆÀÌµð,¼³¸í (±âÈ¹¿ë),ÃÊ±â »óÅÂ °ª,¼¼¼Ç ÁøÀÔ ½Ã ÃÊ±âÈ­ ¿©ºÎ
 id,description,defaultValue,isReset
 int,string,string,string
-9009,ìž„ì‹œ ìŠ¤ìœ„ì¹˜ 1,FALSE,TRUE
-9010,ìž„ì‹œ ìŠ¤ìœ„ì¹˜ 2,FALSE,FALSE
+9009,ÀÓ½Ã ½ºÀ§Ä¡ 1,FALSE,TRUE
+9010,ÀÓ½Ã ½ºÀ§Ä¡ 2,FALSE,FALSE
