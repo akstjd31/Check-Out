@@ -14,7 +14,9 @@ public class StoreUI : MonoBehaviour
     private void Awake()
     {
         store = FindAnyObjectByType<Store>();
+        hover = FindAnyObjectByType<ShopHoverUI>();
         inventoryUI = FindAnyObjectByType<InventoryUI>();
+
         if (store == null)
         {
             Debug.Log("UI - 창고를 찾지 못했습니다");

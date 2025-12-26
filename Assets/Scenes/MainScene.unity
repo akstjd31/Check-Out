@@ -1182,7 +1182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3879a2d4e26b0914ebf45a16f28ad518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  CurrentState: 0
   isGameOver: 0
 --- !u!4 &1943253483
 Transform:

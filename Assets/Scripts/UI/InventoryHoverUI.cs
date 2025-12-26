@@ -15,13 +15,12 @@ public class InventoryHoverUI : MonoBehaviour
     private void Awake()
     {
         firstPriceText = priceText.text;
-        gameObject.SetActive(false);
     }
 
     // 마우스가 위로 올라가져 있을때
     public void OnEnter(Transform pos, ItemInstance item, Sprite sprite)
     {
-        gameObject.SetActive(true);
+        this.transform.GetChild(0).gameObject.SetActive(true);
         nameText.text = item.itemdata.itemName;
         typeText.text = item.itemdata.itemType;
         descText.text = item.itemdata.itemDescription;
@@ -35,6 +34,6 @@ public class InventoryHoverUI : MonoBehaviour
     // 마우스가 빠져나갔을 때
     public void OnExit()
     {
-        gameObject.SetActive(false);
+        this.transform.GetChild(0).gameObject.SetActive(false);
     }
 }

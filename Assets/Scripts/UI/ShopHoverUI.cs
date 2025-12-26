@@ -15,13 +15,12 @@ public class ShopHoverUI : MonoBehaviour
     private void Awake()
     {
         firstPriceText = priceText.text;
-        gameObject.SetActive(false);
     }
 
     // 마우스가 위로 올라가져 있을때
     public void OnEnter(Transform pos, ShopTableData data, Sprite sprite)
     {
-        gameObject.SetActive(true);
+        this.transform.GetChild(0).gameObject.SetActive(true);
         var itemData = ItemManager.Instance.GetItemData(data.itemId);
 
         nameText.text = itemData.itemName;
@@ -37,6 +36,6 @@ public class ShopHoverUI : MonoBehaviour
     // 마우스가 빠져나갔을 때
     public void OnExit()
     {
-        gameObject.SetActive(false);
+        this.transform.GetChild(0).gameObject.SetActive(true);
     }
 }

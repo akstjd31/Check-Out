@@ -16,6 +16,7 @@ public class StorageUI : MonoBehaviour
     {
         storage = FindAnyObjectByType<Storage>();
         inventoryUI = FindAnyObjectByType<InventoryUI>();
+        hover = FindAnyObjectByType<StorageHoverUI>();
 
         Init();
 
@@ -86,7 +87,7 @@ public class StorageUI : MonoBehaviour
     // UI가 변경 되었을때
     public void UpdateUI(int index)
     {
-        hover.gameObject.SetActive(false);
+        hover.transform.GetChild(0).gameObject.SetActive(false);
 
         Image ItemImage = uiObjs[index].transform.GetChild(0).GetComponent<Image>();
         Button button = uiObjs[index].transform.GetChild(0).GetComponent<Button>();

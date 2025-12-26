@@ -19,6 +19,7 @@ public class InventoryUI : MonoBehaviour
     private void Awake()
     {
         inventory = FindAnyObjectByType<Inventory>();
+        hover = FindAnyObjectByType<InventoryHoverUI>();
 
         if (inventory == null)
         {
@@ -81,7 +82,7 @@ public class InventoryUI : MonoBehaviour
     public void UpdateUI(int index)
     {
         if (!GameManager.Instance.CurrentState.Equals(GameState.Session))
-            hover.gameObject.SetActive(false);
+            hover.transform.GetChild(0).gameObject.SetActive(false);
 
         Image ItemImage = uiObjs[index].transform.GetChild(0).GetComponent<Image>();
         Button button = uiObjs[index].transform.GetChild(0).GetComponent<Button>();
