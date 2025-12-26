@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b10bfdde18fb4c4d86d536447b6ac08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FieldOfView
-  viewRadius: 10
+  viewRadius: 50
   viewAngle: 360
   circleRadius: 0
   targetMask:
