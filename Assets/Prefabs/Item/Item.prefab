@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4054352097352546711}
   - component: {fileID: 8436702261183004244}
   - component: {fileID: 8352350037024533672}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Item
-  m_TagString: Interactive
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8b93ccaab1db44c92024bd11b777c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  promptText: 
+  promptText:
+  - "E\uD0A4\uB97C \uB20C\uB7EC \uC544\uC774\uD15C \uD68D\uB4DD"
   spriteRenderer: {fileID: 2225474684196198883}
 --- !u!1 &8092712415568147524
 GameObject:
@@ -111,7 +112,7 @@ GameObject:
   - component: {fileID: 4725116031077416879}
   m_Layer: 0
   m_Name: ItemObj
-  m_TagString: Interactive
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
