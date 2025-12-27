@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4313325104028445927}
   - component: {fileID: 2568066038161572642}
   - component: {fileID: 5136632860405474437}
+  - component: {fileID: 8405236537777126286}
   m_Layer: 5
   m_Name: ShopCanvas
   m_TagString: Untagged
@@ -102,6 +103,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8405236537777126286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5255459468266248167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09fa49802ee9e2f4ca4053c31612eb70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StoreUI
+  uiPrefab: {fileID: 2421131637641645138, guid: d520e45aaf06ec442bd60ad722f21b9b, type: 3}
+  contentObj: {fileID: 5011878154411120919}
+  uiObjs: []
+  hover: {fileID: 0}
+  xButton: {fileID: 2985660990955777479}
 --- !u!1001 &1355925142024242603
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -194,6 +212,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2165245691555200630, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
+      propertyPath: xButton
+      value: 
+      objectReference: {fileID: 2985660990955777479}
+    - target: {fileID: 2165245691555200630, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3389593927005786910, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
       propertyPath: m_Name
       value: ShopUI
@@ -275,5 +301,21 @@ PrefabInstance:
 --- !u!224 &696048697922509300 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1979870942056881247, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
+  m_PrefabInstance: {fileID: 1355925142024242603}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2985660990955777479 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4304883111990700140, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
+  m_PrefabInstance: {fileID: 1355925142024242603}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!1 &5011878154411120919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6295172577125424316, guid: e0c0dcbd6ed9baa40a3551dccc032ace, type: 3}
   m_PrefabInstance: {fileID: 1355925142024242603}
   m_PrefabAsset: {fileID: 0}

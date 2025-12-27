@@ -6,6 +6,7 @@ public class StoreManager : Singleton<StoreManager>
     [SerializeField] private Store store;
     // private GameObject player;
     [SerializeField] private Inventory inventory;
+    [SerializeField] private AudioSource audioSource;
 
     private Dictionary<int, ShopTableData> dataID;
     public bool IsInitialized { get; private set; }
@@ -17,6 +18,8 @@ public class StoreManager : Singleton<StoreManager>
         dataID = new Dictionary<int, ShopTableData>();
         store = FindAnyObjectByType<Store>();
         inventory = FindAnyObjectByType<Inventory>();
+
+        audioSource = this.GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -42,6 +45,12 @@ public class StoreManager : Singleton<StoreManager>
 
     public int GetItemListSize() => dataID.Count;
 
+    private void PlayBuyFailedSound()
+    {
+        audioSource.clip = SoundManager.Instance.GetBuyItemFaildClip();
+        audioSource.Play();
+    }
+
     // 아이템 구매
     public void BuyItem(ShopTableData shopItem)
     {
@@ -57,13 +66,21 @@ public class StoreManager : Singleton<StoreManager>
 
         bool canBuy = CheckMoney(price);
 
-        if (canBuy == false) return;
+        if (canBuy == false)
+        {
+            PlayBuyFailedSound();
+            return;
+        }
 
         int inventoryIndex = -1;
 
         bool empty = inventory.CheckEmpty(out inventoryIndex);
 
-        if (empty == false) return;
+        if (empty == false)
+        {
+            PlayBuyFailedSound();
+            return;
+        }
 
         var item = ItemManager.Instance.Createinstance(data.itemId);
 

@@ -11,10 +11,12 @@ public class Door : Interactable
     [SerializeField] private Animator anim;
     [SerializeField] private DoorType currentDoorType;
     [SerializeField] private NavMeshLink navMeshLink;
+    [SerializeField] private AudioClip[] clips;         // 0: 문 여는 소리, 1: 문 닫는 소리
 
     private void Awake()
     {
         anim = this.GetComponent<Animator>();
+        audioSource = this.GetComponent<AudioSource>();
     }
 
     // 문을 바라보는 상태
@@ -27,6 +29,12 @@ public class Door : Interactable
     public override void OnFocusExit()
     {
         currentText = "";
+    }
+
+    // 문 애니메이션 이벤트
+    public void OnDoorSoundEvent()
+    {
+        audioSource.PlayOneShot(clips[(int)currentDoorType]);
     }
 
     // 문이 완전 열렸을 때 네브메쉬링크 사용이 가능하게끔 설정

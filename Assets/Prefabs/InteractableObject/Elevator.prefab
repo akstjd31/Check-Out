@@ -40,6 +40,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5854870308352072182}
     m_Modifications:
+    - target: {fileID: 377208481652958915, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
+      propertyPath: m_Volume
+      value: 0.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 377208481652958915, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 47bb966335c02d7409221d205194308f, type: 3}
+    - target: {fileID: 377208481652958915, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3433165209912284120, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7910032664348623723, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
       propertyPath: m_Name
       value: Elevator

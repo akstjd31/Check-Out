@@ -21,9 +21,14 @@ public class Item : Interactable, IItem
 
     public ItemInstance item;
 
+    private void Awake()
+    {
+        audioSource = this.GetComponent<AudioSource>();
+    }
+
     private void Start()
     {
-      
+
     }
 
     public void Init(ItemInstance itemInstance)
@@ -59,10 +64,20 @@ public class Item : Interactable, IItem
     public override void Interact()
     {
         bool success = InventoryManager.Instance.PickUpItem(item);
+        PlayerSoundController soundController = null;
+
+        if (GameManager.Instance.Player != null)
+            soundController = GameManager.Instance.Player.GetComponent<PlayerSoundController>();
 
         if (success)
         {
+            soundController.PlayItemPickUpSound();
+
             ItemManager.Instance.ReturnItem(this);
+        }
+        else
+        {
+            soundController.PlayItemPickUpFailedSound();
         }
     }
 }

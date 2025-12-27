@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+enum AudioSourceType 
+{
+    Move = 0, Sanity, Stamina, Item
+}
+
 [RequireComponent(typeof(PlayerStateMachine))]
 
 public class PlayerSoundController : MonoBehaviour
 {
     [Header("Component")]
-    [SerializeField] private List<AudioSource> audioSourceList; // 발소리, 정신력, 스태미나
+    [SerializeField] private List<AudioSource> audioSourceList;
     private StatController stat;
     [SerializeField] private GameObject soundSensorObj;
     private PlayerStateMachine state;
@@ -31,36 +36,36 @@ public class PlayerSoundController : MonoBehaviour
 
     private void OnEnable()
     {
-        stat.OnDeath += EndLoop;
+        stat.OnDeath += SanityEndLoop;
     }
 
     private void OnDisable()
     {
-        stat.OnDeath -= EndLoop;
+        stat.OnDeath -= SanityEndLoop;
     }
 
     private void Update()
     {
         if (stat != null)
-            ClipToCompare();
+            SanityClipToCompare();
     }
 
     // 정신력 감소량에 따른 클립 변화 체크
-    public void ClipToCompare()
+    public void SanityClipToCompare()
     {
         AudioClip clip = SoundManager.Instance.GetSanityClip(stat.CurrentSanityPercent);
-        if (!audioSourceList[1].clip.Equals(clip))
+        if (!audioSourceList[(int)AudioSourceType.Sanity].clip.Equals(clip))
         {
-            audioSourceList[1].clip = clip;
-            audioSourceList[1].Play();
+            audioSourceList[(int)AudioSourceType.Sanity].clip = clip;
+            audioSourceList[(int)AudioSourceType.Sanity].Play();
         }
     }
 
     // 죽었을 떄 루핑 꺼주기
-    public void EndLoop()
+    public void SanityEndLoop()
     {
-        audioSourceList[1].volume = 0.3f;
-        audioSourceList[1].loop = false;
+        audioSourceList[(int)AudioSourceType.Sanity].volume = 0.3f;
+        audioSourceList[(int)AudioSourceType.Sanity].loop = false;
     }
 
 
@@ -87,18 +92,27 @@ public class PlayerSoundController : MonoBehaviour
         //}
     }
 
-    public void StopMoveSound() => audioSourceList[0].Stop();
+    public void StopMoveSound() => audioSourceList[(int)AudioSourceType.Move].Stop();
     public void PlayMoveSound(PlayerState state)
     {
         if (state.Equals(PlayerState.Walk))
-            audioSourceList[0].clip = SoundManager.Instance.GetWalkClip();
+            audioSourceList[(int)AudioSourceType.Move].clip = SoundManager.Instance.GetWalkClip();
         else
-            audioSourceList[0].clip = SoundManager.Instance.GetRunClip();
+            audioSourceList[(int)AudioSourceType.Move].clip = SoundManager.Instance.GetRunClip();
 
-        if (!audioSourceList[0].isPlaying)
-            audioSourceList[0].Play();
+        if (!audioSourceList[(int)AudioSourceType.Move].isPlaying)
+            audioSourceList[(int)AudioSourceType.Move].Play();
     }
 
+    public void PlayItemPickUpSound() => audioSourceList[(int)AudioSourceType.Item].
+                                            PlayOneShot(SoundManager.Instance.GetItemPickUpClip());
+
+    public void PlayItemPickUpFailedSound()
+    {
+        audioSourceList[(int)AudioSourceType.Item].clip = SoundManager.Instance.GetBuyItemFaildClip();
+        audioSourceList[(int)AudioSourceType.Item].Play();
+    }
+    
     // public void PlaySanitySound(float volume)
     // {
     //     // 현재 클립이 다른 경우 (수치에 따른 클립 사운드 재생)

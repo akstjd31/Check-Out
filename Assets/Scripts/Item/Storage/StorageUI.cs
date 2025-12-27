@@ -8,7 +8,7 @@ public class StorageUI : MonoBehaviour
     [SerializeField] GameObject[] uiObjs;
     [SerializeField] StorageHoverUI hover;
     [SerializeField] GameObject storageObj;
-
+    [SerializeField] Button xButton;
     private Storage storage;
     private InventoryUI inventoryUI;
 
@@ -25,6 +25,11 @@ public class StorageUI : MonoBehaviour
             Debug.Log("UI - 창고를 찾지 못했습니다");
             return;
         }
+    }
+
+    private void Start()
+    {
+        xButton.onClick.AddListener(SoundManager.Instance.PlayUIButtonClickSound);
     }
 
     public void StorageOpen()
@@ -113,6 +118,7 @@ public class StorageUI : MonoBehaviour
         button.onClick.AddListener(() =>
         {
             StorageManager.Instance.StorageToInventory(index);
+            SoundManager.Instance.PlayUIButtonClickSound();
         });
 
         Sprite sprite = Resources.Load<Sprite>(storage.storageList[index].itemdata.imgPath);

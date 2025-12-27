@@ -3,6 +3,7 @@
 public abstract class Interactable : MonoBehaviour
 {
     [SerializeField] protected string[] promptText;
+    [SerializeField] protected AudioSource audioSource;
     protected string currentText;
 
     // 플레이어가 바라봤을때
