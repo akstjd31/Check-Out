@@ -50,7 +50,7 @@ public class PlayerSoundController : MonoBehaviour
     }
 
     public void StopSound() => audioSource.Stop();
-    public void PlaySound(PlayerState state)
+    public void PlayMoveSound(PlayerState state)
     {
         if (state.Equals(PlayerState.Walk))
             audioSource.clip = SoundManager.Instance.GetWalkClip();
@@ -59,5 +59,10 @@ public class PlayerSoundController : MonoBehaviour
 
         if (!audioSource.isPlaying)
             audioSource.Play();
+    }
+
+    public void PlaySanitySound(float sanity, float volume)
+    {
+        audioSource.PlayOneShot(SoundManager.Instance.GetSanityClip(sanity), volume);
     }
 }

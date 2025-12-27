@@ -69,7 +69,7 @@ public class PlayerCtrl : MonoBehaviour
             state.ChangeState(PlayerState.Walk);
         }
         
-        soundController.PlaySound(state.CurrentState);
+        soundController.PlayMoveSound(state.CurrentState);
     }
 
     private void OnInteract() => interactor.Interaction();

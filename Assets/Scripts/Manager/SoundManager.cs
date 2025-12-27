@@ -8,16 +8,28 @@ public class SoundManager : Singleton<SoundManager>
     [Header("Player")]
     [SerializeField] private AudioClip walkSound;
     [SerializeField] private AudioClip runSound;
+    [SerializeField] private AudioClip[] sanitySounds;  // 정상 ~ 사망순으로 배치할 것
 
     protected override void Awake()
     {
         base.Awake();
-               
+
         audioSource = this.GetComponent<AudioSource>();
     }
 
     public AudioClip GetWalkClip() => walkSound;
     public AudioClip GetRunClip() => runSound;
+    public AudioClip GetSanityClip(float value)
+    {   
+        if (value >= 60)
+            return sanitySounds[0];
+        else if (30 <= value && value <= 59)
+            return sanitySounds[1];
+        else if (1 <= value && value <= 29)
+            return sanitySounds[2];
+        else
+            return sanitySounds[3];
+    }
 
 
     // 경로에 존재하는 파일 재생
