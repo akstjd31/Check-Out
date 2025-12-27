@@ -566,12 +566,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
   playerHead: {fileID: 753602095481127051}
   distance: 2
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  interactiveLayer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &8289058912994371948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,7 +673,7 @@ MonoBehaviour:
     m_Bits: 128
   visibleTargets: []
   meshResolution: 1
-  viewMeshFilter: {fileID: 8923378772953973814}
+  viewMeshFilter: {fileID: 0}
   edgeResolveIterations: 0
   edgeDstThreshold: 0
 --- !u!114 &6775976921377368825
