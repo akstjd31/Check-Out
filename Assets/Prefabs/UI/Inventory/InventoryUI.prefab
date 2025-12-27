@@ -77,7 +77,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUI
   uiPrefab: {fileID: 2421131637641645138, guid: d520e45aaf06ec442bd60ad722f21b9b, type: 3}
-  uiObjs: []
+  uiObjs:
+  - {fileID: 2421131637641645138, guid: d520e45aaf06ec442bd60ad722f21b9b, type: 3}
+  hover: {fileID: 0}
+  IsStorageOpen: 0
+  IsStoreOpen: 0
 --- !u!114 &1632151857630527601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,3 +94,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cacdc8d50959e14090cdfc3683a50a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
+  slots: []
+  inventorySize: 4

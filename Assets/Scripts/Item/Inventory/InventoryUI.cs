@@ -9,6 +9,8 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] GameObject[] uiObjs;
     [SerializeField] InventoryHoverUI hover;
 
+
+    private Image selectBar;
     private int selectIndex = -1;               // 처음 시작에는 -1
     private Inventory inventory;
     private int invenSize;
@@ -86,6 +88,7 @@ public class InventoryUI : MonoBehaviour
 
         Image ItemImage = uiObjs[index].transform.GetChild(0).GetComponent<Image>();
         Button button = uiObjs[index].transform.GetChild(0).GetComponent<Button>();
+        Image selectBar = uiObjs[index].transform.GetChild(1).GetComponent<Image>();
         Image slotImage = uiObjs[index].GetComponent<Image>();
         EventTrigger trigger = uiObjs[index].GetComponent<EventTrigger>();
 
@@ -93,6 +96,7 @@ public class InventoryUI : MonoBehaviour
 
         if (selectIndex == -1 || selectIndex != index)
         {
+            selectBar.gameObject.SetActive(false);
             slotImage.rectTransform.sizeDelta = new Vector2(125, 125);
         }
 
@@ -181,10 +185,13 @@ public class InventoryUI : MonoBehaviour
         }
         
         Image slotImage = uiObjs[index].transform.GetComponent<Image>();
+        Image selectBar = uiObjs[index].transform.GetChild(1).GetComponent<Image>();
+
 
         if (slotImage == null || inventory == null) return;
 
         slotImage.rectTransform.sizeDelta = new Vector2(150, 150);
+        selectBar.gameObject.SetActive(true);
     }
 
     // 창고 상태
