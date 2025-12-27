@@ -17,7 +17,6 @@ public class Door : Interactable
         anim = this.GetComponent<Animator>();
     }
 
-
     // 문을 바라보는 상태
     public override void OnFocusEnter()
     {
@@ -30,7 +29,24 @@ public class Door : Interactable
         currentText = "";
     }
 
-    public void SetNavMeshLink(NavMeshLink navMeshLink) => this.navMeshLink = navMeshLink;
+    // 문이 완전 열렸을 때 네브메쉬링크 사용이 가능하게끔 설정
+    public void NavMeshLinkEnabled()
+    {
+        if (navMeshLink != null)
+            navMeshLink.enabled = true;
+    }
+
+    public void NavMeshLinkDisabled()
+    {
+        if (navMeshLink != null)
+            navMeshLink.enabled = false;
+    }
+
+    public void SetNavMeshLink(NavMeshLink navMeshLink)
+    {
+        this.navMeshLink = navMeshLink;
+        this.navMeshLink.enabled = false;
+    }
 
     public bool HasNavMeshLink() => navMeshLink != null;
 

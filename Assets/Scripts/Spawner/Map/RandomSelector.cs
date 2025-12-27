@@ -70,6 +70,7 @@ public class RandomSelector : MonoBehaviour
     //         ItemManager.Instance.SpawnItem(spawnItemId, spawner.CheckPosition(index));
     //     }
     // }
+
     public void SetItemSpawnLocation()
     {
         List<int> spawnIndex = new List<int>();
@@ -110,8 +111,6 @@ public class RandomSelector : MonoBehaviour
             ItemManager.Instance.SpawnItem(spawnItemId, spawnPos);
         }
     }
-
-
 
     /// <summary>
     /// 몬스터의 소환을 담당하는 메서드입니다.

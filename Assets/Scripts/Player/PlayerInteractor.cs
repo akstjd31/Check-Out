@@ -7,8 +7,9 @@ public class PlayerInteractor : MonoBehaviour
 
     [Header("Value")]
     [SerializeField] private float distance = 2f;
-    [SerializeField] LayerMask obstacleLayer;
-    [SerializeField] private LayerMask interactiveLayer;
+    // [SerializeField] LayerMask obstacleLayer;
+    // [SerializeField] private LayerMask interactiveLayer;
+    private int layerMask;
     private Interactable interactableObj;
     private string playerStatCanvasName = "PlayerStatCanvas";
 
@@ -16,6 +17,8 @@ public class PlayerInteractor : MonoBehaviour
     private void Awake()
     {
         holder = this.GetComponent<PlayerStatHolder>();
+
+        layerMask = 7 << LayerMask.NameToLayer("Obstacle") | 8 << LayerMask.NameToLayer("Interactive");
     }
 
     private void Update()
@@ -48,17 +51,19 @@ public class PlayerInteractor : MonoBehaviour
         Vector3 head = playerHead.transform.position;
         Vector3 direction = playerHead.transform.forward;
 
-        // 벽에 닿으면 상호 작용 불가능
-        if (Physics.Raycast(head, direction, distance, obstacleLayer))
-            return null;
-
-        if (Physics.SphereCast(head, 0.2f, direction, out RaycastHit hit, distance, interactiveLayer, QueryTriggerInteraction.Collide))
+        RaycastHit[] hits = Physics.RaycastAll(head, direction, distance, layerMask);
+        
+        foreach (RaycastHit hit in hits)
         {
-            return hit.collider.GetComponentInParent<T>();
+            if (hit.collider.CompareTag("Interactive"))
+                return hit.collider.GetComponentInParent<T>();
+            else if (hit.collider.gameObject.layer.Equals("Obstacle"))
+                continue;
         }
 
         return null;
     }
+
     public void Interaction()
     {
         interactableObj?.Interact();
