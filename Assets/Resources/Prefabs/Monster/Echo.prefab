@@ -331,9 +331,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FourView
   sideRender: {fileID: 8623273012740267248}
   orentationChecker: {fileID: 2129617751684031977}
+  animator: {fileID: 0}
   frontTexture: {fileID: 21300000, guid: cacaa9667e6994946ad3a95bab802ad9, type: 3}
   bottomTexture: {fileID: 21300000, guid: 203b6e90810dd604898f054ae9299987, type: 3}
-  leftTexture: {fileID: 21300000, guid: 9c85e5f8ef65de24d9d2f2effc715b7e, type: 3}
+  leftTexture: {fileID: 21300000, guid: ea5fb2a746f25484e968d598add4a52d, type: 3}
   rightTexture: {fileID: 21300000, guid: ea5fb2a746f25484e968d598add4a52d, type: 3}
 --- !u!1001 &6077019081293542257
 PrefabInstance:

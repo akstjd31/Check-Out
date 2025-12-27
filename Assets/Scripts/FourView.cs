@@ -7,6 +7,7 @@ public class FourView : TwoDStyleRender
     protected void Start()
     {
         activePlate(sideRender);
+        animator = GetComponent<Animator>();
     }
 
     public override void FixTheCamera(Transform camera)

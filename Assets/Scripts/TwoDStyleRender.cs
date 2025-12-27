@@ -1,6 +1,8 @@
 using UnityEngine;
 
 public enum RenderState {test}
+
+public enum AnimState {Idle, Move}
 public enum ShowedState
 {
     front, bottom, left, right
@@ -16,6 +18,10 @@ public abstract class TwoDStyleRender : TwoDStyleObj
     [SerializeField] protected Transform sideRender;
 
     [SerializeField] protected Transform orentationChecker;
+
+    public AnimState animState = AnimState.Idle;
+
+    public Animator animator;
 
     public Sprite frontTexture;
     public Sprite bottomTexture;
@@ -56,35 +62,78 @@ public abstract class TwoDStyleRender : TwoDStyleObj
     protected virtual void SetActualShowedState(ShowedState state)
     {
         //Debug.Log("ActiveRenderer: " + activeRenderer + " frontTexture: " + frontTexture);
-        switch (state)
+        if (animState == AnimState.Idle)
         {
-            case ShowedState.front:
-                activeRenderer.sprite = frontTexture;
-                break;
-            case ShowedState.bottom:
-                activeRenderer.sprite = bottomTexture;
-                break;
-            case ShowedState.left:
-                activeRenderer.sprite = leftTexture;
-                break;
-            case ShowedState.right:
-                activeRenderer.sprite = rightTexture;
-                break;
-            //case ShowedState.frontLeft:
-            //    break;
-            //case ShowedState.frontRight:
-            //    break;
-            //case ShowedState.bottomLeft:
-            //    break;
-            //case ShowedState.bottomRight:
-            //    break;
-            //case ShowedState.top:
-            //    break;
-            //case ShowedState.down:
-            //    break;
+            switch (state)
+            {
+                case ShowedState.front:
+                    activeRenderer.sprite = frontTexture;
+                    activeRenderer.flipX = false;
+                    break;
+                case ShowedState.bottom:
+                    activeRenderer.sprite = bottomTexture;
+                    activeRenderer.flipX = false;
+                    break;
+                case ShowedState.left:
+                    activeRenderer.sprite = leftTexture;
+                    activeRenderer.flipX = true;
+                    break;
+                case ShowedState.right:
+                    activeRenderer.sprite = rightTexture;
+                    activeRenderer.flipX = false;
+                    break;
+                    //case ShowedState.frontLeft:
+                    //    break;
+                    //case ShowedState.frontRight:
+                    //    break;
+                    //case ShowedState.bottomLeft:
+                    //    break;
+                    //case ShowedState.bottomRight:
+                    //    break;
+                    //case ShowedState.top:
+                    //    break;
+                    //case ShowedState.down:
+                    //    break;
+            }
+        }
+
+        if (animState == AnimState.Move)
+        {
+            switch (state)
+            {
+                case ShowedState.front:
+                    animator.Play("FrontMove");
+                    activeRenderer.flipX = false;
+                    break;
+                case ShowedState.bottom:
+                    animator.Play("BottomMove");
+                    activeRenderer.flipX = false;
+                    break;
+                case ShowedState.left:
+                    animator.Play("SideMove");
+                    activeRenderer.flipX = true;
+                    break;
+                case ShowedState.right:
+                    animator.Play("SideMove");
+                    activeRenderer.flipX = false;
+                    break;
+                    //case ShowedState.frontLeft:
+                    //    break;
+                    //case ShowedState.frontRight:
+                    //    break;
+                    //case ShowedState.bottomLeft:
+                    //    break;
+                    //case ShowedState.bottomRight:
+                    //    break;
+                    //case ShowedState.top:
+                    //    break;
+                    //case ShowedState.down:
+                    //    break;
+            }
+
+
         }
     }
-
     protected abstract void faceToShow(float yAngle);
 
 }
