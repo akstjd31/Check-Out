@@ -552,6 +552,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   audioSource: {fileID: 0}
+  walkSound: {fileID: 8300000, guid: 5abdd301e49d4a3488dab4ed28917272, type: 3}
+  runSound: {fileID: 8300000, guid: 16aec7c849bea6a458ff4d629be0f172, type: 3}
 --- !u!82 &704925764
 AudioSource:
   m_ObjectHideFlags: 0

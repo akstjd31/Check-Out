@@ -27,7 +27,7 @@ public class PlayerCtrl : MonoBehaviour
         interactor = this.GetComponent<PlayerInteractor>();
         soundController = this.GetComponent<PlayerSoundController>();
 
-        input.OnInteract += OnInteract; 
+        input.OnInteract += OnInteract;
     }
 
     private void FixedUpdate()
@@ -56,8 +56,11 @@ public class PlayerCtrl : MonoBehaviour
         if (!isMoving)
         {
             state.ChangeState(PlayerState.Idle);
+            soundController.StopSound();
+            return;
         }
-        else if (canRun)
+
+        if (canRun)
         {
             state.ChangeState(PlayerState.Run);
         }
@@ -65,6 +68,8 @@ public class PlayerCtrl : MonoBehaviour
         {
             state.ChangeState(PlayerState.Walk);
         }
+        
+        soundController.PlaySound(state.CurrentState);
     }
 
     private void OnInteract() => interactor.Interaction();

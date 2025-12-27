@@ -12,7 +12,7 @@ public class SoundManager : Singleton<SoundManager>
     protected override void Awake()
     {
         base.Awake();
-        
+               
         audioSource = this.GetComponent<AudioSource>();
     }
 
