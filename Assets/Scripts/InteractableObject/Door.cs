@@ -1,3 +1,4 @@
+using Unity.AI.Navigation;
 using UnityEngine;
 
 enum DoorType
@@ -9,6 +10,7 @@ public class Door : Interactable
 {
     [SerializeField] private Animator anim;
     [SerializeField] private DoorType currentDoorType;
+    [SerializeField] private NavMeshLink navMeshLink;
 
     private void Awake()
     {
@@ -27,6 +29,10 @@ public class Door : Interactable
     {
         currentText = "";
     }
+
+    public void SetNavMeshLink(NavMeshLink navMeshLink) => this.navMeshLink = navMeshLink;
+
+    public bool HasNavMeshLink() => navMeshLink != null;
 
     // 실제 상호작용
     public override void Interact()
