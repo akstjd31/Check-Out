@@ -16,7 +16,7 @@ public class PlayerCtrl : MonoBehaviour
     private PlayerStamina stamina;
     private PlayerStateMachine state;
     private PlayerInteractor interactor;
-    private SoundDistance soundDistance;
+    private PlayerSoundController soundController;
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class PlayerCtrl : MonoBehaviour
         stamina = this.GetComponent<PlayerStamina>();
         state = this.GetComponent<PlayerStateMachine>();
         interactor = this.GetComponent<PlayerInteractor>();
-        soundDistance = this.GetComponent<SoundDistance>();
+        soundController = this.GetComponent<PlayerSoundController>();
 
         input.OnInteract += OnInteract; 
     }
@@ -59,20 +59,10 @@ public class PlayerCtrl : MonoBehaviour
         }
         else if (canRun)
         {
-            // 소리가 진행 중이 아닐 때 뛰는 소리 재생
-            if (!soundDistance.IsPlaying())
-            {
-                soundDistance.PlayClip(0, false);
-            }
             state.ChangeState(PlayerState.Run);
         }
         else
         {
-            // 소리가 진행 중이 아닐 때 걷는 소리 재생
-            if (!soundDistance.IsPlaying())
-            {
-                soundDistance.PlayClip(1, false);
-            }
             state.ChangeState(PlayerState.Walk);
         }
     }

@@ -5,6 +5,9 @@ public class SoundManager : Singleton<SoundManager>
 {
     [SerializeField] private AudioSource audioSource;
     // [SerializeField] private List<AudioClip> clipList;
+    [Header("Player")]
+    [SerializeField] private AudioClip walkSound;
+    [SerializeField] private AudioClip runSound;
 
     protected override void Awake()
     {
@@ -13,8 +16,12 @@ public class SoundManager : Singleton<SoundManager>
         audioSource = this.GetComponent<AudioSource>();
     }
 
-    // 재생
-    public void PlaySound(string filePath)
+    public AudioClip GetWalkClip() => walkSound;
+    public AudioClip GetRunClip() => runSound;
+
+
+    // 경로에 존재하는 파일 재생
+    public void PlaySoundWithPath(string filePath)
     {
         var clip = Resources.Load<AudioClip>(filePath);
 

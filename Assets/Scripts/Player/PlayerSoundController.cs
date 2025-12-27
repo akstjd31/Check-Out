@@ -6,32 +6,24 @@ using System.Linq;
 
 [RequireComponent(typeof(PlayerStateMachine))]
 
-public class SoundDistance : MonoBehaviour
+public class PlayerSoundController : MonoBehaviour
 {
-    [SerializeField] private List<AudioClip> soundClip;
+    [Header("Component")]
     private AudioSource soundSource;
-    [UnityEngine.Range(0f, 1f)]
-    [SerializeField] private float volume;
-    [SerializeField] private float soundDelay = 0.5f;
-    [SerializeField] private GameObject soundCollider;
-    [SerializeField] private float distance;
-    private WaitForSeconds delay;
+    [SerializeField] private GameObject soundSensorObj;
     private PlayerStateMachine state;
     private SphereCollider distanceCollider;
 
-    // 프로퍼티
-    public AudioSource SoundSource { get { return soundSource; } }
-    public float Volume { get { return volume; } }
-    public float SoundDelay { get { return soundDelay; } }
-
+    [Header("Value")]
+    [SerializeField] private float soundDistance;
+    
     private void Awake()
     {
         soundSource = GetComponent<AudioSource>();
         state = this.GetComponent<PlayerStateMachine>();
-        distanceCollider = soundCollider.GetComponent<SphereCollider>();
+        distanceCollider = soundSensorObj.GetComponent<SphereCollider>();
 
-        distanceCollider.radius = 0.5f * distance;
-        delay = new WaitForSeconds(soundDelay);
+        distanceCollider.radius = 0.5f * soundDistance;
     }
 
     private void OnTriggerStay(Collider other)
@@ -57,25 +49,4 @@ public class SoundDistance : MonoBehaviour
         //        sirenModel.ChangeState(Monster.MonsterState.Alert);
         //}
     }
-
-    public void PlayClip(int index, bool isLoop)
-    {
-        if (soundSource == null || !soundClip.Any())
-            return;
-            
-        soundSource.clip = soundClip[index];
-        soundSource.loop = isLoop;
-        soundSource.Play();
-    }
-
-    public void SetVolume(int volume)
-    {
-        soundSource.volume = volume;
-    }
-    public void Stop()
-    {
-        soundSource?.Stop();
-    }
-
-    public bool IsPlaying() {  return soundSource.isPlaying; }
 }
