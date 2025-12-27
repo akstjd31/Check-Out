@@ -54,7 +54,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PlayElevatorButtonClickSound() => audioSource.PlayOneShot(elevatorButtonClickSound);
     public void PlayUIButtonClickSound() => audioSource.PlayOneShot(uiButtonClickSound);
-    public AudioClip GetBuyItemFaildClip() => buyItemFailedSound;
+    public AudioClip GetBuyItemFailedClip() => buyItemFailedSound;
     public AudioClip GetItemEatingClip() => itemEatingSound;
     public AudioClip GetItemPickUpClip() => itemPickUpSound;
     public AudioClip GetWalkClip() => walkSound;

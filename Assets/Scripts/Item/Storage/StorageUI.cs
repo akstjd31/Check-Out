@@ -11,12 +11,15 @@ public class StorageUI : MonoBehaviour
     [SerializeField] Button xButton;
     private Storage storage;
     private InventoryUI inventoryUI;
+    [SerializeField] private AudioSource audioSource;
 
     private void Awake()
     {
         storage = FindAnyObjectByType<Storage>();
         inventoryUI = FindAnyObjectByType<InventoryUI>();
         hover = FindAnyObjectByType<StorageHoverUI>();
+
+        audioSource = this.GetComponent<AudioSource>();
 
         Init();
 
@@ -108,6 +111,12 @@ public class StorageUI : MonoBehaviour
         if (storage.storageList[index] == null)
         {
             button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(delegate
+            {
+                audioSource.clip = SoundManager.Instance.GetBuyItemFailedClip();
+                audioSource.Play();
+            });
+            
             if (trigger != null)
                 trigger.triggers.Clear();
             ItemImage.sprite = null;

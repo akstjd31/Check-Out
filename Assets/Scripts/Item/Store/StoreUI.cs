@@ -68,6 +68,7 @@ public class StoreUI : MonoBehaviour
     public void UpdateAll()
     {
         int index = 0;
+
         foreach (var uiObj in uiObjs)
         {
             UpdateUI(index++);
@@ -84,7 +85,8 @@ public class StoreUI : MonoBehaviour
 
         var storeItem = store.shopList[index];
 
-        if (slotImage == null) return;
+        if (slotImage == null)
+            return;
 
         if (ItemImage == null) return;
 
@@ -93,6 +95,7 @@ public class StoreUI : MonoBehaviour
         if (storeItem == null)
         {
             button.onClick.RemoveAllListeners();
+
             if (trigger != null)
                 trigger.triggers.Clear();
             ItemImage.sprite = null;

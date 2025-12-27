@@ -109,10 +109,10 @@ public class PlayerSoundController : MonoBehaviour
 
     public void PlayItemPickUpFailedSound()
     {
-        audioSourceList[(int)AudioSourceType.Item].clip = SoundManager.Instance.GetBuyItemFaildClip();
+        audioSourceList[(int)AudioSourceType.Item].clip = SoundManager.Instance.GetBuyItemFailedClip();
         audioSourceList[(int)AudioSourceType.Item].Play();
     }
-    
+
     // public void PlaySanitySound(float volume)
     // {
     //     // 현재 클립이 다른 경우 (수치에 따른 클립 사운드 재생)

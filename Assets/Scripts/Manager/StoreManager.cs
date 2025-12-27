@@ -47,7 +47,7 @@ public class StoreManager : Singleton<StoreManager>
 
     private void PlayBuyFailedSound()
     {
-        audioSource.clip = SoundManager.Instance.GetBuyItemFaildClip();
+        audioSource.clip = SoundManager.Instance.GetBuyItemFailedClip();
         audioSource.Play();
     }
 
