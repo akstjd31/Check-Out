@@ -5,12 +5,12 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - m_ViewDataDictionary: {instanceID: 0}
-  - exitPrefab: {fileID: 6091175072226573469, guid: 7b177c7e1e352554e88797de7e41a814, type: 3}
-  - pathPrefab: {fileID: 5185587972026120639, guid: c890475a7fa0d344abba12cf941ac41b, type: 3}
-  - roomPrefab: {fileID: 6021953483713420490, guid: dee398a073cb5904d83135be9545463e, type: 3}
-  - normalWallPrefab: {fileID: 549924601591905753, guid: 416fd4b2590cdcc40b67d470f353d366, type: 3}
-  - roomWallPrefab: {fileID: 549924601591905753, guid: 231e6d826e45d3c43aa22a10e29f2242, type: 3}
-  - doorPrefab: {fileID: 2191688478270519449, guid: 490045cc849c06f4caffd8581870051b, type: 3}
+  - exitPrefab: {fileID: 6091175072226573469, guid: 12f7beb0a8b1e2949b684d8b5e55e68f, type: 3}
+  - pathPrefab: {fileID: 5185587972026120639, guid: fc5763a98873f4b45acfeaaae54ee2b7, type: 3}
+  - roomPrefab: {fileID: 6021953483713420490, guid: 09e0988939643cf44a9458efa609eaae, type: 3}
+  - normalWallPrefab: {fileID: 4946362193828974755, guid: f626cf71bc7309848a14bbb8b02e6e3e, type: 3}
+  - roomWallPrefab: {fileID: 549924601591905753, guid: c81f28e46e5e00a40b481bd0a170829a, type: 3}
+  - doorPrefab: {fileID: 4876440872867161411, guid: 7da1ea23ad7bdc14aba3df496ca04513, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
