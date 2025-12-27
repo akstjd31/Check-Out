@@ -56,7 +56,7 @@ public class PlayerCtrl : MonoBehaviour
         if (!isMoving)
         {
             state.ChangeState(PlayerState.Idle);
-            soundController.StopSound();
+            soundController.StopMoveSound();
             return;
         }
 

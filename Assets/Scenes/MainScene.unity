@@ -554,6 +554,11 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   walkSound: {fileID: 8300000, guid: 5abdd301e49d4a3488dab4ed28917272, type: 3}
   runSound: {fileID: 8300000, guid: 16aec7c849bea6a458ff4d629be0f172, type: 3}
+  sanitySounds:
+  - {fileID: 8300000, guid: 9b828aec47278c549b8c63bcb5748897, type: 3}
+  - {fileID: 8300000, guid: 58d3f870f96cce94a8a1f73a83acd43d, type: 3}
+  - {fileID: 8300000, guid: 42eb6bcb46e7ddd49ae5e617c3a3a843, type: 3}
+  - {fileID: 8300000, guid: 3453e15fabc5d0c4086332a9532f14f7, type: 3}
 --- !u!82 &704925764
 AudioSource:
   m_ObjectHideFlags: 0
@@ -566,7 +571,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.09
   m_Pitch: 1
   Loop: 0

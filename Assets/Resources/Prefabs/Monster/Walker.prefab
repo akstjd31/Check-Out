@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1594996792662283249}
   - component: {fileID: 3818408127474550692}
   - component: {fileID: 746209349226411557}
+  - component: {fileID: 4997070276151729132}
   m_Layer: 29
   m_Name: Walker
   m_TagString: Monster
@@ -225,6 +226,28 @@ MonoBehaviour:
   bottomTexture: {fileID: 21300000, guid: 0f9cc012c5d99b548885a4331206dc2c, type: 3}
   leftTexture: {fileID: 21300000, guid: 57d5c533f5f28c342b9ff6176c10624f, type: 3}
   rightTexture: {fileID: 21300000, guid: 1a416c998572e9c4bb4b0dabfa5615a6, type: 3}
+--- !u!95 &4997070276151729132
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5085514986687526861}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 196f9bc14a9adbf4596ba0627db501fb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5795836234579125894
 GameObject:
   m_ObjectHideFlags: 0

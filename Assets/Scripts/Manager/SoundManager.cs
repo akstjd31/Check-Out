@@ -21,11 +21,11 @@ public class SoundManager : Singleton<SoundManager>
     public AudioClip GetRunClip() => runSound;
     public AudioClip GetSanityClip(float value)
     {   
-        if (value >= 60)
+        if (value >= 60f)
             return sanitySounds[0];
-        else if (30 <= value && value <= 59)
+        else if (30f <= value && value <= 59f)
             return sanitySounds[1];
-        else if (1 <= value && value <= 29)
+        else if (1f <= value && value <= 29f)
             return sanitySounds[2];
         else
             return sanitySounds[3];
