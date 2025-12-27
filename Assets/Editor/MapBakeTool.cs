@@ -340,7 +340,9 @@ public class MapBakeTool : EditorWindow
         if (node.type == NodeType.Path || node.type == NodeType.Room)
         {
             //방에 출구라는 표시를 남기기 위한 컴포넌트 추가
+            // GameObject doorChild =  door.transform.GetChild(0).gameObject;
             door.AddComponent<ExitPoint>();
+            ExitPoint exitPoint = door.GetComponent<ExitPoint>();
 
             //NavMesh 생성용 게임 오브젝트 생성.
             GameObject movePath = new GameObject();
@@ -352,11 +354,13 @@ public class MapBakeTool : EditorWindow
 
             //생성된 오브젝트에 NavMeshLink 추가.
             NavMeshLink navLink = movePath.AddComponent<NavMeshLink>();
+            exitPoint.SetNavMeshLink(navLink);
+
             //시작지점은 방, 도착지점은 길. 생성되는 방향 따라 지정.
             navLink.startPoint = Vector3.back * 1.5f;
             navLink.endPoint = Vector3.forward * 1.5f;
-            //일방통행 여부는 길 타입일 경우는 일방통행, 방 타입일 경우 쌍방향 통행.
-            navLink.bidirectional = node.type == NodeType.Path? false : true;
+            //일방통행 여부는 길 타입일 경우는 일방통행, 방 타입일 경우 쌍방향 통행. => 몬스터가 방에 들어올 수 있는 걸 생각해서 쌍방향
+            navLink.bidirectional = true;
             //지역에 맞게 지역 종류 변경
             navLink.area = node.type == NodeType.Path? NavMesh.GetAreaFromName("Walkable") : NavMesh.GetAreaFromName("Room");
         }
