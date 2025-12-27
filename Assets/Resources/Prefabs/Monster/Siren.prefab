@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 8439201060822636161}
   - component: {fileID: 1225967816738829382}
   - component: {fileID: 2711752802489250415}
+  - component: {fileID: 3197977462559497176}
   m_Layer: 0
   m_Name: Siren
   m_TagString: Monster
@@ -256,11 +257,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FourView
   sideRender: {fileID: 8811129272028217479}
   orentationChecker: {fileID: 2178879107059186510}
+  animState: 0
   animator: {fileID: 0}
   frontTexture: {fileID: 21300000, guid: 3b50ad863123adb449c5b09fad442128, type: 3}
   bottomTexture: {fileID: 21300000, guid: 2346d8c6820856b4a861ac6e3b1f03da, type: 3}
   leftTexture: {fileID: 21300000, guid: 7ecdd43b9d55d5f4da5621841d3ae2ab, type: 3}
   rightTexture: {fileID: 21300000, guid: 7ecdd43b9d55d5f4da5621841d3ae2ab, type: 3}
+--- !u!95 &3197977462559497176
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416655947400930686}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 333af0ec6422538459d1189f0b005453, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4839712935077773813
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +342,7 @@ Transform:
   m_GameObject: {fileID: 7248411422845982322}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.15, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -371,7 +395,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3b50ad863123adb449c5b09fad442128, type: 3}
+  m_Sprite: {fileID: 771920582, guid: ba5b1f8439516b549afac12738ef157b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

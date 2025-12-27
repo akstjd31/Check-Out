@@ -223,6 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FourView
   sideRender: {fileID: 3072799788657124049}
   orentationChecker: {fileID: 1391708421053316577}
+  animState: 0
   animator: {fileID: 3701145128269184634}
   frontTexture: {fileID: -1993760894, guid: 63661d131f426d14d96e8ba8dff153c6, type: 3}
   bottomTexture: {fileID: -88190406, guid: 63661d131f426d14d96e8ba8dff153c6, type: 3}
@@ -321,7 +322,7 @@ Transform:
   m_GameObject: {fileID: 7612960924042343223}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.11, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 1
   m_Children: []
