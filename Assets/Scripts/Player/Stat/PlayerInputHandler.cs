@@ -7,8 +7,10 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
     [Header("Component")]
+    private Rigidbody rigid;
     private PlayerInput playerInput;
     private InputAction moveAction, runAction, interactAction, scrollAction, selectAction, dropAction , useAction;
+    private StatController stat;
 
     [Header("Value")]
     private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll", "Select", "Drop" , "Use" };
@@ -19,10 +21,11 @@ public class PlayerInputHandler : MonoBehaviour
     public event Action<int> OnSelected;
     public event Action OnDrop;
     public event Action <string> OnUsedItem;
-    private StatController stat;
+    
 
     private void Awake()
     {
+        rigid = this.GetComponent<Rigidbody>();
         playerInput = this.GetComponent<PlayerInput>();
         stat = this.GetComponent<StatController>();
 
@@ -140,7 +143,12 @@ public class PlayerInputHandler : MonoBehaviour
     }
 
     public void OnMovePerformed(InputAction.CallbackContext ctx) => MoveInput = ctx.ReadValue<Vector3>();
-    public void OnMoveCanceled(InputAction.CallbackContext ctx) => MoveInput = Vector3.zero;
+    public void OnMoveCanceled(InputAction.CallbackContext ctx)
+    {
+        MoveInput = Vector3.zero;
+        rigid.linearVelocity = Vector3.zero;
+    }
+
     public void OnRunPerformed(InputAction.CallbackContext ctx) => IsRunPressed = true;
     public void OnRunCanceled(InputAction.CallbackContext ctx) => IsRunPressed = false;
 

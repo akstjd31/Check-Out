@@ -1,8 +1,8 @@
-´ë»ç ID,´ÙÀ½ID,ÀÌ¸§,´ë»ç,Ãâ·ÂCG,µô·¹ÀÌ
-id,next_id,namae,line_desc,CG,delay
+ì•„ì´ë””,ë‹¤ìŒ ì•„ì´ë””,ì´ë¦„,ì„¤ëª… ë‚´ìš©,ê²½ë¡œ,ë”œë ˆì´
+id,next_id,name,line_desc,CG,delay
 int,int,string,string,string,float
-92001,92002,Player,Á¤¸» ²ûÂïÇÑ È£ÅÚÀÌ±º,,0.5
-92002,92003,Player,ÇÏÁö¸¸ ³ª °°Àº ³ðÀÌ ÀÏÇÏ±â¿¡´Â ÁÁÀº È£ÅÚÀÌ¾ß,CGImage/ContactCG,0.5
-92003,,Player,¸ÁÇÒ ¿¤¸®º£ÀÌÅÍ¸¸ Á¦´ë·Î ÀÛµ¿µÇ¸é ´õ ÁÁÀ»Å×Áö¸¸,,0.5
-92004,92005,Player,¿©º¸¼¼¿ä?,,0.5
-92005,,Host,Áö¹èÀÎÀÏ¼¼. ¾ß°£ °æºñ ±Ù¹«·Î Àå±â °è¾àÇÒ »ý°¢ ¾ø³ª?,,0.5
+92001,92002,Player,ì •ë§ ë”ì°í•œ í˜¸í…”ì´êµ°,,0.5
+92002,92003,Player,í•˜ì§€ë§Œ ë‚˜ ê°™ì€ ë†ˆì´ ì¼í•˜ê¸°ì—ëŠ” ì¢‹ì€ í˜¸í…”ì´ì•¼,CGImage/ContactCG,0.5
+92003,,Player,ë§í•  ì—˜ë¦¬ë² ì´í„°ë§Œ ì œëŒ€ë¡œ ìž‘ë™ë˜ë©´ ë” ì¢‹ì„í…Œì§€ë§Œ,,0.5
+92004,92005,Player,ì—¬ë³´ì„¸ìš”?,,0.5
+92005,,Host,ì§€ë°°ì¸ì¼ì„¸. ì•¼ê°„ ê²½ë¹„ ê·¼ë¬´ë¡œ ìž¥ê¸° ê³„ì•½í•  ìƒê° ì—†ë‚˜?,,0.5

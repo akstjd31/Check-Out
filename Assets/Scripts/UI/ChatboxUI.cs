@@ -108,7 +108,7 @@ public class ChatboxUI : MonoBehaviour
         
         
         //이름과 대사를 테이블 내의 해당 아이디값에서 불러온다.
-        nameText.text = talkTable[desc_id].namae;
+        nameText.text = talkTable[desc_id].name;
         description = talkTable[desc_id].line_desc;
 
         //테이블에서 CG가 있는 id값이었을 경우

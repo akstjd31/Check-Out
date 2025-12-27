@@ -36,6 +36,6 @@ public class ShopHoverUI : MonoBehaviour
     // 마우스가 빠져나갔을 때
     public void OnExit()
     {
-        this.transform.GetChild(0).gameObject.SetActive(true);
+        this.transform.GetChild(0).gameObject.SetActive(false);
     }
 }
