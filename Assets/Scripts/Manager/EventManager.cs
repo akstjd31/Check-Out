@@ -87,6 +87,7 @@ public class EventManager : Singleton<EventManager>
             if (!cond.Check(evt.conditionValue2))
                 return false;
         }
+
         return true;
     }
 

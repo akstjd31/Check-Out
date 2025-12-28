@@ -74,14 +74,7 @@ public class SwitchManager : Singleton<SwitchManager>
             Debug.LogError($"스위치 ID {id}가 없습니다!");
             return false;
         }
-
-        if (value)
-        {
-            Debug.Log("이미 스위치 값이 true 입니다!");
-            return false;
-        }
-
-        switchStates[id] = true;
+        
         return switchStates[id];
     }
 
