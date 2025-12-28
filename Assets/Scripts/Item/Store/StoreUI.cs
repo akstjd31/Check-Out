@@ -33,6 +33,7 @@ public class StoreUI : MonoBehaviour
         }
 
         xButton.onClick.AddListener(SoundManager.Instance.PlayUIButtonClickSound);
+        xButton.onClick.AddListener(GameManager.Instance.Player.GetComponent<PlayerInputHandler>().ReleaseIgnoreInput);
     }
 
     public void OnEnable()
