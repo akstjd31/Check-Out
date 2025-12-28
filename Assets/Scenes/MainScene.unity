@@ -570,8 +570,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9b828aec47278c549b8c63bcb5748897, type: 3}
   - {fileID: 8300000, guid: 58d3f870f96cce94a8a1f73a83acd43d, type: 3}
   - {fileID: 8300000, guid: 42eb6bcb46e7ddd49ae5e617c3a3a843, type: 3}
-  - {fileID: 8300000, guid: 3453e15fabc5d0c4086332a9532f14f7, type: 3}
-  exhaustSound: {fileID: 8300000, guid: 5d3343813e2bba84295fc89ba99d9ece, type: 3}
+  - {fileID: 8300000, guid: 9434961b46cd5864e900d3ebe6fe76fe, type: 3}
   itemPickUpSound: {fileID: 8300000, guid: 6f376149d6816fd4b847388c6d18d343, type: 3}
   itemEatingSound: {fileID: 0}
   buyItemFailedSound: {fileID: 8300000, guid: 2357f6e12f7330a49bb275c42c361415, type: 3}
@@ -582,8 +581,8 @@ MonoBehaviour:
   sellItemSound: {fileID: 8300000, guid: 5276e816476bc844cb5a02d4459ae25d, type: 3}
   storageOpenSound: {fileID: 8300000, guid: 41f282bf5c918cb4fba191fc755726f5, type: 3}
   storageCloseSound: {fileID: 8300000, guid: 2e0faa9be63dc194587db8ad6b3fac60, type: 3}
-  hubSceneSound: {fileID: 8300000, guid: 416f6885ce58475458dfdf5de2d3945f, type: 3}
-  sessionSceneSound: {fileID: 8300000, guid: 8ee2485073cbc854eaa3968198e3788b, type: 3}
+  hubSceneSound: {fileID: 8300000, guid: 6821fee3d3e9fce40af2460195b4e713, type: 3}
+  sessionSceneSound: {fileID: 8300000, guid: 975ebe05d97fdec45a88c7a9b07f5d95, type: 3}
   volumeSpeed: 0.04
 --- !u!82 &704925764
 AudioSource:
@@ -596,11 +595,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_Resource: {fileID: 8300000, guid: 0b4956a053bfea74a8b88f8f2ddc4973, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 0.09
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
