@@ -2,5 +2,6 @@
 id,groupId,startType,startValue,conditionType1,conditionValue1,conditionType2,conditionValue2,eventType,eventValue,targetObject,description
 int,int,string,string,string,string,string,string,string,string,string,string
 8001,200,enterCollider,200_enter_tile,checkSwitchOff,9009,none,none,soundOnce,Sound/Event/200_Excuse,self,임시 사운드 출력
-8002,200,enterCollider,200_enter_tile,checkSwitchOff,9009,none,none,setSwitchOn,9010,none,임시 스위치온
-8003,200,enterCollider,200_enter_tile,checkSwitchOff,9009,none,none,setSwitchOn,9009,none,임시 스위치온
+8002,200,enterCollider,200_enter_tile,checkSwitchOff,9009,none,none,showText,92001,none,임시 대화창 출력
+8003,200,enterCollider,200_enter_tile,checkSwitchOff,9009,none,none,setSwitchOn,9010,none,임시 스위치온
+8004,200,enterCollider,200_enter_tile,checkSwitchOff,9009,none,none,setSwitchOn,9009,none,임시 스위치온
