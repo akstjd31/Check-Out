@@ -25,6 +25,7 @@ public class EventObject : MonoBehaviour
     {
         if (!col.CompareTag("Player")) return;
 
+        Debug.Log("이벤트를 실행!");
         EventManager.Instance.OnEventTriggered(StartEventTypeToString(startType), startValue);
     }
 
