@@ -13,6 +13,9 @@ public class PlayerInputHandler : MonoBehaviour
     private StatController stat;
 
     [Header("Value")]
+    [SerializeField] private float groundCheckDistance = 0.2f;
+    [SerializeField] LayerMask groundLayer;
+    private bool isGrounded = false;
     private string[] playerActions = new string[] { "Move", "Run", "Interact", "Scroll", "Select", "Drop" , "Use" };
     public Vector3 MoveInput { get; private set; }
     public bool IsRunPressed { get; private set; }
@@ -187,5 +190,13 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
 
-    // 아이템 사용 키 메서드 필요
+    private void OnCollisionStay(Collision col)
+{
+    if (!isGrounded && col.gameObject.CompareTag("Ground"))
+    {
+        isGrounded = true;
+        rigid.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+    }
+}
+
 }

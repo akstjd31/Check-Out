@@ -4,12 +4,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private StatController stat;
-    private Rigidbody rigid;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         stat = this.GetComponent<StatController>();
-        rigid = this.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
