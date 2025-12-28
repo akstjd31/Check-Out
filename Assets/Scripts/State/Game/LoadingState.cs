@@ -17,7 +17,7 @@ public class LoadingState : IState
         timer = 3f;
         isLoading = false;
 
-        // FadeController.Instance.Init();
+        SoundManager.Instance.PlayElevatorActionSound();
     }
 
     public void Exit()
@@ -37,5 +37,7 @@ public class LoadingState : IState
             isLoading = true;
             LoadingManager.Instance.LoadScene(LoadingData.TargetScene);
         }
+        
+        SoundManager.Instance.DecreaseVolume();
     }
 }

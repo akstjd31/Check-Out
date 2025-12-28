@@ -6,8 +6,10 @@ using UnityEngine;
 // 플레이어 스태미나 관련 클래스
 public class PlayerStamina : MonoBehaviour
 {
+    [Header("Component")]
     private StatController stat;
     private PlayerStatHolder holder;
+    private PlayerSoundController soundController;
 
     public bool IsExhausted { get; private set; }   // 탈진 상태
     private float staminaTimer;
@@ -16,6 +18,7 @@ public class PlayerStamina : MonoBehaviour
     {
         stat = this.GetComponent<StatController>();
         holder = this.GetComponent<PlayerStatHolder>();
+        soundController = this.GetComponent<PlayerSoundController>();
     }
 
     // 스태미나 갱신
@@ -41,13 +44,14 @@ public class PlayerStamina : MonoBehaviour
         // 달리고 있는 상태 == 왼쪽 쉬프트를 누르면서, 이동(MoveInput값이 존재할 때)할 때
         if (isRunning && isMoving)
         {
+            soundController.StopExhaustSound();
             // 현재 스태미나보다 달리기 스태미나 최소 비용보다 적은 상태
             if (!stat.IsRemainStamina())
             {
                 EnterExhaust();
                 return;
             }
-
+            
             stat.ConsumeStamina();
         }
         else
@@ -58,6 +62,7 @@ public class PlayerStamina : MonoBehaviour
 
     private void EnterExhaust()
     {
+        soundController.PlayExhaustSound();
         exhaustTimer = holder.Stat.StaminaExhaustTime;
         Debug.Log("탈진!");
         IsExhausted = true;

@@ -6,6 +6,7 @@ public class StoreManager : Singleton<StoreManager>
     [SerializeField] private Store store;
     // private GameObject player;
     [SerializeField] private Inventory inventory;
+    [SerializeField] private AudioSource audioSource;
 
     private Dictionary<int, ShopTableData> dataID;
     public bool IsInitialized { get; private set; }
@@ -17,6 +18,8 @@ public class StoreManager : Singleton<StoreManager>
         dataID = new Dictionary<int, ShopTableData>();
         store = FindAnyObjectByType<Store>();
         inventory = FindAnyObjectByType<Inventory>();
+
+        audioSource = this.GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -42,6 +45,29 @@ public class StoreManager : Singleton<StoreManager>
 
     public int GetItemListSize() => dataID.Count;
 
+    private void PlayBuyFailedSound()
+    {
+        audioSource.clip = SoundManager.Instance.GetBuyItemFailedClip();
+
+        if (audioSource.clip != null)
+            audioSource.Play();
+    }
+
+    private void PlayBuySound()
+    {
+        audioSource.clip = SoundManager.Instance.GetBuyItemClip();
+        if (audioSource.clip != null)
+            audioSource.Play();
+    }
+
+    private void PlaySellSound()
+    {
+        audioSource.clip = SoundManager.Instance.GetSellItemClip();
+
+        if (audioSource.clip != null)
+            audioSource.Play();
+    }
+
     // 아이템 구매
     public void BuyItem(ShopTableData shopItem)
     {
@@ -57,13 +83,21 @@ public class StoreManager : Singleton<StoreManager>
 
         bool canBuy = CheckMoney(price);
 
-        if (canBuy == false) return;
+        if (canBuy == false)
+        {
+            PlayBuyFailedSound();
+            return;
+        }
 
         int inventoryIndex = -1;
 
         bool empty = inventory.CheckEmpty(out inventoryIndex);
 
-        if (empty == false) return;
+        if (empty == false)
+        {
+            PlayBuyFailedSound();
+            return;
+        }
 
         var item = ItemManager.Instance.Createinstance(data.itemId);
 
@@ -71,6 +105,7 @@ public class StoreManager : Singleton<StoreManager>
 
         GameManager.Instance.ChangeMoney(-price);
         
+        PlayBuySound();
     }
 
     // 아이템 판매
@@ -96,6 +131,8 @@ public class StoreManager : Singleton<StoreManager>
         Debug.Log($"가격 {price}");
 
         GameManager.Instance.ChangeMoney(price);
+
+        PlaySellSound();
     }
 
     // 돈 충분한지 체크

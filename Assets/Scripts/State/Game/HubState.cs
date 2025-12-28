@@ -18,11 +18,14 @@ public class HubState : IState
 
     public void Update()
     {
+        SoundManager.Instance.IncreaseVolume();
     }
 
     private void Init()
     {
         FadeManager.Instance.StartFadeIn();
+
+        SoundManager.Instance.PlayBackgroundSound();
         
         // 다음 씬 정보 미리 설정
         LoadingData.NextState = GameState.Session;

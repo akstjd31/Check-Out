@@ -362,6 +362,9 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public void OffHande()
     {
+        if (playerHandTransform == null)
+            return;
+            
         if (playerHandTransform.gameObject.activeSelf == true)
             playerHandTransform.gameObject.SetActive(false);
     }

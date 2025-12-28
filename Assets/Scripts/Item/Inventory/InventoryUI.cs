@@ -8,7 +8,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] GameObject uiPrefab;
     [SerializeField] GameObject[] uiObjs;
     [SerializeField] InventoryHoverUI hover;
-
+    [SerializeField] private AudioSource audioSource;
 
     private Image selectBar;
     private int selectIndex = -1;               // 처음 시작에는 -1
@@ -22,6 +22,8 @@ public class InventoryUI : MonoBehaviour
     {
         inventory = FindAnyObjectByType<Inventory>();
         hover = FindAnyObjectByType<InventoryHoverUI>();
+
+        audioSource = this.GetComponent<AudioSource>();
 
         if (inventory == null)
         {
@@ -103,6 +105,12 @@ public class InventoryUI : MonoBehaviour
         if (inventory.slots[index] == null)
         {
             button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(delegate
+            {
+                audioSource.clip = SoundManager.Instance.GetBuyItemFailedClip();
+                audioSource.Play();
+            });
+            
             if (trigger != null)
                 trigger.triggers.Clear();
             ItemImage.sprite = null;
@@ -163,7 +171,8 @@ public class InventoryUI : MonoBehaviour
     public void OnStoreUI(Button button, int index)
     {
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(delegate { StoreManager.Instance.SellItem(index); });
+        button.onClick.AddListener(delegate { StoreManager.Instance.SellItem(index);
+                                            SoundManager.Instance.PlayUIButtonClickSound(); });
     }
 
     // 창고 오픈 시 버튼 할당
@@ -171,7 +180,8 @@ public class InventoryUI : MonoBehaviour
     {
         Debug.Log("버튼 할당됨!");
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(delegate { StorageManager.Instance.InventoryToStorage(index); });
+        button.onClick.AddListener(delegate { StorageManager.Instance.InventoryToStorage(index); 
+                                            SoundManager.Instance.PlayUIButtonClickSound(); });
     }
 
     // UI가 선택되었을때 UI업데이트

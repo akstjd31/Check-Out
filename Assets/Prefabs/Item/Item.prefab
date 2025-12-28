@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   promptText:
   - "E\uD0A4\uB97C \uB20C\uB7EC \uC544\uC774\uD15C \uD68D\uB4DD"
+  audioSource: {fileID: 0}
   spriteRenderer: {fileID: 2225474684196198883}
 --- !u!1 &8092712415568147524
 GameObject:

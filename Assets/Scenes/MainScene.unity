@@ -394,6 +394,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 704925763}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayUIButtonClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &225147348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,6 +564,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   audioSource: {fileID: 0}
+  walkSound: {fileID: 8300000, guid: 5abdd301e49d4a3488dab4ed28917272, type: 3}
+  runSound: {fileID: 8300000, guid: 16aec7c849bea6a458ff4d629be0f172, type: 3}
+  sanitySounds:
+  - {fileID: 8300000, guid: 9b828aec47278c549b8c63bcb5748897, type: 3}
+  - {fileID: 8300000, guid: 58d3f870f96cce94a8a1f73a83acd43d, type: 3}
+  - {fileID: 8300000, guid: 42eb6bcb46e7ddd49ae5e617c3a3a843, type: 3}
+  - {fileID: 8300000, guid: 3453e15fabc5d0c4086332a9532f14f7, type: 3}
+  exhaustSound: {fileID: 8300000, guid: 5d3343813e2bba84295fc89ba99d9ece, type: 3}
+  itemPickUpSound: {fileID: 8300000, guid: 6f376149d6816fd4b847388c6d18d343, type: 3}
+  itemEatingSound: {fileID: 0}
+  buyItemFailedSound: {fileID: 8300000, guid: 2357f6e12f7330a49bb275c42c361415, type: 3}
+  elevatorButtonClickSound: {fileID: 8300000, guid: 47bb966335c02d7409221d205194308f, type: 3}
+  elevatorActionSound: {fileID: 8300000, guid: 07697b7fe7da7774495a364ce369a1b2, type: 3}
+  uiButtonClickSound: {fileID: 8300000, guid: 273421a65edee894fa0aec80cdc9c9ea, type: 3}
+  buyItemSound: {fileID: 8300000, guid: 88cc1e4871b51df4eac0811a9c033a49, type: 3}
+  sellItemSound: {fileID: 8300000, guid: 5276e816476bc844cb5a02d4459ae25d, type: 3}
+  storageOpenSound: {fileID: 8300000, guid: 41f282bf5c918cb4fba191fc755726f5, type: 3}
+  storageCloseSound: {fileID: 8300000, guid: 2e0faa9be63dc194587db8ad6b3fac60, type: 3}
+  hubSceneSound: {fileID: 8300000, guid: 416f6885ce58475458dfdf5de2d3945f, type: 3}
+  sessionSceneSound: {fileID: 8300000, guid: 8ee2485073cbc854eaa3968198e3788b, type: 3}
+  volumeSpeed: 0.04
 --- !u!82 &704925764
 AudioSource:
   m_ObjectHideFlags: 0
@@ -564,7 +597,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.09
   m_Pitch: 1
   Loop: 0
@@ -1286,6 +1319,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2031907906}
+  - component: {fileID: 2031907907}
   - component: {fileID: 2031907905}
   - component: {fileID: 2031907904}
   - component: {fileID: 2031907903}
@@ -1383,6 +1417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StoreManager
   store: {fileID: 0}
   inventory: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &2031907905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1425,6 +1460,103 @@ Transform:
   - {fileID: 1679771731}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &2031907907
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031907897}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.3
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2038705848
 GameObject:
   m_ObjectHideFlags: 0

@@ -93,7 +93,7 @@ public class StatController : MonoBehaviour
                 break;
             case PlayerSituation.Dark:
                 CurrentSanityDps = holder.Stat.SanityDpsDark;
-                 //CurrentSanityDps = 1000;  // 테스트용 
+                // CurrentSanityDps = 1000;  // 테스트용 
                 break;
             case PlayerSituation.Chase:
                 CurrentSanityDps = holder.Stat.SanityDpsChased;

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour
 {
+    [Header("Component")]
     private PlayerStatHolder holder;
     [SerializeField] private GameObject playerHead;     // 카메라
 

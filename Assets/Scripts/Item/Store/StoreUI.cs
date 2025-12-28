@@ -5,8 +5,10 @@ using UnityEngine.UI;
 public class StoreUI : MonoBehaviour
 {
     [SerializeField] GameObject uiPrefab;
+    [SerializeField] GameObject contentObj;
     [SerializeField] GameObject[] uiObjs;
     [SerializeField] ShopHoverUI hover;
+    [SerializeField] Button xButton;
 
     private Store store;
     private InventoryUI inventoryUI;
@@ -29,6 +31,8 @@ public class StoreUI : MonoBehaviour
         {
             SetStoreUI(StoreManager.Instance.GetItemListSize());
         }
+
+        xButton.onClick.AddListener(SoundManager.Instance.PlayUIButtonClickSound);
     }
 
     public void OnEnable()
@@ -54,7 +58,7 @@ public class StoreUI : MonoBehaviour
 
         for (int i = 0; i < size; i++)
         {
-            uiObjs[i] = Instantiate(uiPrefab, transform);
+            uiObjs[i] = Instantiate(uiPrefab, contentObj.transform);
             uiObjs[i].name = $"Store_Slot_{i + 1}";
         }
 
@@ -64,6 +68,7 @@ public class StoreUI : MonoBehaviour
     public void UpdateAll()
     {
         int index = 0;
+
         foreach (var uiObj in uiObjs)
         {
             UpdateUI(index++);
@@ -80,7 +85,8 @@ public class StoreUI : MonoBehaviour
 
         var storeItem = store.shopList[index];
 
-        if (slotImage == null) return;
+        if (slotImage == null)
+            return;
 
         if (ItemImage == null) return;
 
@@ -89,6 +95,7 @@ public class StoreUI : MonoBehaviour
         if (storeItem == null)
         {
             button.onClick.RemoveAllListeners();
+
             if (trigger != null)
                 trigger.triggers.Clear();
             ItemImage.sprite = null;
@@ -97,7 +104,8 @@ public class StoreUI : MonoBehaviour
         }
 
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(delegate { StoreManager.Instance.BuyItem(storeItem); });
+        button.onClick.AddListener(delegate { StoreManager.Instance.BuyItem(storeItem);
+                                            SoundManager.Instance.PlayUIButtonClickSound(); });
 
         var item = ItemManager.Instance.GetItemData(storeItem.itemId);
 
