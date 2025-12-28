@@ -51,6 +51,18 @@ public class StoreManager : Singleton<StoreManager>
         audioSource.Play();
     }
 
+    private void PlayBuySound()
+    {
+        audioSource.clip = SoundManager.Instance.GetBuyItemClip();
+        audioSource.Play();
+    }
+
+    private void PlaySellSound()
+    {
+        audioSource.clip = SoundManager.Instance.GetSellItemClip();
+        audioSource.Play();
+    }
+
     // 아이템 구매
     public void BuyItem(ShopTableData shopItem)
     {
@@ -88,6 +100,7 @@ public class StoreManager : Singleton<StoreManager>
 
         GameManager.Instance.ChangeMoney(-price);
         
+        PlayBuySound();
     }
 
     // 아이템 판매
@@ -113,6 +126,8 @@ public class StoreManager : Singleton<StoreManager>
         Debug.Log($"가격 {price}");
 
         GameManager.Instance.ChangeMoney(price);
+
+        PlaySellSound();
     }
 
     // 돈 충분한지 체크

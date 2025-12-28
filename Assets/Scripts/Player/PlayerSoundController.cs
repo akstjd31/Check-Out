@@ -91,7 +91,7 @@ public class PlayerSoundController : MonoBehaviour
         //        sirenModel.ChangeState(Monster.MonsterState.Alert);
         //}
     }
-
+    
     public void StopMoveSound() => audioSourceList[(int)AudioSourceType.Move].Stop();
     public void PlayMoveSound(PlayerState state)
     {
@@ -112,6 +112,13 @@ public class PlayerSoundController : MonoBehaviour
         audioSourceList[(int)AudioSourceType.Item].clip = SoundManager.Instance.GetBuyItemFailedClip();
         audioSourceList[(int)AudioSourceType.Item].Play();
     }
+
+    public void StopExhaustSound()
+    {
+        if (audioSourceList[(int)AudioSourceType.Stamina].isPlaying)
+            audioSourceList[(int)AudioSourceType.Stamina].Stop();
+    }
+    public void PlayExhaustSound() => audioSourceList[(int)AudioSourceType.Stamina].Play();
 
     // public void PlaySanitySound(float volume)
     // {

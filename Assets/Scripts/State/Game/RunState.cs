@@ -20,6 +20,8 @@ public class RunState : IState
 
     public void Update()
     {
+        SoundManager.Instance.IncreaseVolume();
+        
         if (GameManager.Instance.isGameOver)
         {
             GameManager.Instance.isGameOver = false;
@@ -31,6 +33,8 @@ public class RunState : IState
     private void Init()
     {
         FadeManager.Instance.StartFadeIn();
+
+        SoundManager.Instance.PlayBackgroundSound();
 
         // 다음 씬 정보 미리 설정
         LoadingData.NextState = GameState.Hub;

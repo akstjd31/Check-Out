@@ -22,7 +22,6 @@ public class LoadingState : IState
 
     public void Exit()
     {
-        SoundManager.Instance.StopSound();
         Debug.Log("로딩 상태 종료");
     }
 

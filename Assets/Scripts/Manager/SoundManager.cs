@@ -22,20 +22,39 @@ public class SoundManager : Singleton<SoundManager>
     [Header("UI")]
     [SerializeField] private AudioClip uiButtonClickSound;
 
+    [Header("Store")]
+    [SerializeField] private AudioClip buyItemSound;
+    [SerializeField] private AudioClip sellItemSound;
+
+    [Header("Storage")]
+    [SerializeField] private AudioClip storageOpenSound;
+    [SerializeField] private AudioClip storageCloseSound;
+    
+    [Header("Background")]
+    [SerializeField] private AudioClip hubSceneSound;
+    [SerializeField] private AudioClip sessionSceneSound;
+
     [Header("Value")]
     private float currentVolume;
+    [SerializeField] private float volumeSpeed;
 
     protected override void Awake()
     {
         base.Awake();
 
         audioSource = this.GetComponent<AudioSource>();
+        currentVolume = audioSource.volume;
+    }
+
+    public void PlayBackgroundSound()
+    {
+        audioSource.clip = GameManager.Instance.CurrentState.Equals(GameState.Hub) ? hubSceneSound : sessionSceneSound;
+        audioSource.Play();
     }
 
     public void PlayElevatorActionSound()
     {
         audioSource.clip = elevatorActionSound;
-        currentVolume = audioSource.volume;
         audioSource.Play();
     }
 
@@ -43,7 +62,14 @@ public class SoundManager : Singleton<SoundManager>
     public void DecreaseVolume()
     {
         if (audioSource.volume > 0f)
-            audioSource.volume -= (Time.deltaTime / 33);
+            audioSource.volume -= volumeSpeed * Time.deltaTime;
+    }
+
+    // 볼륨 서서히 높이기
+    public void IncreaseVolume()
+    {
+        if (audioSource.volume < currentVolume)
+            audioSource.volume += volumeSpeed * Time.deltaTime;
     }
 
     public void StopSound()
@@ -54,6 +80,10 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PlayElevatorButtonClickSound() => audioSource.PlayOneShot(elevatorButtonClickSound);
     public void PlayUIButtonClickSound() => audioSource.PlayOneShot(uiButtonClickSound);
+    public void GetStorageOpenSound() => audioSource.PlayOneShot(storageOpenSound);
+    public void GetStorageCloseSound() => audioSource.PlayOneShot(storageCloseSound);
+    public AudioClip GetSellItemClip() => sellItemSound;
+    public AudioClip GetBuyItemClip() => buyItemSound;
     public AudioClip GetBuyItemFailedClip() => buyItemFailedSound;
     public AudioClip GetItemEatingClip() => itemEatingSound;
     public AudioClip GetItemPickUpClip() => itemPickUpSound;
