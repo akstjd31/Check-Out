@@ -33,6 +33,7 @@ public class StorageUI : MonoBehaviour
     private void Start()
     {
         xButton.onClick.AddListener(SoundManager.Instance.PlayUIButtonClickSound);
+        xButton.onClick.AddListener(GameManager.Instance.Player.GetComponent<PlayerInputHandler>().ReleaseIgnoreInput);
     }
 
     public void StorageOpen()
