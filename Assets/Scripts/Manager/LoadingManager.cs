@@ -78,7 +78,7 @@ public class LoadingManager : Singleton<LoadingManager>
         // 씬 전환
         operation.allowSceneActivation = true;
 
-        FadeManager.Instance.LoadingComplete();
+        FadeManager.Instance.FadeStartedInvoke();
         
         Debug.Log("씬 전환됨!");
     }

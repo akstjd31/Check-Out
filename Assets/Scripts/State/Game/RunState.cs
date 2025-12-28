@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 // 세션에 접어든 상태
 public class RunState : IState
 {
+    private bool flag;
     public void Enter()
     {
         Debug.Log("세션 상태 진입");
@@ -22,16 +23,17 @@ public class RunState : IState
     {
         SoundManager.Instance.IncreaseVolume();
         
-        if (GameManager.Instance.isGameOver)
+        if (GameManager.Instance.isGameOver && !flag)
         {
-            GameManager.Instance.isGameOver = false;
-            InventoryManager.Instance.ResetInventory();
-            GameManager.Instance.ChangeState(GameState.Loading);
+            flag = true;
+            FadeManager.Instance.FadeStartedInvoke();
+            FadeManager.Instance.StartFadeOut();
         }
     }
 
     private void Init()
     {
+        flag = false;
         FadeManager.Instance.StartFadeIn();
 
         SoundManager.Instance.PlayBackgroundSound();

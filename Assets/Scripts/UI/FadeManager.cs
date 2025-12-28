@@ -16,13 +16,11 @@ public class FadeManager : Singleton<FadeManager>
     private void OnEnable()
     {
         OnFadeStarted += () => fadeImage.gameObject.SetActive(true);
-        OnFadeEnded += () => fadeImage.gameObject.SetActive(false);
     }
 
     private void OnDisable()
     {
         OnFadeStarted -= () => fadeImage.gameObject.SetActive(true);
-        OnFadeEnded -= () => fadeImage.gameObject.SetActive(false);
     }
 
     public void StartFadeIn()
@@ -30,8 +28,15 @@ public class FadeManager : Singleton<FadeManager>
         StartCoroutine(FadeIn());
     }
 
+    public void StartFadeOut()
+    {
+        StartCoroutine(FadeOut());
+    }
+
+    public void SetFadeImageDeactivate() => fadeImage.gameObject.SetActive(false);
+
     // 로딩 때 페이드 연출을 시작 (데이터 로드되는 부분을 가리기 위한 부분)
-    public void LoadingComplete() => OnFadeStarted?.Invoke();
+    public void FadeStartedInvoke() => OnFadeStarted?.Invoke();
 
     // 페이드 인
     private IEnumerator FadeIn()
@@ -43,10 +48,29 @@ public class FadeManager : Singleton<FadeManager>
             SetAlpha(time / fadeDuration);
             yield return null;
         }
-        
+
         SetAlpha(0f);
         OnFadeEnded?.Invoke();
     }
+
+    // 페이드 아웃 (플레이어가 죽었을 떄)
+    private IEnumerator FadeOut()
+    {
+        float time = 0f;
+
+        while (time < fadeDuration)
+        {
+            time += Time.deltaTime;
+            SetAlpha(time / fadeDuration);
+            yield return null;
+        }
+
+        GameManager.Instance.isGameOver = false;
+        InventoryManager.Instance.ResetInventory();
+        GameManager.Instance.ChangeState(GameState.Loading);
+        OnFadeEnded?.Invoke();
+    }
+
 
     // 이미지 컬러 조정
     private void SetAlpha(float alpha)
