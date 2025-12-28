@@ -54,7 +54,7 @@ public class PlayerSoundController : MonoBehaviour
     public void SanityClipToCompare()
     {
         AudioClip clip = SoundManager.Instance.GetSanityClip(stat.CurrentSanityPercent);
-        if (!audioSourceList[(int)AudioSourceType.Sanity].clip.Equals(clip))
+        if (clip != null && !audioSourceList[(int)AudioSourceType.Sanity].clip.Equals(clip))
         {
             audioSourceList[(int)AudioSourceType.Sanity].clip = clip;
             audioSourceList[(int)AudioSourceType.Sanity].Play();
@@ -95,22 +95,33 @@ public class PlayerSoundController : MonoBehaviour
     public void StopMoveSound() => audioSourceList[(int)AudioSourceType.Move].Stop();
     public void PlayMoveSound(PlayerState state)
     {
-        if (state.Equals(PlayerState.Walk))
+        if (SoundManager.Instance.GetWalkClip() != null &&
+            SoundManager.Instance.GetRunClip() != null)
+        {
+                    if (state.Equals(PlayerState.Walk))
             audioSourceList[(int)AudioSourceType.Move].clip = SoundManager.Instance.GetWalkClip();
         else
             audioSourceList[(int)AudioSourceType.Move].clip = SoundManager.Instance.GetRunClip();
 
         if (!audioSourceList[(int)AudioSourceType.Move].isPlaying)
             audioSourceList[(int)AudioSourceType.Move].Play();
+        }
+
     }
 
-    public void PlayItemPickUpSound() => audioSourceList[(int)AudioSourceType.Item].
-                                            PlayOneShot(SoundManager.Instance.GetItemPickUpClip());
+    public void PlayItemPickUpSound()
+    {
+        if (SoundManager.Instance.GetItemPickUpClip() != null)
+            audioSourceList[(int)AudioSourceType.Item].PlayOneShot(SoundManager.Instance.GetItemPickUpClip());
+    }
 
     public void PlayItemPickUpFailedSound()
     {
-        audioSourceList[(int)AudioSourceType.Item].clip = SoundManager.Instance.GetBuyItemFailedClip();
-        audioSourceList[(int)AudioSourceType.Item].Play();
+        if (SoundManager.Instance.GetBuyItemFailedClip() != null)
+        {
+            audioSourceList[(int)AudioSourceType.Item].clip = SoundManager.Instance.GetBuyItemFailedClip();
+            audioSourceList[(int)AudioSourceType.Item].Play();
+        }
     }
 
     public void StopExhaustSound()
@@ -118,7 +129,11 @@ public class PlayerSoundController : MonoBehaviour
         if (audioSourceList[(int)AudioSourceType.Stamina].isPlaying)
             audioSourceList[(int)AudioSourceType.Stamina].Stop();
     }
-    public void PlayExhaustSound() => audioSourceList[(int)AudioSourceType.Stamina].Play();
+    public void PlayExhaustSound()
+    {
+        if (audioSourceList[(int)AudioSourceType.Stamina].clip != null)
+            audioSourceList[(int)AudioSourceType.Stamina].Play();
+    }
 
     // public void PlaySanitySound(float volume)
     // {

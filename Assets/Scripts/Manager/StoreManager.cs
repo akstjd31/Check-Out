@@ -48,19 +48,24 @@ public class StoreManager : Singleton<StoreManager>
     private void PlayBuyFailedSound()
     {
         audioSource.clip = SoundManager.Instance.GetBuyItemFailedClip();
-        audioSource.Play();
+
+        if (audioSource.clip != null)
+            audioSource.Play();
     }
 
     private void PlayBuySound()
     {
         audioSource.clip = SoundManager.Instance.GetBuyItemClip();
-        audioSource.Play();
+        if (audioSource.clip != null)
+            audioSource.Play();
     }
 
     private void PlaySellSound()
     {
         audioSource.clip = SoundManager.Instance.GetSellItemClip();
-        audioSource.Play();
+
+        if (audioSource.clip != null)
+            audioSource.Play();
     }
 
     // 아이템 구매

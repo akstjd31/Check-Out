@@ -48,14 +48,20 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PlayBackgroundSound()
     {
-        audioSource.clip = GameManager.Instance.CurrentState.Equals(GameState.Hub) ? hubSceneSound : sessionSceneSound;
-        audioSource.Play();
+        if (hubSceneSound != null && sessionSceneSound != null)
+        {
+            audioSource.clip = GameManager.Instance.CurrentState.Equals(GameState.Hub) ? hubSceneSound : sessionSceneSound;
+            audioSource.Play();
+        }
     }
 
     public void PlayElevatorActionSound()
     {
-        audioSource.clip = elevatorActionSound;
-        audioSource.Play();
+        if (elevatorActionSound != null)
+        {
+            audioSource.clip = elevatorActionSound;
+            audioSource.Play();
+        }
     }
 
     // 볼륨 서서히 줄이기
@@ -78,10 +84,30 @@ public class SoundManager : Singleton<SoundManager>
         audioSource.Stop();
     }
 
-    public void PlayElevatorButtonClickSound() => audioSource.PlayOneShot(elevatorButtonClickSound);
-    public void PlayUIButtonClickSound() => audioSource.PlayOneShot(uiButtonClickSound);
-    public void GetStorageOpenSound() => audioSource.PlayOneShot(storageOpenSound);
-    public void GetStorageCloseSound() => audioSource.PlayOneShot(storageCloseSound);
+    public void PlayElevatorButtonClickSound()
+    {
+        if (elevatorButtonClickSound != null)
+            audioSource.PlayOneShot(elevatorButtonClickSound);
+    }
+
+    public void PlayUIButtonClickSound()
+    {
+        if (uiButtonClickSound != null)
+            audioSource.PlayOneShot(uiButtonClickSound);
+    }
+
+    public void GetStorageOpenSound()
+    {
+        if (storageOpenSound != null)
+            audioSource.PlayOneShot(storageOpenSound);
+    }
+
+    public void GetStorageCloseSound()
+    {
+        if (storageCloseSound != null)
+            audioSource.PlayOneShot(storageCloseSound);
+    }
+    
     public AudioClip GetSellItemClip() => sellItemSound;
     public AudioClip GetBuyItemClip() => buyItemSound;
     public AudioClip GetBuyItemFailedClip() => buyItemFailedSound;
