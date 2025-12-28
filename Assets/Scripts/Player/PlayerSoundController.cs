@@ -4,7 +4,7 @@ using UnityEngine;
 
 enum AudioSourceType 
 {
-    Move = 0, Sanity, Stamina, Item
+    Move = 0, Sanity, Stamina, Item, Damaged
 }
 
 [RequireComponent(typeof(PlayerStateMachine))]
@@ -133,6 +133,12 @@ public class PlayerSoundController : MonoBehaviour
     {
         if (audioSourceList[(int)AudioSourceType.Stamina].clip != null)
             audioSourceList[(int)AudioSourceType.Stamina].Play();
+    }
+
+    public void PlayDamagedSound()
+    {
+        if (audioSourceList[(int)AudioSourceType.Damaged] != null)
+            audioSourceList[(int)AudioSourceType.Damaged].Play();
     }
 
     // public void PlaySanitySound(float volume)

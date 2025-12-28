@@ -8,9 +8,13 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerCameraController))]
 public class PlayerInvincibility : MonoBehaviour
 {
+    [Header("Component")]
     private StatController stat;
     private PlayerCameraController playerCamera;
     private PlayerSanityVisualController visual;
+    private PlayerSoundController soundController;
+
+    [Header("Value")]
     [SerializeField] private bool isInvincible = false;  // 무적 상태인지?
     public bool onHit = false;
 
@@ -19,6 +23,7 @@ public class PlayerInvincibility : MonoBehaviour
         stat = this.GetComponent<StatController>();
         playerCamera = this.GetComponent<PlayerCameraController>();
         visual = this.GetComponent<PlayerSanityVisualController>();
+        soundController = this.GetComponent<PlayerSoundController>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,6 +38,7 @@ public class PlayerInvincibility : MonoBehaviour
             {
                 onHit = true;
                 playerCamera.Hit();
+                soundController.PlayDamagedSound();
                 Debug.LogWarning("데미지 입음!");
                 stat.ChangeSanity(onHit, -monster.Power);
                 StartCoroutine(InvincibleCoroutine());

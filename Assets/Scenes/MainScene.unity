@@ -571,6 +571,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 58d3f870f96cce94a8a1f73a83acd43d, type: 3}
   - {fileID: 8300000, guid: 42eb6bcb46e7ddd49ae5e617c3a3a843, type: 3}
   - {fileID: 8300000, guid: 9434961b46cd5864e900d3ebe6fe76fe, type: 3}
+  damagedSound: {fileID: 8300000, guid: c122d94ac73453d448d738b3a6d9f3bd, type: 3}
   itemPickUpSound: {fileID: 8300000, guid: 6f376149d6816fd4b847388c6d18d343, type: 3}
   itemEatingSound: {fileID: 0}
   buyItemFailedSound: {fileID: 8300000, guid: 2357f6e12f7330a49bb275c42c361415, type: 3}
