@@ -34,7 +34,8 @@ public class Door : Interactable
     // 문 애니메이션 이벤트
     public void OnDoorSoundEvent()
     {
-        audioSource.PlayOneShot(clips[(int)currentDoorType]);
+        if (clips[(int)currentDoorType] != null )
+            audioSource.PlayOneShot(clips[(int)currentDoorType]);
     }
 
     // 문이 완전 열렸을 때 네브메쉬링크 사용이 가능하게끔 설정
