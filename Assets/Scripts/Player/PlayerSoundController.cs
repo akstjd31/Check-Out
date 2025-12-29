@@ -54,12 +54,21 @@ public class PlayerSoundController : MonoBehaviour
     public void SanityClipToCompare()
     {
         AudioClip clip = SoundManager.Instance.GetSanityClip(stat.CurrentSanityPercent);
+
+        if (clip == null)
+        {
+            audioSourceList[(int)AudioSourceType.Sanity].Stop();
+            audioSourceList[(int)AudioSourceType.Sanity].clip = null;
+            return;
+        }
+
         if (clip != null && !audioSourceList[(int)AudioSourceType.Sanity].clip.Equals(clip))
         {
             audioSourceList[(int)AudioSourceType.Sanity].clip = clip;
             audioSourceList[(int)AudioSourceType.Sanity].Play();
         }
     }
+
 
     // 죽었을 떄 루핑 꺼주기
     public void SanityEndLoop()

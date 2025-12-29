@@ -12,6 +12,7 @@ public class StatController : MonoBehaviour
     private PlayerStatHolder holder;
     private PlayerStateMachine stateMachine;
     private PlayerInvincibility invincibility;
+    private PlayerSoundController soundController;
 
     [Header("Property")]
     public int CurrentSanity { get; private set; }              // 현재 정신력
@@ -38,7 +39,18 @@ public class StatController : MonoBehaviour
         holder = this.GetComponent<PlayerStatHolder>();
         stateMachine = this.GetComponentInChildren<PlayerStateMachine>();
         invincibility = this.GetComponentInChildren<PlayerInvincibility>();
+        soundController = this.GetComponent<PlayerSoundController>();
+    }
 
+    private void OnEnable()
+    {
+        OnDeath += SoundManager.Instance.PlayPlayerDeathSound;
+    }
+
+    private void OnDisable()
+    {
+        if (SoundManager.Instance != null)
+            OnDeath -= SoundManager.Instance.PlayPlayerDeathSound;
     }
 
     public void Init()
@@ -95,8 +107,8 @@ public class StatController : MonoBehaviour
                 CurrentSanityDps = holder.Stat.SanityDpsNormal;
                 break;
             case PlayerSituation.Dark:
-                CurrentSanityDps = holder.Stat.SanityDpsDark;
-                // CurrentSanityDps = 500;  // 테스트용 
+                // CurrentSanityDps = holder.Stat.SanityDpsDark;
+                CurrentSanityDps = 1000;  // 테스트용 
                 break;
             case PlayerSituation.Chase:
                 CurrentSanityDps = holder.Stat.SanityDpsChased;
@@ -159,7 +171,14 @@ public class StatController : MonoBehaviour
         holder.PlayerView.UpdateSanitySlider((int)CurrentSanityPercent);
             
         if (!IsRemainSanity())
+        {
             playerDie(onhit);
+        }
+        else
+        {
+            if (onhit)
+                soundController.PlayDamagedSound();
+        }
     }
 
     // 정신력이 남아있는지?

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -8,15 +9,38 @@ public class VideoManager : Singleton<VideoManager>
     [SerializeField] private VideoClip siren;
     [SerializeField] private VideoClip echo;
     [SerializeField] private VideoClip mannequin;
-    [SerializeField] private RenderTexture monsterTextur;
+    [SerializeField] private RenderTexture monsterTexture;
     [SerializeField] private VideoPlayer videoPlayer;
-    private RawImage rawImage;
+    [SerializeField] private Image Image;
 
     private bool isPlaying = false;
 
+    private void OnEnable()
+    {
+        videoPlayer.loopPointReached += OnVideoEnded;
+    }
+
+    private void OnDisable()
+    {
+        videoPlayer.loopPointReached -= OnVideoEnded;
+    }
+
+    public void OnVideoEnded(VideoPlayer vp)
+    {
+        AudioListener.pause = false;
+        Time.timeScale = 1f;
+        SoundManager.Instance.StopSound();
+        SoundManager.Instance.PlayPlayerDeathSound();
+        FadeManager.Instance.FadeStartedInvoke();
+        FadeManager.Instance.StartFadeOut();
+    }
 
     public void PlayDeathVideo(Monster monster)
     {
+        GameManager.Instance.isGameOver = true;
+        AudioListener.pause = true;
+        Time.timeScale = 0f;
+        ImageActivate();
         if (monster == null)
             return;
 
@@ -42,24 +66,24 @@ public class VideoManager : Singleton<VideoManager>
         }
 
         videoPlayer.Play();
-        OnRawImage();
     }
 
     public void Update()
     {
-        if (GameManager.Instance.CurrentState == GameState.Hub && rawImage == null) 
+        if (GameManager.Instance.CurrentState.Equals(GameState.Session) && Image == null) 
         {
-            rawImage = FindAnyObjectByType<RawImageTracker>().GetComponentInChildren<RawImage>(true);
+            Image = FindAnyObjectByType<RawImageTracker>().GetComponentInChildren<Image>(true);
         }
     }
 
-    public void OnRawImage()
+    public void ImageActivate()
     {
-        rawImage.enabled = true;
+        Image.gameObject.SetActive(true);
     }
-    public void OffRawImage()
+
+    public void ImageDeactivate()
     {
-        rawImage.enabled = false;
+        Image.gameObject.SetActive(false);
     }
 
 }

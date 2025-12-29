@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class FirstPersonCameraController : MonoBehaviour
 {
+    private PlayerCameraController playerCamController;
     private Rigidbody rigid;
     [SerializeField] private Transform cameraPivot;     // 카메라의 부모 (눈, 머리 등)
     [SerializeField] private Transform cameraTransform;
@@ -15,6 +16,7 @@ public class FirstPersonCameraController : MonoBehaviour
     private void Awake()
     {
         rigid = this.GetComponent<Rigidbody>();
+        playerCamController = this.GetComponent<PlayerCameraController>();
     }
 
     private void Start()
@@ -41,7 +43,7 @@ public class FirstPersonCameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (canCameraRotate && !GameManager.Instance.IsOpenedUI())
+        if (canCameraRotate && !playerCamController.IsPlayDeathCam && !GameManager.Instance.IsOpenedUI())
             UpdateCameraRotation();
     }
 

@@ -53,10 +53,8 @@ public class PlayerInvincibility : MonoBehaviour
 
                 onHit = true;
                 playerCamera.Hit();
-                soundController.PlayDamagedSound();
                 Debug.LogWarning("데미지 입음!");
                 stat.ChangeSanity(onHit, -monster.Power);
-                // stat.ChangeSanity(onHit, -10000);           // 테스트용
                 StartCoroutine(InvincibleCoroutine());
                 visual.UpdateShake(onHit);
                 onHit = false;

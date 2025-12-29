@@ -11,6 +11,7 @@ public class PlayerInputHandler : MonoBehaviour
     private PlayerInput playerInput;
     private InputAction moveAction, runAction, interactAction, scrollAction, selectAction, dropAction , useAction;
     private StatController stat;
+    private PlayerCameraController playerCamController;
 
     [Header("Value")]
     [SerializeField] private float groundCheckDistance = 0.2f;
@@ -31,6 +32,7 @@ public class PlayerInputHandler : MonoBehaviour
         rigid = this.GetComponent<Rigidbody>();
         playerInput = this.GetComponent<PlayerInput>();
         stat = this.GetComponent<StatController>();
+        playerCamController = this.GetComponent<PlayerCameraController>();
 
         moveAction = playerInput.actions[playerActions[0]];
         runAction = playerInput.actions[playerActions[1]];
@@ -73,8 +75,11 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.IsOpenedUI() && moveAction.enabled)
+        if (playerCamController.IsPlayDeathCam || 
+            GameManager.Instance.isGameOver || 
+            GameManager.Instance.IsOpenedUI() && moveAction.enabled)
         {
+            rigid.linearVelocity = Vector3.zero;
             IgnoreInput();
             return;
         }

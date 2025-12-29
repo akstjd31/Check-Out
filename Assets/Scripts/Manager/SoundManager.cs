@@ -54,6 +54,8 @@ public class SoundManager : Singleton<SoundManager>
         currentVolume = audioSource.volume;
     }
 
+    public void StopSound() => audioSource.Stop();
+
     public void PlayBackgroundSound()
     {
         if (hubSceneSound != null && sessionSceneSound != null)
@@ -127,6 +129,12 @@ public class SoundManager : Singleton<SoundManager>
         if (walkerAndSirenAttackSound != null)
             audioSource.PlayOneShot(walkerAndSirenAttackSound);
     }
+
+    public void PlayPlayerDeathSound()
+    {
+        if (sanitySounds[3] != null)
+            audioSource.PlayOneShot(sanitySounds[3]);
+    }
     
     public AudioClip GetSirenLoudClip() => sirenLoudSound;
     public AudioClip GetWalkerPatrolClip() => walkerPatrolSound;
@@ -149,6 +157,6 @@ public class SoundManager : Singleton<SoundManager>
         else if (1f <= value && value <= 29f)
             return sanitySounds[2];
         else
-            return sanitySounds[3];
+            return null;
     }
 }
