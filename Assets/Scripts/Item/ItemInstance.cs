@@ -53,11 +53,11 @@ public class ItemInstance
                         sucess = ChangeState(ItemState.On);
                         break;
                     case "GadgetReload":
-                        sucess = effect.Use(out int value);
-                        if (sucess)
-                            duration += value;
+                        effect.Use(out int value);
+                        duration += value;
                         if (duration > maxDuration)
                             duration = maxDuration;
+                        InventoryManager.Instance.UpdateUI();
                         break;
                     case "Light":
                         sucess = state == ItemState.On ? ChangeState(ItemState.Off) : ChangeState(ItemState.On);
