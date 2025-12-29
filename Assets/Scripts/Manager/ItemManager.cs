@@ -41,7 +41,7 @@ public class ItemManager : Singleton<ItemManager>
         if (itemObjects == null) return;
 
         if (itemObjects.Length <= 0) return;
-
+        
         foreach (var itemObj in itemObjects)
         {
             Debug.Log(itemObj.name);

@@ -2547,7 +2547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemManager
   itemPrefab: {fileID: 8352350037024533672, guid: 7ea141efdc5ac634cbdaef941dfd5b72, type: 3}
   itemObjects:
-  - {fileID: 3983794117706512351, guid: f3c4641fcaaf0074bb2216a892007c51, type: 3}
+  - {fileID: -1862988209404249575, guid: f3c4641fcaaf0074bb2216a892007c51, type: 3}
   handItemObjects:
   - {fileID: 8049787142518226082, guid: df126b1896094b846a65048963203eb4, type: 3}
   - {fileID: 8049787142518226082, guid: b01d438e3eca2d2489bc93859158cd14, type: 3}
