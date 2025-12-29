@@ -15,6 +15,8 @@ public class StorageManager : Singleton<StorageManager>
         
         storage = FindAnyObjectByType<Storage>();
         inventory = FindAnyObjectByType<Inventory>();
+
+        ResetStorage();
     }
 
     // 창고 저장 기능
@@ -36,6 +38,11 @@ public class StorageManager : Singleton<StorageManager>
 
         SaveLoadManager.Instance.Save(fileName, saveData);
         Debug.Log("창고 데이터 저장 완료!");
+    }
+
+    public void ResetStorage()
+    {
+        storage.SetStorage(storage.GetDefaultStorageSize());
     }
 
     // 창고 불러오기
