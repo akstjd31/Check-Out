@@ -13,4 +13,4 @@ int,int,string,string,string,string,string,string,string,string,string,string,
 8010,208,enterCollider,208_enter_tile,none,none,none,none,setActiveObject,FALSE,207_enter_tile,오브젝트 비활성화,
 8011,209,enterCollider,209_enter_tile,none,none,none,none,soundLoop,Sound/Event/200_Excuse,self,사운드 스탑 발동 노래,
 8012,210,enterCollider,210_enter_tile,none,none,none,none,soundStop,Sound/Event/200_Excuse,209_enter_tile,사운드 스탑,이 부분은 트리거시 애니메이션이 발동되는지만 확인하면 될 거 같습니다.
-8013,211,enterCollider,211_enter_tile,none,none,none,none,playAnim,애니메이션,211_enter_plane,애니메이션 활성화,
+8013,211,enterCollider,211_enter_tile,none,none,none,none,playAnim,Sound/Event/hello,self,애니메이션 활성화,

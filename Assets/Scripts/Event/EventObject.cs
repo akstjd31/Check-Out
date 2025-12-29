@@ -10,14 +10,17 @@ enum StartEventType
 public class EventObject : MonoBehaviour
 {
     [SerializeField] private StartEventType startType;
+    [SerializeField] private GameObject targetObj;
     private AudioSource audioSource;
+    private Animator anim;
     private string startValue;
     private void Awake()
     {
         audioSource = this.AddComponent<AudioSource>();
+        anim = this.AddComponent<Animator>();
         audioSource.volume = 0.2f;
     }
-    
+
     private void Start()
     {
         string cloneName = "(Clone)";
@@ -58,4 +61,20 @@ public class EventObject : MonoBehaviour
     }
 
     public void PlaySoundWithDelay(float delay) => audioSource.PlayDelayed(delay);
+
+    public void SetActiveObject(bool active, string targetName)
+    {
+        // 타겟 오브젝트의 존재 여부 & 매개변수 비교
+        if (targetObj != null && targetObj.name.Equals(targetName))
+            targetObj.SetActive(active);
+
+    }
+
+    public void StopSound()
+    {
+        Debug.Log("소리 멈춤");
+        audioSource.Stop();
+    }
+
+    public void PlayAnimationByName(string name) => anim.Play(name);
 }
