@@ -82,6 +82,8 @@ public class Door : Interactable
         }
 
         currentText = newText;
-        EventManager.Instance.OnEventTriggered(eventObj.StartType, eventObj.StartValue);
+
+        if (eventObj != null)
+            EventManager.Instance.OnEventTriggered(eventObj.StartType, eventObj.StartValue);
     }
 }
