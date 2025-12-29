@@ -52,8 +52,8 @@ public class StatController : MonoBehaviour
 
         if (holder != null)
         {
-            holder.PlayerView.UpdateStaminaText(CurrentStamina);
-            holder.PlayerView.UpdateSanityText((int)CurrentSanityPercent);
+            holder.PlayerView.UpdateStaminaSlider(CurrentStamina);
+            holder.PlayerView.UpdateSanitySlider((int)CurrentSanityPercent);
         }
     }
 
@@ -138,7 +138,7 @@ public class StatController : MonoBehaviour
     {
         CurrentStamina = Mathf.Max(0, CurrentStamina - CurrentRunStaminaCost);
         
-        holder.PlayerView.UpdateStaminaText(CurrentStamina);
+        holder.PlayerView.UpdateStaminaSlider(CurrentStamina);
     } 
     
     // 스태미나 회복
@@ -146,7 +146,7 @@ public class StatController : MonoBehaviour
     {
         CurrentStamina = Mathf.Min(holder.Stat.MaxStamina, CurrentStamina + CurrentRecoverStamina);
         
-        holder.PlayerView.UpdateStaminaText(CurrentStamina);
+        holder.PlayerView.UpdateStaminaSlider(CurrentStamina);
     }
     
     // 스태미나가 남아있는지?
@@ -158,7 +158,7 @@ public class StatController : MonoBehaviour
         // 음수, 양수 값에 따른 처리
         CurrentSanity = amount < 0 ? Mathf.Max(0, CurrentSanity + amount) : Mathf.Min(CurrentSanity + amount, holder.Stat.MaxSanity);
         
-        holder.PlayerView.UpdateSanityText((int)CurrentSanityPercent);
+        holder.PlayerView.UpdateSanitySlider((int)CurrentSanityPercent);
             
         if (!IsRemainSanity())
             playerDie(onhit);
@@ -184,6 +184,6 @@ public class StatController : MonoBehaviour
     public void AddStamina(int amount)
     {
         CurrentStamina = Mathf.Min(holder.Stat.MaxStamina, CurrentStamina + amount);
-        holder.PlayerView.UpdateStaminaText(CurrentStamina);
+        holder.PlayerView.UpdateStaminaSlider(CurrentStamina);
     }
 }

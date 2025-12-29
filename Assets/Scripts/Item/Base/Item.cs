@@ -42,6 +42,7 @@ public class Item : Interactable, IItem
         Sellable = item.itemdata.isCanSell;
         SellPrice = item.itemdata.sellPrice;
         ImgPath = item.itemdata.imgPath;
+        interactableName = Name;
 
         Sprite sprite = Resources.Load<Sprite>(ImgPath);
         spriteRenderer.sprite = sprite;
@@ -53,12 +54,14 @@ public class Item : Interactable, IItem
     {
         // 상호작용할 키나 하이라이트 기능
         currentText = promptText[0];
+        currentName = interactableName;
     }
 
     public override void OnFocusExit()
     {
         // 빠져나갔을때
         currentText = "";
+        currentName = "";
     }
 
     public override void Interact()

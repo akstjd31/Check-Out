@@ -9,11 +9,13 @@ public class Elevator : Interactable
     public override void OnFocusEnter()
     {
         currentText = promptText[0];
+        currentName = interactableName;
     }
 
     public override void OnFocusExit()
     {
         currentText = "";
+        currentName = "";
     }
 
     public override void Interact()

@@ -92,7 +92,7 @@ public class InventoryUI : MonoBehaviour
 
         Image ItemImage = uiObj.transform.GetChild(1).GetComponent<Image>();
         Button button = uiObj.GetComponent<Button>();
-        Image durationBar = ItemImage.transform.GetChild(0).GetComponent<Image>();
+        Slider durationBar = ItemImage.transform.GetChild(0).GetComponent<Slider>();
         Image typeImage = uiObj.transform.GetChild(0).GetComponent<Image>();
         Image slotImage = uiObj.GetComponent<Image>();
         EventTrigger trigger = uiObj.GetComponent<EventTrigger>();
@@ -118,6 +118,7 @@ public class InventoryUI : MonoBehaviour
             if (trigger != null)
                 trigger.triggers.Clear();
             durationBar.gameObject.SetActive(false);
+            ItemImage.enabled = false;
             ItemImage.sprite = null;
             return;
         }
@@ -126,9 +127,8 @@ public class InventoryUI : MonoBehaviour
         {
             durationBar.gameObject.SetActive(true);
             typeImage.gameObject.SetActive(true);
-            var gauge = durationBar.GetComponent<Slider>();
-            gauge.maxValue = inventory.slots[index].maxDuration;
-            gauge.value = inventory.slots[index].duration;
+            durationBar.maxValue = inventory.slots[index].maxDuration;
+            durationBar.value = inventory.slots[index].duration;
             typeImage.color = Color.pink;
         }
 
@@ -146,6 +146,7 @@ public class InventoryUI : MonoBehaviour
         }
 
         Sprite sprite = Resources.Load<Sprite>(inventorySlot.itemdata.imgPath);
+        ItemImage.enabled = true;
         ItemImage.sprite = sprite;
 
         button.onClick.RemoveAllListeners();

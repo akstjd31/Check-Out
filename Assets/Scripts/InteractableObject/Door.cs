@@ -23,12 +23,15 @@ public class Door : Interactable
     public override void OnFocusEnter()
     {
         currentText = currentDoorType.Equals(DoorType.Closed) ? promptText[0] : promptText[1];
+        currentName = interactableName;
+
     }
 
     // 문에서 벗어날 때
     public override void OnFocusExit()
     {
         currentText = "";
+        currentName = "";
     }
 
     // 문 애니메이션 이벤트

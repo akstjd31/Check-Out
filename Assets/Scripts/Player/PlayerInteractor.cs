@@ -41,8 +41,9 @@ public class PlayerInteractor : MonoBehaviour
                 interactableObj.OnFocusEnter();
         }
 
-        holder.PlayerView.UpdateObjNameText(interactableObj == null ? "[null]" : $"[{interactableObj.name}]");
+        holder.PlayerView.UpdateObjNameText(interactableObj?.GetCurrentName());
         holder.PlayerView.UpdateInteractionText(interactableObj?.GetCurrentText());
+        holder.PlayerView.UpdateinteractionUI(interactableObj == null ? false : true);
         // }
     }
 
