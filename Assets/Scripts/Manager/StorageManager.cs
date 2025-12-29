@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class StorageManager : Singleton<StorageManager>
 {
-    [SerializeField] private Storage storage;
-    [SerializeField] private StorageUI storageUI;
-    [SerializeField] private Inventory inventory;
+    private Storage storage;
+    private StorageUI storageUI;
+    private Inventory inventory;
     public bool IsOpen { get; set; }
     private string fileName = "StorageSaveData.json";
 

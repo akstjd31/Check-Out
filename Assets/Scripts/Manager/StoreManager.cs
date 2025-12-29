@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class StoreManager : Singleton<StoreManager>
 {
-    [SerializeField] private Store store;
+    private Store store;
     // private GameObject player;
-    [SerializeField] private Inventory inventory;
-    [SerializeField] private AudioSource audioSource;
+    private Inventory inventory;
+    private AudioSource audioSource;
 
     private Dictionary<int, ShopTableData> dataID;
     public bool IsInitialized { get; private set; }

@@ -126,20 +126,27 @@ public class StorageUI : MonoBehaviour
             if (trigger != null)
                 trigger.triggers.Clear();
             ItemImage.enabled = false;
+            typeImage.enabled = false;
             ItemImage.sprite = null;
             return;
         }
 
+        typeImage.enabled = true;
+
         if (storageSlot.itemdata.itemType == "Gadget")
         {
             typeImage.gameObject.SetActive(true);
-            typeImage.color = Color.pink;
+            Color color = Color.pink;
+            color.a = 0.5f;
+            typeImage.color = color;
         }
 
         else if (storageSlot.itemdata.itemType == "Consumable")
         {
             typeImage.gameObject.SetActive(true);
-            typeImage.color = Color.blue;
+            Color color = Color.blue;
+            color.a = 0.5f;
+            typeImage.color = color;
         }
 
         else

@@ -8,10 +8,10 @@ public class InventoryManager : Singleton<InventoryManager>
 {
     // [SerializeField] private Transform playerHandTransform;
 
-    [SerializeField] private Inventory inventory;
-    [SerializeField] private InventoryUI invenUI;
+    private Inventory inventory;
+    private InventoryUI invenUI;
 
-    [SerializeField] private Texture walkerRawImage;
+    private Texture walkerRawImage;
 
     private InventoryController inventoryController;
     private ItemInstance currentItem;
@@ -243,13 +243,6 @@ public class InventoryManager : Singleton<InventoryManager>
 
             return;
         }
-            
-        if (itemObj == null)
-        {
-            Debug.Log("아이템 오브젝트가 없어");
-            return;
-        }
-            
 
         if(currentItem.Use(key))
         {

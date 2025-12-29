@@ -4,7 +4,8 @@ using UnityEngine;
 public class Storage : MonoBehaviour
 {
     [SerializeField] private int storageSize = 16;
-    [SerializeField] public ItemInstance[] storageList;
+    [HideInInspector]
+    public ItemInstance[] storageList;
     public Action<int> OnSlotUpdated;
 
     public int GetDefaultStorageSize() => storageSize;

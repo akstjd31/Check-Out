@@ -118,10 +118,13 @@ public class InventoryUI : MonoBehaviour
             if (trigger != null)
                 trigger.triggers.Clear();
             durationBar.gameObject.SetActive(false);
+            typeImage.enabled = false;
             ItemImage.enabled = false;
             ItemImage.sprite = null;
             return;
         }
+
+        typeImage.enabled = true;
 
         if (inventorySlot.itemdata.itemType == "Gadget")
         {
@@ -129,14 +132,20 @@ public class InventoryUI : MonoBehaviour
             typeImage.gameObject.SetActive(true);
             durationBar.maxValue = inventory.slots[index].maxDuration;
             durationBar.value = inventory.slots[index].duration;
-            typeImage.color = Color.pink;
+            //typeImage.color = Color.pink;
+            Color color = Color.pink;
+            color.a = 0.5f;
+            typeImage.color = color;
         }
 
         else if (inventorySlot.itemdata.itemType == "Consumable")
         {
             typeImage.gameObject.SetActive(true);
             durationBar.gameObject.SetActive(false);
-            typeImage.color = Color.blue;
+            //typeImage.color = Color.blue;
+            Color color = Color.blue;
+            color.a = 0.5f;
+            typeImage.color = color;
         }
 
         else
