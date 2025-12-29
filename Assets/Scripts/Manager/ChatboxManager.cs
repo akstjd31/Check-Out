@@ -16,7 +16,7 @@ public class ChatboxManager : Singleton<ChatboxManager>
     private void Start()
     {
         chatbox = Instantiate(chatboxUI);
-        chatbox.transform.parent = ChatboxManager.Instance.transform;
+        chatbox.transform.SetParent(ChatboxManager.Instance.transform);
         EndDialogue();
     }
 
@@ -25,7 +25,7 @@ public class ChatboxManager : Singleton<ChatboxManager>
     {
         if(chatboxUI == null) GetComponent(typeof(ChatboxUI));
         //상호작용 키는 E입니다.
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && isUsingChatbox)
         {
             //대사 출력 중인 상태라면
             if (chatbox.IsTyping)
