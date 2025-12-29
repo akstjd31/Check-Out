@@ -125,6 +125,7 @@ public class StorageUI : MonoBehaviour
             
             if (trigger != null)
                 trigger.triggers.Clear();
+            ItemImage.enabled = false;
             ItemImage.sprite = null;
             return;
         }
@@ -155,6 +156,7 @@ public class StorageUI : MonoBehaviour
 
         Sprite sprite = Resources.Load<Sprite>(storageSlot.itemdata.imgPath);
 
+        ItemImage.enabled = true;
         ItemImage.sprite = sprite;
 
         if (trigger != null)

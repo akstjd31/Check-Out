@@ -33,6 +33,7 @@ public class PlayerStamina : MonoBehaviour
             exhaustTimer -= Time.deltaTime;
             if (exhaustTimer <= 0f)
                 IsExhausted = false;
+            stat.ConsumeStamina();
             return;
         }
 

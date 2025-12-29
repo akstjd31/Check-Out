@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class VendingMachine : Interactable
 {
@@ -14,11 +14,13 @@ public class VendingMachine : Interactable
     public override void OnFocusEnter()
     {
         currentText = promptText[0];
+        currentName = interactableName;
     }
 
     public override void OnFocusExit()
     {
         currentText = "";
+        currentName = "";
     }
 
     public override void Interact()

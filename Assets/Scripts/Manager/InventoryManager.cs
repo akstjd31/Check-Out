@@ -11,6 +11,8 @@ public class InventoryManager : Singleton<InventoryManager>
     [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryUI invenUI;
 
+    [SerializeField] private Texture walkerRawImage;
+
     private InventoryController inventoryController;
     private ItemInstance currentItem;
     private ItemInstance pervItem;
@@ -208,6 +210,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
             OffHande();
             currentItem = null;
+            player.GetComponent<PlayerStatHolder>().PlayerView.UpdateKeyNotice(currentItem);
             return;
         }
 
@@ -216,6 +219,8 @@ public class InventoryManager : Singleton<InventoryManager>
         currentIndex = index;
 
         HandItem(currentItem);
+ 
+        player.GetComponent<PlayerStatHolder>().PlayerView.UpdateKeyNotice(currentItem);
 
         pervItem = currentItem;
 

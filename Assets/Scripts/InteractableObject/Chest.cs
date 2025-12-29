@@ -1,4 +1,4 @@
-﻿using Unity.VisualScripting;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Chest : Interactable
@@ -15,11 +15,13 @@ public class Chest : Interactable
     public override void OnFocusEnter()
     {
         currentText = promptText[0];
+        currentName = interactableName;
     }
 
     public override void OnFocusExit()
     {
         currentText = "";
+        currentName = "";
     }
 
     public override void Interact()
