@@ -44,6 +44,7 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private AudioClip walkerAndSirenAttackSound;
     [SerializeField] private AudioClip walkerPatrolSound;
     [SerializeField] private AudioClip walkerChaseSound;
+    [SerializeField] private AudioClip sirenLoudSound;
 
     protected override void Awake()
     {
@@ -127,6 +128,7 @@ public class SoundManager : Singleton<SoundManager>
             audioSource.PlayOneShot(walkerAndSirenAttackSound);
     }
     
+    public AudioClip GetSirenLoudClip() => sirenLoudSound;
     public AudioClip GetWalkerPatrolClip() => walkerPatrolSound;
     public AudioClip GetWalkerChaseClip() => walkerChaseSound;
     public AudioClip GetBatteryChangedClip() => batteryChangedSound;
