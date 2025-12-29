@@ -140,13 +140,16 @@ public class InventoryManager : Singleton<InventoryManager>
             playerTrf.position.z
         );
 
-        ItemManager.Instance.SpawnItem(item, newPos);
-
         if (itemObj != null)
         {
             ItemManager.Instance.ReturnObjHandItem(itemObj);
+            item.ChangeState(ItemState.Off);
             itemObj = null;
         }
+
+        ItemManager.Instance.SpawnItem(item, newPos);
+
+        
 
         OffHande();
 
@@ -180,7 +183,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
         player = GameManager.Instance.Player.transform;
 
-        playerHandTransform = player.transform.GetChild(0).GetChild(1);
+        playerHandTransform = player.transform.GetChild(1).GetChild(0);
 
         if (index < 0 || index >= inventory.slots.Length)
         {
@@ -283,7 +286,7 @@ public class InventoryManager : Singleton<InventoryManager>
         {
             switch(item.itemdata.id)
             {
-                case 1103:
+                case 1012:
                     groundItem = ItemManager.Instance.SpawnItemObj(item.itemdata.id, player.position);
                     groundItem.SetItemInfo(item);
                     groundItem.ChangeState(ObjState.On);
@@ -344,8 +347,9 @@ public class InventoryManager : Singleton<InventoryManager>
         
         if (itemObj == null) return;
 
-        itemObj.transform.parent = playerHandTransform;
+        itemObj.transform.SetParent(playerHandTransform, false);
         itemObj.transform.rotation = playerHandTransform.rotation;
+        itemObj.transform.localPosition = new Vector3(0, 0, 0);
         itemObj.SetItemInfo(item);
         
     }
@@ -373,7 +377,6 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         if (invenUI == null)
             invenUI = FindAnyObjectByType<InventoryUI>();
-        Debug.Log(currentIndex);
         invenUI.UpdateUI(currentIndex);
     }
 }

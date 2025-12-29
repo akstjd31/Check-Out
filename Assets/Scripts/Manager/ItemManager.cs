@@ -193,7 +193,7 @@ public class ItemManager : Singleton<ItemManager>
             if (obj.ItemId == item.ItemId)
             {
                 Debug.Log("반환함");
-                item.transform.parent = itemObjPoolParent;
+                item.transform.SetParent(itemObjPoolParent, false);
                 handItemObjPool.ReturnObject(obj, item);
                 return;
             }
