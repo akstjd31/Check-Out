@@ -6,6 +6,7 @@ public abstract class Interactable : MonoBehaviour
     [SerializeField] protected string[] promptText;
     [SerializeField] protected AudioSource audioSource;
     [SerializeField] protected string interactableName; 
+    protected EventObject eventObj;
     protected string currentText;
     protected string currentName;
 
@@ -21,4 +22,5 @@ public abstract class Interactable : MonoBehaviour
     public virtual string GetCurrentText() => currentText;
 
     public virtual string GetCurrentName() => currentName;
+    public virtual void SetEventObject(EventObject evtObj) => eventObj = evtObj;
 }

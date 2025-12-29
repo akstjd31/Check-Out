@@ -9,11 +9,13 @@ enum StartEventType
 
 public class EventObject : MonoBehaviour
 {
-    [SerializeField] private StartEventType startType;
+    [SerializeField] private StartEventType currentStartType;
     [SerializeField] private GameObject targetObj;
+    private Interactable interactable;
     private AudioSource audioSource;
     private Animator anim;
-    private string startValue;
+    public string StartType { get; private set; }
+    public string StartValue { get; private set; }
     private void Awake()
     {
         audioSource = this.AddComponent<AudioSource>();
@@ -26,9 +28,16 @@ public class EventObject : MonoBehaviour
         string cloneName = "(Clone)";
         // 뒤에 클론 붙어있다면 제거 후 저장
         if (this.name.Contains(cloneName))
-            startValue = this.name.Substring(0, this.name.Length - cloneName.Length);
+            StartValue = this.name.Substring(0, this.name.Length - cloneName.Length);
         else
-            startValue = this.name;
+            StartValue = this.name;
+
+        if (currentStartType.Equals(StartEventType.Interaction) && this.TryGetComponent<Interactable>(out interactable))
+        {
+            interactable.SetEventObject(this);
+        }
+
+        StartType = StartEventTypeToString(currentStartType);
     }
 
     private void OnTriggerEnter(Collider col)
@@ -36,7 +45,7 @@ public class EventObject : MonoBehaviour
         if (!col.CompareTag("Player")) return;
 
         Debug.Log("이벤트를 실행!");
-        EventManager.Instance.OnEventTriggered(StartEventTypeToString(startType), startValue);
+        EventManager.Instance.OnEventTriggered(StartType, StartValue);
     }
 
     // 시작 이벤트 타입을 스트링으로 변환
