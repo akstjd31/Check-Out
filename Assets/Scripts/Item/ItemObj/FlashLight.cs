@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class FlashLight : ItemObj
 {
-    [SerializeField ]Light lightComponent;
+    private Light lightComponent;
+    private GameObject lightArea;
+
 
     private void OnEnable()
     {
@@ -20,14 +22,16 @@ public class FlashLight : ItemObj
     private void LightOn()
     {
         lightComponent = player.transform.GetComponentInChildren<Light>();
+        lightArea = player.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).gameObject;
         lightComponent.enabled = true;
 
         player.GetComponent<PlayerSoundController>().PlayFlashLightOnSound();
+        lightArea.SetActive(true);
     }
 
     private void LightOff()
     {
-        
+        lightArea.SetActive(false);
         lightComponent.enabled = false;
     }
 }
