@@ -150,6 +150,24 @@ public class PlayerSoundController : MonoBehaviour
         }
     }
 
+    public void PlayFlashLightOnSound()
+    {
+        if (SoundManager.Instance.GetFlashLightOnClip() != null)
+        {
+            audioSourceList[(int)AudioSourceType.Item].clip = SoundManager.Instance.GetFlashLightOnClip();
+            audioSourceList[(int)AudioSourceType.Item].Play();
+        }
+    }
+
+    public void PlayBatteryChangedSound()
+    {
+        if (SoundManager.Instance.GetBatteryChangedClip() != null)
+        {
+            audioSourceList[(int)AudioSourceType.Item].clip = SoundManager.Instance.GetBatteryChangedClip();
+            audioSourceList[(int)AudioSourceType.Item].Play();
+        }
+    }
+
     // public void PlaySanitySound(float volume)
     // {
     //     // 현재 클립이 다른 경우 (수치에 따른 클립 사운드 재생)

@@ -807,6 +807,8 @@ MonoBehaviour:
   itemPickUpSound: {fileID: 8300000, guid: 6f376149d6816fd4b847388c6d18d343, type: 3}
   itemEatingSound: {fileID: 8300000, guid: 9f89cf0ad230d1a4684eee73d471355b, type: 3}
   buyItemFailedSound: {fileID: 8300000, guid: 2357f6e12f7330a49bb275c42c361415, type: 3}
+  flashLightOnSound: {fileID: 8300000, guid: 76fcc804eb7cee94f8420c69d4aaa03f, type: 3}
+  batteryChangedSound: {fileID: 8300000, guid: 84253156d88538e46a714ed1526a4b75, type: 3}
   elevatorButtonClickSound: {fileID: 8300000, guid: 47bb966335c02d7409221d205194308f, type: 3}
   elevatorActionSound: {fileID: 8300000, guid: 07697b7fe7da7774495a364ce369a1b2, type: 3}
   uiButtonClickSound: {fileID: 8300000, guid: 273421a65edee894fa0aec80cdc9c9ea, type: 3}

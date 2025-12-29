@@ -19,8 +19,10 @@ public class FlashLight : ItemObj
 
     private void LightOn()
     {
-        lightComponent = player.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<Light>();
+        lightComponent = player.transform.GetComponentInChildren<Light>();
         lightComponent.enabled = true;
+
+        player.GetComponent<PlayerSoundController>().PlayFlashLightOnSound();
     }
 
     private void LightOff()

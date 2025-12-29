@@ -13,6 +13,8 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private AudioClip itemPickUpSound;
     [SerializeField] private AudioClip itemEatingSound;
     [SerializeField] private AudioClip buyItemFailedSound;
+    [SerializeField] private AudioClip flashLightOnSound;
+    [SerializeField] private AudioClip batteryChangedSound;
 
     [Header("Elevator")]
     [SerializeField] private AudioClip elevatorButtonClickSound;
@@ -127,6 +129,8 @@ public class SoundManager : Singleton<SoundManager>
     
     public AudioClip GetWalkerPatrolClip() => walkerPatrolSound;
     public AudioClip GetWalkerChaseClip() => walkerChaseSound;
+    public AudioClip GetBatteryChangedClip() => batteryChangedSound;
+    public AudioClip GetFlashLightOnClip() => flashLightOnSound;
     public AudioClip GetSellItemClip() => sellItemSound;
     public AudioClip GetBuyItemClip() => buyItemSound;
     public AudioClip GetBuyItemFailedClip() => buyItemFailedSound;
