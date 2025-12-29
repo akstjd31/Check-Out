@@ -55,11 +55,13 @@ public class PlayerSoundController : MonoBehaviour
     {
         AudioClip clip = SoundManager.Instance.GetSanityClip(stat.CurrentSanityPercent);
 
+        if (audioSourceList[(int)AudioSourceType.Sanity].clip == null)
+            return;
+
         if (clip == null)
         {
             audioSourceList[(int)AudioSourceType.Sanity].Stop();
             audioSourceList[(int)AudioSourceType.Sanity].clip = null;
-            return;
         }
 
         if (clip != null && !audioSourceList[(int)AudioSourceType.Sanity].clip.Equals(clip))

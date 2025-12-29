@@ -35,6 +35,7 @@ public class PlayerCameraController : MonoBehaviour
     public void SwitchToDeathCam()
     {
         IsPlayDeathCam = true;
+        this.gameObject.layer = LayerMask.NameToLayer("Default");
         StartCoroutine(FallBack());
     }
 

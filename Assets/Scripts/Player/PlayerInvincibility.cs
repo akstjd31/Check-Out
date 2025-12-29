@@ -42,7 +42,6 @@ public class PlayerInvincibility : MonoBehaviour
                 hitMonster = model;
             }
 
-
             if (monster != null)
             {
                 if (monster is MannequinModel)
