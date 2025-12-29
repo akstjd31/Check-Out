@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 enum StartEventType
@@ -9,8 +10,14 @@ enum StartEventType
 public class EventObject : MonoBehaviour
 {
     [SerializeField] private StartEventType startType;
+    private AudioSource audioSource;
     private string startValue;
-
+    private void Awake()
+    {
+        audioSource = this.AddComponent<AudioSource>();
+        audioSource.volume = 0.2f;
+    }
+    
     private void Start()
     {
         string cloneName = "(Clone)";
@@ -43,17 +50,12 @@ public class EventObject : MonoBehaviour
         return null;
     }
 
-    // 하이에라키 경로 추적 후 문자열 변환
-    private string GetHierarchyPath(Transform current)
+    // 사운드 설정
+    public void SetAudioSettings(AudioClip clip, bool isLoop)
     {
-        string path = current.name;
-
-        while (current.parent != null)
-        {
-            current = current.parent;
-            path = current.name + "/" + path;
-        }
-
-        return path;
+        audioSource.clip = clip;
+        audioSource.loop = isLoop;
     }
+
+    public void PlaySoundWithDelay(float delay) => audioSource.PlayDelayed(delay);
 }

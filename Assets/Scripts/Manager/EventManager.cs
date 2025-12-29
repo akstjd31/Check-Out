@@ -143,7 +143,7 @@ public class EventManager : Singleton<EventManager>
         }
 
         Debug.Log("이벤트 실행!");
-        action.Execute(evt.eventValue, evt.targetObject);
+        action.Execute(evt.eventValue, evt.targetObject, evt.startValue);
 
         // 만약 쿨 다운 액션이었다면 쿨 다운 값 추가
         if (action is CoolDownAction)
