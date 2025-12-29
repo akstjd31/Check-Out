@@ -229,6 +229,7 @@ public class ItemManager : Singleton<ItemManager>
     public ItemInstance Createinstance(int itemId)
     {
         var data = GetItemData(itemId);
+        data.itemDescription = data.itemDescription.Replace('@', ',');
         var effects = GetItemEffectData(data.itemEffect);
         
         return new ItemInstance(data, effects);

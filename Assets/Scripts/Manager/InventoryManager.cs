@@ -11,8 +11,6 @@ public class InventoryManager : Singleton<InventoryManager>
     private Inventory inventory;
     private InventoryUI invenUI;
 
-    private Texture walkerRawImage;
-
     private InventoryController inventoryController;
     private ItemInstance currentItem;
     private ItemInstance pervItem;
