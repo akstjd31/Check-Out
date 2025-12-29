@@ -38,6 +38,10 @@ public class SoundManager : Singleton<SoundManager>
     private float currentVolume;
     [SerializeField] private float volumeSpeed;
 
+    [Header("Monster")]
+    [SerializeField] private AudioClip mannequinAttackSound;
+    [SerializeField] private AudioClip walkerAndSirenAttackSound;
+
     protected override void Awake()
     {
         base.Awake();
@@ -78,34 +82,44 @@ public class SoundManager : Singleton<SoundManager>
             audioSource.volume += volumeSpeed * Time.deltaTime;
     }
 
-    public void StopSound()
-    {
-        audioSource.volume = currentVolume;
-        audioSource.Stop();
-    }
-
+    // 엘리베이터 버튼 눌렀을 때 
     public void PlayElevatorButtonClickSound()
     {
         if (elevatorButtonClickSound != null)
             audioSource.PlayOneShot(elevatorButtonClickSound);
     }
 
+    // UI 버튼 눌렀을 때
     public void PlayUIButtonClickSound()
     {
         if (uiButtonClickSound != null)
             audioSource.PlayOneShot(uiButtonClickSound);
     }
 
-    public void GetStorageOpenSound()
+    // 창고 열었을 때
+    public void PlayStorageOpenSound()
     {
         if (storageOpenSound != null)
             audioSource.PlayOneShot(storageOpenSound);
     }
 
-    public void GetStorageCloseSound()
+    // 창고 닫았을 때
+    public void PlayStorageCloseSound()
     {
         if (storageCloseSound != null)
             audioSource.PlayOneShot(storageCloseSound);
+    }
+
+    public void PlayMannequinAttackSound()
+    {
+        if (mannequinAttackSound != null)
+            audioSource.PlayOneShot(mannequinAttackSound);
+    }
+
+    public void PlayWalkerAndSirenAttackSound()
+    {
+        if (walkerAndSirenAttackSound != null)
+            audioSource.PlayOneShot(walkerAndSirenAttackSound);
     }
     
     public AudioClip GetSellItemClip() => sellItemSound;

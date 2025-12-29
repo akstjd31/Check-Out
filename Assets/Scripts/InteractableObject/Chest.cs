@@ -30,7 +30,7 @@ public class Chest : Interactable
 
     public void OpenChest()
     {
-        SoundManager.Instance.GetStorageOpenSound();
+        SoundManager.Instance.PlayStorageOpenSound();
         storageUIObj.transform.GetChild(0).gameObject.SetActive(true);
         storageUI.StorageOpen();
 
@@ -41,7 +41,7 @@ public class Chest : Interactable
 
     public void CloseChest()
     {
-        SoundManager.Instance.GetStorageCloseSound();
+        SoundManager.Instance.PlayStorageCloseSound();
         storageUIObj.transform.GetChild(0).gameObject.SetActive(false);
         storageUI.StorageClose();
 

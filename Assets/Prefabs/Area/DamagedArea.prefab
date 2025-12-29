@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2965213789042646985}
   - component: {fileID: 5275289118895856044}
+  - component: {fileID: 3061582254570208867}
   m_Layer: 29
   m_Name: DamagedArea
   m_TagString: DamagedArea
@@ -53,3 +54,15 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3061582254570208867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232045906903294249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be74ae389fdde148acea5c66fc5b8c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterAttack

@@ -36,6 +36,12 @@ public class PlayerInvincibility : MonoBehaviour
 
             if (monster != null)
             {
+                if (monster is MannequinModel)
+                    SoundManager.Instance.PlayMannequinAttackSound();
+                else if (monster is SirenModel |
+                        monster is WalkerModel)
+                    SoundManager.Instance.PlayWalkerAndSirenAttackSound();
+
                 onHit = true;
                 playerCamera.Hit();
                 soundController.PlayDamagedSound();
