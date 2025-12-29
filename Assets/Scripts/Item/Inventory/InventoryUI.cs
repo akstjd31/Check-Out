@@ -90,7 +90,7 @@ public class InventoryUI : MonoBehaviour
 
         Image ItemImage = uiObjs[index].transform.GetChild(0).GetComponent<Image>();
         Button button = uiObjs[index].transform.GetChild(0).GetComponent<Button>();
-        Image selectBar = uiObjs[index].transform.GetChild(1).GetComponent<Image>();
+        Image durationBar = ItemImage.transform.GetChild(0).GetComponent<Image>();
         Image slotImage = uiObjs[index].GetComponent<Image>();
         EventTrigger trigger = uiObjs[index].GetComponent<EventTrigger>();
 
@@ -98,7 +98,6 @@ public class InventoryUI : MonoBehaviour
 
         if (selectIndex == -1 || selectIndex != index)
         {
-            selectBar.gameObject.SetActive(false);
             slotImage.rectTransform.sizeDelta = new Vector2(125, 125);
         }
 
@@ -113,8 +112,21 @@ public class InventoryUI : MonoBehaviour
             
             if (trigger != null)
                 trigger.triggers.Clear();
+            durationBar.gameObject.SetActive(false);
             ItemImage.sprite = null;
             return;
+        }
+
+        if (inventory.slots[index].itemdata.itemType == "Gadget")
+        {
+            durationBar.gameObject.SetActive(true);
+            var gauge = durationBar.GetComponent<Slider>();
+            gauge.maxValue = inventory.slots[index].maxDuration;
+            gauge.value = inventory.slots[index].duration;
+        }
+        else
+        {
+            durationBar.gameObject.SetActive(false);
         }
 
         Sprite sprite = Resources.Load<Sprite>(inventory.slots[index].itemdata.imgPath);
@@ -195,13 +207,10 @@ public class InventoryUI : MonoBehaviour
         }
         
         Image slotImage = uiObjs[index].transform.GetComponent<Image>();
-        Image selectBar = uiObjs[index].transform.GetChild(1).GetComponent<Image>();
-
 
         if (slotImage == null || inventory == null) return;
 
         slotImage.rectTransform.sizeDelta = new Vector2(150, 150);
-        selectBar.gameObject.SetActive(true);
     }
 
     // 창고 상태

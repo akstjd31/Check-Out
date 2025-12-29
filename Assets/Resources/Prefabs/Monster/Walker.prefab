@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4201504765077811697}
   - component: {fileID: 9204844719642186061}
   - component: {fileID: 8620140672339817473}
-  - component: {fileID: 4997070276151729132}
   - component: {fileID: 5253267192057256448}
   - component: {fileID: 3029327642943884836}
   - component: {fileID: 2330446851178434476}
@@ -215,28 +214,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &4997070276151729132
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5085514986687526861}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 196f9bc14a9adbf4596ba0627db501fb, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &5253267192057256448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,7 +602,8 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 1.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3061582254570208867, guid: 67e58ffe91095c746b4788c394f32659, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

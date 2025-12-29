@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee9e8ee424b0eb4689df93cbe91f971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashLight
-  ItemId: 1201
+  ItemId: 1013
   lightComponent: {fileID: 7167078669047419728}
 --- !u!1 &5609002057744696792
 GameObject:

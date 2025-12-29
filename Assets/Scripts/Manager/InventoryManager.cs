@@ -368,4 +368,12 @@ public class InventoryManager : Singleton<InventoryManager>
         if (playerHandTransform.gameObject.activeSelf == true)
             playerHandTransform.gameObject.SetActive(false);
     }
+
+    public void UpdateUI()
+    {
+        if (inventory == null)
+            invenUI = FindAnyObjectByType<InventoryUI>();
+        Debug.Log(currentIndex);
+        invenUI.UpdateUI(currentIndex);
+    }
 }

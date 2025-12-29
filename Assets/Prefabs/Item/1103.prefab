@@ -250,4 +250,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202c3ea744e517b4787bf2cbad6686f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GlowStick
-  ItemId: 1103
+  ItemId: 1012
