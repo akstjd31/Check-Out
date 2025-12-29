@@ -805,10 +805,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 42eb6bcb46e7ddd49ae5e617c3a3a843, type: 3}
   - {fileID: 8300000, guid: 9434961b46cd5864e900d3ebe6fe76fe, type: 3}
   itemPickUpSound: {fileID: 8300000, guid: 6f376149d6816fd4b847388c6d18d343, type: 3}
-  itemEatingSound: {fileID: 0}
+  itemEatingSound: {fileID: 8300000, guid: 9f89cf0ad230d1a4684eee73d471355b, type: 3}
   buyItemFailedSound: {fileID: 8300000, guid: 2357f6e12f7330a49bb275c42c361415, type: 3}
-  flashLightOnSound: {fileID: 0}
-  batteryChangedSound: {fileID: 0}
+  flashLightOnSound: {fileID: 8300000, guid: 76fcc804eb7cee94f8420c69d4aaa03f, type: 3}
+  batteryChangedSound: {fileID: 8300000, guid: 84253156d88538e46a714ed1526a4b75, type: 3}
   elevatorButtonClickSound: {fileID: 8300000, guid: 47bb966335c02d7409221d205194308f, type: 3}
   elevatorActionSound: {fileID: 8300000, guid: 07697b7fe7da7774495a364ce369a1b2, type: 3}
   uiButtonClickSound: {fileID: 8300000, guid: 273421a65edee894fa0aec80cdc9c9ea, type: 3}
@@ -823,6 +823,7 @@ MonoBehaviour:
   walkerAndSirenAttackSound: {fileID: 8300000, guid: ac5d3953e2a75874a943a6bfd0513105, type: 3}
   walkerPatrolSound: {fileID: 8300000, guid: 247c4350d58e1e742a142d2ff210b0ca, type: 3}
   walkerChaseSound: {fileID: 8300000, guid: 53fd6154870f0424e8d7a7502dc8a520, type: 3}
+  sirenLoudSound: {fileID: 8300000, guid: feccf3e90583b42499d3fa806469fa2d, type: 3}
 --- !u!82 &704925764
 AudioSource:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ public class FlashLight : ItemObj
 {
     private Light lightComponent;
     private GameObject lightArea;
+    private PlayerAreaDetector areaDetector;
 
 
     private void OnEnable()
@@ -19,19 +20,31 @@ public class FlashLight : ItemObj
         OffItem -= LightOff;
     }
 
+    private void Update()
+    {
+        if (state.Equals(ObjState.On))
+        {
+            areaDetector.SetLightCount(1);
+        }
+    }
+
     private void LightOn()
     {
-        lightComponent = player.transform.GetComponentInChildren<Light>();
-        lightArea = player.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).gameObject;
-        lightComponent.enabled = true;
+        if (player != null)
+        {
+            lightComponent = player.transform.GetComponentInChildren<Light>();
+            areaDetector = player.transform.GetComponent<PlayerAreaDetector>();
+            player.GetComponent<PlayerSoundController>().PlayFlashLightOnSound();
+        }
 
-        player.GetComponent<PlayerSoundController>().PlayFlashLightOnSound();
-        lightArea.SetActive(true);
+        lightComponent.enabled = true;
     }
 
     private void LightOff()
     {
-        lightArea.SetActive(false);
         lightComponent.enabled = false;
+
+        if (areaDetector != null)
+            areaDetector.SetLightCount(0);
     }
 }

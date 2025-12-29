@@ -746,10 +746,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 2046820854
+    m_Bits: 536870912
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 234881024
+    m_Bits: 1577058807
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
