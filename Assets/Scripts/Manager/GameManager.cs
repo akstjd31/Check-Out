@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
     [Header("State")]
     public GameState CurrentState { get; private set; }
-    public GameState PreviousState { get; private set; }
 
     private StateMachine<GameState> stateMachine;
     public GameObject Player { get; private set; }
@@ -31,6 +28,7 @@ public class GameManager : Singleton<GameManager>
         stateMachine.AddState(GameState.Hub, new HubState());
         stateMachine.AddState(GameState.Loading, new LoadingState());
         stateMachine.AddState(GameState.Session, new RunState());
+        stateMachine.AddState(GameState.Dead, new DeadState());
 
         stat = new PlayerStat();
         PlayerStatTableDataParsing();
@@ -149,14 +147,17 @@ public class GameManager : Singleton<GameManager>
     public void ChangeState(GameState newState)
     {
         Debug.Log($"{CurrentState} -> {newState} 변경");
-        PreviousState = CurrentState;
         CurrentState = newState;
         stateMachine.ChangeState(newState);
 
         // 다음 상태가 로딩 상태면? 해당 씬 호출
-        if (newState == GameState.Loading)
+        if (newState.Equals(GameState.Loading))
         {
             SceneManager.LoadScene("LoadingScene");
+        }
+        else if (newState.Equals(GameState.Dead))
+        {
+            SceneManager.LoadScene("DeadScene");
         }
     }
 
