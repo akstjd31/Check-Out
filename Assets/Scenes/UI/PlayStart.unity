@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 158176105}
   - component: {fileID: 158176104}
   m_Layer: 5
-  m_Name: "\uAC8C\uC784\uC885\uB8CC"
+  m_Name: GameOver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 1580028456}
   - component: {fileID: 1580028455}
   m_Layer: 5
-  m_Name: "\uD300\uB85C\uACE0"
+  m_Name: TeamLogo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -656,7 +656,7 @@ GameObject:
   - component: {fileID: 1646854124}
   - component: {fileID: 1646854123}
   m_Layer: 5
-  m_Name: "\uAC8C\uC784\uC2DC\uC791"
+  m_Name: GameStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -731,7 +731,7 @@ GameObject:
   - component: {fileID: 1907071610}
   - component: {fileID: 1907071609}
   m_Layer: 5
-  m_Name: "\uD0C0\uC774\uD2C0\uD654\uBA74"
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -806,7 +806,7 @@ GameObject:
   - component: {fileID: 1990563983}
   - component: {fileID: 1990563982}
   m_Layer: 5
-  m_Name: "\uBD88\uB7EC\uC624\uAE30"
+  m_Name: Loading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -881,7 +881,7 @@ GameObject:
   - component: {fileID: 2134367717}
   - component: {fileID: 2134367716}
   m_Layer: 5
-  m_Name: "\uAC8C\uC784\uB85C\uACE0"
+  m_Name: GameLogo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
