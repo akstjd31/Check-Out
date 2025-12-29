@@ -75,9 +75,21 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("플레이어 스탯 테이블 데이터 불러오기 완료!");
     }
 
-    public void OnGameStartButton()
+    public void OnGameDataLoadButton()
     {
-        ChangeState(GameState.Loading);
+        LoadMoney();
+        StorageManager.Instance.LoadStorage();
+        InventoryManager.Instance.LoadInventory();
+    }
+    public void OnGameStartButton() => ChangeState(GameState.Loading);
+
+    public void OnGameExitButton()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
     private void OnEnable()
@@ -91,7 +103,7 @@ public class GameManager : Singleton<GameManager>
             ItemManager.Instance.Test(testitemid);
         // else if (Input.GetKeyDown(KeyCode.C))
         //     EventManager.Instance.ExecuteByStart("interaction", "none");    // 테스트용
-            
+
         stateMachine?.Update();
     }
 
@@ -101,7 +113,7 @@ public class GameManager : Singleton<GameManager>
         {
             LoadingManager.Instance.OnLoadingEnded -= HandleLoadingEnded;
         }
-            
+
     }
 
     // 돈 저장 기능
