@@ -11,7 +11,6 @@ public class StatController : MonoBehaviour
     [Header("Component")]
     private PlayerStatHolder holder;
     private PlayerStateMachine stateMachine;
-    private PlayerHitDeath hitDeath;
     private PlayerInvincibility invincibility;
 
     [Header("Property")]
@@ -38,7 +37,6 @@ public class StatController : MonoBehaviour
     {
         holder = this.GetComponent<PlayerStatHolder>();
         stateMachine = this.GetComponentInChildren<PlayerStateMachine>();
-        hitDeath = this.GetComponentInChildren<PlayerHitDeath>();
         invincibility = this.GetComponentInChildren<PlayerInvincibility>();
 
     }
@@ -123,7 +121,7 @@ public class StatController : MonoBehaviour
                 OnDeath?.Invoke();
                 if (invincibility.hitMonster != null)
                 {
-                    hitDeath.PlayDeathVideo(invincibility.hitMonster);
+                    VideoManager.Instance.PlayDeathVideo(invincibility.hitMonster);
                     invincibility.ClearHitMonster();
                 }
                 break;
