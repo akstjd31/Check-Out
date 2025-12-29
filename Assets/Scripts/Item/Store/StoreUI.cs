@@ -1,3 +1,4 @@
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -79,10 +80,13 @@ public class StoreUI : MonoBehaviour
     // UI가 변경 되었을때
     public void UpdateUI(int index)
     {
-        Image ItemImage = uiObjs[index].transform.GetChild(0).GetComponent<Image>();
-        Button button = uiObjs[index].transform.GetChild(0).GetComponent<Button>();
-        Image slotImage = uiObjs[index].GetComponent<Image>();
-        EventTrigger trigger = uiObjs[index].GetComponent<EventTrigger>();
+        var uiObj = uiObjs[index];
+
+        Image ItemImage = uiObj.transform.GetChild(1).GetComponent<Image>();
+        Button button = uiObj.GetComponent<Button>();
+        Image typeImage = uiObj.transform.GetChild(0).GetComponent<Image>();
+        Image slotImage = uiObj.GetComponent<Image>();
+        EventTrigger trigger = uiObj.GetComponent<EventTrigger>();
 
         var storeItem = store.shopList[index];
 
@@ -104,6 +108,25 @@ public class StoreUI : MonoBehaviour
             return;
         }
 
+        var itemdata = ItemManager.Instance.GetItemData(storeItem.itemId);
+
+        if (itemdata.itemType == "Gadget")
+        {
+            typeImage.gameObject.SetActive(true);
+            typeImage.color = Color.pink;
+        }
+
+        else if (itemdata.itemType == "Consumable")
+        {
+            typeImage.gameObject.SetActive(true);
+            typeImage.color = Color.blue;
+        }
+
+        else
+        {
+            typeImage.gameObject.SetActive(false);
+        }
+
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(delegate { StoreManager.Instance.BuyItem(storeItem);
                                             SoundManager.Instance.PlayUIButtonClickSound(); });
@@ -121,7 +144,7 @@ public class StoreUI : MonoBehaviour
             // 마우스 올라갔을때 이벤트
             EventTrigger.Entry Enterentry = new EventTrigger.Entry();
             Enterentry.eventID = EventTriggerType.PointerEnter;
-            Enterentry.callback.AddListener((data) => { hover.OnEnter(uiObjs[index].transform, storeItem, sprite); });
+            Enterentry.callback.AddListener((data) => { hover.OnEnter(uiObj.transform, storeItem, sprite); });
 
             // 마우스 빠져나갔을때 이벤트
             EventTrigger.Entry Exitentry = new EventTrigger.Entry();

@@ -88,11 +88,14 @@ public class InventoryUI : MonoBehaviour
         if (!GameManager.Instance.CurrentState.Equals(GameState.Session))
             hover.transform.GetChild(0).gameObject.SetActive(false);
 
-        Image ItemImage = uiObjs[index].transform.GetChild(0).GetComponent<Image>();
-        Button button = uiObjs[index].transform.GetChild(0).GetComponent<Button>();
+        var uiObj = uiObjs[index];
+
+        Image ItemImage = uiObj.transform.GetChild(1).GetComponent<Image>();
+        Button button = uiObj.GetComponent<Button>();
         Image durationBar = ItemImage.transform.GetChild(0).GetComponent<Image>();
-        Image slotImage = uiObjs[index].GetComponent<Image>();
-        EventTrigger trigger = uiObjs[index].GetComponent<EventTrigger>();
+        Image typeImage = uiObj.transform.GetChild(0).GetComponent<Image>();
+        Image slotImage = uiObj.GetComponent<Image>();
+        EventTrigger trigger = uiObj.GetComponent<EventTrigger>();
 
         if (slotImage == null || ItemImage == null || inventory == null) return;
 
@@ -101,7 +104,9 @@ public class InventoryUI : MonoBehaviour
             slotImage.rectTransform.sizeDelta = new Vector2(125, 125);
         }
 
-        if (inventory.slots[index] == null)
+        var inventorySlot = inventory.slots[index];
+
+        if (inventorySlot == null)
         {
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(delegate
@@ -117,19 +122,30 @@ public class InventoryUI : MonoBehaviour
             return;
         }
 
-        if (inventory.slots[index].itemdata.itemType == "Gadget")
+        if (inventorySlot.itemdata.itemType == "Gadget")
         {
             durationBar.gameObject.SetActive(true);
+            typeImage.gameObject.SetActive(true);
             var gauge = durationBar.GetComponent<Slider>();
             gauge.maxValue = inventory.slots[index].maxDuration;
             gauge.value = inventory.slots[index].duration;
+            typeImage.color = Color.pink;
         }
+
+        else if (inventorySlot.itemdata.itemType == "Consumable")
+        {
+            typeImage.gameObject.SetActive(true);
+            durationBar.gameObject.SetActive(false);
+            typeImage.color = Color.blue;
+        }
+
         else
         {
+            typeImage.gameObject.SetActive(false);
             durationBar.gameObject.SetActive(false);
         }
 
-        Sprite sprite = Resources.Load<Sprite>(inventory.slots[index].itemdata.imgPath);
+        Sprite sprite = Resources.Load<Sprite>(inventorySlot.itemdata.imgPath);
         ItemImage.sprite = sprite;
 
         button.onClick.RemoveAllListeners();
@@ -147,7 +163,7 @@ public class InventoryUI : MonoBehaviour
             // 마우스 올라갔을때 이벤트
             EventTrigger.Entry Enterentry = new EventTrigger.Entry();
             Enterentry.eventID = EventTriggerType.PointerEnter;
-            Enterentry.callback.AddListener((data) => { hover.OnEnter(uiObjs[index].transform, inventory.slots[index], sprite); });
+            Enterentry.callback.AddListener((data) => { hover.OnEnter(uiObj.transform, inventorySlot, sprite); });
 
             // 마우스 빠져나갔을때 이벤트
             EventTrigger.Entry Exitentry = new EventTrigger.Entry();
@@ -164,7 +180,7 @@ public class InventoryUI : MonoBehaviour
         int invenIndex = 0;
         foreach (var uiObj in uiObjs)
         {
-            Button button = uiObj.transform.GetChild(0).GetComponent<Button>();
+            Button button = uiObj.GetComponent<Button>();
 
             if (inventory.slots[invenIndex] != null)
             {

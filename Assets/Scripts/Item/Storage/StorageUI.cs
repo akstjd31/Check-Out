@@ -98,10 +98,13 @@ public class StorageUI : MonoBehaviour
     {
         hover.transform.GetChild(0).gameObject.SetActive(false);
 
-        Image ItemImage = uiObjs[index].transform.GetChild(0).GetComponent<Image>();
-        Button button = uiObjs[index].transform.GetChild(0).GetComponent<Button>();
-        Image slotImage = uiObjs[index].GetComponent<Image>();
-        EventTrigger trigger = uiObjs[index].GetComponent<EventTrigger>();
+        var uiObj = uiObjs[index];
+
+        Image ItemImage = uiObj.transform.GetChild(1).GetComponent<Image>();
+        Button button = uiObj.GetComponent<Button>();
+        Image typeImage = uiObj.transform.GetChild(0).GetComponent<Image>();
+        Image slotImage = uiObj.GetComponent<Image>();
+        EventTrigger trigger = uiObj.GetComponent<EventTrigger>();
 
         if (slotImage == null) return;
 
@@ -109,7 +112,9 @@ public class StorageUI : MonoBehaviour
 
         if (storage == null) return;
 
-        if (storage.storageList[index] == null)
+        var storageSlot = storage.storageList[index];
+
+        if (storageSlot == null)
         {
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(delegate
@@ -124,6 +129,23 @@ public class StorageUI : MonoBehaviour
             return;
         }
 
+        if (storageSlot.itemdata.itemType == "Gadget")
+        {
+            typeImage.gameObject.SetActive(true);
+            typeImage.color = Color.pink;
+        }
+
+        else if (storageSlot.itemdata.itemType == "Consumable")
+        {
+            typeImage.gameObject.SetActive(true);
+            typeImage.color = Color.blue;
+        }
+
+        else
+        {
+            typeImage.gameObject.SetActive(false);
+        }
+
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() =>
         {
@@ -131,7 +153,7 @@ public class StorageUI : MonoBehaviour
             SoundManager.Instance.PlayUIButtonClickSound();
         });
 
-        Sprite sprite = Resources.Load<Sprite>(storage.storageList[index].itemdata.imgPath);
+        Sprite sprite = Resources.Load<Sprite>(storageSlot.itemdata.imgPath);
 
         ItemImage.sprite = sprite;
 
@@ -142,7 +164,7 @@ public class StorageUI : MonoBehaviour
             // 마우스 올라갔을때 이벤트
             EventTrigger.Entry Enterentry = new EventTrigger.Entry();
             Enterentry.eventID = EventTriggerType.PointerEnter;
-            Enterentry.callback.AddListener((data) => { hover.OnEnter(uiObjs[index].transform, storage.storageList[index], sprite); });
+            Enterentry.callback.AddListener((data) => { hover.OnEnter(uiObj.transform, storageSlot, sprite); });
 
             // 마우스 빠져나갔을때 이벤트
             EventTrigger.Entry Exitentry = new EventTrigger.Entry();
