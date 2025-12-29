@@ -8,6 +8,8 @@ public class WalkerModel : Monster
     // 워커 상태 정의 : 배회, 추격, 어그로 해제, 발견
     //public enum WalkerState { WanderingAround, Chase, MissingPlayer,FindPlayer }
     
+    private AudioSource audioSource;
+
     [Header("IndividualProperties")]
     [Header("Speed")]
     [SerializeField]private float chaseFast = 4.5f;
@@ -40,6 +42,10 @@ public class WalkerModel : Monster
     public event Action OnFindPlayer;
     public event Action OnAlerted;
 
+    private void Awake()
+    {
+        audioSource = this.GetComponent<AudioSource>();
+    }
 
     public override void ChangeState(MonsterState inputState)
     {
@@ -49,11 +55,13 @@ public class WalkerModel : Monster
             case MonsterState.WanderingAround:
                 Debug.Log($"{monsterState} : WanderingAround");
                 monsterState = MonsterState.WanderingAround;
+                audioSource.clip = SoundManager.Instance.GetWalkerPatrolClip();
                 OnWanderingAround?.Invoke();
                 break;
             case MonsterState.Chase:
                 Debug.Log($"{monsterState} : Chase");
                 monsterState = MonsterState.Chase;
+                audioSource.clip = SoundManager.Instance.GetWalkerChaseClip();
                 OnChase?.Invoke();
                 // OnChaseAfter?.Invoke();
                 break;
@@ -74,8 +82,9 @@ public class WalkerModel : Monster
                 monsterState = MonsterState.Alerted;
                 OnAlerted?.Invoke();
                 break;
-
         }
+        
+        audioSource.Play();
     }
 }
 

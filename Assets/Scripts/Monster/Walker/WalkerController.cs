@@ -4,7 +4,6 @@ using UnityEngine.AI;
 
 public class WalkerController : MonsterController
 {
-    [SerializeField] private WalkerView walkerView;
     [SerializeField] private float rotateSpeed;
     private WalkerModel walkerModel;
     private FieldOfView walkerFieldOfView;
@@ -18,7 +17,6 @@ public class WalkerController : MonsterController
     private void Awake()
     {
         // 컴포넌트 추가
-        walkerView = GetComponent<WalkerView>();
         walkerModel = GetComponent<WalkerModel>();
         walkerFieldOfView = GetComponent<FieldOfView>();
         walkerMovement = GetComponent<MonsterMovement>();

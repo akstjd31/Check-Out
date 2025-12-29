@@ -41,6 +41,8 @@ public class SoundManager : Singleton<SoundManager>
     [Header("Monster")]
     [SerializeField] private AudioClip mannequinAttackSound;
     [SerializeField] private AudioClip walkerAndSirenAttackSound;
+    [SerializeField] private AudioClip walkerPatrolSound;
+    [SerializeField] private AudioClip walkerChaseSound;
 
     protected override void Awake()
     {
@@ -110,18 +112,22 @@ public class SoundManager : Singleton<SoundManager>
             audioSource.PlayOneShot(storageCloseSound);
     }
 
+    // 마네킹 공격 사운드
     public void PlayMannequinAttackSound()
     {
         if (mannequinAttackSound != null)
             audioSource.PlayOneShot(mannequinAttackSound);
     }
 
+    // 워커 & 사이렌 공격 사운드
     public void PlayWalkerAndSirenAttackSound()
     {
         if (walkerAndSirenAttackSound != null)
             audioSource.PlayOneShot(walkerAndSirenAttackSound);
     }
     
+    public AudioClip GetWalkerPatrolClip() => walkerPatrolSound;
+    public AudioClip GetWalkerChaseClip() => walkerChaseSound;
     public AudioClip GetSellItemClip() => sellItemSound;
     public AudioClip GetBuyItemClip() => buyItemSound;
     public AudioClip GetBuyItemFailedClip() => buyItemFailedSound;
