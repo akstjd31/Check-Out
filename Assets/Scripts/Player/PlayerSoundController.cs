@@ -141,6 +141,15 @@ public class PlayerSoundController : MonoBehaviour
             audioSourceList[(int)AudioSourceType.Damaged].Play();
     }
 
+    public void PlayEatingSound()
+    {
+        if (SoundManager.Instance.GetItemEatingClip() != null)
+        {
+            audioSourceList[(int)AudioSourceType.Item].clip = SoundManager.Instance.GetItemEatingClip();
+            audioSourceList[(int)AudioSourceType.Item].Play();
+        }
+    }
+
     // public void PlaySanitySound(float volume)
     // {
     //     // 현재 클립이 다른 경우 (수치에 따른 클립 사운드 재생)

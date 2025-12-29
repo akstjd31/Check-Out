@@ -496,7 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbf613a8cd58974d97221ea9a447a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventObject
-  startType: 0
+  currentStartType: 0
   targetObj: {fileID: 0}
 --- !u!65 &358593452
 BoxCollider:

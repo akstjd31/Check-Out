@@ -805,7 +805,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 42eb6bcb46e7ddd49ae5e617c3a3a843, type: 3}
   - {fileID: 8300000, guid: 9434961b46cd5864e900d3ebe6fe76fe, type: 3}
   itemPickUpSound: {fileID: 8300000, guid: 6f376149d6816fd4b847388c6d18d343, type: 3}
-  itemEatingSound: {fileID: 0}
+  itemEatingSound: {fileID: 8300000, guid: 9f89cf0ad230d1a4684eee73d471355b, type: 3}
   buyItemFailedSound: {fileID: 8300000, guid: 2357f6e12f7330a49bb275c42c361415, type: 3}
   elevatorButtonClickSound: {fileID: 8300000, guid: 47bb966335c02d7409221d205194308f, type: 3}
   elevatorActionSound: {fileID: 8300000, guid: 07697b7fe7da7774495a364ce369a1b2, type: 3}
@@ -2589,9 +2589,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96dd2194851bc8a4fb45797e73c41eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
-  inventory: {fileID: 0}
-  invenUI: {fileID: 0}
-  walkerRawImage: {fileID: 0}
 --- !u!114 &2031907903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2604,9 +2601,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6887d6f3e29e14089af129df22badb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StorageManager
-  storage: {fileID: 0}
-  storageUI: {fileID: 0}
-  inventory: {fileID: 0}
 --- !u!114 &2031907904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2619,9 +2613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a1923a249da70438e66d9e069b5da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoreManager
-  store: {fileID: 0}
-  inventory: {fileID: 0}
-  audioSource: {fileID: 0}
 --- !u!114 &2031907905
 MonoBehaviour:
   m_ObjectHideFlags: 0
