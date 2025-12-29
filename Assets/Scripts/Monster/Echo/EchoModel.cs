@@ -23,6 +23,18 @@ public class EchoModel : Monster
     public event Action OnObserve;
     public event Action OnEyeContact;
     public event Action OnContactPlayer;
+    public event Action OnActiveFalse;
+    public event Action OnActiveTrue;
+
+    private void OnEnable()
+    {
+        OnActiveTrue?.Invoke();
+    }
+
+    private void OnDisable()
+    {
+        OnActiveFalse?.Invoke();
+    }
 
     public override void ChangeState(MonsterState inputState)
     {

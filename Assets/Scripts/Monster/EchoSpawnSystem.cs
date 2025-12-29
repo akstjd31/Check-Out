@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -18,8 +19,18 @@ public class EchoSpawnSystem : MonoBehaviour
 
     [SerializeField ]private LayerMask obstacleMask;
 
+    private EchoModel echoModel;
+    private EchoController echoController;
+    private WaitForSeconds respawnDelay;
     bool obstacleCheck = true;
 
+    public GameObject EchoPrefab { get { return echoPrefab; } }
+
+
+    private void Awake()
+    {
+        Init();
+    }
 
     public void Init()
     {
@@ -28,9 +39,13 @@ public class EchoSpawnSystem : MonoBehaviour
             player = GameManager.Instance.Player.transform;
             playerView = player.GetComponent<FieldOfView>();
         }
+
+        echoController = FindFirstObjectByType<EchoController>();
+        echoModel = FindFirstObjectByType<EchoModel>();
+        respawnDelay = new WaitForSeconds(echoModel.RespawnTime);
     }
 
-    private bool GetRandomPosition(out Vector3 position)
+    public bool GetRandomPosition(out Vector3 position)
     {
         position = default;
 
@@ -95,6 +110,36 @@ public class EchoSpawnSystem : MonoBehaviour
         if (GetRandomPosition(out var pos))
         {
             Instantiate(echoPrefab, pos, Quaternion.identity);
+        }
+
+        else
+        {
+            Debug.Log("스폰 불가능 판정");
+        }
+    }
+
+    public void StartRespawnEcho()
+    {
+        StartCoroutine(RespawnEcho());
+    }
+
+    // 에코 리스폰 딜레이 후 다시 활성화
+    private IEnumerator RespawnEcho()
+    {
+        Debug.Log("에코 리스폰 딜레이 시작");
+        yield return respawnDelay;
+        Debug.Log("에코 리스폰 딜레이 종료");
+        ActiveEcho();
+    }
+
+    private void ActiveEcho()
+    {
+        if (GetRandomPosition(out var pos))
+        {
+            echoController.transform.position = pos;
+            echoController.transform.LookAt(pos);
+            echoController.gameObject.SetActive(true);
+            echoModel.ChangeState(Monster.MonsterState.Observe);
         }
 
         else
