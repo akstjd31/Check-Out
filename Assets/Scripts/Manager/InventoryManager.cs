@@ -371,7 +371,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public void UpdateUI()
     {
-        if (inventory == null)
+        if (invenUI == null)
             invenUI = FindAnyObjectByType<InventoryUI>();
         Debug.Log(currentIndex);
         invenUI.UpdateUI(currentIndex);
