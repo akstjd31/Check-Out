@@ -8,18 +8,40 @@ using UnityEngine;
 public class EventManager : Singleton<EventManager>
 {
     public Dictionary<int, List<EventTableData>> eventGroups;  // <ID, 이벤트 테이블 데이터>
+    public Dictionary<int, float> cooldownData;                // <ID, cooldown>
+
+    public float Delay { get; set; } = 0f;
+    public float Cooldown { get; set; } = 0f;
 
     protected override void Awake()
     {
         base.Awake();
 
         eventGroups = new Dictionary<int, List<EventTableData>>();
+        cooldownData = new Dictionary<int, float>();
     }
 
     private void Start()
     {
         TableDataParsing();
     }
+
+    private void Update()
+    {
+        if (cooldownData == null) return;
+
+        float delta = Time.deltaTime;
+        var keys = new List<int>(cooldownData.Keys);
+
+        foreach (int key in keys)
+        {
+            if (cooldownData[key] > 0f)
+            {
+                cooldownData[key] = Mathf.Max(0f, cooldownData[key] - delta);
+            }
+        }
+    }
+
 
     // 테이블 데이터 파싱
     private void TableDataParsing()
@@ -42,6 +64,9 @@ public class EventManager : Singleton<EventManager>
                 if (!eventGroups.ContainsKey(eventTableData.groupId))
                     eventGroups[eventTableData.groupId] = new List<EventTableData>();
 
+                if (!cooldownData.ContainsKey(eventTableData.groupId))
+                    cooldownData[eventTableData.groupId] = 0f;
+
                 // 하나의 그룹 ID로 실행해야하는 이벤트 테이블 데이터 묶기
                 eventGroups[eventTableData.groupId].Add(eventTableData);
             }
@@ -53,7 +78,7 @@ public class EventManager : Singleton<EventManager>
     {
         foreach (var group in eventGroups.Values)
         {
-            if (!IsGroupTriggered(group, startType, startValue))
+            if (cooldownData[group[0].groupId] > 0f || !IsGroupTriggered(group, startType, startValue))
                 continue;
 
             ExecuteGroup(group);
@@ -119,5 +144,12 @@ public class EventManager : Singleton<EventManager>
 
         Debug.Log("이벤트 실행!");
         action.Execute(evt.eventValue, evt.targetObject);
+
+        // 만약 쿨 다운 액션이었다면 쿨 다운 값 추가
+        if (action is CoolDownAction)
+        {
+            Debug.Log($"쿨다운 설정 완료! 현재 값: {Cooldown}");
+            cooldownData[evt.groupId] = Cooldown;
+        }
     }
 }

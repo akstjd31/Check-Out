@@ -1,7 +1,16 @@
-ï»¿ì•„ì´ë””,ì´ë²¤íŠ¸ê·¸ë£¹,ì‹œì‘ íƒ€ì…,ì‹œì‘ íƒ€ì… ê°’ (ì´ë¦„),ì‹œì‘ ì¡°ê±´1,ì‹œì‘ ì¡°ê±´1 ê°’,ì‹œì‘ ì¡°ê±´2,ì‹œì‘ ì¡°ê±´2 ê°’,ì´ë²¤íŠ¸ íƒ€ì…,ì´ë²¤íŠ¸ íƒ€ì… ê°’,ëŒ€ìƒ íƒ€ê²Ÿ,ì„¤ëª… (ê¸°íšìš©)
-id,groupId,startType,startValue,conditionType1,conditionValue1,conditionType2,conditionValue2,eventType,eventValue,targetObject,description
-int,int,string,string,string,string,string,string,string,string,string,string
-8001,200,enterCollider,200_enter_tile,checkSwitchOff,9009,none,none,soundOnce,Sound/Event/200_Excuse,self,ì„ì‹œ ì‚¬ìš´ë“œ ì¶œë ¥
-8002,200,enterCollider,200_enter_tile,checkSwitchOff,9009,none,none,showText,92001,none,ì„ì‹œ ëŒ€í™”ì°½ ì¶œë ¥
-8003,200,enterCollider,200_enter_tile,checkSwitchOff,9009,none,none,setSwitchOn,9010,none,ì„ì‹œ ìŠ¤ìœ„ì¹˜ì˜¨
-8004,200,enterCollider,200_enter_tile,checkSwitchOff,9009,none,none,setSwitchOn,9009,none,ì„ì‹œ ìŠ¤ìœ„ì¹˜ì˜¨
+¾ÆÀÌµğ,ÀÌº¥Æ®±×·ì,½ÃÀÛ Å¸ÀÔ,½ÃÀÛ Å¸ÀÔ °ª (ÀÌ¸§),½ÃÀÛ Á¶°Ç1,½ÃÀÛ Á¶°Ç1 °ª,½ÃÀÛ Á¶°Ç2,½ÃÀÛ Á¶°Ç2 °ª,ÀÌº¥Æ® Å¸ÀÔ,ÀÌº¥Æ® Å¸ÀÔ °ª,´ë»ó Å¸°Ù,¼³¸í (±âÈ¹¿ë),
+id,groupId,startType,startValue,conditionType1,conditionValue1,conditionType2,conditionValue2,eventType,eventValue,targetObject,description,
+int,int,string,string,string,string,string,string,string,string,string,string,
+8001,200,enterCollider,200_enter_tile,none,none,none,none,soundLoop,Sound/Event/200_Excuse,self,¹İº¹ »ç¿îµå,
+8002,201,enterCollider,201_enter_tile,none,none,none,none,delay,5ÃÊ,none,µô·¹ÀÌ,
+8003,201,enterCollider,201_enter_tile,none,none,none,none,soundOnce,Sound/Event/200_Excuse,self,µô·¹ÀÌ È®ÀÎ »ç¿îµå,
+8004,202,enterCollider,202_enter_tile,none,none,none,none,soundOnce,Sound/Event/200_Excuse,self,Äğ´Ù¿î È®ÀÎ »ç¿îµå,
+8005,202,enterCollider,202_enter_tile,none,none,none,none,cooldown,5ÃÊ,none,Äğ´Ù¿î,
+8006,202,enterCollider,202_enter_tile,none,none,none,none,soundOnce,Sound/Event/200_Excuse,self,Äğ´Ù¿î È®ÀÎ »ç¿îµå,
+8007,203,enterCollider,203_enter_tile,none,none,none,none,soundOnce,Sound/Event/200_Excuse,204_enter_tile,Å¸°Ù ¿ÀºêÁ§Æ®¿¡¼­ ÀÌº¥Æ® ¹ß»ı,
+8008,205,interaction,205_enter_tile,none,none,none,none,soundOnce,Sound/Event/200_Excuse,self,»óÈ£ÀÛ¿ë½Ã ÀÌº¥Æ® ¹ß»ı,
+8009,206,enterCollider,206_enter_tile,none,none,none,none,setActiveObject,TRUE,207_enter_tile,¿ÀºêÁ§Æ® È°¼ºÈ­,
+8010,208,enterCollider,208_enter_tile,none,none,none,none,setActiveObject,FALSE,207_enter_tile,¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­,
+8011,209,enterCollider,209_enter_tile,none,none,none,none,soundLoop,Sound/Event/200_Excuse,self,»ç¿îµå ½ºÅ¾ ¹ßµ¿ ³ë·¡,
+8012,210,enterCollider,210_enter_tile,none,none,none,none,soundStop,Sound/Event/200_Excuse,209_enter_tile,»ç¿îµå ½ºÅ¾,ÀÌ ºÎºĞÀº Æ®¸®°Å½Ã ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ¹ßµ¿µÇ´ÂÁö¸¸ È®ÀÎÇÏ¸é µÉ °Å °°½À´Ï´Ù.
+8013,211,enterCollider,211_enter_tile,none,none,none,none,playAnim,¾Ö´Ï¸ŞÀÌ¼Ç,211_enter_plane,¾Ö´Ï¸ŞÀÌ¼Ç È°¼ºÈ­,

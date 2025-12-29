@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 358593452}
   - component: {fileID: 358593451}
   m_Layer: 0
-  m_Name: 200_enter_tile(Clone)
+  m_Name: 202_enter_tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
