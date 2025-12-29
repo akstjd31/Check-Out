@@ -639,6 +639,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5345882347556441137, guid: 584caadbcc6cc2c42a7a660249c29c82, type: 3}
+      propertyPath: interactableName
+      value: "\uBC29 \uBB38"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5345882347556441137, guid: 584caadbcc6cc2c42a7a660249c29c82, type: 3}
+      propertyPath: 'promptText.Array.data[0]'
+      value: "\uBB38 \uC5F4\uAE30"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5345882347556441137, guid: 584caadbcc6cc2c42a7a660249c29c82, type: 3}
+      propertyPath: 'promptText.Array.data[1]'
+      value: "\uBB38 \uB2EB\uAE30"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -835,6 +847,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
+    - target: {fileID: 8911562194854538087, guid: efa2b3f5eaa917d4cac001377f58893b, type: 3}
+      propertyPath: interactableName
+      value: "\uBB38"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8911562194854538087, guid: efa2b3f5eaa917d4cac001377f58893b, type: 3}
+      propertyPath: 'promptText.Array.data[0]'
+      value: "\uBB38 \uC5F4\uAE30"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8911562194854538087, guid: efa2b3f5eaa917d4cac001377f58893b, type: 3}
+      propertyPath: 'promptText.Array.data[1]'
+      value: "\uBB38 \uB2EB\uAE30 "
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -916,6 +940,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1983457268}
     m_Modifications:
+    - target: {fileID: 853408044767787976, guid: a4b59d5df7a1d104b96facf963c023dc, type: 3}
+      propertyPath: interactableName
+      value: "\uC5D8\uB808\uBCA0\uC774\uD130 \uBC84\uD2BC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 853408044767787976, guid: a4b59d5df7a1d104b96facf963c023dc, type: 3}
+      propertyPath: 'promptText.Array.data[0]'
+      value: "\uC774\uB3D9"
+      objectReference: {fileID: 0}
     - target: {fileID: 1781687267184827221, guid: a4b59d5df7a1d104b96facf963c023dc, type: 3}
       propertyPath: m_Name
       value: Elevator
@@ -2092,6 +2124,14 @@ PrefabInstance:
       propertyPath: shopUIObj
       value: 
       objectReference: {fileID: 743833907}
+    - target: {fileID: 7167667423877155428, guid: 62114221e4bccb5468263509dc2fc829, type: 3}
+      propertyPath: interactableName
+      value: "\uC0C1\uC810(\uC790\uD310\uAE30)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167667423877155428, guid: 62114221e4bccb5468263509dc2fc829, type: 3}
+      propertyPath: 'promptText.Array.data[0]'
+      value: "\uC0C1\uC810 \uC5F4\uAE30"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2113,6 +2153,14 @@ PrefabInstance:
       propertyPath: storageCanvas
       value: 
       objectReference: {fileID: 5044137167683758386}
+    - target: {fileID: 2697199619715537205, guid: 719f3c311cde38e49b4e4a53f660faf0, type: 3}
+      propertyPath: interactableName
+      value: "\uCC3D\uACE0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2697199619715537205, guid: 719f3c311cde38e49b4e4a53f660faf0, type: 3}
+      propertyPath: 'promptText.Array.data[0]'
+      value: "\uCC3D\uACE0 \uC5F4\uAE30 "
+      objectReference: {fileID: 0}
     - target: {fileID: 2960612892374556561, guid: 719f3c311cde38e49b4e4a53f660faf0, type: 3}
       propertyPath: m_Name
       value: Chest
