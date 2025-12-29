@@ -3,10 +3,12 @@ using UnityEngine;
 public class GlowStick : ItemObj
 {
     private Animator animator;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -23,6 +25,7 @@ public class GlowStick : ItemObj
 
     private void LightOn()
     {
+        audioSource.Play();
         animator.Play("GlowStickOn");
     }
 
