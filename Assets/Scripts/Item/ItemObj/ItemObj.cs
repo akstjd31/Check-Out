@@ -52,6 +52,7 @@ public class ItemObj : MonoBehaviour
             ItemInstance.duration -= Consumption;
             if (ItemInstance.duration < 0)
                 ItemInstance.duration = 0;
+            InventoryManager.Instance.UpdateUI();
             yield return new WaitForSeconds(1f);
         }
 

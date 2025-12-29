@@ -1,8 +1,6 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 
 public enum ItemState { On, Off }
@@ -12,6 +10,8 @@ public class ItemInstance
 {
     public ItemTableData itemdata { get; private set; }
     public List<ItemEffect> effects { get; private set; }
+
+    public int maxDuration { get; private set; }
     public int duration {  get; set; }
     public int consumption { get; set; }
     public ItemState state { get; private set; } = ItemState.Off;
@@ -25,6 +25,7 @@ public class ItemInstance
         {
             if (effect is GadgetDuration)
             {
+                maxDuration = effect.Value1;
                 duration = effect.Value1;
                 consumption = effect.Value2;
             }
@@ -36,6 +37,8 @@ public class ItemInstance
             }
         }
     }
+
+    
 
     public bool Use(string key)
     {
@@ -53,7 +56,8 @@ public class ItemInstance
                         sucess = effect.Use(out int value);
                         if (sucess)
                             duration += value;
-                        Debug.Log($"배터리 {duration} 충전량 {value}");
+                        if (duration > maxDuration)
+                            duration = maxDuration;
                         break;
                     case "Light":
                         sucess = state == ItemState.On ? ChangeState(ItemState.Off) : ChangeState(ItemState.On);
