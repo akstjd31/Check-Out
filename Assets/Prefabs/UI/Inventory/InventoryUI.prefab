@@ -56,7 +56,7 @@ MonoBehaviour:
     m_Top: -10
     m_Bottom: 10
   m_ChildAlignment: 4
-  m_Spacing: 5
+  m_Spacing: 15
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -80,6 +80,7 @@ MonoBehaviour:
   uiObjs:
   - {fileID: 2421131637641645138, guid: d520e45aaf06ec442bd60ad722f21b9b, type: 3}
   hover: {fileID: 0}
+  audioSource: {fileID: 0}
   IsStorageOpen: 0
   IsStoreOpen: 0
 --- !u!114 &1632151857630527601
