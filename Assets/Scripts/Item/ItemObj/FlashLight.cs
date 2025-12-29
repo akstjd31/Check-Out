@@ -19,6 +19,7 @@ public class FlashLight : ItemObj
 
     private void LightOn()
     {
+        lightComponent = player.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<Light>();
         lightComponent.enabled = true;
     }
 

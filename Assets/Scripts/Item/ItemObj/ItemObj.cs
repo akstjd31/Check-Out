@@ -20,6 +20,8 @@ public class ItemObj : MonoBehaviour
     public event Action OnItem;
     public event Action OffItem;
 
+    protected GameObject player;
+
     public void SetItemInfo(ItemInstance info)
     {
         ItemInstance = info;
@@ -80,4 +82,6 @@ public class ItemObj : MonoBehaviour
             StopConsumption();
         }
     }
+
+    public void GetPlayer(GameObject player) => this.player = player;
 }

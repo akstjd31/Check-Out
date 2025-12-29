@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
-using static UnityEditor.Progress;
+using UnityEngine.UI;
 
 public class InventoryManager : Singleton<InventoryManager>
 {
@@ -26,6 +26,8 @@ public class InventoryManager : Singleton<InventoryManager>
 
     private Transform playerHandTransform;
     private Transform player;
+
+    private Image handImage;
 
     protected override void Awake()
     {
@@ -151,9 +153,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
         ItemManager.Instance.SpawnItem(item, newPos);
 
-        
-
-        OffHande();
+        OffHand();
 
         currentItem = null;
     }
@@ -172,7 +172,7 @@ public class InventoryManager : Singleton<InventoryManager>
             itemObj = null;
         }
 
-        OffHande();
+        OffHand();
 
         return inventory.MoveItem(index);
     }
@@ -185,7 +185,13 @@ public class InventoryManager : Singleton<InventoryManager>
 
         player = GameManager.Instance.Player.transform;
 
-        playerHandTransform = player.transform.GetChild(1).GetChild(0);
+        if (playerHandTransform == null)
+        {
+            playerHandTransform = FindAnyObjectByType<FlashHand>().transform;
+            handImage = playerHandTransform.GetChild(0).GetComponent<Image>();
+        }
+
+        //playerHandTransform = player.transform.GetChild(1).GetChild(0);
 
         if (index < 0 || index >= inventory.slots.Length)
         {
@@ -208,7 +214,7 @@ public class InventoryManager : Singleton<InventoryManager>
                 itemObj = null;
             }
 
-            OffHande();
+            OffHand();
             currentItem = null;
             player.GetComponent<PlayerStatHolder>().PlayerView.UpdateKeyNotice(currentItem);
             return;
@@ -272,7 +278,7 @@ public class InventoryManager : Singleton<InventoryManager>
                 {
                     ItemManager.Instance.ReturnObjHandItem(itemObj);
                     itemObj = null;
-                    OffHande();
+                    OffHand();
                 }
 
                 ConsumableItemUse(item);
@@ -312,14 +318,19 @@ public class InventoryManager : Singleton<InventoryManager>
     // 손에 들고있는 아이템
     public void HandItem(ItemInstance item)
     {
-        
-
         if (player == null)
             return;
 
         if (playerHandTransform == null)
-            return;
-        
+        {
+            playerHandTransform = FindAnyObjectByType<FlashHand>().transform;
+            handImage = playerHandTransform.GetChild(0).GetComponent<Image>();
+        }
+           
+
+        // if (playerHandTransform == null)
+        //     return;
+
         if (item == null)
         {
             if (itemObj != null && pervItem != null)
@@ -329,7 +340,8 @@ public class InventoryManager : Singleton<InventoryManager>
                 itemObj = null;
             }
 
-            playerHandTransform.gameObject.SetActive(false);
+            //playerHandTransform.gameObject.SetActive(false);
+            OffHand();
             return;
         }  
 
@@ -344,17 +356,32 @@ public class InventoryManager : Singleton<InventoryManager>
             itemObj = null;
         }
 
-        playerHandTransform.gameObject.SetActive(true);
+        if (item.itemdata.id != 1013)
+        {
+            if (itemObj != null)
+            {
+                ItemManager.Instance.ReturnObjHandItem(itemObj);
+            }
+            OffHand();
+            return;
+        }
+            
+
+        handImage.gameObject.SetActive(true);
 
         Debug.Log($"{item.itemdata.id} 입니다.");
 
-        itemObj = ItemManager.Instance.SpawnHandItemObj(item.itemdata.id, playerHandTransform.position);
-        
+        var objTransform = new Vector3(transform.position.x, -20, transform.position.y);
+
+        itemObj = ItemManager.Instance.SpawnHandItemObj(item.itemdata.id, objTransform);
+
+        itemObj.GetPlayer(player.gameObject);
+
         if (itemObj == null) return;
 
-        itemObj.transform.SetParent(playerHandTransform, false);
-        itemObj.transform.rotation = playerHandTransform.rotation;
-        itemObj.transform.localPosition = new Vector3(0, 0, 0);
+        //itemObj.transform.SetParent(playerHandTransform, false);
+        //itemObj.transform.rotation = playerHandTransform.rotation;
+        //itemObj.transform.localPosition = new Vector3(0, 0, 0);
         itemObj.SetItemInfo(item);
         
     }
@@ -369,15 +396,29 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public Inventory GetInvetory() { return inventory; }
 
-    public void OffHande()
+   
+    public void OffHand()
     {
+
+
+        /*
         if (playerHandTransform == null)
             return;
             
         if (playerHandTransform.gameObject.activeSelf == true)
             playerHandTransform.gameObject.SetActive(false);
-    }
+        */
 
+        if (playerHandTransform == null)
+        {
+            playerHandTransform = FindAnyObjectByType<FlashHand>().transform;
+            handImage = playerHandTransform.GetChild(0).GetComponent<Image>();
+        }
+
+
+        handImage.gameObject.SetActive(false);
+    }
+   
     public void UpdateUI()
     {
         if (invenUI == null)
