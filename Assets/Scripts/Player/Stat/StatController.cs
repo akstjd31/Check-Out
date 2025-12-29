@@ -11,6 +11,8 @@ public class StatController : MonoBehaviour
     [Header("Component")]
     private PlayerStatHolder holder;
     private PlayerStateMachine stateMachine;
+    private PlayerHitDeath hitDeath;
+    private PlayerInvincibility invincibility;
 
     [Header("Property")]
     public int CurrentSanity { get; private set; }              // 현재 정신력
@@ -36,6 +38,9 @@ public class StatController : MonoBehaviour
     {
         holder = this.GetComponent<PlayerStatHolder>();
         stateMachine = this.GetComponentInChildren<PlayerStateMachine>();
+        hitDeath = this.GetComponentInChildren<PlayerHitDeath>();
+        invincibility = this.GetComponentInChildren<PlayerInvincibility>();
+
     }
 
     public void Init()
@@ -116,6 +121,11 @@ public class StatController : MonoBehaviour
             case playerDeath.Hit:
                 Debug.Log("맞아죽음");
                 OnDeath?.Invoke();
+                if (invincibility.hitMonster != null)
+                {
+                    hitDeath.PlayDeathVideo(invincibility.hitMonster);
+                    invincibility.ClearHitMonster();
+                }
                 break;
         }
     }
