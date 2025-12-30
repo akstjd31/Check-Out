@@ -42,7 +42,6 @@ public class PlayerInvincibility : MonoBehaviour
             return;
         if (other.CompareTag("DamagedArea"))
         {
-
             if (monster == null)
                 return;
 
@@ -50,17 +49,19 @@ public class PlayerInvincibility : MonoBehaviour
             {
                 hitMonster = model;
             }
+
             currentMonster = monster;
             isInDamageArea = true;
             hit = true;
 
-            if (monster is MannequinModel)
-                SoundManager.Instance.PlayMannequinAttackSound();
-            else if (monster is SirenModel || monster is WalkerModel)
-                SoundManager.Instance.PlayWalkerAndSirenAttackSound();
+            if (stat.IsRemainSanity())
+            {
+                if (monster is MannequinModel)
+                    SoundManager.Instance.PlayMannequinAttackSound();
+                else if (monster is SirenModel || monster is WalkerModel)
+                    SoundManager.Instance.PlayWalkerAndSirenAttackSound();
+            }
         }
-
-
     }
 
     private void OnTriggerExit(Collider other)
@@ -85,7 +86,7 @@ public class PlayerInvincibility : MonoBehaviour
         if (isInvincible)
             return;
 
-        if (hit)
+        if (stat.IsRemainSanity() && hit)
         {
             onHit = true;
             playerCamera.Hit();
