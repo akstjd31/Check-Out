@@ -29,7 +29,7 @@ public class EchoSpawnSystem : MonoBehaviour
 
     private void Awake()
     {
-        Init();
+        //Init();
     }
 
     public void Init()
@@ -38,6 +38,20 @@ public class EchoSpawnSystem : MonoBehaviour
         {
             player = GameManager.Instance.Player.transform;
             playerView = player.GetComponent<FieldOfView>();
+        }
+
+        echoController = FindFirstObjectByType<EchoController>();
+        echoModel = FindFirstObjectByType<EchoModel>();
+        respawnDelay = new WaitForSeconds(echoModel.RespawnTime);
+    }
+
+
+    public void Init(GameObject inputPlayer, FieldOfView inputPlayerView)
+    {
+        if (player == null)
+        {
+            player = inputPlayer.transform;
+            playerView = inputPlayerView.GetComponent<FieldOfView>();
         }
 
         echoController = FindFirstObjectByType<EchoController>();
@@ -132,7 +146,7 @@ public class EchoSpawnSystem : MonoBehaviour
         ActiveEcho();
     }
 
-    private void ActiveEcho()
+    public void ActiveEcho()
     {
         if (GetRandomPosition(out var pos))
         {
@@ -146,6 +160,33 @@ public class EchoSpawnSystem : MonoBehaviour
         {
             Debug.Log("스폰 불가능 판정");
         }
+    }
+
+    public void CheckEcho()
+    {
+        Debug.Log(" CheckEcho를 수행합니다. ");
+        // 태그로 몬스터 반환
+        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+
+        if (monsters.Length == 0)
+        {
+            Debug.Log("씬에 몬스터가 없습니다.");
+        }
+
+        foreach ( var monster in monsters)
+        {
+            EchoController echo = monster.GetComponent<EchoController>();
+
+            if ( echo != null)
+            {
+                Debug.Log(" 에코를 발견했습니다. 에코를 리스폰합니다. ");
+                StartRespawnEcho();
+                return;
+            }
+        }
+
+        // 현재 씬에 에코가 없다면 에코를 소환
+        SpawnEcho();
     }
 
 #if UNITY_EDITOR

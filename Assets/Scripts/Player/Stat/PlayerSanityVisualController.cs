@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -14,13 +15,19 @@ public class PlayerSanityVisualController : MonoBehaviour
     private float currentIntensity;
     private float currentSmoothness;
 
+    private EchoSpawnSystem echoSpawnSystem;
+
+    public event Action OnSpawnEcho;
+
     private void Awake()
     {
+        echoSpawnSystem = FindFirstObjectByType<EchoSpawnSystem>();
         volume = FindAnyObjectByType<Volume>();
 
         if (volume != null)
             volume.profile.TryGet(out vignette);
     }
+
 
     private void Start()
     {
@@ -29,6 +36,16 @@ public class PlayerSanityVisualController : MonoBehaviour
             Debug.Log("수치를 잘못 입력하셨습니다. 현재 두 번째 값이 더 큼");
             return;
         }
+    }
+    // 에코 스폰 관련 구독 설정
+    private void OnEnable()
+    {
+        OnSpawnEcho += echoSpawnSystem.CheckEcho;
+    }
+
+    private void OnDisable()
+    {
+        OnSpawnEcho -= echoSpawnSystem.CheckEcho;
     }
 
     public void UpdateSanity(float sanityPercent)
@@ -89,6 +106,12 @@ public class PlayerSanityVisualController : MonoBehaviour
         vignette.smoothness.value = active ? 0.4f : 0f;   // 시야각 축소 느낌
 
         currentIntensity = vignette.intensity.value;
-        currentSmoothness = vignette.smoothness.value;
+        currentSmoothness = vignette.smoothness.value; 
+
+        if ( Mathf.Approximately(currentIntensity, 0.4f) && Mathf.Approximately(currentSmoothness, 0.4f))
+        {
+            Debug.Log("플레이어가 공황 상태에 빠졌습니다. 이제부터 에코가 소환됩니다.");
+            OnSpawnEcho?.Invoke();
+        }
     }
 }

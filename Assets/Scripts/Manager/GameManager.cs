@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
@@ -18,6 +18,8 @@ public class GameManager : Singleton<GameManager>
     public int Money { get; private set; } = 0;
     private string fileName = "MoneyData.json";
 
+    private EchoSpawnSystem echoSpawnSystem;
+
     protected override void Awake()
     {
         base.Awake();
@@ -32,6 +34,8 @@ public class GameManager : Singleton<GameManager>
 
         stat = new PlayerStat();
         PlayerStatTableDataParsing();
+
+        echoSpawnSystem = GetComponent<EchoSpawnSystem>();
     }
 
     private void Start()
@@ -45,6 +49,9 @@ public class GameManager : Singleton<GameManager>
         holder.Init(stat);
         this.playerView = playerView;
         ChangeMoney(0);
+
+        FieldOfView playerFieldOfView = player.GetComponent<FieldOfView>();
+        echoSpawnSystem.Init(player, playerFieldOfView);
     }
 
     private void PlayerStatTableDataParsing()
