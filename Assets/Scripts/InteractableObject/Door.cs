@@ -12,7 +12,8 @@ public class Door : Interactable
     [SerializeField] private DoorType currentDoorType;
     [SerializeField] private NavMeshLink navMeshLink;
     [SerializeField] private AudioClip[] clips;         // 0: 문 여는 소리, 1: 문 닫는 소리
-    
+    [SerializeField] private BoxCollider doorCollider;
+
     private void Awake()
     {
         anim = this.GetComponent<Animator>();
@@ -73,6 +74,7 @@ public class Door : Interactable
                 anim.SetBool("isOpen", false);
                 currentDoorType = DoorType.Closed;
                 newText = promptText[0];
+
                 break;
             case DoorType.Closed:
                 anim.SetBool("isOpen", true);
@@ -89,5 +91,13 @@ public class Door : Interactable
 
         if (eventObj != null)
             EventManager.Instance.OnEventTriggered(eventObj.StartType, eventObj.StartValue);
+    }
+
+    public void TriggerChange()
+    {
+        if (currentDoorType == DoorType.Open && doorCollider.isTrigger == false)
+            doorCollider.isTrigger = true;
+        else if (currentDoorType == DoorType.Closed && doorCollider.isTrigger == true)
+            doorCollider.isTrigger = false;
     }
 }
