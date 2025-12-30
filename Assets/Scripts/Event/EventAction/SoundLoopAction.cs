@@ -10,7 +10,7 @@ public class SoundLoopAction : IEventAction
 
         if (obj != null && obj.TryGetComponent<EventObject>(out evtObj))
         {
-            evtObj.SetAudioSettings(clip, false);
+            evtObj.SetAudioSettings(clip, true);
             evtObj.PlaySoundWithDelay(EventManager.Instance.Delay);
         }
 
