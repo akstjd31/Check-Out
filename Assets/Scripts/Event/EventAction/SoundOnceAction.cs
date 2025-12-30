@@ -7,7 +7,7 @@ public class SoundOnceAction : IEventAction
         GameObject obj = GameObject.Find(startValue);
         var clip = EventSoundManager.Instance.GetAudioClipByPath(eventValue);
         EventObject evtObj = null;
-
+        
         if (obj != null && obj.TryGetComponent<EventObject>(out evtObj))
         {
             Target t = target.Equals("self") ? Target.Self : Target.Other;

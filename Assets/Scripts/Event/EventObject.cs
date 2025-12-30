@@ -28,16 +28,9 @@ public class EventObject : MonoBehaviour
     {
         audioSource = this.GetComponent<AudioSource>();
         anim = this.GetComponent<Animator>();
-    }
 
-    private void Start()
-    {
-        string cloneName = "(Clone)";
-        // 뒤에 클론 붙어있다면 제거 후 저장
-        if (this.name.Contains(cloneName))
-            StartValue = this.name.Substring(0, this.name.Length - cloneName.Length);
-        else
-            StartValue = this.name;
+
+        StartValue = this.name;
 
         if (currentStartType.Equals(StartEventType.Interaction) && this.TryGetComponent<Interactable>(out interactable))
         {
@@ -49,7 +42,7 @@ public class EventObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (!col.CompareTag("Player") && interactable != null) return;
+        if (!col.CompareTag("Player") || interactable != null) return;
 
         Debug.Log("이벤트를 실행!");
         EventManager.Instance.OnEventTriggered(StartType, StartValue);
