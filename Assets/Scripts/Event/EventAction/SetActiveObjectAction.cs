@@ -4,7 +4,7 @@ public class SetActiveObjectAction : IEventAction
 {
     public void Execute(string eventValue, string target, string startValue)
     {
-        GameObject obj = GameObject.Find(startValue);
+        GameObject obj = target.Equals("self") ? GameObject.Find(startValue) : GameObject.Find(target);
         bool active = bool.Parse(eventValue);
         EventObject evtObj = null;
 

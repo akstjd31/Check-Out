@@ -2724,7 +2724,7 @@ MonoBehaviour:
   playerCount: 1
   itemPoolParent: {fileID: 1772231942}
   itemObjPoolParent: {fileID: 950877618}
-  handitemObjPoolParent: {fileID: 1679771731}
+  handItemObjPoolParent: {fileID: 1679771731}
 --- !u!4 &2031907906
 Transform:
   m_ObjectHideFlags: 0

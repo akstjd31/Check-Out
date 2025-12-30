@@ -14,6 +14,7 @@ public class HubState : IState
     {
         Debug.Log("휴식 상태 종료");
         ItemManager.Instance.ReturnAllObjItem();
+        ItemManager.Instance.ReturnAllObjHandItem();
         LoadingManager.Instance.InitSceneActivation();
     }
 

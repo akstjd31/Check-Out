@@ -17,6 +17,7 @@ public class RunState : IState
         
         ItemManager.Instance.ReturnAllObjItem();
         ItemManager.Instance.ReturnAllItem();
+        ItemManager.Instance.ReturnAllObjHandItem();
         LoadingManager.Instance.InitSceneActivation();
     }
 
