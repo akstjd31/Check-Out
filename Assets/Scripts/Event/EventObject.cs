@@ -42,7 +42,7 @@ public class EventObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (!col.CompareTag("Player") || interactable != null) return;
+        if (!col.CompareTag("Player")) return;
 
         if (currentStartType.Equals(StartEventType.EnterCollider))
         {
