@@ -1,3 +1,4 @@
+using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Progress;
@@ -11,7 +12,7 @@ public class ItemManager : Singleton<ItemManager>
 
     [SerializeField] private Transform itemPoolParent;
     [SerializeField] private Transform itemObjPoolParent;
-    [SerializeField] private Transform handitemObjPoolParent;
+    [SerializeField] private Transform handItemObjPoolParent;
 
     private ObjPool<Item> itemPool;
     private ObjPool<ItemObj> itemObjPool;
@@ -54,7 +55,7 @@ public class ItemManager : Singleton<ItemManager>
         foreach (var itemObj in handItemObjects)
         {
             Debug.Log(itemObj.name);
-            handItemObjPool.CreatePool(itemObj, playerCount, handitemObjPoolParent);
+            handItemObjPool.CreatePool(itemObj, playerCount, handItemObjPoolParent);
         }
 
 
@@ -223,6 +224,21 @@ public class ItemManager : Singleton<ItemManager>
                 itemObjPool.ReturnObject(obj, item);
             }
         }
+    }
+
+    public void ReturnAllObjHandItem()
+    {
+        var items = handItemObjPoolParent.GetComponentsInChildren<ItemObj>(true);
+        foreach (var item in items)
+        {
+            if (item != null)
+            {
+                foreach (var obj in handItemObjects)
+                {
+                    handItemObjPool.ReturnObject(obj, item);
+                }
+            }
+        }   
     }
 
     public ItemInstance Createinstance(int itemId)

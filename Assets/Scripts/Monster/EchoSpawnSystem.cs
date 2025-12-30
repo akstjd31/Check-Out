@@ -8,6 +8,9 @@ public class EchoSpawnSystem : MonoBehaviour
 {
     [SerializeField] GameObject echoPrefab;
 
+    [SerializeField] float maxSanity = 29f;
+    [SerializeField] float minSanity = 1f;
+
     [SerializeField] float minDistance; // 반지름 기준
     [SerializeField] float maxDistance;
 
@@ -53,13 +56,13 @@ public class EchoSpawnSystem : MonoBehaviour
     private void Update()
     {
         currentSanity = statController.CurrentSanityPercent;
-        if (currentSanity <= 50f && currentSanity >= 1f)
+        if (currentSanity <= maxSanity && currentSanity >= minSanity)
         {
             Debug.Log("에코 소환중");
             CheckEcho();
         }
 
-        else if (currentSanity > 50f && echoModel != null)
+        else if (currentSanity > maxSanity && echoModel != null)
         {
             Debug.Log("에코 비활성화");
             DisableEcho();
