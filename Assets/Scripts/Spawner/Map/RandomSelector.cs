@@ -19,6 +19,8 @@ public class RandomSelector : MonoBehaviour
     [SerializeField] int elevatorSpawnCount;
     bool isPlaying = false;
 
+    private void Awake() => VideoManager.Instance.Init();
+
     private void Update()
     {
         if (!isPlaying)

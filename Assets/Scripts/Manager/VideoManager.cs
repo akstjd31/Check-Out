@@ -15,6 +15,8 @@ public class VideoManager : Singleton<VideoManager>
 
     private bool isPlaying = false;
 
+    public void Init() => Image = FindAnyObjectByType<RawImageTracker>().GetComponentInChildren<Image>(true);
+    
     private void OnEnable()
     {
         videoPlayer.loopPointReached += OnVideoEnded;
@@ -70,10 +72,6 @@ public class VideoManager : Singleton<VideoManager>
 
     public void Update()
     {
-        if (GameManager.Instance.CurrentState.Equals(GameState.Session) && Image == null) 
-        {
-            Image = FindAnyObjectByType<RawImageTracker>().GetComponentInChildren<Image>(true);
-        }
     }
 
     public void ImageActivate()
