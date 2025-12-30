@@ -10,6 +10,8 @@ public static class ConditionFactory
         {
             case "checkSwitchOff":
                 return new CheckSwitchOffCondition();
+            case "checkSwitchOn":
+                return new CheckSwitchOnCondition();
         }
 
         return null;
