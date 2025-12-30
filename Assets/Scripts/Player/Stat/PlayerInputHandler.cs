@@ -70,7 +70,6 @@ public class PlayerInputHandler : MonoBehaviour
 
         FadeManager.Instance.OnFadeStarted += IgnoreInput;
         FadeManager.Instance.OnFadeEnded += ReleaseIgnoreInput;
-
     }
 
     private void Update()
