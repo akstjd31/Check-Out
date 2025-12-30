@@ -66,6 +66,7 @@ public class PlayerInvincibility : MonoBehaviour
 
                 if (monster is EchoModel)
                 {
+                    SoundManager.Instance.PlayEchoLaughSound();
                     echoSpawnSystem.DisableEcho();
                 }
             }

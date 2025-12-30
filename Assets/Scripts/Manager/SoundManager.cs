@@ -45,6 +45,7 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private AudioClip walkerPatrolSound;
     [SerializeField] private AudioClip walkerChaseSound;
     [SerializeField] private AudioClip sirenLoudSound;
+    [SerializeField] private AudioClip achoLaughSound;
 
     protected override void Awake()
     {
@@ -134,6 +135,12 @@ public class SoundManager : Singleton<SoundManager>
     {
         if (sanitySounds[3] != null)
             audioSource.PlayOneShot(sanitySounds[3]);
+    }
+    
+    public void PlayEchoLaughSound()
+    {
+        if (achoLaughSound != null)
+            audioSource.PlayOneShot(achoLaughSound);
     }
     
     public AudioClip GetSirenLoudClip() => sirenLoudSound;

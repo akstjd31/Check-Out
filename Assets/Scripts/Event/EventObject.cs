@@ -44,7 +44,7 @@ public class EventObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (!col.CompareTag("Player")) return;
+        if (!col.CompareTag("Player") && currentStartType.Equals(StartEventType.Interaction)) return;
 
         Debug.Log("이벤트를 실행!");
         EventManager.Instance.OnEventTriggered(StartType, StartValue);
