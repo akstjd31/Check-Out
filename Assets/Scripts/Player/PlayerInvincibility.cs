@@ -15,6 +15,7 @@ public class PlayerInvincibility : MonoBehaviour
     private PlayerCameraController playerCamera;
     private PlayerSanityVisualController visual;
     private PlayerSoundController soundController;
+    private PlayerStateMachine stateMachine;
 
     [Header("Value")]
     [SerializeField] private bool isInvincible = false;  // 무적 상태인지?
@@ -26,11 +27,13 @@ public class PlayerInvincibility : MonoBehaviour
         playerCamera = this.GetComponent<PlayerCameraController>();
         visual = this.GetComponent<PlayerSanityVisualController>();
         soundController = this.GetComponent<PlayerSoundController>();
+        stateMachine = this.GetComponent<PlayerStateMachine>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isInvincible) return;
+        if (isInvincible || !stateMachine.CurrentDeath.Equals(playerDeath.Hit))
+            return;
 
         if (other.CompareTag("DamagedArea"))
         {
