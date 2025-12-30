@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 1594996792662283249}
   - component: {fileID: 3818408127474550692}
   - component: {fileID: 746209349226411557}
-  - component: {fileID: 4347250759505337903}
   m_Layer: 29
   m_Name: Walker
   m_TagString: Monster
@@ -335,19 +334,7 @@ MonoBehaviour:
   bottomTexture: {fileID: -88190406, guid: 63661d131f426d14d96e8ba8dff153c6, type: 3}
   leftTexture: {fileID: 95543126, guid: 63661d131f426d14d96e8ba8dff153c6, type: 3}
   rightTexture: {fileID: 95543126, guid: 63661d131f426d14d96e8ba8dff153c6, type: 3}
---- !u!114 &4347250759505337903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5085514986687526861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fda23d26321545f4b868153dc84fce28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MonsterDetector
-  stopTime: 0.01
+  ScreamTexture: {fileID: 0}
 --- !u!1 &5795836234579125894
 GameObject:
   m_ObjectHideFlags: 0

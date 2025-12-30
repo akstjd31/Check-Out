@@ -9,6 +9,7 @@ public class WalkerController : MonsterController
     private FieldOfView walkerFieldOfView;
     private MonsterMovement walkerMovement;
     private WaitForSeconds stopToMissing;
+    private FourView fourView;
     private float chaseTimer;
     private float checkTimer;
     private bool onRun = true;
@@ -20,6 +21,7 @@ public class WalkerController : MonsterController
         walkerModel = GetComponent<WalkerModel>();
         walkerFieldOfView = GetComponent<FieldOfView>();
         walkerMovement = GetComponent<MonsterMovement>();
+        fourView = GetComponent<FourView>();
     }
 
     private void Start()
@@ -188,6 +190,7 @@ public class WalkerController : MonsterController
     {
         Debug.Log("배회 실행");
         targetTransform = null;
+        fourView.ChangedAnimState(AnimState.Move);
         walkerMovement.ChangeSpeed(walkerModel.PatrolSpeed);
         walkerMovement.PatrolNextOne();
     }

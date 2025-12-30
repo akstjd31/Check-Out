@@ -37,4 +37,20 @@ public class FourView : TwoDStyleRender
             SetActualShowedState(ShowedState.left);
         }
     }
+
+    public void ChangedAnimState(AnimState state)
+    {
+        switch (state)
+        {
+            case AnimState.Idle:
+                animState = AnimState.Idle;
+                break;
+            case AnimState.Move:
+                animState = AnimState.Move;
+                break;
+            case AnimState.Scream:
+                animState = AnimState.Scream;
+                break;
+        }
+    }
 }

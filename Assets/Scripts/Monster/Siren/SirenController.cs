@@ -111,6 +111,7 @@ public class SirenController : MonsterController
     protected override void StartPatrol()
     {
         Debug.Log("배회 실행");
+        fourView.ChangedAnimState(AnimState.Move);
         sirenMovement.ChangeSpeed(sirenModel.PatrolSpeed);
         sirenMovement.PatrolNextOne();
     }
@@ -147,7 +148,7 @@ public class SirenController : MonsterController
             // 3초 동안 비명
             if (alertTimer <= 3f)
             {
-                fourView.animState = AnimState.Scream;
+                fourView.ChangedAnimState(AnimState.Scream);
                 sirenMovement.Move(targetTransform, 0f);
                 sirenMovement.NavRotationOff();
                 transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
@@ -189,7 +190,7 @@ public class SirenController : MonsterController
                 sirenMovement.NavRotationOn();
                 sprite.color = Color.white;
                 screamInMonster.Clear();
-                fourView.animState = AnimState.Idle;
+                fourView.ChangedAnimState(AnimState.Idle);
                 yield return new WaitForSeconds(3f);
                 sirenModel.ChangeState(Monster.MonsterState.WanderingAround);
                 alertTimer = 0f;
