@@ -86,10 +86,9 @@ public class EventObject : MonoBehaviour
         audioSource.PlayDelayed(delay);
     }
 
-    public void SetActiveObject(bool active, string targetName, float delay)
-    {
-        StartCoroutine(SetActiveWithDelay(active, targetName, delay));
-    }
+    public void SetDeactivateObject(string targetName, float delay) => StartCoroutine(SetActiveWithDelay(false, targetName, delay));
+
+    public void SetActivateObject(string targetName, float delay) => StartCoroutine(SetActiveWithDelay(true, targetName, delay));
 
     private IEnumerator SetActiveWithDelay(bool active, string targetName, float delay)
     {

@@ -10,7 +10,10 @@ public class SetActiveObjectAction : IEventAction
 
         if (obj != null && obj.TryGetComponent<EventObject>(out evtObj))
         {
-            evtObj.SetActiveObject(active, target, EventManager.Instance.Delay);
+            if (active)
+                evtObj.SetActivateObject(target, EventManager.Instance.Delay);
+            else
+                evtObj.SetDeactivateObject(target, EventManager.Instance.Delay);
         }
 
         EventManager.Instance.Delay = 0f;
