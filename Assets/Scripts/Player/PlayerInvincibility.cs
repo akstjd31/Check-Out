@@ -32,7 +32,7 @@ public class PlayerInvincibility : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isInvincible || !stateMachine.CurrentDeath.Equals(playerDeath.Hit))
+        if (isInvincible)
             return;
 
         if (other.CompareTag("DamagedArea"))
