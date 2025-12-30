@@ -16,7 +16,6 @@ public class InventoryManager : Singleton<InventoryManager>
     private ItemInstance pervItem;
     private int currentIndex = -1;
 
-    ItemObj preObj;
     ItemObj itemObj;
     //private Vector3 playerPos;
 

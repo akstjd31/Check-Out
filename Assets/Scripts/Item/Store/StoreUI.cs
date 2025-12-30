@@ -113,13 +113,17 @@ public class StoreUI : MonoBehaviour
         if (itemdata.itemType == "Gadget")
         {
             typeImage.gameObject.SetActive(true);
-            typeImage.color = Color.pink;
+            Color color = Color.pink;
+            color.a = 0.5f;
+            typeImage.color = color;
         }
 
         else if (itemdata.itemType == "Consumable")
         {
             typeImage.gameObject.SetActive(true);
-            typeImage.color = Color.blue;
+            Color color = Color.blue;
+            color.a = 0.5f;
+            typeImage.color = color;
         }
 
         else
