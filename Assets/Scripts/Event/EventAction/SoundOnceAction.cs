@@ -4,7 +4,7 @@ public class SoundOnceAction : IEventAction
 {
     public void Execute(string eventValue, string target, string startValue)
     {
-        GameObject obj = target.Equals("self") ? GameObject.Find(startValue) : GameObject.Find(target);
+        GameObject obj = GameObject.Find(startValue);
         var clip = EventSoundManager.Instance.GetAudioClipByPath(eventValue);
         EventObject evtObj = null;
 

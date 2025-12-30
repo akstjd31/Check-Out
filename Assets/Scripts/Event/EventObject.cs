@@ -12,6 +12,7 @@ public class EventObject : MonoBehaviour
 {
     [SerializeField] private StartEventType currentStartType;
     [SerializeField] private GameObject targetObj;
+    private EventObject targetEvtObj;
     private float delay;
     private Interactable interactable;
     private AudioSource audioSource;
@@ -67,23 +68,52 @@ public class EventObject : MonoBehaviour
     // 사운드 설정
     public void SetAudioLoopSettings(AudioClip clip)
     {
-        audioSource.clip = clip;
-        audioSource.loop = true;
+        if (targetObj != null)
+        {
+            targetEvtObj = targetObj.GetComponent<EventObject>();
+            if (targetEvtObj != null)
+            {
+                targetEvtObj.SetAudioLoopSettings(clip);
+            }
+        }
+        else
+        {
+            audioSource.clip = clip;
+            audioSource.loop = true;
+        }
     }
 
     public void SetAudioOnceSettings(AudioClip clip)
     {
-        audioSource.clip = clip;
+        if (targetObj != null)
+        {
+            targetEvtObj = targetObj.GetComponent<EventObject>();
+
+            if (targetEvtObj != null)
+            {
+                targetEvtObj.SetAudioOnceSettings(clip);
+                targetEvtObj.PlaySoundWithDelay(0);
+            }
+        }
+        else
+        {
+            audioSource.clip = clip;
+        }
     }
 
     public void PlaySoundWithDelay(float delay)
     {
-        if (delay <= 0f)
+        if (targetObj != null)
         {
-            audioSource.Play();
-        }
+            targetEvtObj = targetObj.GetComponent<EventObject>();
 
-        audioSource.PlayDelayed(delay);
+                if (targetEvtObj != null)
+            {
+                targetEvtObj.PlaySoundWithDelay(delay);
+            }
+        }
+        else
+            audioSource.PlayDelayed(delay);
     }
 
     public void SetActiveObject(bool active, float delay)
