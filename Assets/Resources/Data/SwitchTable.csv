@@ -8,12 +8,12 @@ int,string,string,string
 9005,5,FALSE,TRUE
 9006,6,FALSE,TRUE
 9007,7,FALSE,TRUE
-9008,F1 이벤트 사운드 출력 스위치,FALSE,TRUE
-9009,F5 이벤트 사운드 출력 스위치,FALSE,TRUE
-9010,F6 이벤트 사운드 출력 스위치,FALSE,TRUE
-9011,F7 이벤트 사운드 출력 스위치,FALSE,TRUE
-9012,F8 이벤트 사운드 출력 스위치,FALSE,TRUE
-9013,F9 이벤트 사운드 출력 스위치,FALSE,TRUE
+9008,200 휘파람 사운드 이벤트,FALSE,TRUE
+9009,204 문긁는 사운드 이벤트,FALSE,TRUE
+9010,205 문 찰칵 사운드 이벤트,FALSE,TRUE
+9011,206 우당탕 사운드 이벤트,FALSE,TRUE
+9012,207 속삭임 사운드 이벤트,FALSE,TRUE
+9013,208 아이 웃음소리 이벤트,FALSE,TRUE
 9014,쨍그랑 이벤트 오브젝트 소환 스위치,FALSE,TRUE
 9015,혼비백산1 이벤트 손전등 깜박임 트리거 스위치,FALSE,TRUE
 9016,혼비백산2 애니메이션 부분 재생,FALSE,TRUE
@@ -21,4 +21,5 @@ int,string,string,string
 9018,특정 문과 상호작용 했을 때 내부에 배치된 인터폰이 울리는 스위치,FALSE,TRUE
 9019,"인터폰과 상호작용 했을 때 대사창을 켜고, 특정 타일을 밟았을 때 오브젝트를 소환하는 스위치",FALSE,TRUE
 9020,뒤를 봐 스위치로 소환된 플레인 오브젝트를 소멸시키는 스위치,FALSE,TRUE
-9021,K1 발자국 이벤트 소리 스위치,FALSE,TRUE
+9021,217 발자국 이벤트 소리 스위치,FALSE,TRUE
+9023,210 여자애 웃는 소리 스위치,FALSE,TRUE
