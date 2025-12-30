@@ -38,10 +38,14 @@ public class GameManager : Singleton<GameManager>
         stat = new PlayerStat();
         PlayerStatTableDataParsing();
 
-        slider.SetValueWithoutNotify(1);
-        AudioListener.volume = 1;
+        if (slider != null)
+        {
+            slider.SetValueWithoutNotify(1);
+            AudioListener.volume = 1;
 
-        slider.onValueChanged.AddListener(SetVolume);
+            slider.onValueChanged.AddListener(SetVolume);
+        }
+
     }
 
     private void Start()
