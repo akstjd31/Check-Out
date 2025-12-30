@@ -34,8 +34,6 @@ public class GameManager : Singleton<GameManager>
 
         stat = new PlayerStat();
         PlayerStatTableDataParsing();
-
-        echoSpawnSystem = GetComponent<EchoSpawnSystem>();
     }
 
     private void Start()
@@ -51,7 +49,12 @@ public class GameManager : Singleton<GameManager>
         ChangeMoney(0);
 
         FieldOfView playerFieldOfView = player.GetComponent<FieldOfView>();
-        echoSpawnSystem.Init(player, playerFieldOfView);
+
+        if (GameManager.Instance.CurrentState == GameState.Session)
+        {
+            echoSpawnSystem = FindAnyObjectByType<EchoSpawnSystem>();
+            echoSpawnSystem.Init(player, playerFieldOfView);
+        }
     }
 
     private void PlayerStatTableDataParsing()

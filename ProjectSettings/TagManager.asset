@@ -46,7 +46,7 @@ TagManager:
   - SoundSensor
   - Monster
   - Collider
-  - 
+  - EchoCheck
   m_SortingLayers:
   - name: Default
     uniqueID: 0

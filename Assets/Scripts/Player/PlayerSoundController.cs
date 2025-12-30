@@ -82,16 +82,25 @@ public class PlayerSoundController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Monster") && other.transform.parent.TryGetComponent<SirenModel>(out var sirenModel) &&
+        if (other.CompareTag("Monster"))
+        {
+            if (other.GetComponent<Monster>() is EchoModel)
+            {
+                return;
+            }
+
+            if (other.transform.parent.TryGetComponent<SirenModel>(out var sirenModel) &&
             other.transform.parent.TryGetComponent<SirenController>(out var sirenController) &&
             (state.CurrentState == PlayerState.Run || state.CurrentState == PlayerState.Walk))
-        {
-            if (sirenModel.monsterState == Monster.MonsterState.WanderingAround)
             {
-                sirenController.GetTransform(transform);
-                sirenModel.ChangeState(Monster.MonsterState.Alert);
+                if (sirenModel.monsterState == Monster.MonsterState.WanderingAround)
+                {
+                    sirenController.GetTransform(transform);
+                    sirenModel.ChangeState(Monster.MonsterState.Alert);
+                }
             }
         }
+            
 
         //if (other.TryGetComponent<SirenController>(out var sirenController)
         //    && other.TryGetComponent<SirenModel>(out var sirenModel)

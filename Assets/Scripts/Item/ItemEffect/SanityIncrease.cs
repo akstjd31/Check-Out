@@ -18,10 +18,10 @@ public class SanityIncrease : ItemEffect
         PlayerSoundController soundController = player.transform.GetComponent<PlayerSoundController>();
 
         soundController.PlayEatingSound();
-        playerStat.ChangeSanity(false, Value1);
+        playerStat.ChangeSanity(false,Value1);
 
         //InventoryManager.Instance.RemoveInventoryItem();
-
+       
         return true;
     }
 }

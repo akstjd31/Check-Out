@@ -15,13 +15,11 @@ public class PlayerSanityVisualController : MonoBehaviour
     private float currentIntensity;
     private float currentSmoothness;
 
-    private EchoSpawnSystem echoSpawnSystem;
 
-    public event Action OnSpawnEcho;
+    
 
     private void Awake()
     {
-        echoSpawnSystem = FindFirstObjectByType<EchoSpawnSystem>();
         volume = FindAnyObjectByType<Volume>();
 
         if (volume != null)
@@ -40,12 +38,12 @@ public class PlayerSanityVisualController : MonoBehaviour
     // 에코 스폰 관련 구독 설정
     private void OnEnable()
     {
-        OnSpawnEcho += echoSpawnSystem.CheckEcho;
+
     }
 
     private void OnDisable()
     {
-        OnSpawnEcho -= echoSpawnSystem.CheckEcho;
+        
     }
 
     public void UpdateSanity(float sanityPercent)
@@ -97,6 +95,8 @@ public class PlayerSanityVisualController : MonoBehaviour
 
         currentIntensity = vignette.intensity.value;
         currentSmoothness = vignette.smoothness.value;
+
+        
     }
     private void SetWarningSecond(bool active)
     {
@@ -107,11 +107,5 @@ public class PlayerSanityVisualController : MonoBehaviour
 
         currentIntensity = vignette.intensity.value;
         currentSmoothness = vignette.smoothness.value; 
-
-        if ( Mathf.Approximately(currentIntensity, 0.4f) && Mathf.Approximately(currentSmoothness, 0.4f))
-        {
-            Debug.Log("플레이어가 공황 상태에 빠졌습니다. 이제부터 에코가 소환됩니다.");
-            OnSpawnEcho?.Invoke();
-        }
     }
 }

@@ -1,8 +1,8 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 public class EchoSpawnSystem : MonoBehaviour
 {
@@ -20,31 +20,26 @@ public class EchoSpawnSystem : MonoBehaviour
     [SerializeField ]private LayerMask obstacleMask;
 
     private EchoModel echoModel;
-    private EchoController echoController;
-    private WaitForSeconds respawnDelay;
-    bool obstacleCheck = true;
+
+    private Monster monster;
+
+    private StatController statController;
+
+    WaitForSeconds respawnTime;
+
+    public bool spawnActivate = true;
+
+    public bool isSpawn = false;
+
+    private float currentSanity;
 
     public GameObject EchoPrefab { get { return echoPrefab; } }
 
 
     private void Awake()
     {
-        //Init();
+        statController = GetComponent<StatController>();
     }
-
-    public void Init()
-    {
-        if(player == null)
-        {
-            player = GameManager.Instance.Player.transform;
-            playerView = player.GetComponent<FieldOfView>();
-        }
-
-        echoController = FindFirstObjectByType<EchoController>();
-        echoModel = FindFirstObjectByType<EchoModel>();
-        respawnDelay = new WaitForSeconds(echoModel.RespawnTime);
-    }
-
 
     public void Init(GameObject inputPlayer, FieldOfView inputPlayerView)
     {
@@ -53,10 +48,23 @@ public class EchoSpawnSystem : MonoBehaviour
             player = inputPlayer.transform;
             playerView = inputPlayerView.GetComponent<FieldOfView>();
         }
+    }
 
-        echoController = FindFirstObjectByType<EchoController>();
-        echoModel = FindFirstObjectByType<EchoModel>();
-        respawnDelay = new WaitForSeconds(echoModel.RespawnTime);
+    private void Update()
+    {
+        currentSanity = statController.CurrentSanityPercent;
+        if (currentSanity <= 50f && currentSanity >= 1f)
+        {
+            Debug.Log("에코 소환중");
+            CheckEcho();
+        }
+
+        else if (currentSanity > 50f && echoModel != null)
+        {
+            Debug.Log("에코 비활성화");
+            DisableEcho();
+        }
+
     }
 
     public bool GetRandomPosition(out Vector3 position)
@@ -124,6 +132,8 @@ public class EchoSpawnSystem : MonoBehaviour
         if (GetRandomPosition(out var pos))
         {
             Instantiate(echoPrefab, pos, Quaternion.identity);
+            echoModel = FindFirstObjectByType<EchoModel>(FindObjectsInactive.Include);
+            respawnTime = new WaitForSeconds(echoModel.RespawnTime);
         }
 
         else
@@ -132,27 +142,12 @@ public class EchoSpawnSystem : MonoBehaviour
         }
     }
 
-    public void StartRespawnEcho()
-    {
-        StartCoroutine(RespawnEcho());
-    }
-
-    // 에코 리스폰 딜레이 후 다시 활성화
-    private IEnumerator RespawnEcho()
-    {
-        Debug.Log("에코 리스폰 딜레이 시작");
-        yield return respawnDelay;
-        Debug.Log("에코 리스폰 딜레이 종료");
-        ActiveEcho();
-    }
-
     public void ActiveEcho()
     {
         if (GetRandomPosition(out var pos))
         {
-            echoController.transform.position = pos;
-            echoController.transform.LookAt(pos);
-            echoController.gameObject.SetActive(true);
+            echoModel.transform.position = pos;
+            echoModel.gameObject.SetActive(true);
             echoModel.ChangeState(Monster.MonsterState.Observe);
         }
 
@@ -164,29 +159,41 @@ public class EchoSpawnSystem : MonoBehaviour
 
     public void CheckEcho()
     {
-        Debug.Log(" CheckEcho를 수행합니다. ");
+        if (isSpawn == true) return;
+        if (spawnActivate == false) return;
+
+        isSpawn = true;
+        spawnActivate = false;
         // 태그로 몬스터 반환
-        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        var echo = FindAnyObjectByType<EchoController>(FindObjectsInactive.Include);
 
-        if (monsters.Length == 0)
+        if (echo != null)
         {
-            Debug.Log("씬에 몬스터가 없습니다.");
-        }
-
-        foreach ( var monster in monsters)
-        {
-            EchoController echo = monster.GetComponent<EchoController>();
-
-            if ( echo != null)
-            {
-                Debug.Log(" 에코를 발견했습니다. 에코를 리스폰합니다. ");
-                StartRespawnEcho();
-                return;
-            }
+            ActiveEcho();
+            return;
         }
 
         // 현재 씬에 에코가 없다면 에코를 소환
         SpawnEcho();
+    }
+    public IEnumerator StartSpawnCount()
+    {
+        yield return new WaitForSeconds(30f);
+        spawnActivate = true;
+    }
+
+    // 에코를 비활성화하고 딜레이만큼 멈춘다음 스폰진행합니다.
+    public void DisableEcho()
+    {
+        // 물리 충돌과 시야에서만 제외시킴
+        isSpawn = false;
+        echoModel.gameObject.SetActive(false);
+        StartCoroutine(StartSpawnCount());
+    }
+
+    public void GetTarget(Monster monster)
+    {
+        this.monster = monster;
     }
 
 #if UNITY_EDITOR

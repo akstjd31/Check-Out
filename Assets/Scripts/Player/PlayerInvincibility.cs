@@ -25,12 +25,15 @@ public class PlayerInvincibility : MonoBehaviour
     public bool onHit = false;
     public bool hit = false;
 
+    private EchoSpawnSystem echoSpawnSystem;
+
     private void Awake()
     {
         stat = this.GetComponent<StatController>();
         playerCamera = this.GetComponent<PlayerCameraController>();
         visual = this.GetComponent<PlayerSanityVisualController>();
         soundController = this.GetComponent<PlayerSoundController>();
+        echoSpawnSystem = this.GetComponent<EchoSpawnSystem>();
         stateMachine = this.GetComponent<PlayerStateMachine>();
     }
 
@@ -60,6 +63,11 @@ public class PlayerInvincibility : MonoBehaviour
                     SoundManager.Instance.PlayMannequinAttackSound();
                 else if (monster is SirenModel || monster is WalkerModel)
                     SoundManager.Instance.PlayWalkerAndSirenAttackSound();
+
+                if (monster is EchoModel)
+                {
+                    echoSpawnSystem.DisableEcho();
+                }
             }
         }
     }
@@ -97,6 +105,8 @@ public class PlayerInvincibility : MonoBehaviour
             OnHitInvincible();
 
             visual.UpdateShake(onHit);
+
+            
         }
         onHit = false;
     }

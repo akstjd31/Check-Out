@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class EchoPlayerDetect : MonoBehaviour
 {
-    private EchoController echoController;
+    private EchoSpawnSystem echoSpawnSystem;
+    private EchoModel echo;
 
     private void Awake()
     {
-        echoController = FindFirstObjectByType<EchoController>();
+        echoSpawnSystem = FindFirstObjectByType<EchoSpawnSystem>();
+        echo = GetComponent<EchoModel>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -14,12 +16,12 @@ public class EchoPlayerDetect : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("에코가 플레이어와 충돌했습니다");
-            if (echoController == null)
+            if (echoSpawnSystem == null)
             {
                 Debug.LogError("EchoController이 비어있습니다.");
                 return;
             }
-            echoController.DisableEcho();
+            echoSpawnSystem.DisableEcho();
         }
     }
 }
