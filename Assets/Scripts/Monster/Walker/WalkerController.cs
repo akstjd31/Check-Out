@@ -28,6 +28,7 @@ public class WalkerController : MonsterController
     {
         Init();
         Debug.Log("워커 컨트롤러 배회 시작");
+        fourView.ChangedAnimState(AnimState.Move);
         walkerModel.monsterState = Monster.MonsterState.WanderingAround;
         walkerMovement.ChangeSpeed(walkerModel.PatrolSpeed);
         walkerMovement.PatrolNextOne();

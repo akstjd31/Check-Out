@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -20,6 +21,8 @@ public class GameManager : Singleton<GameManager>
 
     private EchoSpawnSystem echoSpawnSystem;
 
+    [SerializeField] private Slider slider;
+
     protected override void Awake()
     {
         base.Awake();
@@ -34,6 +37,11 @@ public class GameManager : Singleton<GameManager>
 
         stat = new PlayerStat();
         PlayerStatTableDataParsing();
+
+        slider.SetValueWithoutNotify(1);
+        AudioListener.volume = 1;
+
+        slider.onValueChanged.AddListener(SetVolume);
     }
 
     private void Start()
@@ -176,4 +184,9 @@ public class GameManager : Singleton<GameManager>
 
     // UI 열려있는지?
     public bool IsOpenedUI() => StorageManager.Instance.IsOpen || StoreManager.Instance.IsOpen;
+
+    private void SetVolume(float value)
+    {
+        AudioListener.volume = value;
+    }
 }

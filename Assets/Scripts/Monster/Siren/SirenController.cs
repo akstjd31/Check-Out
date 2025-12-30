@@ -37,6 +37,7 @@ public class SirenController : MonsterController
     {
         Init();
         Debug.Log("사이렌 컨트롤러 배회 시작");
+        fourView.ChangedAnimState(AnimState.Move);
         sirenModel.monsterState = Monster.MonsterState.WanderingAround;
         sirenMovement.ChangeSpeed(sirenModel.PatrolSpeed);
         Debug.Log(sirenModel.PatrolSpeed);
