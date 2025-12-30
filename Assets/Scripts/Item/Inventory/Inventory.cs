@@ -10,8 +10,6 @@ public class Inventory : MonoBehaviour
     [SerializeField] private int inventorySize = 4;
     public event Action<int> OnSlotUpdated;
 
-    private Dictionary<int, List<ItemEffect>> effectslot;
-
     public void SetInventory(int size)
     {
         if (size < 1)
@@ -21,7 +19,6 @@ public class Inventory : MonoBehaviour
         }
             
         slots = new ItemInstance[size];
-        effectslot = new Dictionary<int, List<ItemEffect>>();
     }
 
     public int GetDefaultInventorySize() => inventorySize;

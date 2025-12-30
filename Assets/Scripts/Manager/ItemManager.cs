@@ -18,9 +18,8 @@ public class ItemManager : Singleton<ItemManager>
     private ObjPool<ItemObj> handItemObjPool;
     private Dictionary<int, ItemTableData> itemDataID;
     private Dictionary<int, EffectGroupTableData> effectDataID;
-    //private Dictionary<ItemTableData, List<IItemEffect>> items;
 
-    ItemObj itemobject;
+    private ItemObj itemobject;
     protected override void Awake()
     {
         base.Awake();
@@ -193,7 +192,7 @@ public class ItemManager : Singleton<ItemManager>
             if (obj.ItemId == item.ItemId)
             {
                 Debug.Log("반환함");
-                item.transform.SetParent(handitemObjPoolParent, false);
+                //item.transform.SetParent(handitemObjPoolParent, false);
                 handItemObjPool.ReturnObject(obj, item);
                 return;
             }
