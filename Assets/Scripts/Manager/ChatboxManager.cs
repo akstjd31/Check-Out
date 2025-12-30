@@ -77,6 +77,7 @@ public class ChatboxManager : Singleton<ChatboxManager>
 
     public void StartChatbox(int id)
     {
+        if (isUsingChatbox) return;
         Debug.Log($"{id}");
         eventId = id;
         StartDialogue();
