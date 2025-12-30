@@ -9,14 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
     guid: 76be35fd1b1f3dd48915f2dcfba00df7
   - enabled: 1
-    path: Assets/Scenes/HubScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Resources/StoreAssets/Map/Stage/RestSpace.unity
+    guid: d5438db4c96438e40843db851d77e765
   - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: 6d3a268b4f2eb874a86d36097f66eda0
   - enabled: 1
     path: Assets/Scenes/SessionScene.unity
-    guid: aeb880fce8ec5e54180ddfd31073f9f3
+    guid: 0ae2112be5188e547b6593de9762694a
   - enabled: 1
     path: Assets/Scenes/DeadScene.unity
     guid: 9409bdaaa92452942b823d13735d9608
