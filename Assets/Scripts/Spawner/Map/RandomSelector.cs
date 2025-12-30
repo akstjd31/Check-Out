@@ -24,7 +24,7 @@ public class RandomSelector : MonoBehaviour
         if (!isPlaying)
         {
             SetItemSpawnLocation();
-            //SetMonsterSpawnLocation();
+            SetMonsterSpawnLocation();
             SetElevatorActivate();
             isPlaying = true;
         }

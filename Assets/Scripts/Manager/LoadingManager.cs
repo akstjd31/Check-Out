@@ -26,16 +26,6 @@ public class LoadingManager : Singleton<LoadingManager>
         }
     }
 
-    private void LoadData()
-    {
-        if (GameManager.Instance.PreviousState != GameState.Main)
-            SaveData();
-
-        GameManager.Instance.LoadMoney();
-        StorageManager.Instance.LoadStorage();
-        InventoryManager.Instance.LoadInventory();
-    }
-
     private void SaveData()
     {
         GameManager.Instance.SaveMoney();
@@ -70,7 +60,7 @@ public class LoadingManager : Singleton<LoadingManager>
         // 로딩 완료 후에 외부 신호(readyToActivate) 대기
         Debug.Log("준비가 완료될때까지 대기 중..");
 
-        LoadData();
+        SaveData();
 
         // 외부에서 신호를 기다림
         yield return new WaitUntil(() => readyToActivate); 

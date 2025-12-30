@@ -8,6 +8,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerCameraController))]
 public class PlayerInvincibility : MonoBehaviour
 {
+
+    public Monster hitMonster { get; private set; }
     [Header("Component")]
     private StatController stat;
     private PlayerCameraController playerCamera;
@@ -33,12 +35,23 @@ public class PlayerInvincibility : MonoBehaviour
         if (other.CompareTag("DamagedArea"))
         {
             var monster = other.GetComponentInParent<Monster>();
+            Monster model = other.GetComponentInParent<Monster>();
+
+            if (model != null)
+            {
+                hitMonster = model;
+            }
 
             if (monster != null)
             {
+                if (monster is MannequinModel)
+                    SoundManager.Instance.PlayMannequinAttackSound();
+                else if (monster is SirenModel |
+                        monster is WalkerModel)
+                    SoundManager.Instance.PlayWalkerAndSirenAttackSound();
+
                 onHit = true;
                 playerCamera.Hit();
-                soundController.PlayDamagedSound();
                 Debug.LogWarning("데미지 입음!");
                 stat.ChangeSanity(onHit, -monster.Power);
                 StartCoroutine(InvincibleCoroutine());
@@ -54,5 +67,10 @@ public class PlayerInvincibility : MonoBehaviour
         isInvincible = true;
         yield return new WaitForSeconds(stat.DefaultInvincibilityTime);
         isInvincible = false;
+    }
+
+    public void ClearHitMonster()
+    {
+        hitMonster = null;
     }
 }

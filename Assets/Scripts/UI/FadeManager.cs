@@ -64,11 +64,10 @@ public class FadeManager : Singleton<FadeManager>
             SetAlpha(time / fadeDuration);
             yield return null;
         }
-
-        GameManager.Instance.isGameOver = false;
-        InventoryManager.Instance.ResetInventory();
-        GameManager.Instance.ChangeState(GameState.Loading);
         OnFadeEnded?.Invoke();
+
+        if (GameManager.Instance.isGameOver)
+            GameManager.Instance.ChangeState(GameState.Dead);
     }
 
 

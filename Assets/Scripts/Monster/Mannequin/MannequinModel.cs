@@ -8,6 +8,8 @@ public class MannequinModel : Monster
     // 워커 상태 정의 : 배회, 접근, 정지, 어그로 해제, 발견
     //public enum WalkerState { WanderingAround, Approach, Stop, MissingPlayer,FindPlayer }
     
+    private AudioSource audioSource;
+
     [Header("IndividualProperties")]
     [Header("Speed")]
     [SerializeField]private float approachSpeed = 9.0f;
@@ -37,6 +39,7 @@ public class MannequinModel : Monster
     public event Action OnFindPlayer;
     public event Action OnAlerted;
 
+    private void Awake() => audioSource = this.GetComponent<AudioSource>();
 
     public override void ChangeState(MonsterState inputState)
     {
@@ -45,16 +48,25 @@ public class MannequinModel : Monster
         {
             case MonsterState.WanderingAround:
                 monsterState = MonsterState.WanderingAround;
+
+                if (!audioSource.isPlaying)
+                    audioSource.Play();
+                    
                 OnWanderingAround?.Invoke();
                 break;
             case MonsterState.Approach:
                 monsterState = MonsterState.Approach;
+
+                if (!audioSource.isPlaying)
+                    audioSource.Play();
+
                 OnApproach?.Invoke();
                 // OnChaseAfter?.Invoke();
                 break;
             case MonsterState.Stop:
                 isObservedFromPlayer = true;
                 monsterState = MonsterState.Stop;
+                audioSource.Stop();
                 OnStop?.Invoke();
                 // OnChaseAfter?.Invoke();
                 break;

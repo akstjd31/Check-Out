@@ -6,6 +6,7 @@ public class SirenModel : Monster
 {
     // 워커 상태 정의 : 배회, 추격, 어그로 해제, 발견
     
+    private AudioSource audioSource;
     [Header("IndividualProperties")]
     [Header("Delay")]
     [SerializeField] private float stopToMissingDelay = 3.0f;
@@ -47,6 +48,13 @@ public class SirenModel : Monster
     public event Action OnWanderingAround;
     public event Action OnAlert;
     public event Action OnFindPlayer;
+    private AudioClip patrolAudioClip;
+
+    private void Awake()
+    {
+        audioSource = this.GetComponent<AudioSource>();
+        patrolAudioClip = audioSource.clip;
+    }
 
     public override void ChangeState(MonsterState inputState)
     {
@@ -55,10 +63,12 @@ public class SirenModel : Monster
         {
             case MonsterState.WanderingAround:
                 monsterState = MonsterState.WanderingAround;
+                audioSource.clip = patrolAudioClip;
                 OnWanderingAround?.Invoke();
                 break;
             case MonsterState.Alert:
                 monsterState = MonsterState.Alert;
+                audioSource.clip = SoundManager.Instance.GetSirenLoudClip();
                 OnAlert?.Invoke();
                 break;
             case MonsterState.FindPlayer:
@@ -66,6 +76,8 @@ public class SirenModel : Monster
                 OnFindPlayer?.Invoke();
                 break;
         }
+
+        audioSource.Play();
     }
 }
 

@@ -3,5 +3,5 @@
 /// </summary>
 public interface IEventAction
 {
-    void Execute(string eventValue, string targetObject);
+    void Execute(string eventValue, string targetObject, string startValue);
 }

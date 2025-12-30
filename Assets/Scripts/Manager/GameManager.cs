@@ -1,5 +1,3 @@
-﻿using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +5,6 @@ public class GameManager : Singleton<GameManager>
 {
     [Header("State")]
     public GameState CurrentState { get; private set; }
-    public GameState PreviousState { get; private set; }
 
     private StateMachine<GameState> stateMachine;
     public GameObject Player { get; private set; }
@@ -21,6 +18,8 @@ public class GameManager : Singleton<GameManager>
     public int Money { get; private set; } = 0;
     private string fileName = "MoneyData.json";
 
+    private EchoSpawnSystem echoSpawnSystem;
+
     protected override void Awake()
     {
         base.Awake();
@@ -31,9 +30,12 @@ public class GameManager : Singleton<GameManager>
         stateMachine.AddState(GameState.Hub, new HubState());
         stateMachine.AddState(GameState.Loading, new LoadingState());
         stateMachine.AddState(GameState.Session, new RunState());
+        stateMachine.AddState(GameState.Dead, new DeadState());
 
         stat = new PlayerStat();
         PlayerStatTableDataParsing();
+
+        echoSpawnSystem = GetComponent<EchoSpawnSystem>();
     }
 
     private void Start()
@@ -47,6 +49,9 @@ public class GameManager : Singleton<GameManager>
         holder.Init(stat);
         this.playerView = playerView;
         ChangeMoney(0);
+
+        FieldOfView playerFieldOfView = player.GetComponent<FieldOfView>();
+        echoSpawnSystem.Init(player, playerFieldOfView);
     }
 
     private void PlayerStatTableDataParsing()
@@ -75,9 +80,21 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("플레이어 스탯 테이블 데이터 불러오기 완료!");
     }
 
-    public void OnGameStartButton()
+    public void OnGameDataLoadButton()
     {
-        ChangeState(GameState.Loading);
+        LoadMoney();
+        StorageManager.Instance.LoadStorage();
+        InventoryManager.Instance.LoadInventory();
+    }
+    public void OnGameStartButton() => ChangeState(GameState.Loading);
+
+    public void OnGameExitButton()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
     private void OnEnable()
@@ -91,7 +108,7 @@ public class GameManager : Singleton<GameManager>
             ItemManager.Instance.Test(testitemid);
         // else if (Input.GetKeyDown(KeyCode.C))
         //     EventManager.Instance.ExecuteByStart("interaction", "none");    // 테스트용
-            
+
         stateMachine?.Update();
     }
 
@@ -101,7 +118,7 @@ public class GameManager : Singleton<GameManager>
         {
             LoadingManager.Instance.OnLoadingEnded -= HandleLoadingEnded;
         }
-            
+
     }
 
     // 돈 저장 기능
@@ -137,14 +154,17 @@ public class GameManager : Singleton<GameManager>
     public void ChangeState(GameState newState)
     {
         Debug.Log($"{CurrentState} -> {newState} 변경");
-        PreviousState = CurrentState;
         CurrentState = newState;
         stateMachine.ChangeState(newState);
 
         // 다음 상태가 로딩 상태면? 해당 씬 호출
-        if (newState == GameState.Loading)
+        if (newState.Equals(GameState.Loading))
         {
             SceneManager.LoadScene("LoadingScene");
+        }
+        else if (newState.Equals(GameState.Dead))
+        {
+            SceneManager.LoadScene("DeadScene");
         }
     }
 

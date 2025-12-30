@@ -32,6 +32,12 @@ public class PlayerCtrl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GameManager.Instance.isGameOver)
+        {
+            soundController.StopMoveSound();
+            return;
+        }
+        
         HandleMovement();
         HandleState();
     }

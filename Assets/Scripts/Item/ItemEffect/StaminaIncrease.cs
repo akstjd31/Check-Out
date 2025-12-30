@@ -13,8 +13,11 @@ public class StaminaIncrease : ItemEffect
 
     public override bool Use()
     {
-        StatController playerStat = GameManager.Instance.Player.transform.GetComponent<StatController>();
+        GameObject player = GameManager.Instance.Player;
+        StatController playerStat = player.transform.GetComponent<StatController>();
+        PlayerSoundController soundController = player.transform.GetComponent<PlayerSoundController>();
 
+        soundController.PlayEatingSound();
         playerStat.AddStamina(Value1);
 
         //InventoryManager.Instance.RemoveInventoryItem();

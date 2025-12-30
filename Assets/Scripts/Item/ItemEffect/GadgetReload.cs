@@ -37,6 +37,7 @@ public class GadgetReload : ItemEffect
 
             if (slot.itemdata.id == Value1)
             {
+                GameManager.Instance.Player.GetComponent<PlayerSoundController>().PlayBatteryChangedSound();
                 Debug.Log("찾음");
                 value = Value2;
                 Debug.Log(value);

@@ -26,6 +26,7 @@ public class RunState : IState
         if (GameManager.Instance.isGameOver && !flag)
         {
             flag = true;
+
             FadeManager.Instance.FadeStartedInvoke();
             FadeManager.Instance.StartFadeOut();
         }

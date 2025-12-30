@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager>
@@ -14,6 +13,8 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private AudioClip itemPickUpSound;
     [SerializeField] private AudioClip itemEatingSound;
     [SerializeField] private AudioClip buyItemFailedSound;
+    [SerializeField] private AudioClip flashLightOnSound;
+    [SerializeField] private AudioClip batteryChangedSound;
 
     [Header("Elevator")]
     [SerializeField] private AudioClip elevatorButtonClickSound;
@@ -38,6 +39,13 @@ public class SoundManager : Singleton<SoundManager>
     private float currentVolume;
     [SerializeField] private float volumeSpeed;
 
+    [Header("Monster")]
+    [SerializeField] private AudioClip mannequinAttackSound;
+    [SerializeField] private AudioClip walkerAndSirenAttackSound;
+    [SerializeField] private AudioClip walkerPatrolSound;
+    [SerializeField] private AudioClip walkerChaseSound;
+    [SerializeField] private AudioClip sirenLoudSound;
+
     protected override void Awake()
     {
         base.Awake();
@@ -45,6 +53,8 @@ public class SoundManager : Singleton<SoundManager>
         audioSource = this.GetComponent<AudioSource>();
         currentVolume = audioSource.volume;
     }
+
+    public void StopSound() => audioSource.Stop();
 
     public void PlayBackgroundSound()
     {
@@ -78,36 +88,59 @@ public class SoundManager : Singleton<SoundManager>
             audioSource.volume += volumeSpeed * Time.deltaTime;
     }
 
-    public void StopSound()
-    {
-        audioSource.volume = currentVolume;
-        audioSource.Stop();
-    }
-
+    // 엘리베이터 버튼 눌렀을 때 
     public void PlayElevatorButtonClickSound()
     {
         if (elevatorButtonClickSound != null)
             audioSource.PlayOneShot(elevatorButtonClickSound);
     }
 
+    // UI 버튼 눌렀을 때
     public void PlayUIButtonClickSound()
     {
         if (uiButtonClickSound != null)
             audioSource.PlayOneShot(uiButtonClickSound);
     }
 
-    public void GetStorageOpenSound()
+    // 창고 열었을 때
+    public void PlayStorageOpenSound()
     {
         if (storageOpenSound != null)
             audioSource.PlayOneShot(storageOpenSound);
     }
 
-    public void GetStorageCloseSound()
+    // 창고 닫았을 때
+    public void PlayStorageCloseSound()
     {
         if (storageCloseSound != null)
             audioSource.PlayOneShot(storageCloseSound);
     }
+
+    // 마네킹 공격 사운드
+    public void PlayMannequinAttackSound()
+    {
+        if (mannequinAttackSound != null)
+            audioSource.PlayOneShot(mannequinAttackSound);
+    }
+
+    // 워커 & 사이렌 공격 사운드
+    public void PlayWalkerAndSirenAttackSound()
+    {
+        if (walkerAndSirenAttackSound != null)
+            audioSource.PlayOneShot(walkerAndSirenAttackSound);
+    }
+
+    public void PlayPlayerDeathSound()
+    {
+        if (sanitySounds[3] != null)
+            audioSource.PlayOneShot(sanitySounds[3]);
+    }
     
+    public AudioClip GetSirenLoudClip() => sirenLoudSound;
+    public AudioClip GetWalkerPatrolClip() => walkerPatrolSound;
+    public AudioClip GetWalkerChaseClip() => walkerChaseSound;
+    public AudioClip GetBatteryChangedClip() => batteryChangedSound;
+    public AudioClip GetFlashLightOnClip() => flashLightOnSound;
     public AudioClip GetSellItemClip() => sellItemSound;
     public AudioClip GetBuyItemClip() => buyItemSound;
     public AudioClip GetBuyItemFailedClip() => buyItemFailedSound;
@@ -124,27 +157,6 @@ public class SoundManager : Singleton<SoundManager>
         else if (1f <= value && value <= 29f)
             return sanitySounds[2];
         else
-            return sanitySounds[3];
-    }
-
-
-    // 경로에 존재하는 파일 재생
-    public void PlaySoundWithPath(string filePath)
-    {
-        var clip = Resources.Load<AudioClip>(filePath);
-
-        if (filePath == null)
-        {
-            Debug.LogError("해당 경로에 파일이 존재하지 않습니다!");
-            return;
-        }
-        
-        if (audioSource == null)
-        {
-            Debug.LogError("사운드 매니저에 오디오 소스가 없습니다!");
-            return;
-        }
-
-        audioSource.PlayOneShot(clip);
+            return null;
     }
 }

@@ -130,6 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8623273012740267248}
+  - component: {fileID: 5614973049136511135}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -153,6 +154,27 @@ Transform:
   - {fileID: 6407532407657537333}
   m_Father: {fileID: 1627993917948421306}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5614973049136511135
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6740529195277023142}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7499970405129456648
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +285,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -429,6 +451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FourView
   sideRender: {fileID: 8623273012740267248}
   orentationChecker: {fileID: 2129617751684031977}
+  animState: 0
   animator: {fileID: 0}
   frontTexture: {fileID: 21300000, guid: cacaa9667e6994946ad3a95bab802ad9, type: 3}
   bottomTexture: {fileID: 21300000, guid: 203b6e90810dd604898f054ae9299987, type: 3}
@@ -489,8 +512,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5232045906903294249, guid: 67e58ffe91095c746b4788c394f32659, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2628771229033692441}
   m_SourcePrefab: {fileID: 100100000, guid: 67e58ffe91095c746b4788c394f32659, type: 3}
+--- !u!1 &2075630151080890968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5232045906903294249, guid: 67e58ffe91095c746b4788c394f32659, type: 3}
+  m_PrefabInstance: {fileID: 6077019081293542257}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2628771229033692441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075630151080890968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2599aebd86d99144ca067f5afa0bcad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EchoPlayerDetect
 --- !u!4 &9039681659200318648 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2965213789042646985, guid: 67e58ffe91095c746b4788c394f32659, type: 3}

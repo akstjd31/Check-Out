@@ -1,7 +1,9 @@
-ï»¿ì•„ì´ë””,Xì¢Œí‘œ,Yì¢Œí‘œ,Zì¢Œí‘œ,ëª¬ìŠ¤í„° ìŠ¤í° ëœë¤ ì—¬ë¶€,ëª¬ìŠ¤í„° ì•„ì´ë””
+¾ÆÀÌµğ,XÁÂÇ¥,YÁÂÇ¥,ZÁÂÇ¥,¸ó½ºÅÍ ½ºÆù ·£´ı ¿©ºÎ,¸ó½ºÅÍ ¾ÆÀÌµğ
 id,locationX,locationY,locationZ,isRandom,monsterId
 int,float,float,float,bool,string
-5001,0,0,0,TRUE,Prefabs/Monster/Walker
-5002,3,10,10,FALSE,Prefabs/Monster/Walker
-5003,30,30,30,TRUE,Prefabs/Monster/Siren
-5004,50,50,70,FALSE,Prefabs/Monster/Siren
+5001,2.7,1,7.5,FALSE,Prefabs/Monster/Siren
+5002,27.5,1,27,TRUE,Prefabs/Monster/Walker
+5003,-32.5,1,17.5,TRUE,Prefabs/Monster/Walker
+5004,-33,1,-12.5,FALSE,Prefabs/Monster/Mannequin
+5005,-14,1,-17.5,TRUE,Prefabs/Monster/Mannequin
+5006,32.5,1,-23,FALSE,Prefabs/Monster/Walker

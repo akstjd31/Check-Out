@@ -54,12 +54,23 @@ public class PlayerSoundController : MonoBehaviour
     public void SanityClipToCompare()
     {
         AudioClip clip = SoundManager.Instance.GetSanityClip(stat.CurrentSanityPercent);
+
+        if (audioSourceList[(int)AudioSourceType.Sanity].clip == null)
+            return;
+
+        if (clip == null)
+        {
+            audioSourceList[(int)AudioSourceType.Sanity].Stop();
+            audioSourceList[(int)AudioSourceType.Sanity].clip = null;
+        }
+
         if (clip != null && !audioSourceList[(int)AudioSourceType.Sanity].clip.Equals(clip))
         {
             audioSourceList[(int)AudioSourceType.Sanity].clip = clip;
             audioSourceList[(int)AudioSourceType.Sanity].Play();
         }
     }
+
 
     // 죽었을 떄 루핑 꺼주기
     public void SanityEndLoop()
@@ -71,8 +82,8 @@ public class PlayerSoundController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.TryGetComponent<SirenModel>(out var sirenModel) &&
-            other.TryGetComponent<SirenController>(out var sirenController) &&
+        if (other.CompareTag("Monster") && other.transform.parent.TryGetComponent<SirenModel>(out var sirenModel) &&
+            other.transform.parent.TryGetComponent<SirenController>(out var sirenController) &&
             (state.CurrentState == PlayerState.Run || state.CurrentState == PlayerState.Walk))
         {
             if (sirenModel.monsterState == Monster.MonsterState.WanderingAround)
@@ -139,6 +150,33 @@ public class PlayerSoundController : MonoBehaviour
     {
         if (audioSourceList[(int)AudioSourceType.Damaged] != null)
             audioSourceList[(int)AudioSourceType.Damaged].Play();
+    }
+
+    public void PlayEatingSound()
+    {
+        if (SoundManager.Instance.GetItemEatingClip() != null)
+        {
+            audioSourceList[(int)AudioSourceType.Item].clip = SoundManager.Instance.GetItemEatingClip();
+            audioSourceList[(int)AudioSourceType.Item].Play();
+        }
+    }
+
+    public void PlayFlashLightOnSound()
+    {
+        if (SoundManager.Instance.GetFlashLightOnClip() != null)
+        {
+            audioSourceList[(int)AudioSourceType.Item].clip = SoundManager.Instance.GetFlashLightOnClip();
+            audioSourceList[(int)AudioSourceType.Item].Play();
+        }
+    }
+
+    public void PlayBatteryChangedSound()
+    {
+        if (SoundManager.Instance.GetBatteryChangedClip() != null)
+        {
+            audioSourceList[(int)AudioSourceType.Item].clip = SoundManager.Instance.GetBatteryChangedClip();
+            audioSourceList[(int)AudioSourceType.Item].Play();
+        }
     }
 
     // public void PlaySanitySound(float volume)

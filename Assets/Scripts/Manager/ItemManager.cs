@@ -18,9 +18,8 @@ public class ItemManager : Singleton<ItemManager>
     private ObjPool<ItemObj> handItemObjPool;
     private Dictionary<int, ItemTableData> itemDataID;
     private Dictionary<int, EffectGroupTableData> effectDataID;
-    //private Dictionary<ItemTableData, List<IItemEffect>> items;
 
-    ItemObj itemobject;
+    private ItemObj itemobject;
     protected override void Awake()
     {
         base.Awake();
@@ -41,7 +40,7 @@ public class ItemManager : Singleton<ItemManager>
         if (itemObjects == null) return;
 
         if (itemObjects.Length <= 0) return;
-
+        
         foreach (var itemObj in itemObjects)
         {
             Debug.Log(itemObj.name);
@@ -193,7 +192,7 @@ public class ItemManager : Singleton<ItemManager>
             if (obj.ItemId == item.ItemId)
             {
                 Debug.Log("반환함");
-                item.transform.parent = itemObjPoolParent;
+                //item.transform.SetParent(handitemObjPoolParent, false);
                 handItemObjPool.ReturnObject(obj, item);
                 return;
             }
@@ -203,7 +202,7 @@ public class ItemManager : Singleton<ItemManager>
     // 스포너에 의해 생성된 아이템들 씬 전환 전에 회수하는 작업 
     public void ReturnAllItem()
     {
-        var items = GetComponentsInChildren<Item>(true);
+        var items = itemPoolParent.GetComponentsInChildren<Item>(true);
 
         foreach (var item in items)
         {
@@ -212,9 +211,24 @@ public class ItemManager : Singleton<ItemManager>
         }
     }
 
+    public void ReturnAllObjItem()
+    {
+        var items = itemObjPoolParent.GetComponentsInChildren<ItemObj>(true);
+
+        foreach (var item in items)
+        {
+            if (item != null)
+            {
+                foreach (var obj in itemObjects)
+                itemObjPool.ReturnObject(obj, item);
+            }
+        }
+    }
+
     public ItemInstance Createinstance(int itemId)
     {
         var data = GetItemData(itemId);
+        data.itemDescription = data.itemDescription.Replace('@', ',');
         var effects = GetItemEffectData(data.itemEffect);
         
         return new ItemInstance(data, effects);

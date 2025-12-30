@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] public ItemInstance[] slots;
+    [HideInInspector]
+    public ItemInstance[] slots;
     [SerializeField] private int inventorySize = 4;
     public event Action<int> OnSlotUpdated;
 

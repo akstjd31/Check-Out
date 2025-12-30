@@ -1,4 +1,4 @@
-﻿using Unity.VisualScripting;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Chest : Interactable
@@ -15,11 +15,13 @@ public class Chest : Interactable
     public override void OnFocusEnter()
     {
         currentText = promptText[0];
+        currentName = interactableName;
     }
 
     public override void OnFocusExit()
     {
         currentText = "";
+        currentName = "";
     }
 
     public override void Interact()
@@ -30,7 +32,7 @@ public class Chest : Interactable
 
     public void OpenChest()
     {
-        SoundManager.Instance.GetStorageOpenSound();
+        SoundManager.Instance.PlayStorageOpenSound();
         storageUIObj.transform.GetChild(0).gameObject.SetActive(true);
         storageUI.StorageOpen();
 
@@ -41,7 +43,7 @@ public class Chest : Interactable
 
     public void CloseChest()
     {
-        SoundManager.Instance.GetStorageCloseSound();
+        SoundManager.Instance.PlayStorageCloseSound();
         storageUIObj.transform.GetChild(0).gameObject.SetActive(false);
         storageUI.StorageClose();
 

@@ -13,14 +13,12 @@ GameObject:
   - component: {fileID: 4201504765077811697}
   - component: {fileID: 9204844719642186061}
   - component: {fileID: 8620140672339817473}
-  - component: {fileID: 4997070276151729132}
+  - component: {fileID: 3701145128269184634}
   - component: {fileID: 5253267192057256448}
   - component: {fileID: 3029327642943884836}
-  - component: {fileID: 2330446851178434476}
   - component: {fileID: 1594996792662283249}
   - component: {fileID: 3818408127474550692}
   - component: {fileID: 746209349226411557}
-  - component: {fileID: 3701145128269184634}
   - component: {fileID: 4347250759505337903}
   m_Layer: 29
   m_Name: Walker
@@ -129,7 +127,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: ba67b96b05624fa4897480a1252296f3, type: 3}
+  m_Resource: {fileID: 8300000, guid: 247c4350d58e1e742a142d2ff210b0ca, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
@@ -138,7 +136,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 20
   Pan2D: 0
@@ -215,7 +213,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &4997070276151729132
+--- !u!95 &3701145128269184634
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -225,7 +223,7 @@ Animator:
   m_GameObject: {fileID: 5085514986687526861}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 196f9bc14a9adbf4596ba0627db501fb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4618a9918c1550247a69abaa55dc6711, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -250,7 +248,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalkerController
   targetTransform: {fileID: 0}
-  walkerView: {fileID: 0}
   rotateSpeed: 0
 --- !u!114 &3029327642943884836
 MonoBehaviour:
@@ -275,18 +272,6 @@ MonoBehaviour:
   moveTransformList: []
   minimumStopDelay: 2
   maxStopDelay: 3
---- !u!114 &2330446851178434476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5085514986687526861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4791814c138a4349ad422cd0f052eb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WalkerView
 --- !u!114 &1594996792662283249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,28 +335,6 @@ MonoBehaviour:
   bottomTexture: {fileID: -88190406, guid: 63661d131f426d14d96e8ba8dff153c6, type: 3}
   leftTexture: {fileID: 95543126, guid: 63661d131f426d14d96e8ba8dff153c6, type: 3}
   rightTexture: {fileID: 95543126, guid: 63661d131f426d14d96e8ba8dff153c6, type: 3}
---- !u!95 &3701145128269184634
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5085514986687526861}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4618a9918c1550247a69abaa55dc6711, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &4347250759505337903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,7 +588,8 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 1.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3061582254570208867, guid: 67e58ffe91095c746b4788c394f32659, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

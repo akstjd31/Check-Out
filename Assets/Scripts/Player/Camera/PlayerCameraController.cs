@@ -13,6 +13,7 @@ public class PlayerCameraController : MonoBehaviour
 
     public float fallAngle = -70f;
     public float fallDuration = 1.2f;
+    public bool IsPlayDeathCam { get; private set; }
 
     public Rigidbody playerRb;
     private StatController stat;
@@ -33,6 +34,8 @@ public class PlayerCameraController : MonoBehaviour
 
     public void SwitchToDeathCam()
     {
+        IsPlayDeathCam = true;
+        this.gameObject.layer = LayerMask.NameToLayer("Default");
         StartCoroutine(FallBack());
     }
 

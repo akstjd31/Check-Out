@@ -10,7 +10,6 @@ public class PlayerAreaDetector : MonoBehaviour
     public bool IsSafe => safeCount > 0;
     public bool IsMonster => monsterCount > 0;
 
-
     // 태그를 통해서 범위 내 있으면 발동이됨(빛, 안전지대, 몬스터)
     private void OnTriggerStay(Collider other)
     {
@@ -56,4 +55,6 @@ public class PlayerAreaDetector : MonoBehaviour
             safeCount = -1;
         }
     }
+
+    public void SetLightCount(int count) => lightCount = count;
 }

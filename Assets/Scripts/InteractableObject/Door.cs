@@ -12,7 +12,7 @@ public class Door : Interactable
     [SerializeField] private DoorType currentDoorType;
     [SerializeField] private NavMeshLink navMeshLink;
     [SerializeField] private AudioClip[] clips;         // 0: 문 여는 소리, 1: 문 닫는 소리
-
+    
     private void Awake()
     {
         anim = this.GetComponent<Animator>();
@@ -23,12 +23,15 @@ public class Door : Interactable
     public override void OnFocusEnter()
     {
         currentText = currentDoorType.Equals(DoorType.Closed) ? promptText[0] : promptText[1];
+        currentName = interactableName;
+
     }
 
     // 문에서 벗어날 때
     public override void OnFocusExit()
     {
         currentText = "";
+        currentName = "";
     }
 
     // 문 애니메이션 이벤트
@@ -79,5 +82,8 @@ public class Door : Interactable
         }
 
         currentText = newText;
+
+        if (eventObj != null)
+            EventManager.Instance.OnEventTriggered(eventObj.StartType, eventObj.StartValue);
     }
 }

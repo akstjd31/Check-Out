@@ -20,6 +20,8 @@ public class ItemObj : MonoBehaviour
     public event Action OnItem;
     public event Action OffItem;
 
+    protected GameObject player;
+
     public void SetItemInfo(ItemInstance info)
     {
         ItemInstance = info;
@@ -52,6 +54,8 @@ public class ItemObj : MonoBehaviour
             ItemInstance.duration -= Consumption;
             if (ItemInstance.duration < 0)
                 ItemInstance.duration = 0;
+            if (ItemInstance.itemdata.itemType == "Gadget")
+                InventoryManager.Instance.UpdateUI();
             yield return new WaitForSeconds(1f);
         }
 
@@ -78,4 +82,6 @@ public class ItemObj : MonoBehaviour
             StopConsumption();
         }
     }
+
+    public void GetPlayer(GameObject player) => this.player = player;
 }
