@@ -912,6 +912,7 @@ MonoBehaviour:
   walkerPatrolSound: {fileID: 8300000, guid: 247c4350d58e1e742a142d2ff210b0ca, type: 3}
   walkerChaseSound: {fileID: 8300000, guid: 53fd6154870f0424e8d7a7502dc8a520, type: 3}
   sirenLoudSound: {fileID: 8300000, guid: feccf3e90583b42499d3fa806469fa2d, type: 3}
+  achoLaughSound: {fileID: 0}
 --- !u!82 &704925764
 AudioSource:
   m_ObjectHideFlags: 0

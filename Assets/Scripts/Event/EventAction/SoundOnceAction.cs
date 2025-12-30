@@ -10,7 +10,7 @@ public class SoundOnceAction : IEventAction
 
         if (obj != null && obj.TryGetComponent<EventObject>(out evtObj))
         {
-            evtObj.SetAudioSettings(clip, false);
+            evtObj.SetAudioOnceSettings(clip);
             evtObj.PlaySoundWithDelay(EventManager.Instance.Delay);
         }
 

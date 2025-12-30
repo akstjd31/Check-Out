@@ -65,10 +65,15 @@ public class EventObject : MonoBehaviour
     }
 
     // 사운드 설정
-    public void SetAudioSettings(AudioClip clip, bool isLoop)
+    public void SetAudioLoopSettings(AudioClip clip)
     {
         audioSource.clip = clip;
-        audioSource.loop = isLoop;
+        audioSource.loop = true;
+    }
+
+    public void SetAudioOnceSettings(AudioClip clip)
+    {
+        audioSource.clip = clip;
     }
 
     public void PlaySoundWithDelay(float delay)
