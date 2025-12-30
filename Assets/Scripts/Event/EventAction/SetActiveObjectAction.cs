@@ -4,16 +4,13 @@ public class SetActiveObjectAction : IEventAction
 {
     public void Execute(string eventValue, string target, string startValue)
     {
-        GameObject obj = target.Equals("self") ? GameObject.Find(startValue) : GameObject.Find(target);
+        GameObject obj = GameObject.Find(startValue);
         bool active = bool.Parse(eventValue);
         EventObject evtObj = null;
 
         if (obj != null && obj.TryGetComponent<EventObject>(out evtObj))
         {
-            if (active)
-                evtObj.SetActivateObject(target, EventManager.Instance.Delay);
-            else
-                evtObj.SetDeactivateObject(target, EventManager.Instance.Delay);
+            evtObj.SetActiveObject(active, EventManager.Instance.Delay);
         }
 
         EventManager.Instance.Delay = 0f;

@@ -86,16 +86,19 @@ public class EventObject : MonoBehaviour
         audioSource.PlayDelayed(delay);
     }
 
-    public void SetDeactivateObject(string targetName, float delay) => StartCoroutine(SetActiveWithDelay(false, targetName, delay));
+    public void SetActiveObject(bool active, float delay)
+    {
+        StartCoroutine(SetActiveWithDelay(active, delay));
+    }
 
-    public void SetActivateObject(string targetName, float delay) => StartCoroutine(SetActiveWithDelay(true, targetName, delay));
-
-    private IEnumerator SetActiveWithDelay(bool active, string targetName, float delay)
+    private IEnumerator SetActiveWithDelay(bool active, float delay)
     {
         yield return new WaitForSeconds(delay);
         // 타겟 오브젝트의 존재 여부 & 매개변수 비교
-        if (targetObj != null && targetObj.name.Equals(targetName))
-            targetObj.SetActive(active);
+        if (targetObj != null)
+            targetObj.gameObject.SetActive(active);
+        else
+            this.gameObject.SetActive(active);
     }
 
     public void StopSound()
