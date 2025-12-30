@@ -319,6 +319,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StorageUI
       objectReference: {fileID: 0}
+    - target: {fileID: 2207624155380985118, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2362121357126130520, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -334,6 +338,14 @@ PrefabInstance:
     - target: {fileID: 3712950450490061719, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
       propertyPath: m_Value
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4099927993029453921, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4099927993029453921, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
+      propertyPath: m_Padding.m_Left
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8632164559102322220, guid: e0e53e0d55f396647982e75a69ae6a31, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
