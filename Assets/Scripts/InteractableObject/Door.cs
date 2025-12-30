@@ -82,6 +82,7 @@ public class Door : Interactable
                 newText = promptText[1];
                 break;
             case DoorType.Locked:
+                OnDoorSoundEvent();
                 anim.SetTrigger("isLocked");
                 newText = promptText[0];
                 break;

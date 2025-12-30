@@ -44,8 +44,11 @@ public class EventObject : MonoBehaviour
     {
         if (!col.CompareTag("Player") || interactable != null) return;
 
-        Debug.Log("이벤트를 실행!");
-        EventManager.Instance.OnEventTriggered(StartType, StartValue);
+        if (currentStartType.Equals(StartEventType.EnterCollider))
+        {
+            Debug.Log("이벤트를 실행!");
+            EventManager.Instance.OnEventTriggered(StartType, StartValue);
+        }
     }
 
     // 시작 이벤트 타입을 스트링으로 변환
