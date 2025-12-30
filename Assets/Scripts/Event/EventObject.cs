@@ -18,8 +18,8 @@ public class EventObject : MonoBehaviour
     public string StartValue { get; private set; }
     private void Awake()
     {
-        audioSource = this.AddComponent<AudioSource>();
-        anim = this.AddComponent<Animator>();
+        audioSource = this.GetComponent<AudioSource>();
+        anim = this.GetComponent<Animator>();
         audioSource.volume = 0.2f;
     }
 
