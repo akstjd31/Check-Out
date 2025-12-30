@@ -75,7 +75,6 @@ public class SwitchManager : Singleton<SwitchManager>
             return false;
         }
 
-        switchStates[id] = !switchStates[id];
         return switchStates[id];
     }
 
