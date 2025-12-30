@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum RenderState {test}
 
-public enum AnimState {Idle, Move}
+public enum AnimState {Idle, Move, Scream}
 public enum ShowedState
 {
     front, bottom, left, right
@@ -30,6 +30,8 @@ public abstract class TwoDStyleRender : TwoDStyleObj
 
     protected Transform activeRender;
     protected SpriteRenderer activeRenderer;
+
+    public Sprite ScreamTexture;
 
     private void OnEnable()
     {
@@ -130,10 +132,44 @@ public abstract class TwoDStyleRender : TwoDStyleObj
                     //case ShowedState.down:
                     //    break;
             }
+        }
 
-
+        if (animState == AnimState.Scream)
+        {
+            switch (state)
+            {
+                case ShowedState.front:
+                    activeRenderer.sprite = ScreamTexture;
+                    activeRenderer.flipX = false;
+                    break;
+                    //case ShowedState.bottom:
+                    //    animator.Play("BottomMove");
+                    //    activeRenderer.flipX = false;
+                    //    break;
+                    //case ShowedState.left:
+                    //    animator.Play("SideMove");
+                    //    activeRenderer.flipX = true;
+                    //    break;
+                    //case ShowedState.right:
+                    //    animator.Play("SideMove");
+                    //    activeRenderer.flipX = false;
+                    //    break;
+                    //case ShowedState.frontLeft:
+                    //    break;
+                    //case ShowedState.frontRight:
+                    //    break;
+                    //case ShowedState.bottomLeft:
+                    //    break;
+                    //case ShowedState.bottomRight:
+                    //    break;
+                    //case ShowedState.top:
+                    //    break;
+                    //case ShowedState.down:
+                    //    break;
+            }
         }
     }
+
     protected abstract void faceToShow(float yAngle);
 
 }

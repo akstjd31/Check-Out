@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using static Monster;
 
@@ -17,6 +19,8 @@ public class SirenController : MonsterController
     private bool onScream = false;
     private WaitForSeconds delay;
 
+    private FourView fourView;
+
     private Transform player;
 
     private void Awake()
@@ -26,6 +30,7 @@ public class SirenController : MonsterController
         sirenModel = GetComponent<SirenModel>();
         sirenMovement = GetComponent<MonsterMovement>();
         sceramCollider = transform.GetChild(0).GetComponentInChildren<SphereCollider>();
+        fourView = GetComponent<FourView>();
     }
 
     private void Start()
@@ -142,6 +147,7 @@ public class SirenController : MonsterController
             // 3초 동안 비명
             if (alertTimer <= 3f)
             {
+                fourView.animState = AnimState.Scream;
                 sirenMovement.Move(targetTransform, 0f);
                 sirenMovement.NavRotationOff();
                 transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
@@ -183,6 +189,7 @@ public class SirenController : MonsterController
                 sirenMovement.NavRotationOn();
                 sprite.color = Color.white;
                 screamInMonster.Clear();
+                fourView.animState = AnimState.Idle;
                 yield return new WaitForSeconds(3f);
                 sirenModel.ChangeState(Monster.MonsterState.WanderingAround);
                 alertTimer = 0f;
