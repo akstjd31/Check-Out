@@ -23,7 +23,6 @@ public class EventObject : MonoBehaviour
     {
         audioSource = this.GetComponent<AudioSource>();
         anim = this.GetComponent<Animator>();
-        audioSource.volume = 0.2f;
     }
 
     private void Start()
