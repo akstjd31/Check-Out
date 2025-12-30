@@ -16,10 +16,14 @@ public class PlayerInvincibility : MonoBehaviour
     private PlayerSanityVisualController visual;
     private PlayerSoundController soundController;
     private PlayerStateMachine stateMachine;
+    private bool isInDamageArea;
+    private Monster currentMonster;
+    private float invincibleTimer;
 
     [Header("Value")]
     [SerializeField] private bool isInvincible = false;  // 무적 상태인지?
     public bool onHit = false;
+    public bool hit = false;
 
     private void Awake()
     {
@@ -32,44 +36,92 @@ public class PlayerInvincibility : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Monster monster = other.GetComponentInParent<Monster>();
+        Monster model = other.GetComponentInParent<Monster>();
         if (isInvincible)
             return;
-
         if (other.CompareTag("DamagedArea"))
         {
-            var monster = other.GetComponentInParent<Monster>();
-            Monster model = other.GetComponentInParent<Monster>();
+
+            if (monster == null)
+                return;
 
             if (model != null)
             {
                 hitMonster = model;
             }
+            currentMonster = monster;
+            isInDamageArea = true;
+            hit = true;
 
-            if (monster != null)
-            {
-                if (monster is MannequinModel)
-                    SoundManager.Instance.PlayMannequinAttackSound();
-                else if (monster is SirenModel |
-                        monster is WalkerModel)
-                    SoundManager.Instance.PlayWalkerAndSirenAttackSound();
-
-                onHit = true;
-                playerCamera.Hit();
-                Debug.LogWarning("데미지 입음!");
-                stat.ChangeSanity(onHit, -monster.Power);
-                StartCoroutine(InvincibleCoroutine());
-                visual.UpdateShake(onHit);
-                onHit = false;
-            }
+            if (monster is MannequinModel)
+                SoundManager.Instance.PlayMannequinAttackSound();
+            else if (monster is SirenModel || monster is WalkerModel)
+                SoundManager.Instance.PlayWalkerAndSirenAttackSound();
         }
+
 
     }
 
-    IEnumerator InvincibleCoroutine()
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.CompareTag("DamagedArea"))
+            return;
+
+        Monster monster = other.GetComponentInParent<Monster>();
+        if (monster == currentMonster)
+        {
+            isInDamageArea = false;
+            currentMonster = null;
+            hit = false;
+        }
+    }
+
+    private void UpdateMonsterDamage()
+    {
+        if (!isInDamageArea)
+            return;
+
+        if (isInvincible)
+            return;
+
+        if (hit)
+        {
+            onHit = true;
+            playerCamera.Hit();
+            Debug.LogWarning("데미지 입음!");
+
+            stat.ChangeSanity(onHit, -currentMonster.Power);
+            Debug.Log(onHit);
+            OnHitInvincible();
+
+            visual.UpdateShake(onHit);
+        }
+        onHit = false;
+    }
+
+    private void OnHitInvincible()
     {
         isInvincible = true;
-        yield return new WaitForSeconds(stat.DefaultInvincibilityTime);
-        isInvincible = false;
+        invincibleTimer = stat.DefaultInvincibilityTime;
+    }
+
+    private void UpdateInvincibility()
+    {
+        if (!isInvincible)
+            return;
+
+        invincibleTimer -= Time.deltaTime;
+
+        if (invincibleTimer <= 0f)
+        {
+            isInvincible = false;
+        }
+    }
+    private void Update()
+    {
+        UpdateMonsterDamage();
+        UpdateInvincibility();
     }
 
     public void ClearHitMonster()
