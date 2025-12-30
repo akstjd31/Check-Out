@@ -1299,6 +1299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInvincibility
   isInvincible: 0
   onHit: 0
+  hit: 0
 --- !u!114 &1887008330649525741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1509,10 +1510,10 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_Intensity: 100
+  m_Range: 40
+  m_SpotAngle: 38.949997
+  m_InnerSpotAngle: 30.75208
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -1540,7 +1541,7 @@ Light:
       e32: 0
       e33: 1
     m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
+  m_Cookie: {fileID: 2800000, guid: 1b3329b556876d542b834860423efa63, type: 3}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0
