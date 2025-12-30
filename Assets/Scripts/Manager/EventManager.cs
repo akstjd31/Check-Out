@@ -87,6 +87,7 @@ public class EventManager : Singleton<EventManager>
 
     private bool IsGroupTriggered(List<EventTableData> group, string startType, string startValue)
     {
+        Delay = 0f;
         foreach (var evt in group)
         {
             if (evt.startType == startType &&
@@ -150,6 +151,11 @@ public class EventManager : Singleton<EventManager>
         {
             Debug.Log($"쿨다운 설정 완료! 현재 값: {Cooldown}");
             cooldownData[evt.groupId] = Cooldown;
+        }
+
+        if (action is DelayAction)
+        {
+            Debug.Log($"현재 딜레이: {Delay}");
         }
     }
 }

@@ -10,9 +10,8 @@ public class SetActiveObjectAction : IEventAction
 
         if (obj != null && obj.TryGetComponent<EventObject>(out evtObj))
         {
-            evtObj.SetActiveObject(active, EventManager.Instance.Delay);
+            Target t = target.Equals("self") ? Target.Self : Target.Other;
+            evtObj.SetActiveObject(t, active, EventManager.Instance.Delay);
         }
-
-        EventManager.Instance.Delay = 0f;
     }
 }

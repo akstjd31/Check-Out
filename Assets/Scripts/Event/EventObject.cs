@@ -8,6 +8,11 @@ enum StartEventType
     Interaction
 }
 
+public enum Target
+{
+    Self, Other
+}
+
 public class EventObject : MonoBehaviour
 {
     [SerializeField] private StartEventType currentStartType;
@@ -65,69 +70,54 @@ public class EventObject : MonoBehaviour
     }
 
     // 사운드 설정
-    public void SetAudioLoopSettings(AudioClip clip)
+    public void SetAudioLoopSettings(Target target, AudioClip clip)
     {
-        if (targetObj != null)
-        {
-            targetEvtObj = targetObj.GetComponent<EventObject>();
-            if (targetEvtObj != null)
-            {
-                targetEvtObj.SetAudioLoopSettings(clip);
-            }
-        }
-        else
+        if (target.Equals(Target.Self))
         {
             audioSource.clip = clip;
             audioSource.loop = true;
         }
-    }
-
-    public void SetAudioOnceSettings(AudioClip clip)
-    {
-        if (targetObj != null)
-        {
-            targetEvtObj = targetObj.GetComponent<EventObject>();
-
-            if (targetEvtObj != null)
-            {
-                targetEvtObj.SetAudioOnceSettings(clip);
-                targetEvtObj.PlaySoundWithDelay(0);
-            }
-        }
         else
         {
+            targetEvtObj = targetObj.GetComponent<EventObject>();
+            targetEvtObj.SetAudioLoopSettings(Target.Self, clip);
+        }
+    }
+
+    public void SetAudioOnceSettings(Target target, AudioClip clip)
+    {
+        if (target.Equals(Target.Self))
             audioSource.clip = clip;
-        }
-    }
-
-    public void PlaySoundWithDelay(float delay)
-    {
-        if (targetObj != null)
+        else
         {
             targetEvtObj = targetObj.GetComponent<EventObject>();
-
-                if (targetEvtObj != null)
-            {
-                targetEvtObj.PlaySoundWithDelay(delay);
-            }
+            targetEvtObj.SetAudioOnceSettings(Target.Self, clip);
         }
-        else
-            audioSource.PlayDelayed(delay);
     }
 
-    public void SetActiveObject(bool active, float delay)
+    public void PlaySoundWithDelay(Target target, float delay)
     {
-        StartCoroutine(SetActiveWithDelay(active, delay));
+        if (target.Equals(Target.Self))
+            audioSource.PlayDelayed(delay);
+        else
+        {
+            targetEvtObj = targetObj.GetComponent<EventObject>();
+            targetEvtObj.PlaySoundWithDelay(Target.Self, delay);
+        }
     }
 
-    private IEnumerator SetActiveWithDelay(bool active, float delay)
+    public void SetActiveObject(Target target, bool active, float delay)
+    {
+        StartCoroutine(SetActiveWithDelay(target, active, delay));
+    }
+
+    private IEnumerator SetActiveWithDelay(Target target, bool active, float delay)
     {
         yield return new WaitForSeconds(delay);
-        // 타겟 오브젝트의 존재 여부 & 매개변수 비교
-        if (targetObj != null)
-            targetObj.gameObject.SetActive(active);
-        else
+        if (target.Equals(Target.Self))
             this.gameObject.SetActive(active);
+        else
+            targetObj.gameObject.SetActive(active);
     }
 
     public void StopSound()

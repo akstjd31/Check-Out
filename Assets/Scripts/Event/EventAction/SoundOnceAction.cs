@@ -10,10 +10,9 @@ public class SoundOnceAction : IEventAction
 
         if (obj != null && obj.TryGetComponent<EventObject>(out evtObj))
         {
-            evtObj.SetAudioOnceSettings(clip);
-            evtObj.PlaySoundWithDelay(EventManager.Instance.Delay);
+            Target t = target.Equals("self") ? Target.Self : Target.Other;
+            evtObj.SetAudioOnceSettings(t, clip);
+            evtObj.PlaySoundWithDelay(t, EventManager.Instance.Delay);
         }
-
-        EventManager.Instance.Delay = 0f;
     }
 }
