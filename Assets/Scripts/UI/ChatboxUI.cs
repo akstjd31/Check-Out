@@ -12,6 +12,7 @@ public class ChatboxUI : MonoBehaviour
 
     //대화 창 내에서 대사가 출력될 텍스트 공간.
     [Header("대사 출력 공간")]
+    [SerializeField] GameObject chatPanel; // (중요) Chatbox가 들어가야 함. 대사 패널창.
     [SerializeField] TextMeshProUGUI descriptionText;
 
     //한 글자씩 출력하는 데 걸리는 시간.
@@ -127,10 +128,21 @@ public class ChatboxUI : MonoBehaviour
         }
 
         //대사가 테이블 내에 존재할 경우 해당 값을 불러와 적용한다.
-        if(talkTable[desc_id].line_desc != null)
+        if (talkTable[desc_id].line_desc == null || talkTable[desc_id].line_desc == "")
+        {
+            if (chatPanel.gameObject.activeSelf)
+                chatPanel.gameObject.SetActive(false);
+            if (descriptionText.gameObject.activeSelf)
+                descriptionText.gameObject.SetActive(false);
+        }
+        else if(talkTable[desc_id].line_desc != null)
+        {
+            if (!chatPanel.gameObject.activeSelf)
+                chatPanel.gameObject.SetActive(true);
+            if (!descriptionText.gameObject.activeSelf)
+                descriptionText.gameObject.SetActive(true);
             description = talkTable[desc_id].line_desc;
-        else if (talkTable[desc_id].line_desc == null || talkTable[desc_id].line_desc == "")
-            description = "   ";
+        }
 
         //테이블에서 CG가 있는 id값이었을 경우
         if (talkTable[desc_id].CG != null)
