@@ -2718,7 +2718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemManager
   itemPrefab: {fileID: 8352350037024533672, guid: 7ea141efdc5ac634cbdaef941dfd5b72, type: 3}
   itemObjects:
-  - {fileID: -1210315625661822061, guid: f3c4641fcaaf0074bb2216a892007c51, type: 3}
+  - {fileID: -1862988209404249575, guid: f3c4641fcaaf0074bb2216a892007c51, type: 3}
   handItemObjects:
   - {fileID: -5020930525327261578, guid: 7124a44debec2454a96f110de20dfbeb, type: 3}
   playerCount: 1

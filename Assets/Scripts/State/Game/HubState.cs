@@ -13,6 +13,7 @@ public class HubState : IState
     public void Exit()
     {
         Debug.Log("휴식 상태 종료");
+        ItemManager.Instance.ReturnAllObjItem();
         LoadingManager.Instance.InitSceneActivation();
     }
 

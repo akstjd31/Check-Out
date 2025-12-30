@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class EventObject : MonoBehaviour
 {
     [SerializeField] private StartEventType currentStartType;
     [SerializeField] private GameObject targetObj;
+    private float delay;
     private Interactable interactable;
     private AudioSource audioSource;
     private Animator anim;
@@ -71,12 +73,17 @@ public class EventObject : MonoBehaviour
 
     public void PlaySoundWithDelay(float delay) => audioSource.PlayDelayed(delay);
 
-    public void SetActiveObject(bool active, string targetName)
+    public void SetActiveObject(bool active, string targetName, float delay)
     {
+        StartCoroutine(SetActiveWithDelay(active, targetName, delay));
+    }
+
+    private IEnumerator SetActiveWithDelay(bool active, string targetName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
         // 타겟 오브젝트의 존재 여부 & 매개변수 비교
         if (targetObj != null && targetObj.name.Equals(targetName))
             targetObj.SetActive(active);
-
     }
 
     public void StopSound()
