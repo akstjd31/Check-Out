@@ -21,7 +21,7 @@ public class MainState : IState
     private void Init()
     {
         LoadingData.NextState = GameState.Hub;
-        LoadingData.TargetScene = "HubScene";
+        LoadingData.TargetScene = "RestSpace";
 
         LoadingManager.Instance.AllowSceneActivation();
     }

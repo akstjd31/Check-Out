@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // 세션에 접어든 상태
@@ -40,7 +40,7 @@ public class RunState : IState
 
         // 다음 씬 정보 미리 설정
         LoadingData.NextState = GameState.Hub;
-        LoadingData.TargetScene = "HubScene";
+        LoadingData.TargetScene = "RestSpace";
 
         // 아이템 스폰
         // 적 스폰

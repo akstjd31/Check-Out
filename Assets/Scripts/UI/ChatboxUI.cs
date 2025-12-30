@@ -7,7 +7,8 @@ public class ChatboxUI : MonoBehaviour
 {
     //대화 창 내에서 말하는 주체의 이름이 출력될 텍스트 공간.
     [Header("이름 출력 공간")]
-    [SerializeField] TextMeshProUGUI nameText;
+    [SerializeField] GameObject namePanel; // (중요) SpeakerNamePanel이 들어가야 함. 대사 말하는 주체 전용 패널창.
+    [SerializeField] TextMeshProUGUI nameText; // 대사 말하는 주체 전용 텍스트창(이름 출력용)
 
     //대화 창 내에서 대사가 출력될 텍스트 공간.
     [Header("대사 출력 공간")]
@@ -107,9 +108,29 @@ public class ChatboxUI : MonoBehaviour
         }
         
         
-        //이름과 대사를 테이블 내의 해당 아이디값에서 불러온다.
-        nameText.text = talkTable[desc_id].name;
-        description = talkTable[desc_id].line_desc;
+        //이름을 테이블 내의 해당 아이디값에서 불러온다.
+        //이름이 null이거나 빈 칸이 아니라면 패널 활성화, 텍스트 활성화.
+        if(talkTable[desc_id].name == null || talkTable[desc_id].name == "")
+        {
+            if(namePanel.gameObject.activeSelf)
+            namePanel.gameObject.SetActive(false);
+            if(nameText.gameObject.activeSelf)
+            nameText.gameObject.SetActive(false);
+        }
+        else if (talkTable[desc_id].name != null)
+        {
+            if(!namePanel.gameObject.activeSelf)
+            namePanel.gameObject.SetActive(true);
+            if(!nameText.gameObject.activeSelf)
+            nameText.gameObject.SetActive(true);
+            nameText.text = talkTable[desc_id].name;
+        }
+
+        //대사가 테이블 내에 존재할 경우 해당 값을 불러와 적용한다.
+        if(talkTable[desc_id].line_desc != null)
+            description = talkTable[desc_id].line_desc;
+        else if (talkTable[desc_id].line_desc == null || talkTable[desc_id].line_desc == "")
+            description = "   ";
 
         //테이블에서 CG가 있는 id값이었을 경우
         if (talkTable[desc_id].CG != null)
