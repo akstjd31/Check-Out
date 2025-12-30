@@ -3,7 +3,7 @@ using UnityEngine;
 
 enum DoorType
 {
-    Closed = 0, Open
+    Closed = 0, Open, Locked
 }
 
 public class Door : Interactable
@@ -78,6 +78,10 @@ public class Door : Interactable
                 anim.SetBool("isOpen", true);
                 currentDoorType = DoorType.Open;
                 newText = promptText[1];
+                break;
+            case DoorType.Locked:
+                anim.SetTrigger("isLocked");
+                newText = promptText[0];
                 break;
         }
 
