@@ -3,7 +3,7 @@ using UnityEngine;
 public class EventSoundManager : Singleton<EventSoundManager>
 {
     // 경로에 존재하는 파일 클립 반환
-    public AudioClip GetAudioClipByPath(string filePath, bool isLoop)
+    public AudioClip GetAudioClipByPath(string filePath)
     {
         var clip = Resources.Load<AudioClip>(filePath);
 

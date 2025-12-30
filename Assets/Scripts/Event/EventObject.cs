@@ -71,7 +71,15 @@ public class EventObject : MonoBehaviour
         audioSource.loop = isLoop;
     }
 
-    public void PlaySoundWithDelay(float delay) => audioSource.PlayDelayed(delay);
+    public void PlaySoundWithDelay(float delay)
+    {
+        if (delay <= 0f)
+        {
+            audioSource.Play();
+        }
+
+        audioSource.PlayDelayed(delay);
+    }
 
     public void SetActiveObject(bool active, string targetName, float delay)
     {
