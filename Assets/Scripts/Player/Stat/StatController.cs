@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -134,7 +134,7 @@ public class StatController : MonoBehaviour
                 if (invincibility.hitMonster != null)
                 {
                     VideoManager.Instance.PlayDeathVideo(invincibility.hitMonster);
-                    invincibility.ClearHitMonster();
+                    invincibility.hitMonster = null;
                 }
                 break;
         }

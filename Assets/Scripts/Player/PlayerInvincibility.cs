@@ -9,21 +9,19 @@ using UnityEngine;
 public class PlayerInvincibility : MonoBehaviour
 {
 
-    public Monster hitMonster { get; private set; }
+    public Monster hitMonster { get; set; }
     [Header("Component")]
     private StatController stat;
     private PlayerCameraController playerCamera;
     private PlayerSanityVisualController visual;
     private PlayerSoundController soundController;
     private PlayerStateMachine stateMachine;
-    private bool isInDamageArea;
-    private Monster currentMonster;
     private float invincibleTimer;
+    private float invincibleTime;
 
     [Header("Value")]
     [SerializeField] private bool isInvincible = false;  // 무적 상태인지?
     public bool onHit = false;
-    public bool hit = false;
 
     private EchoSpawnSystem echoSpawnSystem;
 
@@ -35,17 +33,18 @@ public class PlayerInvincibility : MonoBehaviour
         soundController = this.GetComponent<PlayerSoundController>();
         echoSpawnSystem = this.GetComponent<EchoSpawnSystem>();
         stateMachine = this.GetComponent<PlayerStateMachine>();
+
+        invincibleTime = stat.DefaultInvincibilityTime;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Monster monster = other.GetComponentInParent<Monster>();
-        Monster model = other.GetComponentInParent<Monster>();
-        if (isInvincible)
-            return;
         if (other.CompareTag("DamagedArea"))
         {
-            if (monster == null)
+            if (isInvincible)
+                return;
+            Monster model = other.GetComponentInParent<Monster>();
+            if (model == null)
                 return;
 
             if (model != null)
@@ -53,18 +52,16 @@ public class PlayerInvincibility : MonoBehaviour
                 hitMonster = model;
             }
 
-            currentMonster = monster;
-            isInDamageArea = true;
-            hit = true;
+            hitMonster = model;
 
             if (stat.IsRemainSanity())
             {
-                if (monster is MannequinModel)
+                if (model is MannequinModel)
                     SoundManager.Instance.PlayMannequinAttackSound();
-                else if (monster is SirenModel || monster is WalkerModel)
+                else if (model is SirenModel || model is WalkerModel)
                     SoundManager.Instance.PlayWalkerAndSirenAttackSound();
 
-                if (monster is EchoModel)
+                if (model is EchoModel)
                 {
                     SoundManager.Instance.PlayEchoLaughSound();
                     echoSpawnSystem.DisableEcho();
@@ -73,49 +70,35 @@ public class PlayerInvincibility : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("DamagedArea"))
-            return;
-
-        Monster monster = other.GetComponentInParent<Monster>();
-        if (monster == currentMonster)
-        {
-            isInDamageArea = false;
-            currentMonster = null;
-            hit = false;
-        }
-    }
-
     private void UpdateMonsterDamage()
     {
-        if (!isInDamageArea)
-            return;
 
         if (isInvincible)
             return;
 
-        if (stat.IsRemainSanity() && hit)
+        if (hitMonster == null)
+            return;
+
+        if (stat.IsRemainSanity())
         {
             onHit = true;
             playerCamera.Hit();
             Debug.LogWarning("데미지 입음!");
 
-            stat.ChangeSanity(onHit, -currentMonster.Power);
+            stat.ChangeSanity(onHit, -hitMonster.Power);
             Debug.Log(onHit);
             OnHitInvincible();
 
             visual.UpdateShake(onHit);
-
-            
+            onHit = false;
         }
-        onHit = false;
+        
     }
 
     private void OnHitInvincible()
     {
         isInvincible = true;
-        invincibleTimer = stat.DefaultInvincibilityTime;
+        invincibleTimer = invincibleTime;
     }
 
     private void UpdateInvincibility()
@@ -134,10 +117,5 @@ public class PlayerInvincibility : MonoBehaviour
     {
         UpdateMonsterDamage();
         UpdateInvincibility();
-    }
-
-    public void ClearHitMonster()
-    {
-        hitMonster = null;
     }
 }
