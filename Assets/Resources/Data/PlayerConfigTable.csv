@@ -7,7 +7,7 @@ int,string,string
 4,runSpeed,4.5
 5,sitSpeed,1.5
 6,InvincibilityTime,1
-7,mouseSensitivity,120
+7,mouseSensitivity,360
 8,sanityDpsNormal,10
 9,sanityDpsDark,500
 10,sanityDpsChased,50
