@@ -23,3 +23,6 @@ int,string,string,string
 9020,뒤를 봐 스위치로 소환된 플레인 오브젝트를 소멸시키는 스위치,FALSE,TRUE
 9021,217 발자국 이벤트 소리 스위치,FALSE,TRUE
 9023,210 여자애 웃는 소리 스위치,FALSE,TRUE
+9101,튜토리얼CG,FALSE,FALSE
+9102,상점 튜토리얼,FALSE,FALSE
+9103,창고 튜토리얼,FALSE,FALSE
