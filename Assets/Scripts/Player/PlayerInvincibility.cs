@@ -21,7 +21,7 @@ public class PlayerInvincibility : MonoBehaviour
     private float invincibleTime;
 
     [SerializeField] private bool isInvincible = false;
-    public bool onHit = false;
+    private bool onHit = false;
 
     private void Awake()
     {
@@ -33,13 +33,25 @@ public class PlayerInvincibility : MonoBehaviour
         stateMachine = GetComponent<PlayerStateMachine>();
     }
 
-    private void Start() => invincibleTime = stat.DefaultInvincibilityTime;
+    private void Start()
+    {
+        invincibleTime = stat.DefaultInvincibilityTime;
+    }
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
+    {
+        UpdateInvincibility();
+    }
+
+    /// <summary>
+    /// 공격 범위 안에 있는 동안 호출됨
+    /// </summary>
+    private void OnTriggerStay(Collider other)
     {
         if (!other.CompareTag("DamagedArea"))
             return;
 
+        // 무적 중이면 데미지 X
         if (isInvincible)
             return;
 
@@ -58,7 +70,6 @@ public class PlayerInvincibility : MonoBehaviour
         onHit = true;
         hitMonster = monster;
 
-        // 🔊 사운드 처리
         if (monster is MannequinModel)
             SoundManager.Instance.PlayMannequinAttackSound();
         else if (monster is SirenModel || monster is WalkerModel)
@@ -69,19 +80,16 @@ public class PlayerInvincibility : MonoBehaviour
             echoSpawnSystem.DisableEcho();
         }
 
-        // 📷 카메라 & 비주얼
         playerCamera.Hit();
         visual.UpdateShake(onHit);
 
-        // 💥 데미지 적용 (1회)
-        stat.ChangeSanity(onHit, -monster.Power);
-        Debug.LogWarning("플레이어 데미지 1회 적용");
+        stat.ChangeSanity(true, -monster.Power);
+        Debug.LogWarning("플레이어 데미지 적용");
 
-        // 🛡 무적 시작
         StartInvincibility();
 
         onHit = false;
-        hitMonster = null; // 중복 데미지 방지
+        hitMonster = null;
     }
 
     private void StartInvincibility()
@@ -101,10 +109,5 @@ public class PlayerInvincibility : MonoBehaviour
         {
             isInvincible = false;
         }
-    }
-
-    private void Update()
-    {
-        UpdateInvincibility();
     }
 }
