@@ -32,7 +32,7 @@ public class PlayerView : MonoBehaviour
 
     public void UpdateObjNameText(string name) => objNameText.text = name;
 
-    public void UpdatePlayerSituationText(string curSitu) => situationText.text = $"[{curSitu}]";
+    public void UpdatePlayerSituationText(string curSitu) => situationText.text = $"{curSitu}";
 
     public void UpdateMoneyText(int money) => moneyText.text = $"돈: {money.ToString("N0")}";
 

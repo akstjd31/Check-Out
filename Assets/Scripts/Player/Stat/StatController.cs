@@ -115,7 +115,10 @@ public class StatController : MonoBehaviour
                 break;
         }
 
-        holder.PlayerView.UpdatePlayerSituationText(situation.ToString());
+        if (situation.Equals(PlayerSituation.Dark))
+            holder.PlayerView.UpdatePlayerSituationText(situation.ToString());
+        else
+            holder.PlayerView.UpdatePlayerSituationText("");
     }
 
     public void UpdateDeath(playerDeath death)
@@ -125,11 +128,11 @@ public class StatController : MonoBehaviour
             case playerDeath.None:
                 break;
             case playerDeath.Normal:
-                //debug.Log("죽음");
+                Debug.Log("죽음");
                 OnDeath?.Invoke();
                 break;
             case playerDeath.Hit:
-                //debug.Log("맞아죽음");
+                Debug.Log("맞아죽음");
                 OnDeath?.Invoke();
                 if (invincibility.hitMonster != null)
                 {
@@ -149,7 +152,7 @@ public class StatController : MonoBehaviour
         CurrentStamina = Mathf.Max(0, CurrentStamina - CurrentRunStaminaCost);
         
         holder.PlayerView.UpdateStaminaSlider(CurrentStamina);
-    } 
+    }
     
     // 스태미나 회복
     public void RecoverStamina()
