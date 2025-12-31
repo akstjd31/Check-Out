@@ -659,7 +659,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 500, y: 200, z: -442.94}
+  m_Size: {x: 500, y: 200, z: 442.94}
   m_Center: {x: -0.39, y: -6.86, z: 184.04}
 --- !u!114 &412534144
 MonoBehaviour:
@@ -2740,7 +2740,7 @@ PrefabInstance:
     - target: {fileID: 5158760334310938467, guid: 0f77705b207865c449dcfc6ab668dbba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1362299331}
+      objectReference: {fileID: 0}
     - target: {fileID: 5158760334310938467, guid: 0f77705b207865c449dcfc6ab668dbba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
@@ -2751,7 +2751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5158760334310938467, guid: 0f77705b207865c449dcfc6ab668dbba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: UpdateAll
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5158760334310938467, guid: 0f77705b207865c449dcfc6ab668dbba, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -3897,17 +3897,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ea7c896e5c262e4db37d6c38ba64683, type: 3}
---- !u!114 &1362299331 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7449226141954708077, guid: 6ea7c896e5c262e4db37d6c38ba64683, type: 3}
-  m_PrefabInstance: {fileID: 1362299330}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bf3aab3a56d3d446b625388669e9b84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryUI
 --- !u!1 &1448232985
 GameObject:
   m_ObjectHideFlags: 0
