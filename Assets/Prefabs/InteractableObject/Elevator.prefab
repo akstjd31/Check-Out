@@ -260,8 +260,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4876440872867161411, guid: 7da1ea23ad7bdc14aba3df496ca04513, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7002389937417072218}
   m_SourcePrefab: {fileID: 100100000, guid: 7da1ea23ad7bdc14aba3df496ca04513, type: 3}
+--- !u!1 &6043458162998221766 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4876440872867161411, guid: 7da1ea23ad7bdc14aba3df496ca04513, type: 3}
+  m_PrefabInstance: {fileID: 1185066890293214853}
+  m_PrefabAsset: {fileID: 0}
+--- !u!208 &7002389937417072218
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6043458162998221766}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.14, y: 0.555, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.24, y: 0.58, z: 0.43}
+  m_TimeToStationary: 0.5
 --- !u!4 &7315522503171336661 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8500475009257936720, guid: 7da1ea23ad7bdc14aba3df496ca04513, type: 3}
@@ -600,6 +624,7 @@ MonoBehaviour:
   promptText:
   - "E\uD0A4\uB97C \uB20C\uB7EC \uC774\uB3D9"
   audioSource: {fileID: 0}
+  interactableName: 
 --- !u!82 &3224561968649179185
 AudioSource:
   m_ObjectHideFlags: 0
