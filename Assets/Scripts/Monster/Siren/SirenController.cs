@@ -36,25 +36,25 @@ public class SirenController : MonsterController
     private void Start()
     {
         Init();
-        Debug.Log("사이렌 컨트롤러 배회 시작");
+        //debug.Log("사이렌 컨트롤러 배회 시작");
         fourView.ChangedAnimState(AnimState.Move);
         sirenModel.monsterState = Monster.MonsterState.WanderingAround;
         sirenMovement.ChangeSpeed(sirenModel.PatrolSpeed);
-        Debug.Log(sirenModel.PatrolSpeed);
+        //debug.Log(sirenModel.PatrolSpeed);
         sirenMovement.PatrolNextOne();
 
     }
 
     private void Update()
     {
-        //Debug.Log($"visibleTargets : {sirenFieldOfView.visibleTargets.Count}");
-        //Debug.Log($"sirenState : {sirenModel.monsterState}");
-        //Debug.Log(sirenFieldOfView.visibleTargets.Count > 0);
-        //Debug.Log(sirenModel.monsterState != Monster.MonsterState.Alert);
+        ////debug.Log($"visibleTargets : {sirenFieldOfView.visibleTargets.Count}");
+        ////debug.Log($"sirenState : {sirenModel.monsterState}");
+        ////debug.Log(sirenFieldOfView.visibleTargets.Count > 0);
+        ////debug.Log(sirenModel.monsterState != Monster.MonsterState.Alert);
         // 만약 플레이어가 시야에 들어온다면 발견 상태 실행 후 추격 진행
         //if (sirenModel.monsterState != Monster.MonsterState.Alert)
         //{
-        //    //Debug.Log("조건 만족");
+        //    ////debug.Log("조건 만족");
         //    // 발견 상태 수행
         //    sirenModel.ChangeState(Monster.MonsterState.FindPlayer);
         //}
@@ -64,10 +64,10 @@ public class SirenController : MonsterController
     {
         // 모델 값을 해당 컴포넌트에 전달
         // Monster Field Of View
-        //Debug.Log($"Rdaius : {sirenModel.ViewRadius}");
-        //Debug.Log($"Angle : {sirenModel.ViewAngle}");
-        //Debug.Log($"PlayerMask : {sirenModel.PlayerMask.value}");
-        //Debug.Log($"Obstacle : {sirenModel.ObstacleMask.value}");
+        ////debug.Log($"Rdaius : {sirenModel.ViewRadius}");
+        ////debug.Log($"Angle : {sirenModel.ViewAngle}");
+        ////debug.Log($"PlayerMask : {sirenModel.PlayerMask.value}");
+        ////debug.Log($"Obstacle : {sirenModel.ObstacleMask.value}");
 
         //sirenFieldOfView.viewRadius = sirenModel.ViewRadius;
         //sirenFieldOfView.viewAngle = sirenModel.ViewAngle;
@@ -111,7 +111,7 @@ public class SirenController : MonsterController
 
     protected override void StartPatrol()
     {
-        Debug.Log("배회 실행");
+        //debug.Log("배회 실행");
         fourView.ChangedAnimState(AnimState.Move);
         sirenMovement.ChangeSpeed(sirenModel.PatrolSpeed);
         sirenMovement.PatrolNextOne();
@@ -119,7 +119,7 @@ public class SirenController : MonsterController
 
     protected override void Find()
     {
-        Debug.Log("발견 상태 수행 완료");
+        //debug.Log("발견 상태 수행 완료");
         // 추격 상태 수행
         sirenModel.ChangeState(Monster.MonsterState.Alert);
     }
@@ -154,9 +154,9 @@ public class SirenController : MonsterController
                 sirenMovement.NavRotationOff();
                 transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
                 sprite.color = Color.red;
-                Debug.Log("비명 지르는 중");
+                //debug.Log("비명 지르는 중");
 
-                Debug.Log($"현재 {screamInMonster.Count}마리 호출 중");
+                //debug.Log($"현재 {screamInMonster.Count}마리 호출 중");
 
                 foreach (var target in screamInMonster)
                 {
@@ -171,7 +171,7 @@ public class SirenController : MonsterController
                     }
                 }
                 alertTimer += sirenModel.Delay;
-                Debug.Log(alertTimer);
+                //debug.Log(alertTimer);
                 yield return delay;
             }
             else
@@ -202,7 +202,7 @@ public class SirenController : MonsterController
 
     private void StartAlert()
     {
-        Debug.Log("비명 시작");
+        //debug.Log("비명 시작");
         StartCoroutine(Alert());
     }
 

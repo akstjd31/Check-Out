@@ -125,11 +125,11 @@ public class StatController : MonoBehaviour
             case playerDeath.None:
                 break;
             case playerDeath.Normal:
-                Debug.Log("죽음");
+                //debug.Log("죽음");
                 OnDeath?.Invoke();
                 break;
             case playerDeath.Hit:
-                Debug.Log("맞아죽음");
+                //debug.Log("맞아죽음");
                 OnDeath?.Invoke();
                 if (invincibility.hitMonster != null)
                 {

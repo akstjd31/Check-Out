@@ -24,7 +24,7 @@ public class MonsterSpawnLocation : MonoBehaviour
         //없을 경우 안내 후 반환.
         if (spawnTable == null)
         {
-            Debug.Log("적 생성 테이블이 null입니다.");
+            //debug.Log("적 생성 테이블이 null입니다.");
             return;
         }
 
@@ -44,7 +44,7 @@ public class MonsterSpawnLocation : MonoBehaviour
     /// <returns></returns>
     public int CheckTableCount()
     {
-        Debug.Log($"몬스터 소환 가능한 장소의 수는 {count}입니다.");
+        //debug.Log($"몬스터 소환 가능한 장소의 수는 {count}입니다.");
         return count;
     }
 
@@ -65,7 +65,7 @@ public class MonsterSpawnLocation : MonoBehaviour
     /// <returns></returns>
     public bool CheckRandom(int id)
     {
-        Debug.Log($"이 id의 프리팹 랜덤 소환 여부는 {spawnTable[id].isRandom}입니다.");
+        //debug.Log($"이 id의 프리팹 랜덤 소환 여부는 {spawnTable[id].isRandom}입니다.");
         return spawnTable[id].isRandom;
     }
 
@@ -76,7 +76,7 @@ public class MonsterSpawnLocation : MonoBehaviour
     /// <returns></returns>
     public string CheckPrefabLocation(int id)
     {
-        Debug.Log($"소환할 프리팹의 위치는 {spawnTable[id].monsterId}입니다.");
+        //debug.Log($"소환할 프리팹의 위치는 {spawnTable[id].monsterId}입니다.");
         return spawnTable[id].monsterId;
     }
 }

@@ -31,7 +31,7 @@ public class PlayerSanityVisualController : MonoBehaviour
     {
         if (firstWarningValue < secondWarningValue)
         {
-            Debug.Log("수치를 잘못 입력하셨습니다. 현재 두 번째 값이 더 큼");
+            //debug.Log("수치를 잘못 입력하셨습니다. 현재 두 번째 값이 더 큼");
             return;
         }
     }

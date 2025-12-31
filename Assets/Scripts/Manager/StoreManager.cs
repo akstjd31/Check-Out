@@ -123,12 +123,12 @@ public class StoreManager : Singleton<StoreManager>
         if (inventory.slots[index] == null) return;
 
         var item = InventoryManager.Instance.MoveItem(index);
-        Debug.Log(item.itemdata.itemName);
+        //debug.Log(item.itemdata.itemName);
 
         if (item == null) return;
 
         int price = store.GetSellPrice(item);
-        Debug.Log($"가격 {price}");
+        //debug.Log($"가격 {price}");
 
         GameManager.Instance.ChangeMoney(price);
 

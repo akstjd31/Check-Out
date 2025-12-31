@@ -27,7 +27,7 @@ public class WalkerController : MonsterController
     private void Start()
     {
         Init();
-        Debug.Log("워커 컨트롤러 배회 시작");
+        //debug.Log("워커 컨트롤러 배회 시작");
         fourView.ChangedAnimState(AnimState.Move);
         walkerModel.monsterState = Monster.MonsterState.WanderingAround;
         walkerMovement.ChangeSpeed(walkerModel.PatrolSpeed);
@@ -37,14 +37,14 @@ public class WalkerController : MonsterController
 
     private void Update()
     {
-        //Debug.Log($"walkerState : {walkerModel.walkerState}");
-        //Debug.Log(walkerFieldOfView.visibleTargets.Count > 0);
-        //Debug.Log($"visibleTargets : {walkerFieldOfView.visibleTargets.Count}");
-        //Debug.Log(walkerModel.walkerState != WalkerModel.WalkerState.Chase);
+        ////debug.Log($"walkerState : {walkerModel.walkerState}");
+        ////debug.Log(walkerFieldOfView.visibleTargets.Count > 0);
+        ////debug.Log($"visibleTargets : {walkerFieldOfView.visibleTargets.Count}");
+        ////debug.Log(walkerModel.walkerState != WalkerModel.WalkerState.Chase);
         // 만약 플레이어가 시야에 들어온다면 발견 상태 실행 후 추격 진행
         if (walkerFieldOfView.visibleTargets.Count > 0 && walkerModel.monsterState != Monster.MonsterState.Chase)
         {
-            //Debug.Log("조건 만족");
+            ////debug.Log("조건 만족");
             // 발견 상태 수행
             walkerModel.ChangeState(Monster.MonsterState.FindPlayer);
         }
@@ -78,10 +78,10 @@ public class WalkerController : MonsterController
     {
         // 모델 값을 해당 컴포넌트에 전달
         // Monster Field Of View
-        //Debug.Log($"Rdaius : {walkerModel.ViewRadius}");
-        //Debug.Log($"Angle : {walkerModel.ViewAngle}");
-        //Debug.Log($"PlayerMask : {walkerModel.PlayerMask.value}");
-        //Debug.Log($"Obstacle : {walkerModel.ObstacleMask.value}");
+        ////debug.Log($"Rdaius : {walkerModel.ViewRadius}");
+        ////debug.Log($"Angle : {walkerModel.ViewAngle}");
+        ////debug.Log($"PlayerMask : {walkerModel.PlayerMask.value}");
+        ////debug.Log($"Obstacle : {walkerModel.ObstacleMask.value}");
 
         walkerFieldOfView.delay = new WaitForSeconds(walkerModel.Delay);
 
@@ -104,7 +104,7 @@ public class WalkerController : MonsterController
 
     protected override void Find()
     {
-        Debug.Log("발견 상태 수행 완료");
+        //debug.Log("발견 상태 수행 완료");
         // 추격으로 전환
         walkerModel.ChangeState(Monster.MonsterState.Chase);
     }
@@ -117,7 +117,7 @@ public class WalkerController : MonsterController
             // 빠른 추격 상태 동안 수행
             if (chaseTimer <= 5f && onRun)
             {
-                Debug.Log($"추격 진행 시간 : {chaseTimer}, 빠른 추적 {onRun}");
+                //debug.Log($"추격 진행 시간 : {chaseTimer}, 빠른 추적 {onRun}");
                 walkerMovement.Move(walkerFieldOfView.visibleTargets[0], walkerModel.ChaseFast);
                 chaseTimer += walkerModel.Delay;
                 yield return walkerFieldOfView.delay;
@@ -125,7 +125,7 @@ public class WalkerController : MonsterController
             // 느린 추격 상태 동안 수행
             else if (chaseTimer <= 5f && !onRun)
             {
-                Debug.Log($"추격 진행 시간 : {chaseTimer}, 빠른 추적 {onRun}");
+                //debug.Log($"추격 진행 시간 : {chaseTimer}, 빠른 추적 {onRun}");
                 walkerMovement.Move(walkerFieldOfView.visibleTargets[0], walkerModel.ChaseSlow);
                 chaseTimer += walkerModel.Delay;
                 yield return walkerFieldOfView.delay;
@@ -133,13 +133,13 @@ public class WalkerController : MonsterController
             // 5초가 지나면 onRun을 전환하고 chase Timer 초기화
             else if (chaseTimer > 5f && onRun)
             {
-                Debug.Log("타이머 초기화 느린 추적 실행");
+                //debug.Log("타이머 초기화 느린 추적 실행");
                 onRun = false;
                 chaseTimer = 0;
             }
             else if (chaseTimer > 5f && !onRun)
             {
-                Debug.Log("타이머 초기화 빠른 추적 실행");
+                //debug.Log("타이머 초기화 빠른 추적 실행");
                 onRun = false;
                 onRun = true;
                 chaseTimer = 0;
@@ -149,19 +149,19 @@ public class WalkerController : MonsterController
 
     private void StartChase()
     {
-        Debug.Log("추격 시작");
+        //debug.Log("추격 시작");
         StartCoroutine(Chase());
     }
 
     private void StartMissingPlayer()
     {
         // 어그로가 해제되면 상태를 바꿈 + 추격 멈춤
-        Debug.Log("플레이어가 시야에서 사라졌습니다.");
+        //debug.Log("플레이어가 시야에서 사라졌습니다.");
         StartCoroutine(MissingPlayer());
     }
     private IEnumerator MissingPlayer()
     {
-        Debug.Log("MissingPlayer 수행");
+        //debug.Log("MissingPlayer 수행");
         walkerMovement.StopToMissing();
         checkTimer = 0;
         while(walkerFieldOfView.visibleTargets.Count == 0 && walkerModel.monsterState == Monster.MonsterState.MissingPlayer)
@@ -169,14 +169,14 @@ public class WalkerController : MonsterController
             // 플레이어를 다시 찾으면 추격 상태 전환
             if(walkerFieldOfView.visibleTargets.Count == 0 && checkTimer < 2)
             {
-                Debug.Log($"놓친 시간 : {checkTimer}");
+                //debug.Log($"놓친 시간 : {checkTimer}");
                 checkTimer += 0.2f;
                 yield return new WaitForSeconds(0.2f);
             }
             //플레이어를 다시 못찾으면 타이머를 진행
             else
             {
-                Debug.Log("배회로 다시 전환합니다.");
+                //debug.Log("배회로 다시 전환합니다.");
                 checkTimer = 0;
                 walkerModel.ChangeState(Monster.MonsterState.WanderingAround);
             }
@@ -189,7 +189,7 @@ public class WalkerController : MonsterController
 
     protected override void StartPatrol()
     {
-        Debug.Log("배회 실행");
+        //debug.Log("배회 실행");
         targetTransform = null;
         fourView.ChangedAnimState(AnimState.Move);
         walkerMovement.ChangeSpeed(walkerModel.PatrolSpeed);

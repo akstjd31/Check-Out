@@ -99,12 +99,12 @@ public class EchoController : MonsterController
 
     private IEnumerator EyeContact()
     {
-        //Debug.Log($"playerSanity : {playerSanity}");
-        //Debug.Log($"playerState : {playerState}");
+        ////debug.Log($"playerSanity : {playerSanity}");
+        ////debug.Log($"playerState : {playerState}");
         playerSanity.SetDarkness(true);
         while (secondTime < darknessTime)
         {
-            //Debug.Log(secondTime);
+            ////debug.Log(secondTime);
             if (playerState.CurrentSituation != PlayerSituation.Dark)
                 playerState.ChangeSituation(PlayerSituation.Dark);
             secondTime += echoModel.Delay;

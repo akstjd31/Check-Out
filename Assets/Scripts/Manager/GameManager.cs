@@ -75,7 +75,7 @@ public class GameManager : Singleton<GameManager>
 
         if (playerStatTable == null)
         {
-            Debug.Log("플레이어 스탯 테이블이 null 입니다");
+            //debug.Log("플레이어 스탯 테이블이 null 입니다");
             return;
         }
 
@@ -92,7 +92,7 @@ public class GameManager : Singleton<GameManager>
             }
         }
 
-        Debug.Log("플레이어 스탯 테이블 데이터 불러오기 완료!");
+        //debug.Log("플레이어 스탯 테이블 데이터 불러오기 완료!");
     }
 
     public void OnGameDataLoadButton()
@@ -143,7 +143,7 @@ public class GameManager : Singleton<GameManager>
         data.money = Money;
 
         SaveLoadManager.Instance.Save<MoneyData>(fileName, data);
-        Debug.Log("돈 데이터 저장 완료!");
+        //debug.Log("돈 데이터 저장 완료!");
     }
 
     // 돈 불러오기 기능
@@ -154,7 +154,7 @@ public class GameManager : Singleton<GameManager>
         if (data == null) return;
 
         Money = data.money;
-        Debug.Log("돈 데이터 불러오기 완료!");
+        //debug.Log("돈 데이터 불러오기 완료!");
     }
 
     public void ChangeMoney(int amount)
@@ -168,7 +168,7 @@ public class GameManager : Singleton<GameManager>
     // 상태 변경
     public void ChangeState(GameState newState)
     {
-        Debug.Log($"{CurrentState} -> {newState} 변경");
+        //debug.Log($"{CurrentState} -> {newState} 변경");
         CurrentState = newState;
         stateMachine.ChangeState(newState);
 

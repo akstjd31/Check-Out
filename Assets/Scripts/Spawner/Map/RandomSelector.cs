@@ -67,7 +67,7 @@ public class RandomSelector : MonoBehaviour
     //     {
     //         //아이템 그룹 테이블 내용을 받아와서
     //         int spawnItemId = spawner.DeclareObjectId(index);
-    //         Debug.Log(spawnItemId);
+    //         //debug.Log(spawnItemId);
     //         //수정 필요. 아이템 소환을 위한 코드.
     //         ItemManager.Instance.SpawnItem(spawnItemId, spawner.CheckPosition(index));
     //     }

@@ -41,12 +41,12 @@ public class MonsterMovement : MonoBehaviour
     private Monster monster;
     private void Awake()
     {
-        //Debug.Log(gameObject.name);
+        ////debug.Log(gameObject.name);
         Init();
         // 다음 목표 지점으로 이동
         //PatrolNextOne();
         //TestLoop();
-        Debug.Log("움직임 컴포넌트 스타트 실행 완료");
+        //debug.Log("움직임 컴포넌트 스타트 실행 완료");
     }
 
     private void Update()
@@ -103,7 +103,7 @@ public class MonsterMovement : MonoBehaviour
 
     public void Move(Transform inputTransform, float inputSpeed)
     {
-        Debug.Log("플레이어를 발견. 해당 좌표로 이동합니다.");
+        //debug.Log("플레이어를 발견. 해당 좌표로 이동합니다.");
         //currentDestination = inputTransform;
         navMeshAgent.speed = inputSpeed;
         navMeshAgent.SetDestination(inputTransform.position);
@@ -113,7 +113,7 @@ public class MonsterMovement : MonoBehaviour
     public void StopToMissing()
     {
         // StopDelay만큼 멈춤
-        Debug.Log("멈춤");
+        //debug.Log("멈춤");
         navMeshAgent.isStopped = true;
     }
 
@@ -121,7 +121,7 @@ public class MonsterMovement : MonoBehaviour
     {
         // 입력받은 딜레이 최댓값 최솟값 사이에서 랜덤하게 뽑고 반환
         tempRandom = stopDelay.Next(minimumStopDelay, maxStopDelay + 1);
-        //Debug.Log("Random Delay :" + tempRandom);
+        ////debug.Log("Random Delay :" + tempRandom);
         return tempRandom;
     }
 
@@ -132,7 +132,7 @@ public class MonsterMovement : MonoBehaviour
     //    currentDestination = tempTransform;
     //    // 속도 설정
     //    navMeshAgent.speed = inputSpeed;
-    //    Debug.Log(inputSpeed);
+    //    //debug.Log(inputSpeed);
 
     //    // 현재 목적지로 이동
     //    Move();
@@ -181,7 +181,7 @@ public class MonsterMovement : MonoBehaviour
 
     Vector3 GetRandomPositionOnNavMesh()
     {
-        Debug.Log($"위치 한개 찍음 : {transform.name}");
+        //debug.Log($"위치 한개 찍음 : {transform.name}");
         Vector3 randomDirection = Random.insideUnitSphere * 20f; // 원하는 범위 내의 랜덤한 방향 벡터를 생성합니다.
         randomDirection += transform.position; // 랜덤 방향 벡터를 현재 위치에 더합니다.
 

@@ -58,13 +58,13 @@ public class EchoSpawnSystem : MonoBehaviour
         currentSanity = statController.CurrentSanityPercent;
         if (currentSanity <= maxSanity && currentSanity >= minSanity)
         {
-            Debug.Log("에코 소환중");
+            //debug.Log("에코 소환중");
             CheckEcho();
         }
 
         else if (currentSanity > maxSanity && echoModel != null)
         {
-            Debug.Log("에코 비활성화");
+            //debug.Log("에코 비활성화");
             DisableEcho();
         }
 
@@ -141,7 +141,7 @@ public class EchoSpawnSystem : MonoBehaviour
 
         else
         {
-            Debug.Log("스폰 불가능 판정");
+            //debug.Log("스폰 불가능 판정");
         }
     }
 
@@ -156,7 +156,7 @@ public class EchoSpawnSystem : MonoBehaviour
 
         else
         {
-            Debug.Log("스폰 불가능 판정");
+            //debug.Log("스폰 불가능 판정");
         }
     }
 

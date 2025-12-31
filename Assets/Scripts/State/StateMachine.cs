@@ -12,8 +12,8 @@ public class StateMachine<T>
     {
         if (!states.ContainsKey(key))
             states.Add(key, state);
-        else
-            Debug.Log("이미 존재하는 키입니다!");
+        //else
+            //debug.Log("이미 존재하는 키입니다!");
     }
 
     // 상태 전이

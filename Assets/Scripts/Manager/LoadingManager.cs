@@ -42,7 +42,7 @@ public class LoadingManager : Singleton<LoadingManager>
 
         if (operation == null)
         {
-            Debug.LogError("씬 로드 실패!");
+            //debug.LogError("씬 로드 실패!");
             yield return null;
         }
         
@@ -58,7 +58,7 @@ public class LoadingManager : Singleton<LoadingManager>
         // progressBar.value = 1f;
 
         // 로딩 완료 후에 외부 신호(readyToActivate) 대기
-        Debug.Log("준비가 완료될때까지 대기 중..");
+        //debug.Log("준비가 완료될때까지 대기 중..");
 
         SaveData();
 
@@ -70,6 +70,6 @@ public class LoadingManager : Singleton<LoadingManager>
 
         FadeManager.Instance.FadeStartedInvoke();
         
-        Debug.Log("씬 전환됨!");
+        //debug.Log("씬 전환됨!");
     }
 }

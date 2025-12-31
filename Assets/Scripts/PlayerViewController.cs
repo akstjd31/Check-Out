@@ -22,7 +22,7 @@ public class PlayerViewController : MonoBehaviour
     {
         if (playerFieldOfView == null)
         {
-            Debug.Log("null");
+            //debug.Log("null");
             return;
         }
         StartCoroutine(playerFieldOfView.FindTargetsWithDelay());
@@ -38,7 +38,7 @@ public class PlayerViewController : MonoBehaviour
             // 마네킹인지 체크
             if (target.TryGetComponent<MannequinModel>(out var mannequinModel))
             {
-                Debug.Log($"현재 옵저버 마네킹 갯수: {currentObservedMannequin.Count}");
+                //debug.Log($"현재 옵저버 마네킹 갯수: {currentObservedMannequin.Count}");
                 mannequinModel.isObservedFromPlayer = true;
 
                 currentObservedMannequin.Add(mannequinModel);

@@ -37,7 +37,7 @@ public class StorageManager : Singleton<StorageManager>
         }
 
         SaveLoadManager.Instance.Save(fileName, saveData);
-        Debug.Log("창고 데이터 저장 완료!");
+        //debug.Log("창고 데이터 저장 완료!");
     }
 
     public void ResetStorage()
@@ -57,7 +57,7 @@ public class StorageManager : Singleton<StorageManager>
 
         foreach (var slot in saveData.slots)
         {
-            Debug.Log($"{slot.itemId} 있음!!");
+            //debug.Log($"{slot.itemId} 있음!!");
             var instance = ItemManager.Instance.Createinstance(slot.itemId);
 
             instance.duration = slot.duration;
@@ -65,7 +65,7 @@ public class StorageManager : Singleton<StorageManager>
             storage.ItemStorage(instance, slot.index);
         }
 
-        Debug.Log("창고 데이터 로드 완료!");
+        //debug.Log("창고 데이터 로드 완료!");
     }
 
     // 창고 가져오기
@@ -90,7 +90,7 @@ public class StorageManager : Singleton<StorageManager>
 
         if (empty == false)
         {
-            Debug.Log("창고가 꽉 차 있습니다");
+            //debug.Log("창고가 꽉 차 있습니다");
             return;
         }
 
@@ -119,7 +119,7 @@ public class StorageManager : Singleton<StorageManager>
 
         if (empty == false)
         {
-            Debug.Log("인벤토리가 꽉 차있습니다");
+            //debug.Log("인벤토리가 꽉 차있습니다");
             return;
         }
 

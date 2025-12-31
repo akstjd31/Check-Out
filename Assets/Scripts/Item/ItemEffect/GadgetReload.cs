@@ -22,7 +22,7 @@ public class GadgetReload : ItemEffect
         if (inventory == null)
             inventory = InventoryManager.Instance.GetInvetory();
 
-        Debug.Log(inventory);
+        //debug.Log(inventory);
 
         if (inventory.slots == null)
             return false;
@@ -38,9 +38,9 @@ public class GadgetReload : ItemEffect
             if (slot.itemdata.id == Value1)
             {
                 GameManager.Instance.Player.GetComponent<PlayerSoundController>().PlayBatteryChangedSound();
-                Debug.Log("찾음");
+                //debug.Log("찾음");
                 value = Value2;
-                Debug.Log(value);
+                //debug.Log(value);
                 inventory.MoveItem(index);
                 return true;
             }

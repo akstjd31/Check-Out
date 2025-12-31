@@ -25,7 +25,7 @@ public class MannequinController : MonsterController
     private void Start()
     {
         Init();
-        Debug.Log("마네킹 컨트롤러 배회 시작");
+        //debug.Log("마네킹 컨트롤러 배회 시작");
         mannequinModel.monsterState = Monster.MonsterState.WanderingAround;
         mannequinMovement.ChangeSpeed(mannequinModel.PatrolSpeed);
         mannequinMovement.PatrolNextOne();
@@ -35,14 +35,14 @@ public class MannequinController : MonsterController
 
     private void Update()
     {
-        //Debug.Log($"walkerState : {walkerModel.walkerState}");
-        //Debug.Log(walkerFieldOfView.visibleTargets.Count > 0);
-        //Debug.Log($"visibleTargets : {walkerFieldOfView.visibleTargets.Count}");
-        //Debug.Log(walkerModel.walkerState != WalkerModel.WalkerState.Chase);
+        ////debug.Log($"walkerState : {walkerModel.walkerState}");
+        ////debug.Log(walkerFieldOfView.visibleTargets.Count > 0);
+        ////debug.Log($"visibleTargets : {walkerFieldOfView.visibleTargets.Count}");
+        ////debug.Log(walkerModel.walkerState != WalkerModel.WalkerState.Chase);
         // 만약 접근 / 정지 상태가 아닐 때 플레이어가 시야에 들어온다면 발견 상태 실행 후 추격 진행
         if (mannequinFieldOfView.visibleTargets.Count > 0 && mannequinModel.monsterState != Monster.MonsterState.Approach && mannequinModel.monsterState != Monster.MonsterState.Stop)
         {
-            //Debug.Log("조건 만족");
+            ////debug.Log("조건 만족");
             // 발견 상태 수행
             mannequinModel.ChangeState(Monster.MonsterState.FindPlayer);
         }
@@ -88,10 +88,10 @@ public class MannequinController : MonsterController
     {
         // 모델 값을 해당 컴포넌트에 전달
         // Monster Field Of View
-        //Debug.Log($"Rdaius : {walkerModel.ViewRadius}");
-        //Debug.Log($"Angle : {walkerModel.ViewAngle}");
-        //Debug.Log($"PlayerMask : {walkerModel.PlayerMask.value}");
-        //Debug.Log($"Obstacle : {walkerModel.ObstacleMask.value}");
+        ////debug.Log($"Rdaius : {walkerModel.ViewRadius}");
+        ////debug.Log($"Angle : {walkerModel.ViewAngle}");
+        ////debug.Log($"PlayerMask : {walkerModel.PlayerMask.value}");
+        ////debug.Log($"Obstacle : {walkerModel.ObstacleMask.value}");
 
         mannequinFieldOfView.delay = new WaitForSeconds(mannequinModel.Delay);
 
@@ -113,7 +113,7 @@ public class MannequinController : MonsterController
 
     protected override void Find()
     {
-        Debug.Log("발견 상태 수행 완료");
+        //debug.Log("발견 상태 수행 완료");
         // 추격으로 전환
         if (mannequinModel.isObservedFromPlayer)
             mannequinModel.ChangeState(Monster.MonsterState.Stop);
@@ -126,7 +126,7 @@ public class MannequinController : MonsterController
         while (mannequinFieldOfView.visibleTargets.Count > 0 && !mannequinModel.isObservedFromPlayer)
         {
             // 접근 상태 동안 수행
-            Debug.Log("접근 시작");
+            //debug.Log("접근 시작");
             var target = mannequinFieldOfView.visibleTargets[0];
             mannequinMovement.NavRotationOff();
             transform.LookAt(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z));
@@ -137,7 +137,7 @@ public class MannequinController : MonsterController
 
     private void StartApproach()
     {
-        Debug.Log("추격 시작");
+        //debug.Log("추격 시작");
         StartCoroutine(Approach());
     }
     private IEnumerator Stop()
@@ -147,7 +147,7 @@ public class MannequinController : MonsterController
             mannequinMovement.NavRotationOn();
             mannequinMovement.VelocityZero();
             // 시야에 확보된 상태일 경우 이동 불가
-            Debug.Log("플레이어가 관찰 중입니다.");
+            //debug.Log("플레이어가 관찰 중입니다.");
             mannequinMovement.Move(targetTransform, 0f);
             yield return mannequinFieldOfView.delay;
         }
@@ -156,14 +156,14 @@ public class MannequinController : MonsterController
 
     private void StartStop()
     {
-        Debug.Log("정지 상태 전환");
+        //debug.Log("정지 상태 전환");
         StartCoroutine(Stop());
     }
 
     private void StartMissingPlayer()
     {
         // 어그로가 해제되면 상태를 바꿈 + 추격 멈춤
-        Debug.Log("플레이어가 시야에서 사라졌습니다.");
+        //debug.Log("플레이어가 시야에서 사라졌습니다.");
         StartCoroutine(MissingPlayer());
     }
 
@@ -173,7 +173,7 @@ public class MannequinController : MonsterController
     /// <returns></returns>
     private IEnumerator MissingPlayer()
     {
-        Debug.Log("MissingPlayer 수행");
+        //debug.Log("MissingPlayer 수행");
         mannequinMovement.StopToMissing();
         checkTimer = 0;
         while(mannequinFieldOfView.visibleTargets.Count == 0 && mannequinModel.monsterState == Monster.MonsterState.MissingPlayer)
@@ -182,7 +182,7 @@ public class MannequinController : MonsterController
             if(mannequinFieldOfView.visibleTargets.Count == 0)
             {
                 yield return new WaitForSeconds(0.2f);
-                Debug.Log("배회로 다시 전환합니다.");
+                //debug.Log("배회로 다시 전환합니다.");
                 checkTimer = 0;
                 mannequinModel.ChangeState(Monster.MonsterState.WanderingAround);
             }
@@ -198,7 +198,7 @@ public class MannequinController : MonsterController
     /// </summary>
     protected override void StartPatrol()
     {
-        Debug.Log("배회 실행");
+        //debug.Log("배회 실행");
         mannequinMovement.NavRotationOn();
         targetTransform = null;
         mannequinMovement.ChangeSpeed(mannequinModel.PatrolSpeed);

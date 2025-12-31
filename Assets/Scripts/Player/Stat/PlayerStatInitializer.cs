@@ -18,7 +18,7 @@ public class PlayerStatInitializer : MonoBehaviour
         
     //     if (playerStatTable == null)
     //     {
-    //         Debug.Log("플레이어 스탯 테이블이 null 입니다");
+    //         //debug.Log("플레이어 스탯 테이블이 null 입니다");
     //         return;
     //     }
         

@@ -25,7 +25,7 @@ public class StorageUI : MonoBehaviour
 
         if (storage == null)
         {
-            Debug.Log("UI - 창고를 찾지 못했습니다");
+            //debug.Log("UI - 창고를 찾지 못했습니다");
             return;
         }
     }
@@ -51,7 +51,7 @@ public class StorageUI : MonoBehaviour
     {
         SetStorageUI(storage.GetDefaultStorageSize());
 
-        Debug.Log("창고 UI 만들어짐!");
+        //debug.Log("창고 UI 만들어짐!");
     }
 
 
@@ -180,7 +180,7 @@ public class StorageUI : MonoBehaviour
             Exitentry.eventID = EventTriggerType.PointerExit;
             Exitentry.callback.AddListener((data) => { hover.OnExit(); });
 
-            Debug.Log("이벤트 추가됨");
+            //debug.Log("이벤트 추가됨");
 
             trigger.triggers.Add(Enterentry);
             trigger.triggers.Add(Exitentry);

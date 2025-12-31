@@ -15,10 +15,10 @@ public class EchoPlayerDetect : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("에코가 플레이어와 충돌했습니다");
+            //debug.Log("에코가 플레이어와 충돌했습니다");
             if (echoSpawnSystem == null)
             {
-                Debug.LogError("EchoController이 비어있습니다.");
+                //debug.LogError("EchoController이 비어있습니다.");
                 return;
             }
             echoSpawnSystem.DisableEcho();

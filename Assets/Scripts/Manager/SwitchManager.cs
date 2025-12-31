@@ -29,7 +29,7 @@ public class SwitchManager : Singleton<SwitchManager>
 
         if (switchTable == null)
         {
-            Debug.LogError("스위치 테이블 데이터가 없음!");
+            //debug.LogError("스위치 테이블 데이터가 없음!");
             return;
         }
 
@@ -71,7 +71,7 @@ public class SwitchManager : Singleton<SwitchManager>
     {
         if (!switchStates.TryGetValue(id, out var value))
         {
-            Debug.LogError($"스위치 ID {id}가 없습니다!");
+            //debug.LogError($"스위치 ID {id}가 없습니다!");
             return false;
         }
 
@@ -82,7 +82,7 @@ public class SwitchManager : Singleton<SwitchManager>
     {
         if (!switchStates.ContainsKey(id))
         {
-            Debug.LogError($"스위치 ID {id} 없음");
+            //debug.LogError($"스위치 ID {id} 없음");
             return;
         }
 

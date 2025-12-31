@@ -35,7 +35,6 @@ public abstract class TwoDStyleRender : TwoDStyleObj
 
     private void OnEnable()
     {
-        Debug.Log($"{name}: OnEnable subscribe");
         CameraTwoD.onPreCull += FixTheCamera;
     }
 
@@ -63,7 +62,7 @@ public abstract class TwoDStyleRender : TwoDStyleObj
     // 방향에 따른 스프라이트 넣기
     protected virtual void SetActualShowedState(ShowedState state)
     {
-        //Debug.Log("ActiveRenderer: " + activeRenderer + " frontTexture: " + frontTexture);
+        ////debug.Log("ActiveRenderer: " + activeRenderer + " frontTexture: " + frontTexture);
         if (animState == AnimState.Idle)
         {
             switch (state)

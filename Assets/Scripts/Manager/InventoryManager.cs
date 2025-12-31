@@ -41,10 +41,10 @@ public class InventoryManager : Singleton<InventoryManager>
         inventory.SetInventory(size);
     }
 
-    public void InventoryDebug()
-    {
-        Debug.Log($"인벤토리 크기: {inventory.slots.Length}");
-    }
+    //public void Inventorydebug()
+    //{
+    //    debug.Log($"인벤토리 크기: {inventory.slots.Length}");
+    //}
 
     // 인벤토리 저장 기능
     public bool SaveInventory()
@@ -64,7 +64,7 @@ public class InventoryManager : Singleton<InventoryManager>
         }
 
         SaveLoadManager.Instance.Save(fileName, saveData);
-        Debug.Log("인벤토리 데이터 저장 완료!");
+        //debug.Log("인벤토리 데이터 저장 완료!");
         return true;
     }
 
@@ -83,10 +83,10 @@ public class InventoryManager : Singleton<InventoryManager>
             instance.duration = slot.duration;
 
             inventory.GetItem(instance, slot.index);
-            Debug.Log($"현재 불러온 아이템: {instance.itemdata.itemName}");
+            //debug.Log($"현재 불러온 아이템: {instance.itemdata.itemName}");
         }
 
-        Debug.Log("인벤토리 데이터 로드 완료!");
+        //debug.Log("인벤토리 데이터 로드 완료!");
         return true;
     }
 
@@ -95,7 +95,7 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         if (inventory == null)
         {
-            Debug.Log("인벤토리가 업성");
+            //debug.Log("인벤토리가 업성");
             return false;
         }
 
@@ -104,14 +104,14 @@ public class InventoryManager : Singleton<InventoryManager>
 
         if (empty == false)
         {
-            Debug.Log("인벤토리가 꽉 찼습니다");
+            //debug.Log("인벤토리가 꽉 찼습니다");
             return false;
         }
         
-        Debug.Log($"{inventoryIndex} 번째 칸의 인벤토리에 넣는 중");
+        //debug.Log($"{inventoryIndex} 번째 칸의 인벤토리에 넣는 중");
         inventory.GetItem(item, inventoryIndex);
         SelectInventory(currentIndex);
-        Debug.Log($"{item.itemdata.itemName}을 성공적으로 넣었습니다");
+        //debug.Log($"{item.itemdata.itemName}을 성공적으로 넣었습니다");
 
         return true;
     }
@@ -201,7 +201,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
             else if (pervItem != null)
             {
-                Debug.Log("되는건가?");
+                //debug.Log("되는건가?");
                 pervItem.ChangeState(ItemState.Off);
             }
 
@@ -236,7 +236,7 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         if (currentItem == null)
         {
-            Debug.Log("아이템 없어?");
+            //debug.Log("아이템 없어?");
 
             return;
         }
@@ -259,7 +259,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
             else if (currentItemType == ItemType.Consumable && currentItem.state == ItemState.On)
             {
-                Debug.Log("소모품 아이템이 사용됨");
+                //debug.Log("소모품 아이템이 사용됨");
                 var item = inventory.MoveItem(currentIndex);
 
                 if (item == null) return;
@@ -359,7 +359,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
         handImage.gameObject.SetActive(true);
 
-        Debug.Log($"{item.itemdata.id} 입니다.");
+        //debug.Log($"{item.itemdata.id} 입니다.");
 
         var objTransform = new Vector3(transform.position.x, -20, transform.position.y);
 

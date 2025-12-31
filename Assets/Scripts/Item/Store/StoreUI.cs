@@ -21,7 +21,7 @@ public class StoreUI : MonoBehaviour
 
         if (store == null)
         {
-            Debug.Log("UI - 창고를 찾지 못했습니다");
+            //debug.Log("UI - 창고를 찾지 못했습니다");
         }
     }
 
@@ -154,7 +154,7 @@ public class StoreUI : MonoBehaviour
             Exitentry.eventID = EventTriggerType.PointerExit;
             Exitentry.callback.AddListener((data) => { hover.OnExit(); });
 
-            Debug.Log("이벤트 추가됨");
+            //debug.Log("이벤트 추가됨");
 
             trigger.triggers.Add(Enterentry);
             trigger.triggers.Add(Exitentry);

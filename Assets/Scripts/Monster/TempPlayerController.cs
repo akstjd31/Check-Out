@@ -36,7 +36,7 @@ public class TempPlayerController : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"{monster.name}에는 MonsterSoundDetect가 없습니다!");
+                //debug.LogWarning($"{monster.name}에는 MonsterSoundDetect가 없습니다!");
             }
         }
     }
@@ -70,7 +70,7 @@ public class TempPlayerController : MonoBehaviour
     // 이동 키를 입력받고 있을 때
     public void OnMovePerformed(InputAction.CallbackContext context)
     {
-        Debug.Log("플레이어가 움직임");
+        //debug.Log("플레이어가 움직임");
         moveInput = context.ReadValue<Vector3>();
         soundAction?.Invoke(transform);
     }

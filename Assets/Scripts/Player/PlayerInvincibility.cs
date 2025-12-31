@@ -86,7 +86,7 @@ public class PlayerInvincibility : MonoBehaviour
         visual.UpdateShake(onHit);
 
         stat.ChangeSanity(true, -monster.Power);
-        Debug.LogWarning("플레이어 데미지 적용");
+        //debug.LogWarning("플레이어 데미지 적용");
 
         StartInvincibility();
 

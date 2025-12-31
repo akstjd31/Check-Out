@@ -29,7 +29,7 @@ public class ItemSpawner : MonoBehaviour
         itemTable = TableManager.Instance.GetTable<int, ItemTableData>();
         if (itemTable == null)
         {
-            Debug.Log("아이템 생성 테이블이 null입니다.");
+            //debug.Log("아이템 생성 테이블이 null입니다.");
             return;
         }
 
@@ -42,7 +42,7 @@ public class ItemSpawner : MonoBehaviour
         groupTable = TableManager.Instance.GetTable<int, ItemGroupTableData>();
         if (groupTable == null)
         {
-            Debug.Log("아이템 그룹 테이블이 null입니다.");
+            //debug.Log("아이템 그룹 테이블이 null입니다.");
             return;
         }
 
@@ -55,7 +55,7 @@ public class ItemSpawner : MonoBehaviour
         spawnTable = TableManager.Instance.GetTable<int, ItemSpawnTableData>();
         if (spawnTable == null)
         {
-            Debug.Log("아이템 스폰 위치 테이블이 null입니다.");
+            //debug.Log("아이템 스폰 위치 테이블이 null입니다.");
             return;
         }
 
@@ -82,7 +82,7 @@ public class ItemSpawner : MonoBehaviour
             case "SpawnTable":
                 return spawnCount;
             default:
-                Debug.LogWarning("해당하는 테이블이 컴포넌트에 존재하지 않습니다.");
+                //debug.LogWarning("해당하는 테이블이 컴포넌트에 존재하지 않습니다.");
                 return 0;
         }
     }
@@ -120,7 +120,7 @@ public class ItemSpawner : MonoBehaviour
         // 예외처리
         if (idWithCorrectGroup.Count == 0)
         {
-            Debug.Log($"{groupValue} 그룹 아이템이 존재하지 않습니다.");
+            //debug.Log($"{groupValue} 그룹 아이템이 존재하지 않습니다.");
             return 0;
         }
 

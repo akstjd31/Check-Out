@@ -19,7 +19,7 @@ public class TableParser
     {
         if (csvFile == null)
         {
-            Debug.LogError("CSV 파일이 없습니다.");
+            //debug.LogError("CSV 파일이 없습니다.");
             return null;
         }
 
@@ -35,14 +35,14 @@ public class TableParser
         }
         catch (Exception e)
         {
-            Debug.LogError($"CSV 파일 읽기 오류");
+            //debug.LogError($"CSV 파일 읽기 오류");
             return null;
         }
 
         // 2. 칼럼 헤더 추출
         if (rows.Count <= HeaderRowIndex)
         {
-            Debug.LogError($"CSV에 컬럼 헤더 {HeaderRowIndex}가 없습니다!");
+            //debug.LogError($"CSV에 컬럼 헤더 {HeaderRowIndex}가 없습니다!");
             return null;
         }
 
@@ -53,7 +53,7 @@ public class TableParser
         int idIndex = Array.IndexOf(columnNames, idColumnName);
         if (idIndex < 0)
         {
-            Debug.LogError($"CSV에 id 칼럼 {idColumnName}가 없습니다");
+            //debug.LogError($"CSV에 id 칼럼 {idColumnName}가 없습니다");
             return null;
         }
 
@@ -104,12 +104,12 @@ public class TableParser
             }
             catch (Exception e)
             {
-                Debug.LogError($"id {idString} 변환 실패");
+                //debug.LogError($"id {idString} 변환 실패");
             }
 
             if (allRowData.ContainsKey(idValue))
             {
-                Debug.LogError($"{idValue} 중복");
+                //debug.LogError($"{idValue} 중복");
                 continue;
             }
             // ID 처리 완료
@@ -143,7 +143,7 @@ public class TableParser
                     }
                     catch (Exception e)
                     {
-                        Debug.LogError($"값 변환 오류: 칼럼 '{columnName}' 의 값 '{stringValue}' 을(를) {targetType} 타입으로 변환할 수 없습니다. 오류: {e.Message}");
+                        //debug.LogError($"값 변환 오류: 칼럼 '{columnName}' 의 값 '{stringValue}' 을(를) {targetType} 타입으로 변환할 수 없습니다. 오류: {e.Message}");
                     }
                 }
             }

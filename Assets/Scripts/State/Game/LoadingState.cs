@@ -9,7 +9,7 @@ public class LoadingState : IState
     public void Enter()
     {
         Init();
-        Debug.Log("로딩 상태 진입");
+        //debug.Log("로딩 상태 진입");
     }
 
     private void Init()
@@ -22,7 +22,7 @@ public class LoadingState : IState
 
     public void Exit()
     {
-        Debug.Log("로딩 상태 종료");
+        //debug.Log("로딩 상태 종료");
         FadeManager.Instance.SetFadeImageDeactivate();
     }
 

@@ -77,7 +77,7 @@ public class MannequinModel : Monster
                 break;
             case MonsterState.FindPlayer:
                 if (OnFindPlayer == null)
-                    Debug.LogWarning("OnFindPlayer에 구독자가 없습니다.");
+                    //debug.LogWarning("OnFindPlayer에 구독자가 없습니다.");
                 monsterState = MonsterState.FindPlayer;
                 OnFindPlayer?.Invoke();
                 break;

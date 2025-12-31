@@ -7,13 +7,13 @@ public class RunState : IState
     private bool flag;
     public void Enter()
     {
-        Debug.Log("세션 상태 진입");
+        //debug.Log("세션 상태 진입");
         Init();
     }
 
     public void Exit()
     {
-        Debug.Log("세션 상태 종료");
+        //debug.Log("세션 상태 종료");
         
         ItemManager.Instance.ReturnAllObjItem();
         ItemManager.Instance.ReturnAllItem();

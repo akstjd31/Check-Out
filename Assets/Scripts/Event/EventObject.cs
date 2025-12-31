@@ -46,7 +46,6 @@ public class EventObject : MonoBehaviour
 
         if (currentStartType.Equals(StartEventType.EnterCollider))
         {
-            Debug.Log("이벤트를 실행!");
             EventManager.Instance.OnEventTriggered(StartType, StartValue);
         }
     }
@@ -118,7 +117,6 @@ public class EventObject : MonoBehaviour
 
     public void StopSound()
     {
-        Debug.Log("소리 멈춤");
         audioSource.Stop();
     }
 

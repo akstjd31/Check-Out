@@ -53,28 +53,28 @@ public class WalkerModel : Monster
         switch (inputState)
         {
             case MonsterState.WanderingAround:
-                Debug.Log($"{monsterState} : WanderingAround");
+                //debug.Log($"{monsterState} : WanderingAround");
                 monsterState = MonsterState.WanderingAround;
                 audioSource.clip = SoundManager.Instance.GetWalkerPatrolClip();
                 OnWanderingAround?.Invoke();
                 break;
             case MonsterState.Chase:
-                Debug.Log($"{monsterState} : Chase");
+                //debug.Log($"{monsterState} : Chase");
                 monsterState = MonsterState.Chase;
                 audioSource.clip = SoundManager.Instance.GetWalkerChaseClip();
                 OnChase?.Invoke();
                 // OnChaseAfter?.Invoke();
                 break;
             case MonsterState.MissingPlayer:
-                Debug.Log($"{monsterState} : MissingPlayer");
+                //debug.Log($"{monsterState} : MissingPlayer");
                 monsterState = MonsterState.MissingPlayer;
                 OnMissingPlayer?.Invoke();
                 // OnMissingPlayerAfter?.Invoke();
                 break;
             case MonsterState.FindPlayer:
-                Debug.Log($"{monsterState} : FindPlayer");
+                //debug.Log($"{monsterState} : FindPlayer");
                 if (OnFindPlayer == null)
-                    Debug.LogWarning("OnFindPlayer에 구독자가 없습니다.");
+                    //debug.LogWarning("OnFindPlayer에 구독자가 없습니다.");
                 monsterState = MonsterState.FindPlayer;
                 OnFindPlayer?.Invoke();
                 break;

@@ -54,11 +54,11 @@ public class ChatboxUI : MonoBehaviour
         //테이블매니저로부터 대사 출력 정보를 담은 테이블을 받아온다.
         talkTable = TableManager.Instance.GetTable<int, TalkTableData>();
 
-        Debug.Log("데이터 받아오는 과정 거쳤음");
+        //debug.Log("데이터 받아오는 과정 거쳤음");
         //없을 경우 안내 후 반환.
         if (talkTable == null)
         {
-            Debug.Log("대화 생성 테이블이 null입니다.");
+            //debug.Log("대화 생성 테이블이 null입니다.");
             return;
         }
 

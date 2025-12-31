@@ -50,7 +50,7 @@ public class EventManager : Singleton<EventManager>
 
         if (eventTable == null)
         {
-            Debug.LogError("이벤트 테이블 데이터가 없음!");
+            //debug.LogError("이벤트 테이블 데이터가 없음!");
             return;
         }
 
@@ -139,23 +139,23 @@ public class EventManager : Singleton<EventManager>
 
         if (action == null)
         {
-            Debug.LogError($"알 수 없는 EventType: {evt.eventType}");
+            //debug.LogError($"알 수 없는 EventType: {evt.eventType}");
             return;
         }
 
-        Debug.Log("이벤트 실행!");
+        //debug.Log("이벤트 실행!");
         action.Execute(evt.eventValue, evt.targetObject, evt.startValue);
 
         // 만약 쿨 다운 액션이었다면 쿨 다운 값 추가
         if (action is CoolDownAction)
         {
-            Debug.Log($"쿨다운 설정 완료! 현재 값: {Cooldown}");
+            //debug.Log($"쿨다운 설정 완료! 현재 값: {Cooldown}");
             cooldownData[evt.groupId] = Cooldown;
         }
 
         if (action is DelayAction)
         {
-            Debug.Log($"현재 딜레이: {Delay}");
+            //debug.Log($"현재 딜레이: {Delay}");
         }
     }
 }

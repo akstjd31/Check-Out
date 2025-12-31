@@ -65,7 +65,7 @@ public class PlayerStamina : MonoBehaviour
     {
         soundController.PlayExhaustSound();
         exhaustTimer = holder.Stat.StaminaExhaustTime;
-        Debug.Log("탈진!");
+        //debug.Log("탈진!");
         IsExhausted = true;
     }
 }

@@ -27,7 +27,7 @@ public class InventoryUI : MonoBehaviour
 
         if (inventory == null)
         {
-            Debug.Log("UI - 인벤토리를 찾지 못했습니다");
+            //debug.Log("UI - 인벤토리를 찾지 못했습니다");
         }
     }
 
@@ -216,7 +216,7 @@ public class InventoryUI : MonoBehaviour
     // 창고 오픈 시 버튼 할당
     public void OnStorageUI(Button button, int index)
     {
-        Debug.Log("버튼 할당됨!");
+        //debug.Log("버튼 할당됨!");
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(delegate { StorageManager.Instance.InventoryToStorage(index); 
                                             SoundManager.Instance.PlayUIButtonClickSound(); });

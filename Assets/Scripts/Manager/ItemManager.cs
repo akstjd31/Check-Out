@@ -42,7 +42,7 @@ public class ItemManager : Singleton<ItemManager>
         
         foreach (var itemObj in itemObjects)
         {
-            Debug.Log(itemObj.name);
+            //debug.Log(itemObj.name);
             itemObjPool.CreatePool(itemObj, playerCount, itemObjPoolParent);
         }
 
@@ -52,7 +52,7 @@ public class ItemManager : Singleton<ItemManager>
 
         foreach (var itemObj in handItemObjects)
         {
-            Debug.Log(itemObj.name);
+            //debug.Log(itemObj.name);
             handItemObjPool.CreatePool(itemObj, playerCount, handItemObjPoolParent);
         }
 
@@ -68,13 +68,13 @@ public class ItemManager : Singleton<ItemManager>
 
         if (itemTable == null)
         {
-            Debug.Log("아이템 테이블이 null 입니다");
+            //debug.Log("아이템 테이블이 null 입니다");
             return;
         }
 
         if (effectDataID == null)
         {
-            Debug.Log("아이템 효과 테이블이 null 입니다");
+            //debug.Log("아이템 효과 테이블이 null 입니다");
             return;
         }
 
@@ -166,7 +166,7 @@ public class ItemManager : Singleton<ItemManager>
 
     public void ReturnItem(Item item)
     {
-        Debug.Log(item);
+        //debug.Log(item);
         itemPool.ReturnObject(itemPrefab, item);
     }
 
@@ -176,7 +176,7 @@ public class ItemManager : Singleton<ItemManager>
         {
             if ( obj.ItemId == item.ItemId )
             {
-                Debug.Log("반환함");
+                //debug.Log("반환함");
                 item.transform.parent = itemObjPoolParent;
                 itemObjPool.ReturnObject(obj, item);
                 return;
@@ -190,7 +190,7 @@ public class ItemManager : Singleton<ItemManager>
         {
             if (obj.ItemId == item.ItemId)
             {
-                Debug.Log("반환함");
+                //debug.Log("반환함");
                 //item.transform.SetParent(handitemObjPoolParent, false);
                 handItemObjPool.ReturnObject(obj, item);
                 return;

@@ -52,7 +52,7 @@ public class FieldOfView : MonoBehaviour
 
     private void FindVisibleTarget()
     {
-        //Debug.Log("시야 갱신");
+        ////debug.Log("시야 갱신");
         // 매서드 시작 시 리스트를 초기화
         visibleTargets.Clear();
 
@@ -77,7 +77,7 @@ public class FieldOfView : MonoBehaviour
                 // 자기자신과 타겟 사이에 장애물이 없을 경우 다음 내용을 수행
                 if( !Physics.Raycast (transform.position, directionToTarget, dstToTarget, obstacleMask))
                 {
-                    Debug.Log($"{targetsInInRadius[i]} 발견");
+                    //debug.Log($"{targetsInInRadius[i]} 발견");
                     visibleTargets.Add(target);
                 }
             }

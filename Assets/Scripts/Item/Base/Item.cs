@@ -47,7 +47,7 @@ public class Item : Interactable, IItem
         Sprite sprite = Resources.Load<Sprite>(ImgPath);
         spriteRenderer.sprite = sprite;
 
-        Debug.Log($"ID : {ID} 와 이름 : {Name} 이 성공적으로 들어갔습니다");
+        //debug.Log($"ID : {ID} 와 이름 : {Name} 이 성공적으로 들어갔습니다");
     }
 
     public override void OnFocusEnter()

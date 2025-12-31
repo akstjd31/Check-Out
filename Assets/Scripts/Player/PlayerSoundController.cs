@@ -106,7 +106,7 @@ public class PlayerSoundController : MonoBehaviour
         //    && other.TryGetComponent<SirenModel>(out var sirenModel)
         //    )
         //{
-        //    Debug.Log($" 현재 사이렌 상태 : {sirenModel.monsterState.ToString()}");
+        //    //debug.Log($" 현재 사이렌 상태 : {sirenModel.monsterState.ToString()}");
         //    if (sirenModel.monsterState == Monster.MonsterState.WanderingAround)
         //        sirenModel.ChangeState(Monster.MonsterState.Alert);
         //}
@@ -196,7 +196,7 @@ public class PlayerSoundController : MonoBehaviour
     //     //     currentSanityClip = clip;
     //     //     audioSource.PlayOneShot(currentSanityClip);
     //     //     sanityClipLength = currentSanityClip.length;
-    //     //     Debug.Log("클립 전환됨!");
+    //     //     //debug.Log("클립 전환됨!");
     //     //     return;
     //     // }
 
@@ -206,7 +206,7 @@ public class PlayerSoundController : MonoBehaviour
     //         return;
     //     }
         
-    //     Debug.Log("사운드 끝나서 새로 재생!");
+    //     //debug.Log("사운드 끝나서 새로 재생!");
 
     //     // 해당 사운드 끝나면 바로 재생
     //     audioSource.PlayOneShot(currentSanityClip);

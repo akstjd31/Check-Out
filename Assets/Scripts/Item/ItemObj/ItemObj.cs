@@ -49,7 +49,7 @@ public class ItemObj : MonoBehaviour
         
         while (ItemInstance.duration > 0 && state == ObjState.On)
         {
-            Debug.Log("남은 배터리 :" + ItemInstance.duration);
+            //debug.Log("남은 배터리 :" + ItemInstance.duration);
             ItemInstance.duration -= Consumption;
             if (ItemInstance.duration < 0)
                 ItemInstance.duration = 0;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class SessionManager : Singleton<SessionManager>
 {
@@ -40,7 +40,7 @@ public class SessionManager : Singleton<SessionManager>
         items = GameObject.FindGameObjectsWithTag("Interactable");
 
         //아이템 오브젝트 수를 출력
-        Debug.Log($"아이템 오브젝트 {items.Length}개 발견");
+        //debug.Log($"아이템 오브젝트 {items.Length}개 발견");
 
         //모든 아이템 오브젝트를 비활성화
         foreach (GameObject item in items)
@@ -60,7 +60,7 @@ public class SessionManager : Singleton<SessionManager>
         enemies = GameObject.FindGameObjectsWithTag("Monster");
 
         //적 오브젝트 수를 출력
-        Debug.Log($"적 오브젝트 {enemies.Length}개 발견");
+        //debug.Log($"적 오브젝트 {enemies.Length}개 발견");
 
         //여기 왔다는 건 오브젝트가 존재한다는 것이므로 그 오브젝트들을 비활성화
         foreach (GameObject enemy in enemies)
@@ -78,7 +78,7 @@ public class SessionManager : Singleton<SessionManager>
     {
         elevators = GameObject.FindGameObjectsWithTag("Elevator");
 
-        Debug.Log($"엘레베이터 오브젝트 {elevators.Length}개 발견");
+        //debug.Log($"엘레베이터 오브젝트 {elevators.Length}개 발견");
 
         foreach (GameObject elevator in elevators)
         {
