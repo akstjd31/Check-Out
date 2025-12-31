@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SirenModel
   patrolSpeed: 0.6
-  power: 34
+  power: 2000
   isObservedFromPlayer: 0
   monsterState: 0
   stopToMissingDelay: 3

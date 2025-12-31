@@ -378,7 +378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MannequinModel
   patrolSpeed: 3
-  power: 50
+  power: 2000
   isObservedFromPlayer: 0
   monsterState: 0
   approachSpeed: 9
@@ -444,6 +444,7 @@ MonoBehaviour:
   bottomTexture: {fileID: 21300000, guid: 1a43968e8c6939a40b9be183d69d42b6, type: 3}
   leftTexture: {fileID: 21300000, guid: 4b13c7a2bc5fcde40b1af08d1b240a57, type: 3}
   rightTexture: {fileID: 21300000, guid: 4b13c7a2bc5fcde40b1af08d1b240a57, type: 3}
+  ScreamTexture: {fileID: 0}
 --- !u!1 &8880013042801164524
 GameObject:
   m_ObjectHideFlags: 0
