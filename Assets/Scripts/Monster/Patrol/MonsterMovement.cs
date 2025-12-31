@@ -33,6 +33,8 @@ public class MonsterMovement : MonoBehaviour
     // 몬스터 움직이지 않는지 판단할 시간
     [SerializeField] private float defaultExceptionTimer = 2f;
 
+    private FourView fourView;
+
     // 프로퍼티 
     public int MinimumStopDelay { get; set; }
     public int MaxStopDelay { get; set; }
@@ -44,7 +46,6 @@ public class MonsterMovement : MonoBehaviour
         // 다음 목표 지점으로 이동
         //PatrolNextOne();
         //TestLoop();
-
         Debug.Log("움직임 컴포넌트 스타트 실행 완료");
     }
 
@@ -53,9 +54,14 @@ public class MonsterMovement : MonoBehaviour
         // 만약 몬스터가 멈춰있을 경우 타이머를 진행
         if (monster.monsterState == Monster.MonsterState.WanderingAround)
         {
+            if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance && navMeshAgent.hasPath)
+            {
+                if (fourView.animator != null)
+                    fourView.animState = AnimState.Idle;
+            }
+
             if (navMeshAgent.velocity == Vector3.zero && exceptionTimer < defaultExceptionTimer)
             {
-                //Debug.Log($"몬스터 움직임 감지 못 함 : {exceptionTimer}");
                 exceptionTimer += Time.deltaTime;
             }
             // 몬스터가 일정 시간 동안 멈춰있을 경우 자체적으로 배회 진행
@@ -84,6 +90,7 @@ public class MonsterMovement : MonoBehaviour
         stopDelay = new System.Random();
 
         monster = GetComponent<Monster>();
+        fourView = GetComponent<FourView>();
     }
 
 
@@ -139,6 +146,8 @@ public class MonsterMovement : MonoBehaviour
         nextDestination = GetRandomPositionOnNavMesh();
         // 현재 목적지로 이동
         //Move(nextDestination.position);
+        if (fourView.animator != null)
+            fourView.animState = AnimState.Move;
         Move(nextDestination);
     }
 

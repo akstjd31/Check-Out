@@ -59,6 +59,8 @@ public class PlayerInvincibility : MonoBehaviour
         if (monster == null)
             return;
 
+        if (monster is MannequinModel && monster.monsterState == Monster.MonsterState.Stop) return;
+
         ApplyDamage(monster);
     }
 
