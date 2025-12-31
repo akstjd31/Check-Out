@@ -45,6 +45,7 @@ public class StorageUI : MonoBehaviour
     public void StorageClose()
     {
         inventoryUI.StorageClosed();
+        inventoryUI.OnButtonRefresh();
     }
 
     public void Init()

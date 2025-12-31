@@ -45,6 +45,7 @@ public class StoreUI : MonoBehaviour
     public void OnDisable()
     {
         inventoryUI.StoreChangeClosed();
+        inventoryUI.OnButtonRefresh();
     }
 
     // 로딩 때 창고 ui 세팅
