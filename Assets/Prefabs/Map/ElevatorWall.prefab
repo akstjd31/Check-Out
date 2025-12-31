@@ -47,6 +47,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6167817247382686275}
     m_Modifications:
+    - target: {fileID: 3433165209912284120, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 7910032664348623723, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
       propertyPath: m_Name
       value: Elevator
@@ -107,7 +111,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6658876349057867269, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5844350947246312031, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
     - {fileID: 4636957075538906317, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
@@ -241,6 +246,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6167817247382686275}
     m_Modifications:
+    - target: {fileID: 3433165209912284120, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 7910032664348623723, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
       propertyPath: m_Name
       value: Elevator (2)
@@ -301,7 +310,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6658876349057867269, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5844350947246312031, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
     - {fileID: 4636957075538906317, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
@@ -634,6 +644,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6167817247382686275}
     m_Modifications:
+    - target: {fileID: 3433165209912284120, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 7910032664348623723, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
       propertyPath: m_Name
       value: Elevator (1)
@@ -694,7 +708,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6658876349057867269, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5844350947246312031, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
     - {fileID: 4636957075538906317, guid: f7fdc0be9be3cc44d812e0faa374b2fc, type: 3}
