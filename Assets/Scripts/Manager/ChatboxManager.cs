@@ -45,8 +45,11 @@ public class ChatboxManager : Singleton<ChatboxManager>
                     chatbox.Description(eventId);
                 }
                 //만에 하나를 대비하여 0일 때의 코드 작성
-                else if (eventId == 0)
+                if (eventId == 0)
+                {
                     EndDialogue();
+                    isUsingChatbox=false;
+                }
             }
         }
     }
@@ -70,7 +73,7 @@ public class ChatboxManager : Singleton<ChatboxManager>
     public void EndDialogue()
     {
         //대사창 비활성화하기
-        chatboxUI.Hide();
+        chatbox.Hide();
         if(isUsingChatbox)
             isUsingChatbox = false;
     }

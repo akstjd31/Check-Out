@@ -119,7 +119,7 @@ MonoBehaviour:
   nameText: {fileID: 957980683900347763}
   chatPanel: {fileID: 6298118207265141133}
   descriptionText: {fileID: 878456315060645938}
-  charPrintDelay: 0.02
+  charPrintDelay: 0.05
   chatboxGroup: {fileID: 7390014560138164252}
   spriteCG: {fileID: 2234757487389230805}
 --- !u!1 &3486462753239421919

@@ -141,7 +141,12 @@ public class ChatboxUI : MonoBehaviour
                 chatPanel.gameObject.SetActive(true);
             if (!descriptionText.gameObject.activeSelf)
                 descriptionText.gameObject.SetActive(true);
-            description = talkTable[desc_id].line_desc;
+            description = "";
+            foreach(var c in talkTable[desc_id].line_desc)
+            {
+                if (c != '@') description += c;
+                else description += ',';
+            }
         }
 
         //테이블에서 CG가 있는 id값이었을 경우
@@ -208,7 +213,7 @@ public class ChatboxUI : MonoBehaviour
         //출력 중!
         isTyping = true;
         //아무것도 출력하지 않은 상태일 테니 초기화. 텅 빈 상태로 만들기.
-        descriptionText.text = " ";
+        descriptionText.text = "";
 
         //출력할 문자열의 각 문자 하나하나마다
         foreach(var c in description)
