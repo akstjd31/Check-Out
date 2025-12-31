@@ -1,7 +1,5 @@
-using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class ItemManager : Singleton<ItemManager>
 {
@@ -244,7 +242,6 @@ public class ItemManager : Singleton<ItemManager>
     public ItemInstance Createinstance(int itemId)
     {
         var data = GetItemData(itemId);
-        data.itemDescription = data.itemDescription.Replace('@', ',');
         var effects = GetItemEffectData(data.itemEffect);
         
         return new ItemInstance(data, effects);
@@ -253,6 +250,7 @@ public class ItemManager : Singleton<ItemManager>
     public ItemTableData GetItemData(int itemID)
     {
         if (itemDataID.TryGetValue(itemID, out var item) == false) return null;
+        item.itemDescription = item.itemDescription.Replace('@', ',');
 
         return item;
     }
