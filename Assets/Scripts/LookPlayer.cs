@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class LookPlayer : MonoBehaviour
 {
     private Transform cam;
 
     void Start()
+    {
+        cam = Camera.main.transform;
+    }
+
+    private void OnEnable()
     {
         cam = Camera.main.transform;
     }
