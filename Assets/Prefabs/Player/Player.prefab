@@ -1063,7 +1063,7 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 128
-  mouseSensitivity: 120
+  mouseSensitivity: 720
   cameraDistance: 0.1
 --- !u!114 &1615966991588161401
 MonoBehaviour:
