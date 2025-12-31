@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalkerModel
   patrolSpeed: 1
-  power: 34
+  power: 2000
   isObservedFromPlayer: 0
   monsterState: 0
   chaseFast: 4.5

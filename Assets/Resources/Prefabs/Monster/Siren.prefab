@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SirenModel
   patrolSpeed: 0.6
-  power: 34
+  power: 2000
   isObservedFromPlayer: 0
   monsterState: 0
   stopToMissingDelay: 3
@@ -362,7 +362,7 @@ MonoBehaviour:
   bottomTexture: {fileID: 565741893, guid: ba5b1f8439516b549afac12738ef157b, type: 3}
   leftTexture: {fileID: 688668504, guid: ba5b1f8439516b549afac12738ef157b, type: 3}
   rightTexture: {fileID: 688668504, guid: ba5b1f8439516b549afac12738ef157b, type: 3}
-  ScreamTexture: {fileID: -522932306, guid: 9462f5a6765d32e46a261cc5fa8b2f36, type: 3}
+  ScreamTexture: {fileID: 21300000, guid: d286e8f0b505ff34b89e0e1f43e72ac1, type: 3}
 --- !u!95 &3197977462559497176
 Animator:
   serializedVersion: 7

@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EchoModel
   patrolSpeed: 0
-  power: 0
+  power: 2000
   isObservedFromPlayer: 0
   monsterState: 0
   darkSituationHoldingTime: 10
@@ -457,6 +457,7 @@ MonoBehaviour:
   bottomTexture: {fileID: 21300000, guid: 203b6e90810dd604898f054ae9299987, type: 3}
   leftTexture: {fileID: 21300000, guid: ea5fb2a746f25484e968d598add4a52d, type: 3}
   rightTexture: {fileID: 21300000, guid: ea5fb2a746f25484e968d598add4a52d, type: 3}
+  ScreamTexture: {fileID: 0}
 --- !u!1001 &6077019081293542257
 PrefabInstance:
   m_ObjectHideFlags: 0
