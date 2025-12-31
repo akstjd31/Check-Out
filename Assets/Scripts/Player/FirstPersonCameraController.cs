@@ -27,19 +27,29 @@ public class FirstPersonCameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        FadeManager.Instance.OnFadeStarted += () => canCameraRotate = false;
-        FadeManager.Instance.OnFadeEnded += () => canCameraRotate = true;
-
+        FadeManager.Instance.OnFadeStarted += HandleFadeStarted;
+        FadeManager.Instance.OnFadeEnded += HandleFadeEnded;
     }
 
     private void OnDisable()
     {
         if (FadeManager.Instance != null)
         {
-            FadeManager.Instance.OnFadeStarted -= () => canCameraRotate = false;
-            FadeManager.Instance.OnFadeEnded -= () => canCameraRotate = true;
+            FadeManager.Instance.OnFadeStarted -= HandleFadeStarted;
+            FadeManager.Instance.OnFadeEnded -= HandleFadeEnded;
         }
     }
+
+    private void HandleFadeStarted()
+    {
+        canCameraRotate = false;
+    }
+
+    private void HandleFadeEnded()
+    {
+        canCameraRotate = true;
+    }
+
 
     private void LateUpdate()
     {
@@ -49,8 +59,8 @@ public class FirstPersonCameraController : MonoBehaviour
 
     private void UpdateCameraRotation()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
         // rigid.angularVelocity = Vector3.up * mouseX;
         this.transform.Rotate(Vector3.up * mouseX);
