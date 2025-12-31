@@ -116,7 +116,7 @@ public class StatController : MonoBehaviour
         }
 
         if (situation.Equals(PlayerSituation.Dark))
-            holder.PlayerView.UpdatePlayerSituationText(situation.ToString());
+            holder.PlayerView.UpdatePlayerSituationText("너무 어둡습니다!");
         else
             holder.PlayerView.UpdatePlayerSituationText("");
     }
