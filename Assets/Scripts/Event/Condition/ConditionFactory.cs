@@ -12,6 +12,8 @@ public static class ConditionFactory
                 return new CheckSwitchOffCondition();
             case "checkSwitchOn":
                 return new CheckSwitchOnCondition();
+            case "haveItem":
+                return new HaveItemCondition();
         }
 
         return null;

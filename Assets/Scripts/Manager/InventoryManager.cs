@@ -35,6 +35,26 @@ public class InventoryManager : Singleton<InventoryManager>
         ResetInventory();
     }
 
+    public bool HaveItem(int id)
+    {
+        for (int i = 0; i < inventory.slots.Length; i++)
+        {
+            ItemInstance item = inventory.slots[i];
+            if (item == null)
+                continue;
+
+            if (item.itemdata.id == id)
+            {
+                Debug.Log($"인벤토리에 아이템 있음! ID: {id}");
+                return true;
+            }
+        }
+
+        Debug.LogWarning("인벤토리에 해당 아이템이 없습니다!");
+        return false;
+    }
+
+
     public void ResetInventory()
     {
         int size = inventory.GetDefaultInventorySize();
@@ -107,7 +127,7 @@ public class InventoryManager : Singleton<InventoryManager>
             //debug.Log("인벤토리가 꽉 찼습니다");
             return false;
         }
-        
+
         //debug.Log($"{inventoryIndex} 번째 칸의 인벤토리에 넣는 중");
         inventory.GetItem(item, inventoryIndex);
         SelectInventory(currentIndex);
@@ -173,7 +193,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
         return inventory.MoveItem(index);
     }
-    
+
     // 인벤토리 슬롯 선택
     public void SelectInventory(int index)
     {
@@ -218,11 +238,11 @@ public class InventoryManager : Singleton<InventoryManager>
         }
 
         currentItem = inventory.slots[index];
-        
+
         currentIndex = index;
 
         HandItem(currentItem);
- 
+
         player.GetComponent<PlayerStatHolder>().PlayerView.UpdateKeyNotice(currentItem);
 
         pervItem = currentItem;
@@ -241,7 +261,7 @@ public class InventoryManager : Singleton<InventoryManager>
             return;
         }
 
-        if(currentItem.Use(key))
+        if (currentItem.Use(key))
         {
             var currentItemType = (ItemType)Enum.Parse(typeof(ItemType), currentItem.itemdata.itemType);
 
@@ -278,14 +298,14 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public void ConsumableItemUse(ItemInstance item)
     {
-        
+
 
         ItemObj groundItem;
 
         var player = GameManager.Instance.Player.transform;
         foreach (var itemeffect in item.effects)
         {
-            switch(item.itemdata.id)
+            switch (item.itemdata.id)
             {
                 case 1012:
                     groundItem = ItemManager.Instance.SpawnItemObj(item.itemdata.id, player.position);
@@ -298,7 +318,7 @@ public class InventoryManager : Singleton<InventoryManager>
             }
         }
 
-        
+
         // item의 id로 아이템이 무엇인지 탐지
         // groundItem 컴포넌트들 빛이라던지 소리 애니메이션
         // item안에 있는 용량? 지속시간 만큼 부여 파티클시스템이라던지
@@ -316,7 +336,7 @@ public class InventoryManager : Singleton<InventoryManager>
             playerHandTransform = FindAnyObjectByType<FlashHand>().transform;
             handImage = playerHandTransform.GetChild(0).GetComponent<Image>();
         }
-           
+
 
         // if (playerHandTransform == null)
         //     return;
@@ -333,7 +353,7 @@ public class InventoryManager : Singleton<InventoryManager>
             //playerHandTransform.gameObject.SetActive(false);
             OffHand();
             return;
-        }  
+        }
 
         if (pervItem != null && item != pervItem)
         {
@@ -355,7 +375,7 @@ public class InventoryManager : Singleton<InventoryManager>
             OffHand();
             return;
         }
-            
+
 
         handImage.gameObject.SetActive(true);
 
@@ -373,7 +393,7 @@ public class InventoryManager : Singleton<InventoryManager>
         //itemObj.transform.rotation = playerHandTransform.rotation;
         //itemObj.transform.localPosition = new Vector3(0, 0, 0);
         itemObj.SetItemInfo(item);
-        
+
     }
 
     public void RemoveInventoryItem()
@@ -386,7 +406,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public Inventory GetInvetory() { return inventory; }
 
-   
+
     public void OffHand()
     {
 
@@ -408,7 +428,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
         handImage.gameObject.SetActive(false);
     }
-   
+
     public void UpdateUI()
     {
         if (invenUI == null)
