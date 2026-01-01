@@ -29,12 +29,13 @@ public class GameManager : Singleton<GameManager>
 
         stateMachine = new StateMachine<GameState>();
 
+        
+        stateMachine.AddState(GameState.Init, new InitState());
         stateMachine.AddState(GameState.Main, new MainState());
         stateMachine.AddState(GameState.Hub, new HubState());
         stateMachine.AddState(GameState.Loading, new LoadingState());
         stateMachine.AddState(GameState.Session, new RunState());
         stateMachine.AddState(GameState.Dead, new DeadState());
-        stateMachine.AddState(GameState.Ending, new EndingState());
 
         stat = new PlayerStat();
         PlayerStatTableDataParsing();
@@ -46,12 +47,11 @@ public class GameManager : Singleton<GameManager>
 
             slider.onValueChanged.AddListener(SetVolume);
         }
-
     }
 
     private void Start()
     {
-        ChangeState(GameState.Main);
+        ChangeState(GameState.Init);
     }
 
     public void PlayerInit(GameObject player, PlayerStatHolder holder, PlayerView playerView)
@@ -63,7 +63,7 @@ public class GameManager : Singleton<GameManager>
 
         FieldOfView playerFieldOfView = player.GetComponent<FieldOfView>();
 
-        if (GameManager.Instance.CurrentState == GameState.Session)
+        if (CurrentState == GameState.Session)
         {
             echoSpawnSystem = FindAnyObjectByType<EchoSpawnSystem>();
             echoSpawnSystem.Init(player, playerFieldOfView);
@@ -122,8 +122,8 @@ public class GameManager : Singleton<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.Return))
             ItemManager.Instance.Test(testitemid);
-        // else if (Input.GetKeyDown(KeyCode.C))
-        //     EventManager.Instance.ExecuteByStart("interaction", "none");    // 테스트용
+        else if (Input.GetKeyDown(KeyCode.C))
+           ChatboxManager.Instance.GotoMain();
 
         stateMachine?.Update();
     }
@@ -169,7 +169,7 @@ public class GameManager : Singleton<GameManager>
     // 상태 변경
     public void ChangeState(GameState newState)
     {
-        //debug.Log($"{CurrentState} -> {newState} 변경");
+        Debug.Log($"{CurrentState} -> {newState} 변경");
         CurrentState = newState;
         stateMachine.ChangeState(newState);
 
@@ -181,6 +181,10 @@ public class GameManager : Singleton<GameManager>
         else if (newState.Equals(GameState.Dead))
         {
             SceneManager.LoadScene("DeadScene");
+        }
+        else if (newState.Equals(GameState.Main))
+        {
+            SceneManager.LoadScene("MainScene");
         }
     }
 

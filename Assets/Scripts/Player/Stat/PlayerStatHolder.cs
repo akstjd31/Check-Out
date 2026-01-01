@@ -19,6 +19,6 @@ public class PlayerStatHolder : MonoBehaviour
     {
         Stat = stat;
         this.GetComponent<StatController>().Init();
-        //debug.Log("플레이어 스탯 설정 완료!");
+        Debug.Log("플레이어 스탯 설정 완료!");
     }
 }

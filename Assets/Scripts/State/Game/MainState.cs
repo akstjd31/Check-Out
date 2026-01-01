@@ -11,7 +11,7 @@ public class MainState : IState
     public void Exit()
     {
         //debug.Log("메인 상태 종료");
-        LoadingManager.Instance.InitSceneActivation();
+        //LoadingManager.Instance.InitSceneActivation();
     }
 
     public void Update()
@@ -20,9 +20,13 @@ public class MainState : IState
 
     private void Init()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+
         LoadingData.NextState = GameState.Hub;
         LoadingData.TargetScene = "RestSpace";
 
-        LoadingManager.Instance.AllowSceneActivation();
+        SoundManager.Instance.PlayMainSound();
+        //LoadingManager.Instance.AllowSceneActivation();
     }
 }
