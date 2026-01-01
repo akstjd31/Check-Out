@@ -324,7 +324,7 @@ MonoBehaviour:
   sirenView: {fileID: 0}
   sprite: {fileID: 4520715237324926212}
   rotateSpeed: 0
-  maximumScreamSecond: 3
+  maximumScreamSecond: 30
   screamInMonster: []
 --- !u!114 &1225967816738829382
 MonoBehaviour:
