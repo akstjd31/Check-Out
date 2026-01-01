@@ -51,9 +51,18 @@ public class ChatboxManager : Singleton<ChatboxManager>
                     isUsingChatbox=false;
                 }
                 if (eventId == 199999)
-                    Application.Quit();
+                    GotoMain();
             }
         }
+    }
+
+    public void GotoMain()
+    {
+        LoadingData.NextState = GameState.Main;
+        LoadingData.TargetScene = "MainScene";
+
+        GameManager.Instance.ChangeState(GameState.Loading);
+        // Application.Quit();
     }
 
     /// <summary>

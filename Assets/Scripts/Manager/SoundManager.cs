@@ -4,6 +4,9 @@ public class SoundManager : Singleton<SoundManager>
 {
     [SerializeField] private AudioSource audioSource;
     // [SerializeField] private List<AudioClip> clipList;
+    [Header("Title")]
+    [SerializeField] private AudioClip mainSound;
+
     [Header("Player")]
     [SerializeField] private AudioClip walkSound;
     [SerializeField] private AudioClip runSound;
@@ -87,6 +90,15 @@ public class SoundManager : Singleton<SoundManager>
     {
         if (audioSource.volume < currentVolume)
             audioSource.volume += volumeSpeed * Time.deltaTime;
+    }
+
+    public void PlayMainSound()
+    {
+        audioSource.clip = mainSound;
+        audioSource.loop = true;
+        audioSource.volume = currentVolume;
+
+        audioSource.Play();
     }
 
     // 엘리베이터 버튼 눌렀을 때 
