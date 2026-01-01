@@ -125,8 +125,6 @@ public class GameManager : Singleton<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.Return))
             ItemManager.Instance.Test(testitemid);
-        else if (Input.GetKeyDown(KeyCode.C))
-           ChatboxManager.Instance.GotoMain();
 
         stateMachine?.Update();
     }
