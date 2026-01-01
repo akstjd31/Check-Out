@@ -1497,7 +1497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Elevator
   promptText:
-  - "\uC774\uB3D9"
+  - "\uC9C4\uC785\uD558\uAE30"
   audioSource: {fileID: 714742417}
   interactableName: "\uC5D8\uB808\uBCA0\uC774\uD130 \uBC84\uD2BC"
 --- !u!1 &714742419 stripped

@@ -622,7 +622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Elevator
   promptText:
-  - "E\uD0A4\uB97C \uB20C\uB7EC \uC774\uB3D9"
+  - "\uD0C8\uCD9C\uD558\uAE30"
   audioSource: {fileID: 0}
   interactableName: 
 --- !u!82 &3224561968649179185
