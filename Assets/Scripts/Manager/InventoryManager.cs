@@ -43,7 +43,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
     //public void Inventorydebug()
     //{
-    //    debug.Log($"인벤토리 크기: {inventory.slots.Length}");
+    //    //debug.Log($"인벤토리 크기: {inventory.slots.Length}");
     //}
 
     // 인벤토리 저장 기능
@@ -137,7 +137,7 @@ public class InventoryManager : Singleton<InventoryManager>
         Vector3 newPos = new Vector3
         (
             playerTrf.position.x,
-            playerTrf.up.y,
+            playerTrf.position.y + 0.5f,
             playerTrf.position.z
         );
 
