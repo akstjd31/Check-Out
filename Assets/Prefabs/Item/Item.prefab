@@ -110,8 +110,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6437371290844994347}
   - component: {fileID: 2225474684196198883}
-  - component: {fileID: 7919401450951147994}
   - component: {fileID: 4725116031077416879}
+  - component: {fileID: 8323703875174269217}
   m_Layer: 7
   m_Name: ItemObj
   m_TagString: Untagged
@@ -192,18 +192,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7919401450951147994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8092712415568147524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbde7ec2b4e89054f85eab5a74e16c27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LookPlayer
 --- !u!114 &4725116031077416879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,3 +206,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemFloatY
   floatHeight: 0.1
   floatSpeed: 2
+--- !u!114 &8323703875174269217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8092712415568147524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4f3b8b1491a344391918d8ca47e8f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LookItem

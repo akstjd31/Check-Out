@@ -77,11 +77,11 @@ public abstract class TwoDStyleRender : TwoDStyleObj
                     break;
                 case ShowedState.left:
                     activeRenderer.sprite = leftTexture;
-                    activeRenderer.flipX = true;
+                    activeRenderer.flipX = false;
                     break;
                 case ShowedState.right:
                     activeRenderer.sprite = rightTexture;
-                    activeRenderer.flipX = false;
+                    activeRenderer.flipX = true;
                     break;
                     //case ShowedState.frontLeft:
                     //    break;
@@ -112,11 +112,11 @@ public abstract class TwoDStyleRender : TwoDStyleObj
                     break;
                 case ShowedState.left:
                     animator.Play("SideMove");
-                    activeRenderer.flipX = true;
+                    activeRenderer.flipX = false;
                     break;
                 case ShowedState.right:
                     animator.Play("SideMove");
-                    activeRenderer.flipX = false;
+                    activeRenderer.flipX = true;
                     break;
                     //case ShowedState.frontLeft:
                     //    break;

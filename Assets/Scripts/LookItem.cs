@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LookPlayer : MonoBehaviour
+public class LookItem : MonoBehaviour
 {
     private Transform cam;
 
@@ -19,14 +19,8 @@ public class LookPlayer : MonoBehaviour
         if (cam == null) return;
 
         // 카메라 방향 그대로 바라보게
-        var lookRotation = Quaternion.LookRotation(
+        transform.rotation = Quaternion.LookRotation(
             transform.position - cam.position
         );
-
-        Vector3 euler = lookRotation.eulerAngles;
-        euler.x = 0f;
-        euler.z = 0f;
-
-        transform.rotation = Quaternion.Euler(euler);
     }
 }
