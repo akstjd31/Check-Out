@@ -15,3 +15,4 @@ int,string,string,string,bool,int,int,string
 1012,Consumable,형광봉,오래된 액체형 형광봉. 꺾으면 불안정한 소리와 함께 빛을 내지만@ 매우 짧은 시간 동안만 유지된다,1,1000,3,ItemSprite/img_glowstick
 1013,Gadget,손전등,검은 플라스틱 재질의 비상용 손전등. 배터리 뚜껑이 약간 헐거워져 있고@ 작동 시 미세한 접촉 불량음이 들린다,1,5000,4,ItemSprite/img_flashlight
 1014,General,건전지,장비에 딱맞는 규격의 건전지이다,1,2000,1,ItemSprite/img_battery
+1015,General,열쇠,호텔의 정문을 여는 유일한 열쇠.,1,100000,,ItemSprite/img_key
