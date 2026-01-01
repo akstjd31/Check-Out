@@ -102,28 +102,28 @@ public class ChatboxUI : MonoBehaviour
     public void Description(int desc_id)
     {
         //다음 대사가 없는 것을 거쳐 해당 과정을 거쳤을 경우 종료하기 위한 대비코드.
-        if(desc_id == 0)
+        if(desc_id == 0 || desc_id == 199999)
         {
             Hide();
             return;
         }
-        
-        
+
+
         //이름을 테이블 내의 해당 아이디값에서 불러온다.
         //이름이 null이거나 빈 칸이 아니라면 패널 활성화, 텍스트 활성화.
-        if(talkTable[desc_id].name == null || talkTable[desc_id].name == "")
+        if (talkTable[desc_id].name == null || talkTable[desc_id].name == "")
         {
-            if(namePanel.gameObject.activeSelf)
-            namePanel.gameObject.SetActive(false);
-            if(nameText.gameObject.activeSelf)
-            nameText.gameObject.SetActive(false);
+            if (namePanel.gameObject.activeSelf)
+                namePanel.gameObject.SetActive(false);
+            if (nameText.gameObject.activeSelf)
+                nameText.gameObject.SetActive(false);
         }
         else if (talkTable[desc_id].name != null)
         {
-            if(!namePanel.gameObject.activeSelf)
-            namePanel.gameObject.SetActive(true);
-            if(!nameText.gameObject.activeSelf)
-            nameText.gameObject.SetActive(true);
+            if (!namePanel.gameObject.activeSelf)
+                namePanel.gameObject.SetActive(true);
+            if (!nameText.gameObject.activeSelf)
+                nameText.gameObject.SetActive(true);
             nameText.text = talkTable[desc_id].name;
         }
 
@@ -250,5 +250,5 @@ public class ChatboxUI : MonoBehaviour
         isTyping = false;
         //코루틴 초기화.
         typing = null;
-    }    
+    }
 }

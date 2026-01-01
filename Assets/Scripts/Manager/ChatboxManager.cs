@@ -45,11 +45,13 @@ public class ChatboxManager : Singleton<ChatboxManager>
                     chatbox.Description(eventId);
                 }
                 //만에 하나를 대비하여 0일 때의 코드 작성
-                if (eventId == 0)
+                if (eventId == 0 || eventId == 199999)
                 {
                     EndDialogue();
                     isUsingChatbox=false;
                 }
+                if (eventId == 199999)
+                    Application.Quit();
             }
         }
     }

@@ -34,6 +34,7 @@ public class GameManager : Singleton<GameManager>
         stateMachine.AddState(GameState.Loading, new LoadingState());
         stateMachine.AddState(GameState.Session, new RunState());
         stateMachine.AddState(GameState.Dead, new DeadState());
+        stateMachine.AddState(GameState.Ending, new EndingState());
 
         stat = new PlayerStat();
         PlayerStatTableDataParsing();
