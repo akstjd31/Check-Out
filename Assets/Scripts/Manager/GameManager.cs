@@ -101,7 +101,10 @@ public class GameManager : Singleton<GameManager>
         LoadMoney();
         StorageManager.Instance.LoadStorage();
         InventoryManager.Instance.LoadInventory();
+
+        ChangeState(GameState.Loading);
     }
+    
     public void OnGameStartButton() => ChangeState(GameState.Loading);
 
     public void OnGameExitButton()
@@ -134,7 +137,6 @@ public class GameManager : Singleton<GameManager>
         {
             LoadingManager.Instance.OnLoadingEnded -= HandleLoadingEnded;
         }
-
     }
 
     // 돈 저장 기능
