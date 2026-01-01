@@ -10,6 +10,10 @@ public class SirenController : MonsterController
     [SerializeField] private SirenView sirenView;
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private float rotateSpeed;
+    [Header("비명 시간")]
+    [Min(0.0f)]
+    [SerializeField] private float maximumScreamSecond = 3f;
+
     private SirenModel sirenModel;
     private MonsterMovement sirenMovement;
     private float alertTimer;
@@ -147,7 +151,7 @@ public class SirenController : MonsterController
         while (true)
         {
             // 3초 동안 비명
-            if (alertTimer <= 3f)
+            if (alertTimer <= maximumScreamSecond)
             {
                 fourView.ChangedAnimState(AnimState.Scream);
                 sirenMovement.Move(targetTransform, 0f);
